@@ -793,6 +793,7 @@ define(function (require, exports, module) {
         if(tmp==true) {
             triggerNotification({state:true,text:"Everything's saved! :)"});
             getSettings();
+            eqFTPRedrawRemoteModalServerList();
         }else{
             triggerError({state:true,text:"Something gone totally wrong! I can't write settings to file!"});
         }
