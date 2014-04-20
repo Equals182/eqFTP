@@ -6,7 +6,8 @@
     "version": "1.0.0",
     "author": "Alexander <equals182@gmail.com> (http://en.equals182.com)",
     "license": "MIT",
+    "keywords":"FTP, Brackets",
     "engines": {
         "brackets": ">=0.24.0"
-    }
+    },
 }
