@@ -1,0 +1,30 @@
+<div id="bracketsftp-project-dialog" class="bracketsftp-settings template modal detached-modal">
+    <div class="modal-header">
+        <h1 class="dialog-title">Remote Server</h1>
+        <a href="#" id="bracketsftp-openSettingsWindow" title="Open Connection Manager"></a>
+        <select id="eqFTP-serverChoosing" style="display:none;">
+            
+        </select>
+        <span id="eqFTPLoading"></span>
+    </div>
+    <div class="modal-body">   
+        <div id="eqFTPDirectoryListing" style="width:360px;">
+            <div>
+                <ul class="eqFTPFileTreeHolder">
+                    <li class="eqFTPFileTreeRow header">
+                        <div class="eqFTPFileTreeCell eqFTPTableNamecol eqFTPFileTreeHeader">Name</div>
+                        <div class="eqFTPFileTreeCell eqFTPTableSizecol eqFTPFileTreeHeader">Size</div>
+                        <div class="eqFTPFileTreeCell eqFTPTableTypecol eqFTPFileTreeHeader">Type</div>
+                        <div class="eqFTPFileTreeCell eqFTPTableLUcol eqFTPFileTreeHeader">Modified</div>
+                    </li>
+                </ul>
+            </div>
+            <div class="zebra-striped row-highlight condensed-table">
+                <ul id="eqFTPTable" class="eqFTPFileTreeHolder"></ul>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <span id="eqFTPConnectionControl" title="(Dis)connect"></span>
+    </div>
+</div>

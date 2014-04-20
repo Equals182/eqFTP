@@ -1,0 +1,110 @@
+<div id="bracketsftp-project-settings" class="bracketsftp-settings template modal hide">
+    <div class="modal-header">
+        <h1 class="dialog-title">FTP Connections Manager</h1>
+    </div>
+    <div class="modal-body">   
+        <div class="container-fluid" style="padding:0;">
+            <div class="row-fluid">
+                <div class="span4">
+                    <div class="well" style="padding-left:0; padding-right:0;">
+                        <div style="padding:0 19px;">
+                            <h5 style="margin-top:0; padding-top:0; display:inline-block;">Saved FTP Connections</h5> <span id="eqFTPGlobalSettings" title="Open Global FTP Settings..." class="clicked"></span>
+                        </div>
+                        <ul class="nav nav-tabs nav-stacked" id="bracketsftpAllServerList">
+                        </ul>
+                    </div>
+                </div>
+                <div class="span8">
+                    <div id="btfSettingsWindowsPlaceholder" style="display:none;">
+                        Choose connection to edit in sidebar or create new.
+                    </div>
+                    <div id="eqFTPGlobalSettingsHolder">
+                        <div class="field-group">
+                            <div class="field-container2">
+                                <label for="eqFTP-ProjectsFolder">Folder For Projects:</label>
+                                <input type="text" id="eqFTP-ProjectsFolder" placeholder="D:\Path\To\Folder" class="url" />
+                                <div style="clear:both;"></div>
+                            </div>
+                            <div class="field-container2">
+                                <label for="eqFTP-SettingsFolder">Folder For Settings:</label>
+                                <input type="text" id="eqFTP-SettingsFolder" placeholder="D:\Path\To\Folder" class="url" />
+                                <div style="clear:both;"></div>
+                            </div>
+                            <div class="field-container2">
+                                <label for="eqFTP-noProjectOnDownload" style="width:215px;">Don't Open Projects after Download</label>
+                                <input type="checkbox" id="eqFTP-noProjectOnDownload" />
+                                <div class="clear:both;"></div>
+                            </div>
+                        </div>    
+                    </div>
+                    <div id="eqFTPSettingsHolder" style="display:none;">
+                        <input type="hidden" id="eqFTP-connectionID" value="no">
+                        <div class="field-container2">
+                            <label for="eqFTP-connectionName">Connection Name:</label>
+                            <input type="text" id="eqFTP-connectionName" placeholder="Type in name of connection" class="url" />
+                            <div style="clear:both;"></div>
+                        </div>  
+                        <div class="field-group">
+                            <div class="field-container2">
+                                <label for="eqFTP-server">Server:</label>
+                                <input type="text" id="eqFTP-server" placeholder="ftp.domain.com" class="url" />
+                                <input type="number" id="eqFTP-serverport" value="21" placeholder="21" class="url" />
+                                <div style="clear:both;"></div>
+                            </div>
+                            <div class="field-container2">
+                                <label for="eqFTP-protocol">Protocol Type:</label>
+                                <select id="eqFTP-protocol" >
+                                    <option value="ftp">FTP</option>
+                                    <option value="sftp" disabled>SFTP</option>
+                                </select>
+                                <div style="clear:both;"></div>
+                            </div>
+                            <div class="field-container2">
+                                <label for="eqFTP-username">Username:</label>
+                                <input type="text" id="eqFTP-username" placeholder="FTP username" class="url" />
+                                <div style="clear:both;"></div>
+                            </div>
+                            <div class="field-container2">
+                                <label for="eqFTP-password">Password:</label>
+                                <input type="password" id="eqFTP-password" placeholder="FTP password" class="url" />                
+                                <div style="clear:both;"></div>
+                            </div>
+                        </div>      
+
+                        <div class="field-container2">
+                            <label for="eqFTP-remoteroot">Remote Path:</label>
+                            <input type="text" id="eqFTP-remoteroot" placeholder="Type in the remote path to the project root folder" class="url" />
+                            <div style="clear:both;"></div>
+                        </div>  
+                        <div class="field-container2">
+                            <label for="eqFTP-remotelocal">Local Path:</label>
+                            <input type="text" id="eqFTP-remotelocal"  placeholder="Creates new folder if blank" class="url"/>
+                            <div style="clear:both;"></div>
+                        </div>
+                        <div class="field-container2">
+                            <label for="eqFTP-uploadonsave" style="width:130px;">Upload File on Save</label>
+                            <input type="checkbox" id="eqFTP-uploadonsave" />
+                            <div class="clear:both;"></div>
+                        </div>
+                        <div class="field-container2">
+                            <label for="eqFTP-connectToServerEvenIfDisconnected" style="width:130px;">Even If Disconnected</label>
+                            <input type="checkbox" id="eqFTP-connectToServerEvenIfDisconnected" /> <i id="eqFTPCTSEIDHelp" class="eqFTP-icon" data-toggle="tooltip" title="This option allows automatically connect to server when saved file is opened from server or saved file is within current project and this project was created by this ftp extension. Oh, I really hope I explained it well.."></i>
+                            <div class="clear:both;"></div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
+    </div>
+    <div class="modal-footer">
+        <div id="eqFTP-notificationMessage" class="alert alert-success eqFTP-notification hide">
+        </div>
+        <div id="eqFTP-errorMessage" class="alert alert-error eqFTP-alert hide">
+        </div>
+        <a href="#" class="btn primary" id="eqFTPButtonApply">Apply</a>
+        <a href="#" class="dialog-button btn" data-button-id="close">Close</a>
+    </div>
+</div>

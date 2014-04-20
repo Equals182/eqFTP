@@ -1,0 +1,350 @@
+#toolbar-bracketsftp{
+    display:inline-block;
+    width:16px;
+    height:16px;
+    background-image:url('img/folder.svg');
+    background-size:100%;
+    opacity:0.75;
+}
+
+#toolbar-bracketsftp:hover{
+    opacity:1;
+}
+
+#toolbar-bracketsftp.downloading{
+    background-image:url('img/folder-downloading.svg');
+}
+
+#toolbar-bracketsftp.uploading{
+    background-image:url('img/folder-uploading.svg');
+}
+
+#toolbar-bracketsftp.complete{
+    background-image:url('img/checkmark.svg');
+}
+
+#toolbar-bracketsftp.error{
+    background-image:url('img/cross.svg');
+}
+
+#detachedModalHolder{
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+}
+
+#detachedModal{
+    position: relative;
+}
+
+#eqFTPDirectoryListing {
+    height: 90%;
+    position: relative;
+}
+
+#eqFTPDirectoryListing table {
+    width:100%;
+}
+
+#eqFTPDirectoryListing table thead {
+    font-weight: bold;
+}
+
+#bracketsftp-project-settings {
+    width:800px;
+}
+
+.nav.nav-tabs.nav-stacked li{
+    padding: 3px 19px;
+    cursor: pointer;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    vertical-align: middle;
+}
+.nav.nav-tabs.nav-stacked li:first-child{
+    /*
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    */
+}
+.nav.nav-tabs.nav-stacked li:last-child{
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    /*
+    border-bottom-right-radius: 3px;
+    border-bottom-left-radius: 3px;
+    */
+}
+.nav.nav-tabs.nav-stacked li:hover{
+    background-image: url(img/arrows.png);
+    background-position: 226px 5px;
+    background-repeat: no-repeat;
+}
+.nav.nav-tabs.nav-stacked li.clicked{
+    color:#288edf;
+    background-color: #dfe2e2;
+    border-top: 1px solid #bfbfbf;
+    border-bottom: 1px solid #ffffff;
+}
+.nav.nav-tabs.nav-stacked li.clicked:hover{
+    background-image: url(img/arrows.png);
+    background-position: 226px -17px;
+    background-repeat: no-repeat;
+}
+
+.nav.nav-tabs.nav-stacked li.clicked+li {
+    border-top:none;
+}
+
+.field-container2 label, .field-container2 input, .field-container2 select{
+    display: inline-block;
+    vertical-align: middle;
+    margin-bottom: 0;
+    margin-right: 5px;
+}
+
+.field-container2 {
+    margin-bottom: 10px;
+}
+
+.field-container2 label{
+    width:100px;
+}
+
+.eqFTP-icon {
+    cursor: pointer;
+    opacity: 0.2;
+    height: 10px;
+    width: 10px;
+    display: inline-block;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 100% 100%;
+}
+
+#eqFTPCTSEIDHelp {
+    background-image: url(img/info.svg);
+    height:20px;
+    width:15px;
+    vertical-align:middle;
+}
+
+.eqFTP-icon:hover {
+    cursor: pointer;
+    opacity: 0.4;
+}
+
+.eqFTP-icon.clicked {
+    opacity: 0.7;
+}
+
+.eqFTP-icon-plus {
+    background-image: url(img/glyphicons_432_plus.png);
+}
+
+.eqFTP-icon-close {
+    background-image: url(img/close.svg);
+}
+
+li[data-eqFTP-addConnection]:hover>.eqFTP-icon-plus{
+    opacity: 0.4;
+}
+
+#btfSettingsWindowsPlaceholder {
+    height: 370px;
+    line-height: 370px;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.eqFTP-error {
+    border-color: #e9322d !important;
+    -webkit-box-shadow: 0 0 6px #f8b9b7 !important;
+    -moz-box-shadow: 0 0 6px #f8b9b7 !important;
+    box-shadow: 0 0 6px #f8b9b7 !important;
+}
+
+.eqFTP-alert {
+    background-color: #f2dede !important;
+    border-color: #eed3d7 !important;
+    color: #b94a48 !important;
+    float:left;
+    width:50%;
+    margin:0;
+}
+
+.eqFTP-notification {
+    background-color: #dff0d8 !important;
+    border-color: #d6e9c6 !important;
+    color: #468847 !important;
+    float:left;
+    width:50%;
+    margin:0;
+}
+
+#bracketsftp-openSettingsWindow {
+    width: 20px;
+    height: 20px;
+    background-image: url(img/settings.svg);
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 100% 100%;
+    display: inline-block;
+    opacity: 0.4;
+    cursor: default;
+    vertical-align: middle;
+}
+
+#bracketsftp-openSettingsWindow:hover {
+    background-color: rgba(255,255,255,0.8);
+    opacity: 0.6;
+    border-radius: 2px;
+}
+
+#eqFTP-serverChoosing {
+    vertical-align: middle;
+    display: inline-block;
+    margin: 0;
+    max-height: 200px;
+}
+
+.zebra-striped tbody li:nth-child(2n+1){
+    background-color: rgba(255,255,255,0.2);
+}
+
+#eqFTPDirectoryListing div .eqFTPTableNamecol span {
+    width:80%;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    display: inline-block;
+}
+
+#eqFTPDirectoryListing div .eqFTPTableNamecol span.eqFTPFileTreePlusMinus {
+    display: inline-block;
+    vertical-align: middle;
+    height: 10px !important;
+    width: 10px !important;
+    background-image: url(img/glyphicons_432_plus.png);
+    background-repeat: no-repeat;
+    background-size: 100% auto;
+    margin-right: 3px;
+    margin-left: 3px;
+    background-position: center center;
+}
+
+#eqFTPDirectoryListing div .eqFTPFileTreeRow.opened>div>span.eqFTPFileTreePlusMinus {
+    background-image: url(img/glyphicons_433_minus.png);
+}
+#eqFTPDirectoryListing div .eqFTPTableNamecol.bracketsftp-file span.eqFTPFileTreePlusMinus {
+    display: none !important;
+}
+
+.eqFTPFileTreeCell.clicked {
+    background-color: #95bfd3;
+}
+
+#eqFTPTable li:hover>div {
+    background-color: rgba(0,0,0,0.1);
+}
+
+#eqFTPLoading {
+    display: inline-block;
+    height: 15px;
+    width: 15px;
+    background-image: url(img/loading.gif);
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 100% auto;
+    vertical-align: middle;
+}
+
+.field-group{
+    padding:14px;
+    background-color:#f5f5f5;
+    border:1px solid #dddddd;
+    
+    margin-bottom:20px;
+}
+
+#eqFTPSettingsHolder #eqFTP-serverport{
+    width:40px;
+}
+
+.eqFTPFileTreeCell {
+    display: inline-block;
+    height: 20px;
+    vertical-align: middle;
+}
+
+.eqFTPFileTreeCell.eqFTPTableNamecol {
+    width:170px;
+}
+
+.eqFTPFileTreeCell.eqFTPTableSizecol {
+    width:60px;
+}
+
+.eqFTPFileTreeCell.eqFTPTableTypecol {
+    width:50px;
+}
+
+.eqFTPFileTreeCell.eqFTPTableLUcol {
+    width:70px;
+}
+
+li.eqFTPFileTreeRow, ul.eqFTPFileTreeHolder {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+li.closed>ul {
+    display: none !important;
+}
+
+li.opened>ul {
+    display: block !important;
+}
+
+#eqFTPGlobalSettings {
+    display: inline-block;
+    height: 15px;
+    width: 10px;
+    background-image: url(img/glyphicons_136_cogwheel.png);
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 100% auto;
+    vertical-align: middle;
+    margin-bottom: 3px;
+    opacity: 0.3;
+}
+
+#eqFTPGlobalSettings:hover, #eqFTPGlobalSettings.clicked {
+    opacity: 0.6;
+}
+
+#eqFTPGlobalSettingsHolder {
+    height: 370px;
+}
+
+#eqFTPConnectionControl {
+    display: inline-block;
+    height: 20px;
+    width: 30px;
+    background-image: url(img/connection_off.svg);
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 100% auto;
+    vertical-align: middle;
+    opacity: 0.3;
+}
+
+#eqFTPConnectionControl.on {
+    background-image: url(img/connection_on.svg);
+}
+
+#eqFTPConnectionControl:hover {
+    opacity: 0.6;
+}
