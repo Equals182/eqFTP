@@ -50,7 +50,7 @@ define(function (require, exports, module) {
         BracketsFTPRemoteModal = require("text!htmlContent/eqFTP-modal.html"),
         BracketsFTPSettings = require("text!htmlContent/eqFTP-settings.html");
         
-    var globalFtpDetails = {'main':{folderToProjects:"C:\Brackets Projects"},'ftp':[]};
+    var globalFtpDetails = {'main':{folderToProjects:"C:\\Brackets Projects"},'ftp':[]};
 
     var remoteStructure = [];
     var currentRemoteRoot = "";
