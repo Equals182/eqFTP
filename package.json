@@ -1,5 +1,5 @@
 {
-    "name": "Equals182.eqFTP",
+    "name": "eqFTP",
     "title": "eqFTP",
     "description": "FTP client for Brackets.",
     "homepage": "https://github.com/Equals182/eqFTP",
@@ -10,4 +10,5 @@
     "engines": {
         "brackets": ">=0.24.0"
     },
+    "categories": ["livedev","external"],
 }
