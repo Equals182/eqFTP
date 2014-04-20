@@ -1,14 +1,14 @@
 {
-    "name": "eqFTP",
-    "title": "eqFTP",
-    "description": "FTP client for Brackets.",
-    "homepage": "https://github.com/Equals182/eqFTP",
-    "version": "1.0.0",
-    "author": "Alexander <equals182@gmail.com> (http://en.equals182.com)",
-    "license": "MIT",
-    "keywords": ["FTP","Sync"],
-    "engines": {
-        "brackets": ">=0.24.0"
-    },
-    "categories": ["livedev","external"],
+	"name": "eqFTP",
+	"title": "eqFTP",
+	"version": "1.0.0",
+	"description": "FTP client for Brackets",
+	"homepage": "https://github.com/Equals182/eqFTP",
+	"author": "Alexander <equals182@gmail.com> (http://en.equals182.com)",
+	"license": "MIT",
+	"categories": ["livedev","external"],
+	"keywords": ["FTP","Sync"],
+	"engines": {
+		"brackets": ">=0.22.0"
+	}
 }
