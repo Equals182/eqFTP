@@ -34,7 +34,7 @@ I'm thinking about this:
 * SFTP -- well, this feature is dead now
 * Sync -- down/uploading whole things in both ways
 * Queue -- you will be able to save bunch of files and then - BAM! Upload them!
-* Open Dialogs for every input that needs it
+* Folder Choosing Dialog for every input that needs it
 
 ## License
 
