@@ -35,6 +35,12 @@ I'm thinking about this:
 * Sync -- down/uploading whole things in both ways
 * Queue -- you will be able to save bunch of files and then - BAM! Upload them!
 * Folder Choosing Dialog for every input that needs it
+* Multi-language support
+* More UI integration
+
+## Known Issues
+
+* Unstable donwloaded files opening
 
 ## License
 
