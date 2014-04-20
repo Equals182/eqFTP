@@ -1,0 +1,10 @@
+*.c9save
+.idea
+*.swp
+*~
+*.bak
+*.pyc
+*.un~
+node_modules
+coverage.html
+lib-cov
