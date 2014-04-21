@@ -3,10 +3,10 @@ eqFTP
 
 FTP integration for Brackets code editor.
 
-This extension brigs simple FTP support to Brackets.
+This extension brings simple FTP support to Brackets.
 Here's some features:
 
-* FTP File Manager -- You can explore your remote server
+* FTP File Manager -- You can explore remote server
 * Downloading -- On double click you can download file to edit
 * Uploading -- You can upload files on save
 * FTP Connection Manager -- You can manage all your connections in single window
