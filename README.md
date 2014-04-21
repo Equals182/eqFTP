@@ -23,7 +23,7 @@ This extension was inspired by Dreamweaver's FTP implementation. First you creat
 
 It's really basic and I hope you'll enjoy this extension.
 
-## What's next
+## What's Next
 
 Well first of all I'd like to say I did this extension because I needed it. I will add new features if I'll need them or if you will pull request them.
 
