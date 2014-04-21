@@ -40,6 +40,7 @@ I'm thinking about this:
 * Open only readable by Brackets extensions
 * Refreshing whole file tree
 * Auto-moving all projects from old default directory to new
+* Creating, deleting and renaming files on remote server
 
 ## Known Issues
 
