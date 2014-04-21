@@ -329,22 +329,31 @@ li.opened>ul {
     height: 370px;
 }
 
-#eqFTPConnectionControl {
-    display: inline-block;
-    height: 20px;
-    width: 30px;
-    background-image: url(img/connection_off.svg);
+.eqFTPtoolbarBottomIcons {
     background-repeat: no-repeat;
     background-position: center center;
     background-size: 100% auto;
     vertical-align: middle;
     opacity: 0.3;
+    display: inline-block;
+    height: 20px;
+    width: 20px;
+}
+
+.eqFTPtoolbarBottomIcons:hover {
+    opacity: 0.6;
+}
+
+#eqFTPConnectionControl {
+    background-image: url(img/connection_off.svg);
+    height: 20px;
+    width: 30px;
 }
 
 #eqFTPConnectionControl.on {
     background-image: url(img/connection_on.svg);
 }
 
-#eqFTPConnectionControl:hover {
-    opacity: 0.6;
+#eqFTPRefresh {
+    background-image: url(img/refresh.svg);
 }

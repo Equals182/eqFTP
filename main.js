@@ -547,7 +547,7 @@ define(function (require, exports, module) {
         });
         openPromise.fail(function() {
             if(i>3) {
-                tryOpenFile(path,i)
+                tryOpenFile(path,i);
             }
         });
     }
@@ -712,6 +712,13 @@ define(function (require, exports, module) {
                 $(this).addClass('on');
                 eqFTPRedrawFileTree();
             }
+        }
+    });
+    
+    $('body').on('click','#eqFTPRefresh',function() {
+        if(!isNaN(parseInt(connectedServer))) {
+            remoteStructure[connectedServer] = [];
+            changeDirectory({path:""});
         }
     });
     
