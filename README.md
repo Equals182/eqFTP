@@ -42,6 +42,7 @@ I'm thinking about this:
 * Auto-moving all projects from old default directory to new
 * Creating, deleting and renaming files on remote server
 * FTP panel resizing
+* Add encryption for settings file via password
 
 ## Known Issues
 
