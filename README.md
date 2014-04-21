@@ -38,6 +38,7 @@ I'm thinking about this:
 * Multi-language support
 * More UI integration
 * Open only readable by Brackets extensions
+* Refreshing whole file tree
 
 ## Known Issues
 
