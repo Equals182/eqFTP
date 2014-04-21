@@ -41,6 +41,7 @@ I'm thinking about this:
 * Refreshing whole file tree
 * Auto-moving all projects from old default directory to new
 * Creating, deleting and renaming files on remote server
+* FTP panel resizing
 
 ## Known Issues
 
