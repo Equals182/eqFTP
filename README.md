@@ -41,7 +41,7 @@ I'm thinking about this:
 
 ## Known Issues
 
-* Unstable donwloaded files opening
+* Unstable downloaded files opening
 
 ## License
 
