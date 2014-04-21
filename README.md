@@ -39,6 +39,7 @@ I'm thinking about this:
 * More UI integration
 * Open only readable by Brackets extensions
 * Refreshing whole file tree
+* Auto-moving all projects from old default directory to new
 
 ## Known Issues
 
