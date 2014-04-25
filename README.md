@@ -50,9 +50,9 @@ I'm thinking about this:
 ## Release Notes
 
 * 1.0.1
-** Added encrypting settings file option.
+  * Added encrypting settings file option.
 * 1.0.0
-** Initial release.
+  * Initial release.
 
 ## License
 
