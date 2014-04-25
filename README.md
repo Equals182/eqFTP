@@ -47,7 +47,7 @@ I'm thinking about this:
 
 * Unstable downloaded files opening
 
-## Release Notes
+## Version History
 
 * 1.0.1
  * Added encrypting settings file option.
