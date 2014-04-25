@@ -47,6 +47,13 @@ I'm thinking about this:
 
 * Unstable downloaded files opening
 
+## Release Notes
+
+* 1.0.1
+** Added encrypting settings file option.
+* 1.0.0
+** Initial release.
+
 ## License
 
 MIT-licensed -- see main.js for details.
