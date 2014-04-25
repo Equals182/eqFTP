@@ -27,6 +27,10 @@
     background-image:url('img/cross.svg');
 }
 
+#toolbar-bracketsftp.disabled {
+    background-image:url('img/folder-disabled.svg');
+}
+
 #detachedModalHolder{
     position: absolute;
     left: 0;
@@ -356,4 +360,9 @@ li.opened>ul {
 
 #eqFTPRefresh {
     background-image: url(img/refresh.svg);
+}
+
+#eqFTPSettingsRefresh {
+    background-image: url(img/settings-refresh.svg);
+    width:24px;
 }

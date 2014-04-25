@@ -18,6 +18,11 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
+ *
+ * version 1.0.1
+ * What's new:
+ *  - Added settings file's data encryption with AES-256
+ * 
  */
 
 /*jslint vars: true, plusplus: true, devel: true, nomen: true, regexp: true, indent: 4, maxerr: 50 */
@@ -48,6 +53,7 @@ define(function (require, exports, module) {
         PreferencesManager = brackets.getModule("preferences/PreferencesManager"),
         BracketsFTPToolbar = require("text!htmlContent/eqFTP-toolbar.html"),
         BracketsFTPRemoteModal = require("text!htmlContent/eqFTP-modal.html"),
+        BracketsFTPPassword = require("text!htmlContent/eqFTP-password.html"),
         BracketsFTPSettings = require("text!htmlContent/eqFTP-settings.html");
         
     var globalFtpDetails = {'main':{folderToProjects:"C:\\Brackets Projects"},'ftp':[]};
@@ -60,7 +66,8 @@ define(function (require, exports, module) {
     
     var settingsFilename = ".remotesettings";
     var eqFTPNoteFilename = ".eqFTP-note";
-    var currentRemoteDirectory;    
+    var currentRemoteDirectory;
+    var masterPassword = null;
 
     var defaultSettingsPath = ExtensionUtils.getModulePath(module);
     var prefs = PreferencesManager.getExtensionPrefs("eqFTP");
@@ -69,8 +76,14 @@ define(function (require, exports, module) {
     if(tmp_defaultSettingsPath!=undefined && tmp_defaultSettingsPath!="") {
         defaultSettingsPath=tmp_defaultSettingsPath;
     }
+    prefs.definePreference("useEncryption", "boolean", "false");
+    var useEncryption = prefs.get("useEncryption");
     prefs.on("change", function () {
         defaultSettingsPath = prefs.get("defaultSettingsPath");
+        useEncryption = prefs.get("useEncryption");
+        if(useEncryption == true && masterPassword==null) {
+            //masterPassword = callPasswordDialog();
+        }
     });
     var fileBrowserResults = '#eqFTPDirectoryListing';
     var ftpLoaded = 0;
@@ -82,6 +95,80 @@ define(function (require, exports, module) {
     *
     *
     */
+    
+    function callPasswordDialog(callback) {
+        var dialog = Dialogs.showModalDialogUsingTemplate(BracketsFTPPassword,true);
+        dialog.done(function (id) {
+            if(id='ok') {
+                var pass = dialog._$dlg[0].children[1].children[0].children[1].value;
+                masterPassword = pass;
+                callback(pass);
+                return true;
+            }else if(id=='close') {
+                callback(false);
+                return false;
+            }
+        });
+        return false;
+    }
+    
+    function isJSON(input) {
+        try {
+            JSON.parse(input);
+        } catch (e) {
+            return false;
+        }
+        return true;
+    }
+    
+    function processSettingsFile(params,callback) {
+        if(useEncryption==true) {
+            if(params.text==undefined || params.text=="") {
+                callback(params.text);
+                return false;
+            }else if(isJSON(params.text) && params.direction=='from') {
+                callback(params.text);
+                return params.text;
+            }
+            params.pass = masterPassword;
+            var doThis = function(params) {
+                var t = nodeConnection.domains.bracketsftp.eqFTPcrypto(params);
+                t.done(function(result) {
+                    callback(result);
+                    return result;
+                });
+                t.fail(function(err) {
+                    masterPassword = null;
+                    processSettingsFile(params,callback);
+                    console.error(err);
+                    return false;
+                });
+            }
+            if(masterPassword == null) {
+                var passResult = callPasswordDialog(function(pass) {
+                    if(pass) {
+                        params.pass = pass;
+                        return doThis(params);
+                    }else{
+                        var globalFtpDetails = {'main':{folderToProjects:"C:\\Brackets Projects"},'ftp':[]};
+                        ftpLoaded = 1;
+                        if(ftpLoaded == 1) {
+                            $('#eqFTP-serverChoosing').show();
+                            $('#bracketsftp-openSettingsWindow').show();
+                            $('#eqFTPLoading').hide();
+                            eqFTPRedrawRemoteModalServerList();
+                            eqFTPRedrawFileTree();
+                        }
+                    }
+                });
+            }else{
+                return doThis(params);
+            }
+        }else{
+            callback(params.text);
+            return params.text;
+        }        
+    }
     
     function changeeqFTPProjectNote(params) {
         if(params.action === "write") {
@@ -212,6 +299,7 @@ define(function (require, exports, module) {
             $('#eqFTP-noProjectOnDownload').prop('checked',false);
         }
         $('#eqFTP-SettingsFolder').val(defaultSettingsPath);
+        $('#eqFTP-useEncryption').prop('checked',useEncryption);
     }
     
     function chain() {
@@ -224,44 +312,45 @@ define(function (require, exports, module) {
             });
         }
     }
+    function isFunction(functionToCheck) {
+        var getType = {};
+        return functionToCheck && getType.toString.call(functionToCheck) === '[object Function]';
+    }
     
     function saveGlobalRemoteSettings() {
         var deferred = $.Deferred();
         defaultSettingsPath = normalizePath(defaultSettingsPath);
         var fileEntry = new FileSystem.FileEntry(defaultSettingsPath + "/" + settingsFilename);
         var ftpData = JSON.stringify(globalFtpDetails);
-        FileUtils.writeText(fileEntry, ftpData).done(function () {
-            
+        processSettingsFile({text:ftpData,direction:'to'},function(result) {
+            FileUtils.writeText(fileEntry, result).done(function () {
+
+            });
         });
         return true;
     }
     
-    function toggleRemoteBrowserAvailability(enable) {
-        if(enable){
-            $("#bracketftp-status").text("browse remote directory");
-            $("#bracketftp-status").attr("data-enabled", true);
-        }else{
-            $("#bracketftp-status").text("no remote server set");
-            $("#bracketftp-status").attr("data-enabled", false);
-        }
-    }
-    
-    function readGlobalRemoteSettings() {
+    function readGlobalRemoteSettings(callback) {
         defaultSettingsPath = normalizePath(defaultSettingsPath);
         var fileEntry = new FileSystem.FileEntry(defaultSettingsPath + "/" + settingsFilename);
         if (fileEntry) {
             var readSettingsPromise = FileUtils.readAsText(fileEntry);
         
             readSettingsPromise.done(function (result) {
-                //remotesettings file does exist, read in JSON into object                
+                //remotesettings file does exist, read in JSON into objec
                 if (result) {
-                    toggleRemoteBrowserAvailability(true);
-                    globalFtpDetails = $.parseJSON(result);
-                    if(globalFtpDetails.protocol === "sftp"){
-                        toggleRemoteBrowserAvailability(false);    
-                    }else{
-                        toggleRemoteBrowserAvailability(true);    
-                    }                        
+                    processSettingsFile({'text':result,'direction':'from'},function(result) {
+                        globalFtpDetails = $.parseJSON(result);
+                        ftpLoaded = 1;
+                        $('#eqFTP-serverChoosing').show();
+                        $('#bracketsftp-openSettingsWindow').show();
+                        $('#eqFTPLoading').hide();
+                        eqFTPRedrawRemoteModalServerList();
+                        eqFTPRedrawFileTree();
+                        if(isFunction(callback)) {
+                            callback();
+                        }
+                    });
                 }
             });
             readSettingsPromise.fail(function (err) {
@@ -269,7 +358,6 @@ define(function (require, exports, module) {
             });
         }
     }
-    readGlobalRemoteSettings();
     
     function showSettings(e) {
         Dialogs.showModalDialogUsingTemplate(BracketsFTPSettings, true).done(function (id) {
@@ -325,9 +413,11 @@ define(function (require, exports, module) {
     }    
     
     function eqFTPRedrawFileTree() {
-        var html = renderFtpTree({ftpFileList: remoteStructure[connectedServer],path:"/"});
         var target = $(fileBrowserResults).find("#eqFTPTable");
-        target.empty().append(html);
+        if(target.is(':visible')) {
+            var html = renderFtpTree({ftpFileList: remoteStructure[connectedServer],path:"/"});
+            target.empty().append(html);
+        }
     }
     
     function eqFTPShowRemoteModal(e) {
@@ -361,10 +451,10 @@ define(function (require, exports, module) {
         if(ftpLoaded==1) {
             $('#eqFTP-serverChoosing').show();
             $('#eqFTPLoading').hide();
+            $('#bracketsftp-openSettingsWindow').show();
+            eqFTPRedrawRemoteModalServerList();
+            eqFTPRedrawFileTree();
         }
-        
-        eqFTPRedrawRemoteModalServerList();
-        eqFTPRedrawFileTree();
     }
     
     function recursiveSearch(params) {
@@ -680,6 +770,11 @@ define(function (require, exports, module) {
         openMainSettings();
     });
     
+    $('body').on('click','#eqFTPSettingsRefresh',function() {
+        masterPassword = null;
+        readGlobalRemoteSettings();
+    });
+    
     $('body').on('change','#eqFTP-serverChoosing',function() {
         var id = parseInt($(this).val());
         if(isNaN(id)) { id = null; }
@@ -788,6 +883,12 @@ define(function (require, exports, module) {
         }else{
             prefs.set('defaultSettingsPath',ExtensionUtils.getModulePath(module));
         }
+        if($('#eqFTP-useEncryption').is(':checked')) {
+            prefs.set('useEncryption',true);
+        }else{
+            masterPassword = null;
+            prefs.set('useEncryption',false);
+        }
         prefs.save();
         
         globalFtpDetails.main.folderToProjects = $("#eqFTP-ProjectsFolder").val();
@@ -820,7 +921,10 @@ define(function (require, exports, module) {
         
         $("#toolbar-bracketsftp").on('click', function (e) {
             // showSettingsDialog();
-            eqFTPShowRemoteModal(e);
+            if(!$(this).hasClass('disabled')) {
+                readGlobalRemoteSettings();
+                eqFTPShowRemoteModal(e);
+            }
         });      
         
         $("#bracketftp-status").click(function () {
@@ -865,9 +969,7 @@ define(function (require, exports, module) {
                 $('#eqFTPLoading').hide().after('<span>Loading failed :(</span>');
             });
             loadPromise.done(function (done) {
-                ftpLoaded = 1;
-                $('#eqFTP-serverChoosing').show();
-                $('#eqFTPLoading').hide(); 
+                $('#toolbar-bracketsftp').removeClass('disabled');
             });
             return loadPromise;
         }
@@ -995,24 +1097,32 @@ define(function (require, exports, module) {
             promise.done(function(result) {
                 var r = $.parseJSON(result);
                 var connectionID = r.eqFTPid;
-                
-                var docPath = document.file.fullPath;
-                var docName = document.file.name;
-                var pathArray = ProjectManager.makeProjectRelativeIfPossible(docPath).split("/");
-                var i = 0;
-                var pathArrayString = globalFtpDetails.ftp[connectionID].remotepath;
-                for (i; i < (pathArray.length - 1); i++) {
-                    pathArrayString = pathArrayString + "/" + pathArray[i];
-                }
-                var remotepath = pathArrayString + "/" + docName;
-                
-                if (globalFtpDetails.ftp[connectionID].uploadOnSave === true && globalFtpDetails.ftp[connectionID].server !== "") {
-                    if(globalFtpDetails.ftp[connectionID].connectToServerEvenIfDisconnected==true) {
-                        uploadFile(document.file.fullPath,remotepath,connectionID);
-                    }else if(connectionID==connectedServer) {
-                        uploadFile(document.file.fullPath,remotepath,connectionID);
+                var doUpload = function() {
+                    var document = DocumentManager.getCurrentDocument();
+                    var docPath = document.file.fullPath;
+                    var docName = document.file.name;
+                    var pathArray = ProjectManager.makeProjectRelativeIfPossible(docPath).split("/");
+                    var i = 0;
+                    var pathArrayString = globalFtpDetails.ftp[connectionID].remotepath;
+                    for (i; i < (pathArray.length - 1); i++) {
+                        pathArrayString = pathArrayString + "/" + pathArray[i];
+                    }
+                    var remotepath = pathArrayString + "/" + docName;
+
+                    if (globalFtpDetails.ftp[connectionID].uploadOnSave === true && globalFtpDetails.ftp[connectionID].server !== "") {
+                        if(globalFtpDetails.ftp[connectionID].connectToServerEvenIfDisconnected==true) {
+                            uploadFile(document.file.fullPath,remotepath,connectionID);
+                        }else if(connectionID==connectedServer) {
+                            uploadFile(document.file.fullPath,remotepath,connectionID);
+                        }
                     }
                 }
+                if(globalFtpDetails.ftp[connectionID]==undefined) {
+                    readGlobalRemoteSettings(doUpload);
+                }else{
+                    doUpload();
+                }
+
             });
         }else if(typeof currentDownloadedDocuments[fileid] === "object" && currentDownloadedDocuments[fileid]!="undefined") {
             var remotepath = currentDownloadedDocuments[fileid].path;

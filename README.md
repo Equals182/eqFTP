@@ -15,7 +15,7 @@ This extension created on base of https://github.com/theproducer/brackets-ftp. A
 
 ## Please Note
 
-This extension _does not support any type of encryption_ so all your settings and data including passwords will be stored as plain text. You can change folder where your passwords will be stored or improve this extension somehow.
+This extenstion supports data encryption. To enable this feature check it in settings dialog. Click here for more information.
 
 ## Current State
 
@@ -42,7 +42,6 @@ I'm thinking about this:
 * Auto-moving all projects from old default directory to new
 * Creating, deleting and renaming files on remote server
 * FTP panel resizing
-* Add encryption for settings file via password
 
 ## Known Issues
 
