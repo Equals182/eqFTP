@@ -15,7 +15,7 @@ This extension created on base of https://github.com/theproducer/brackets-ftp. A
 
 ## Please Note
 
-This extenstion supports data encryption. To enable this feature check it in settings dialog. Click here for more information.
+This extenstion supports data encryption. To enable this feature check it in settings dialog. [Click here for more information](https://github.com/Equals182/eqFTP/wiki/Setting-Up#start).
 
 ## Current State
 
