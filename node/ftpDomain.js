@@ -210,6 +210,24 @@ maxerr: 50, node: true */
         });
     }
     
+    function cmdCrypto(params) {
+        
+        var crypto = require('crypto')
+        , key = params.pass
+        , cipher = crypto.createCipher('aes-256-cbc', key)
+        , decipher = crypto.createDecipher('aes-256-cbc', key);
+        
+        if(params.direction == 'to') {
+            var encryptedPassword = cipher.update(params.text, 'utf8', 'base64');
+            encryptedPassword = encryptedPassword + cipher.final('base64');
+            return encryptedPassword;
+        }else if(params.direction == 'from') {
+            var decryptedPassword = decipher.update(params.text, 'base64', 'utf8');
+            decryptedPassword = decryptedPassword + decipher.final('utf8');
+            return decryptedPassword;
+        }
+    }
+
     function init(DomainManager) {
         if (!DomainManager.hasDomain("bracketsftp")) {
             DomainManager.registerDomain("bracketsftp", {major: 0, minor: 1});
@@ -248,6 +266,13 @@ maxerr: 50, node: true */
             "bracketsftp",
             "uploadFileSFTP",
             cmdUploadFileSFTP,
+            false
+        );
+        
+        DomainManager.registerCommand(
+            "bracketsftp",
+            "eqFTPcrypto",
+            cmdCrypto,
             false
         );
         
