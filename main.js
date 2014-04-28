@@ -19,7 +19,7 @@
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
  *
- * version 1.0.1
+ * version 0.0.2
  * What's new:
  *  - Added settings file's data encryption with AES-256
  * 
