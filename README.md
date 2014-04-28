@@ -17,6 +17,8 @@ This extension created on base of https://github.com/theproducer/brackets-ftp. A
 
 This extenstion supports data encryption. To enable this feature check it in settings dialog. [Click here for more information](https://github.com/Equals182/eqFTP/wiki/Setting-Up#start).
 
+**This extension is SO fresh so please use it carefully, and if you find a bug [tweet me @Equals182](https://twitter.com/Equals182)**
+
 ## Current State
 
 This extension inspired by Dreamweaver's FTP implementation. First you create new connection in manager, next you connect, download file, edit, save and it's uploads automatically.
