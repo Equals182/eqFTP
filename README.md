@@ -19,7 +19,7 @@ This extenstion supports data encryption. To enable this feature check it in set
 
 ## Current State
 
-This extension was inspired by Dreamweaver's FTP implementation. First you create new connection in manager, next you connect, download file, edit, save and it's uploads automatically.
+This extension inspired by Dreamweaver's FTP implementation. First you create new connection in manager, next you connect, download file, edit, save and it's uploads automatically.
 
 It's really basic and I hope you'll enjoy this extension. [Click here for more information](https://github.com/Equals182/eqFTP/wiki)
 
