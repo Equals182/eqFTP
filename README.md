@@ -51,9 +51,9 @@ I'm thinking about this:
 
 ## Version History
 
-* 1.0.1
+* 0.0.2
  * Added encrypting settings file option.
-* 1.0.0
+* 0.0.1
  * Initial release.
 
 ## License
