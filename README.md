@@ -37,7 +37,7 @@ I'm thinking about this:
 * Folder Choosing Dialog for every input that needs it
 * Multi-language support
 * More UI integration
-* Open only readable by Brackets extensions
+* Open only readable by Brackets files (extension and size check)
 * Refreshing whole file tree
 * Auto-moving all projects from old default directory to new
 * Creating, deleting and renaming files on remote server
