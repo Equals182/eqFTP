@@ -11,19 +11,17 @@ Here's some features:
 * Uploading -- You can upload files on save
 * FTP Connection Manager -- You can manage all your connections in single window
 
-This extension created on base of https://github.com/theproducer/brackets-ftp. Actually I rewrote almost everything, but still.
+This extension created on base of https://github.com/theproducer/brackets-ftp. Actually I rewrote almost everything, but still. 
+
+Inspired by Dreamweaver's FTP implementation. First you create new connection in manager, next you connect, download file, edit, save and it's uploads automatically.
+
+It's really basic and I hope you'll enjoy this extension. [Click here for more information](https://github.com/Equals182/eqFTP/wiki)
 
 ## Please Note
 
 This extenstion supports data encryption. To enable this feature check it in settings dialog. [Click here for more information](https://github.com/Equals182/eqFTP/wiki/Setting-Up#start).
 
 **This extension is SO fresh so please use it carefully, and if you find a bug [tweet me @Equals182](https://twitter.com/Equals182)**
-
-## Current State
-
-This extension inspired by Dreamweaver's FTP implementation. First you create new connection in manager, next you connect, download file, edit, save and it's uploads automatically.
-
-It's really basic and I hope you'll enjoy this extension. [Click here for more information](https://github.com/Equals182/eqFTP/wiki)
 
 ## What's Next
 
