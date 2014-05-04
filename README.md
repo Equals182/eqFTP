@@ -52,10 +52,9 @@ I'm thinking about this:
 * 0.0.3 (5.4.14)
  * Added queue
  * Removed deprecated methods
- * Added context menus:
-  * Context Menu on right click on files in remote browser
-  * New menu items in context menu in project files
-  * Context menu for queue panel
+ * Added context menu on right click on files in remote browser
+ * New menu items in context menu in project files
+ * Context menu for queue panel
  * Folder opening dialog for input fields which needs it
 * 0.0.2 (4.27.14)
  * Added encrypting settings file option.
