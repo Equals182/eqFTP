@@ -343,7 +343,7 @@ define(function (require, exports, module) {
             return bytes.toFixed(1)+' '+units[u];
         },
         showSettingsWindow: function(params) {
-            if(params.castWindow) {
+            if(params!=undefined && params.castWindow) {
                 Dialogs.showModalDialogUsingTemplate(eqFTPSettingsTemplate, true).done(function (id) {
                 });
             }
