@@ -228,21 +228,26 @@ li[data-eqFTP-addConnection]:hover>.eqFTP-icon-plus{
 #eqFTPDirectoryListing div .eqFTPTableNamecol span.eqFTPFileTreePlusMinus {
     display: inline-block;
     vertical-align: middle;
-    height: 10px !important;
-    width: 10px !important;
-    background-image: url(img/glyphicons_432_plus.png);
+    height: 8px !important;
+    width: 8px !important;
+    background-image: url(img/directoryArrows.svg);
     background-repeat: no-repeat;
     background-size: 100% auto;
     margin-right: 3px;
     margin-left: 3px;
-    background-position: center center;
+    background-position: top center;
 }
 
 #eqFTPDirectoryListing div .eqFTPFileTreeRow.opened>div>span.eqFTPFileTreePlusMinus {
-    background-image: url(img/glyphicons_433_minus.png);
+    background-image: url(img/directoryArrows.svg);
+    background-position: bottom center;
 }
 #eqFTPDirectoryListing div .eqFTPTableNamecol.bracketsftp-file span.eqFTPFileTreePlusMinus {
     display: none !important;
+}
+
+#eqFTPDirectoryListing div .bracketsftp-folder span {
+    opacity: 0.7;
 }
 
 .eqFTPFileTreeCell.clicked {
@@ -365,4 +370,31 @@ li.opened>ul {
 #eqFTPSettingsRefresh {
     background-image: url(img/settings-refresh.svg);
     width:24px;
+}
+
+#eqFTPQueueIndicator {
+    cursor: pointer;
+}
+
+#eqFTPQueueIndicator.disabled {
+    color: red;
+}
+
+#eqFTPQueueHolder .table-container table {
+    width: 100%;
+}
+
+#eqFTPQueueHolder .table-container th {
+    padding: 3px 10px;
+    text-align: left;
+    border-bottom: 1px solid #b7b7b7;
+    border-right: 1px solid #b7b7b7;
+    width:30%;
+    background-color: #fafafa;
+}
+
+#eqFTPQueueHolder .table-container td {
+    padding: 3px 10px;
+    text-align: left;
+    border-bottom: 1px dotted #b7b7b7;
 }
