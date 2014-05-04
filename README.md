@@ -41,11 +41,11 @@ I'm thinking about this:
 * Auto-moving all projects from old default directory to new
 * Creating, deleting and renaming files on remote server
 * FTP panel resizing
+* Progress Bar for Queue
 
 ## Known Issues
 
 * Unstable downloaded files opening (e.g. downloading 0 byte sized file and trying to open it causes error)
-* Downloading some binary files issues (e.g. downloading .zip file creates 0 byte sized file on local machine and causes error)
 
 ## Version History
 
