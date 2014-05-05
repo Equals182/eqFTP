@@ -65,7 +65,7 @@ I'm thinking about this:
 
 MIT-licensed -- see main.js for details.
 
-## Voluntarily Donations
+## Voluntary Donations
 
 This extension is totally free to use or edit because of license but if you **really** have tons of money and want to throw some dollars at me -- you're welcome! Use button below to give me moneyz for my work!
 
