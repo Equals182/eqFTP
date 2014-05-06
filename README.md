@@ -37,7 +37,6 @@ I'm thinking about this:
 * Multi-language support
 * More UI integration
 * Open only readable by Brackets files (extension and size check)
-* Refreshing whole file tree
 * Auto-moving all projects from old default directory to new
 * Creating, deleting and renaming files on remote server
 * FTP panel resizing
@@ -49,16 +48,16 @@ I'm thinking about this:
 
 ## Version History
 
-* 0.0.3 (5.4.14)
+* 0.0.3 (5/4/14)
  * Added queue
  * Removed deprecated methods
  * Added context menu on right click on files in remote browser
  * New menu items in context menu in project files
  * Context menu for queue panel
  * Folder opening dialog for input fields which needs it
-* 0.0.2 (4.27.14)
+* 0.0.2 (4/27/14)
  * Added encrypting settings file option.
-* 0.0.1 (4.20.14)
+* 0.0.1 (4/20/14)
  * Initial release.
 
 ## License
