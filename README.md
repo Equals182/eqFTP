@@ -43,7 +43,10 @@ I'm thinking about this:
 
 ## Known Issues
 
-* Unstable downloaded files opening (e.g. downloading 0 byte sized file and trying to open it causes error)
+Whoah! Nothing here!
+
+## [Troubleshooting](https://github.com/Equals182/eqFTP/wiki/1.5-Troubleshooting)
+[There's special page for this stuff](https://github.com/Equals182/eqFTP/wiki/1.5-Troubleshooting)
 
 ## Version History
 
