@@ -36,11 +36,10 @@ I'm thinking about this:
 * Sync -- down/uploading whole things in both ways
 * Multi-language support
 * More UI integration
-* Open only readable by Brackets files (extension and size check)
+* Open only readable by Brackets files (extension)
 * Auto-moving all projects from old default directory to new
 * Creating, deleting and renaming files on remote server
 * FTP panel resizing
-* Progress Bar for Queue
 
 ## Known Issues
 
@@ -48,6 +47,11 @@ I'm thinking about this:
 
 ## Version History
 
+* 0.1.0 (5/10/14)
+ * Added progress bar for queue
+ * Lots of queue improvements
+ * Better errors handling
+ * Checking filesize before trying opening it
 * 0.0.3 (5/4/14)
  * Added queue
  * Removed deprecated methods
