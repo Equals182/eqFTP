@@ -24,6 +24,7 @@ maxerr: 50, node: true */
         
         client.auth(ftpdetails.username, ftpdetails.password, function (err, res) {
             if (err) {
+                console.error("[eqFTP-ftpDomain] There was an error with authorization while trying to get directory.");
                 console.error(err);
                 _domainManager.emitEvent("bracketsftp", "uploadResult", "autherror");
             } else {
@@ -107,104 +108,85 @@ maxerr: 50, node: true */
         });
     }
     
-    function cmdUploadFile2(localpath, remotepath, ftpdetails) {
+    function cmdUploadFile(params) {
         var client = new FTPClient({
-            host: ftpdetails.server,
-            user: ftpdetails.username,
-            pass: ftpdetails.password,
-            port: ftpdetails.port
+            host: params.connection.server,
+            user: params.connection.username,
+            pass: params.connection.password,
+            port: params.connection.port
         });
+        var readed = 0;
         
-        client.auth(ftpdetails.username, ftpdetails.password, function (err, res) {
-            if (err) {
-                console.error(err);
+        client.auth(params.connection.username, params.connection.password, function (hadErr, res) {
+            if (hadErr) {
+                console.error("[eqFTP-ftpDomain] There was an error with authorization while trying to upload file");
+                console.error(hadErr);
                 _domainManager.emitEvent("bracketsftp", "uploadResult", "autherror");
             } else {
-                client.put(localpath, remotepath, function(hadError) {
-                    if (!hadError) {
-                        console.log("File transferred successfully!");
+                client.put(params.localPath, params.remotePath, function(hadErr) {
+                    if (!hadErr) {
+                        console.log("[eqFTP-ftpDomain] File uploaded successfully!");
+                        console.error(hadErr);
                         client.raw.quit();
-                        _domainManager.emitEvent("bracketsftp", "uploadResult", "complete");
+                        _domainManager.emitEvent("bracketsftp", "uploadResult", {status: "complete", callParams: params.callParams});
                     }else{
-                        _domainManager.emitEvent("bracketsftp", "uploadResult", "uploaderror");
+                        console.error('[eqFTP-ftpDomain] There was an error uploading the file.');
+                        console.error(hadErr);
+                        _domainManager.emitEvent("bracketsftp", "uploadResult", {status: "uploaderror", callParams: params.callParams});
                         client.raw.quit();
                     }
+                });
+                client.on('progress', function(data) {
+                    //console.log(data);
+                    readed += data.chunksize;
+                    data.transferred = readed;
+                    _domainManager.emitEvent("bracketsftp", "transferProgress", {data: data});
                 });
             }
         });
     }
     
-    function cmdUploadFile(filepath, filename, ftpdetails, patharray) {
-        var client = new FTPClient({
-            host: ftpdetails.server,
-            user: ftpdetails.username,
-            pass: ftpdetails.password,
-            port: ftpdetails.port
-        });
-        
-        var streamData = fs.createReadStream(filepath);
-        streamData.pause();
-        
-        client.auth(ftpdetails.username, ftpdetails.password, function (err, res) {
-            if (err) {
-                console.error(err);
-                _domainManager.emitEvent("bracketsftp", "uploadResult", "autherror");
-            } else {
-                var i = 0;
-                var pathArrayString = ftpdetails.remotepath;
-                
-                for (i; i < (patharray.length - 1); i++) {
-                    pathArrayString = pathArrayString + "/" + patharray[i];
-                    client.raw.mkd(pathArrayString, function (err, data) {
-                        client.raw.cwd(pathArrayString, function (err, data) {
-                            
-                        });
-                    });
-                }
-                
-                client.getPutSocket(pathArrayString + "/" + filename, function (err, socket) {
-                    if (err) {
-                        _domainManager.emitEvent("bracketsftp", "uploadResult", "uploaderror");
-                        client.raw.quit();
-                    } else {
-                        streamData.pipe(socket);
-                        streamData.resume();
-                        client.raw.quit();
-                        _domainManager.emitEvent("bracketsftp", "uploadResult", "complete");
-                    }
-                });
-                
-            }
-        });
-    }
-
-    
-    function cmdDownloadFile(remotepath, localpath, filename, ftpdetails) {
-        mkpath(localpath, function (err) {
+    function cmdDownloadFile(params) {
+        mkpath(params.localPath, function (err) {
             if (err) throw err;
-            console.log('Directory structure '+localpath+' created');
+            console.log('[eqFTP-ftpDomain] Directory structure '+params.localPath+' created');
         });
         var client = new FTPClient({
-            host: ftpdetails.server,
-            user: ftpdetails.username,
-            pass: ftpdetails.password,
-            port: ftpdetails.port
+            host: params.connection.server,
+            user: params.connection.username,
+            pass: params.connection.password,
+            port: params.connection.port
         });
-        client.auth(ftpdetails.username, ftpdetails.password, function (err, res) {
+        client.auth(params.connection.username, params.connection.password, function (err, res) {
             if (err) {
+                console.error("[eqFTP-ftpDomain] There was an error with authorization while trying to download file");
                 console.error(err);
                 _domainManager.emitEvent("bracketsftp", "getFileResult", "autherror");
             } else {
-                client.get(remotepath, localpath+filename, function(hadErr) {
-                    if (hadErr) {
-                        _domainManager.emitEvent("bracketsftp", "getFileResult", {status:"downloaderror"});
-                        console.error('There was an error retrieving the file.');
-                        console.error(hadErr);
-                    } else {
-                        _domainManager.emitEvent("bracketsftp", "getFileResult", {status:'complete',file:localpath+filename});
-                        console.log('File copied successfully!');
+                client.ls(params.remotePath, function (err, files) {
+                    var totalSize = files[0].size;
+                    if(totalSize>0) {
+                        client.get(params.remotePath, params.localPath+params.fileName, function(hadErr) {
+                            if (hadErr) {
+                                _domainManager.emitEvent("bracketsftp", "getFileResult", {status: "downloaderror", callParams: params.callParams});
+                                console.error('[eqFTP-ftpDomain] There was an error downloading the file.');
+                                console.error(hadErr);
+                            } else {
+                                console.log('[eqFTP-ftpDomain] File downloaded successfully!');
+                                _domainManager.emitEvent("bracketsftp", "getFileResult", {status: 'complete', file: params.localPath+params.fileName, callParams: params.callParams});
+                            }
+                            client.raw.quit();
+                        });
+                        client.on('progress', function(data) {
+                            //console.log('Transferred ' + data.transferred + ' bytes of ' + totalSize);
+                            data.total = totalSize;
+                            _domainManager.emitEvent("bracketsftp", "transferProgress", {data: data});
+                        });
+                    }else{
+                        _domainManager.emitEvent("bracketsftp", "getFileResult", {status: "filesize", callParams: params.callParams});
+                        console.error("[eqFTP-ftpDomain] This file so empty I can't even download it. (Filesize=0)");
+                        client.raw.quit();
                     }
-                    client.raw.quit();
                 });
             }
         });
@@ -237,7 +219,7 @@ maxerr: 50, node: true */
         DomainManager.registerCommand(
             "bracketsftp",
             "uploadFile",
-            cmdUploadFile2,
+            cmdUploadFile,
             false
         );
         
@@ -278,8 +260,13 @@ maxerr: 50, node: true */
         
         DomainManager.registerEvent(
             "bracketsftp",
-            "uploadResult",
-            "result"
+            "uploadResult"
+        );
+        
+        DomainManager.registerEvent(
+            "bracketsftp",
+            "connectError",
+            "err"
         );
         
         DomainManager.registerEvent(
@@ -318,19 +305,12 @@ maxerr: 50, node: true */
         
         DomainManager.registerEvent(
             "bracketsftp",
-            "getFileResult",
-            [
-        		{
-        			name: "path",
-        			type: "string",
-        			description: "path for returned files"
-        		},
-        		{
-        			name: "files",
-        			type: "string",
-        			description: "files in path"
-        		}        			
-        	]
+            "getFileResult"
+        );
+        
+        DomainManager.registerEvent(
+            "bracketsftp",
+            "transferProgress"
         );
         
     }

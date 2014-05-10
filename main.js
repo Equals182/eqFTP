@@ -19,6 +19,12 @@
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
  *
+ * version 0.1.0
+ * - Added progress bar for queue
+ * - Lots of queue improvements
+ * - Better errors handling
+ * - Checking filesize before trying opening it
+ * 
  * version 0.0.3
  * - Code restructuring
  * - Got rid of deprecated methods
@@ -91,7 +97,8 @@ define(function (require, exports, module) {
         automaticQueue: [],
         pausedQueue: [],
         failedQueue: [],
-        successedQueue: []
+        successedQueue: [],
+        processQueue: []
     };
     
     eqFTP.globals.prefs.definePreference("defaultSettingsPath", "string", eqFTP.globals.defaultSettingsPath);
@@ -206,10 +213,14 @@ define(function (require, exports, module) {
         },
         eqNote: function(params) {
             if(params.action === "write") {
-                var fileEntry = new FileSystem.getFileForPath(params.path + "/" + eqFTP.globals.eqFTPNoteFilename);
-                var jsonData = JSON.stringify(params.data);
-                var readSettingsPromise = FileUtils.writeText(fileEntry, jsonData).done(function () {
+                new FileSystem.resolve(params.path + "/" + eqFTP.globals.eqFTPNoteFilename, function(err, item, stat) { 
+                    if(err) {
+                        var fileEntry = new FileSystem.getFileForPath(params.path + "/" + eqFTP.globals.eqFTPNoteFilename);
+                        var jsonData = JSON.stringify(params.data);
+                        var readSettingsPromise = FileUtils.writeText(fileEntry, jsonData).done(function () {
 
+                        });
+                    }
                 });
             }else if(params.action === "delete") {
                 var fileEntry = new FileSystem.getFileForPath(params.path + eqFTP.globals.eqFTPNoteFilename);
@@ -230,9 +241,12 @@ define(function (require, exports, module) {
             return readSettingsPromise;
         },
         normalizePath: function(input) {
-            var tmp = input.replace(/\\+/g,'/');
-            tmp = tmp.replace(/\/\/+/g,'/');
-            return tmp;
+            if(input != undefined) {
+                var tmp = input.replace(/\\+/g,'/');
+                tmp = tmp.replace(/\/\/+/g,'/');
+                return tmp;
+            }
+            return undefined;
         },
         redrawRemoteModalServerList: function() {
             $('#eqFTP-serverChoosing').html('');
@@ -392,21 +406,52 @@ define(function (require, exports, module) {
             }
         },
         tryOpenFile: function(path,i) {
-            if(i==undefined) { i=0; }
-            i++;
-            var openPromise = CommandManager.execute(Commands.FILE_OPEN, {fullPath: path});
-            openPromise.done(eqFTP.serviceFunctions.updateOpenedFiles({action:"add",path:path}));
-            openPromise.always(function() {
-                
-            });
-            openPromise.fail(function() {
+            var waitASec = setInterval(function() {
+                if(i==undefined) { i=0; }
+                i++;
+                new FileSystem.resolve(path, function(err, item, stat) {
+                    if(!err) {
+                        if(stat._size!=0) {
+                            var openPromise = CommandManager.execute(Commands.FILE_OPEN, {fullPath: path});
+                            openPromise.done(function() {
+                                eqFTP.serviceFunctions.updateOpenedFiles({action:"add",path:path})
+                                i = 10;
+                            });
+                            openPromise.always(function() {
+                            });
+                            openPromise.fail(function(err) {
+                                console.error('[eqFTP] Try #'+i+': failed open file.')
+                            });
+                        }
+                    }
+                });
                 if(i>3) {
-                    eqFTP.serviceFunctions.tryOpenFile(path,i);
+                    clearInterval(waitASec);
                 }
-            });
+            },1000);
         },
         redrawQueue: function() {
             var trs = "";
+            $.each(eqFTP.globals.processQueue,function() {
+                if(this.direction == 'download') {
+                    var path = this.remotePath;
+                }else if(this.direction == 'upload'){
+                    var path = this.localPath;
+                }
+                if(this.transferData) {
+                    var d = this.transferData.transferred,
+                        t = this.transferData.total;
+                    var status = Math.floor(d*100/t);
+                    if(status>100) { status = 100; }
+                }else if(this.status == undefined) {
+                    var status = 0;
+                }
+                trs +=  "<tr class='transferring'>"+
+                            "<td>"+this.name+"</td>"+
+                            "<td>"+path+"</td>"+
+                            "<td><span>"+status+"%</span><div class='progessBar' style='width:"+status+"%;'></div></td>"+
+                        "</tr>";
+            });
             $.each(eqFTP.globals.automaticQueue,function() {
                 if(this.direction == 'download') {
                     var path = this.remotePath;
@@ -423,6 +468,7 @@ define(function (require, exports, module) {
                 trs +=  "<tr class='automatic'>"+
                             "<td>"+this.name+"</td>"+
                             "<td>"+path+"</td>"+
+                            "<td>"+status+"</td>"
                         "</tr>";
             });
             $.each(eqFTP.globals.pausedQueue,function() {
@@ -493,6 +539,48 @@ define(function (require, exports, module) {
                 eqFTP.serviceFunctions.redrawQueue();
                 Resizer.show($('#eqFTPQueueHolder'));
             }
+        },
+        contextMenus: function() {
+            /*
+            * Creating Context Menus
+            */
+
+            var eqFTP_modalCmenu = Menus.registerContextMenu('equals182-eqftp-file_cmenu');
+            eqFTP_modalCmenu.addMenuItem("eqftp.downloadFileAndOpen");
+            eqFTP_modalCmenu.addMenuItem("eqftp.downloadFile");
+            eqFTP_modalCmenu.addMenuItem("eqftp.addToPausedQueue-d");
+            $("body").on('contextmenu', ".bracketsftp-file", function (e) {
+                tmp_modalClickedItem = $(this);
+                if (e.which === 3) {
+                    eqFTP_modalCmenu.open(e);
+                }
+            });
+
+            var eqFTP_queueCmenu = Menus.registerContextMenu('equals182-eqftp-queue_cmenu');
+            eqFTP_queueCmenu.addMenuItem("eqftp.startQueue");
+            eqFTP_queueCmenu.addMenuItem("eqftp.pauseQueue");
+            eqFTP_queueCmenu.addMenuDivider();
+            eqFTP_queueCmenu.addMenuItem("eqftp.clearQueue");
+            eqFTP_queueCmenu.addMenuItem("eqftp.clearComplitedQueue");
+            eqFTP_queueCmenu.addMenuItem("eqftp.clearFailedQueue");
+            $("body").on('contextmenu', "#eqFTPQueueHolder .table-container", function (e) {
+                if (e.which === 3 && 
+                    (
+                        eqFTP.globals.pausedQueue.length > 0 || 
+                        eqFTP.globals.automaticQueue.length > 0 ||
+                        eqFTP.globals.successedQueue.length > 0 ||
+                        eqFTP.globals.failedQueue.length > 0
+                    ) 
+                   ) {
+                    eqFTP_queueCmenu.open(e);
+                }
+            });
+
+            var project_contextMenu = Menus.getContextMenu(Menus.ContextMenuIds.PROJECT_MENU);
+            project_contextMenu.addMenuDivider();
+            project_contextMenu.addMenuItem("eqftp.addToAutomaticQueue-u");
+            project_contextMenu.addMenuItem("eqftp.addToPausedQueue-u");
+
         }
     };
     
@@ -726,20 +814,16 @@ define(function (require, exports, module) {
                 } else {
                     params.remotePath = eqFTP.serviceFunctions.normalizePath(params.remotePath);
                     params.localPath = eqFTP.serviceFunctions.normalizePath(params.localPath);
-                    var ftpPromise = nodeConnection.domains.bracketsftp.uploadFile(params.localPath, params.remotePath, eqFTP.globals.globalFtpDetails.ftp[params.connectionID]);
+                    var ftpPromise = nodeConnection.domains.bracketsftp.uploadFile({
+                        localPath: params.localPath,
+                        remotePath: params.remotePath,
+                        connection: eqFTP.globals.globalFtpDetails.ftp[params.connectionID],
+                        callParams: params
+                    });
                     ftpPromise.fail(function (err) {
                         console.error("[eqFTP] File upload failed for: " + params.localPath, err);
-                        if(isFunction(params.actionAfter)) {
-                            params.status = false;
-                            params.actionAfter({pastTask:params});
-                        }
                     });
                     ftpPromise.done(function() {
-                        $('#toolbar-bracketsftp').removeClass('uploading');
-                        if(isFunction(params.actionAfter)) {
-                            params.status = true;
-                            params.actionAfter({pastTask:params});
-                        }
                     });
                 }
             }
@@ -772,42 +856,23 @@ define(function (require, exports, module) {
             path = eqFTP.serviceFunctions.normalizePath(path);
             var localPath = root + "/" + pathArray.join("/") + "/";
             localPath = eqFTP.serviceFunctions.normalizePath(localPath);
-            var ftpPromise = nodeConnection.domains.bracketsftp.getFile(path, localPath, fileName, ftp);
+            console.log("[eqFTP] Downloading: " + params.remotePath);
+            params.root = root;
+            params.fileName = fileName;
+            params.localPath = localPath;
+            var ftpPromise = nodeConnection.domains.bracketsftp.getFile({
+                remotePath: path,
+                localPath: localPath,
+                fileName: fileName,
+                connection: ftp,
+                callParams: params,
+            });
             ftpPromise.fail(function (err) {
                 $('#toolbar-bracketsftp').removeClass('downloading');
                 console.error("[eqFTP] File download failed for: " + params.remotePath, err);
-                if(isFunction(params.actionAfter)) {
-                    params.status = false;
-                    params.actionAfter({pastTask:params});
-                }
             });
             ftpPromise.done(function() {
-                $('#toolbar-bracketsftp').removeClass('downloading');
                 eqFTP.serviceFunctions.eqNote({path:root,action:"write",data:{eqFTPid:params.connectionID}});
-                if(params.openAfter) {
-                    var wait = setInterval(function() {
-                        if(eqFTP.globals.globalFtpDetails.main.noProjectOnDownload==false) {
-                            var currentProjectRoot = ProjectManager.getProjectRoot();
-                            if(currentProjectRoot._path==root+"/") {
-                                eqFTP.serviceFunctions.tryOpenFile(localPath+fileName);
-                            }else{
-                                var openFolderPromise = ProjectManager.openProject(root);
-                                openFolderPromise.done(function() {
-                                    eqFTP.serviceFunctions.tryOpenFile(localPath+fileName);
-                                });
-                                openFolderPromise.fail(function() {
-                                });
-                            }
-                        }else{
-                            eqFTP.serviceFunctions.tryOpenFile(localPath+fileName);
-                        }
-                        clearInterval(wait);
-                    },1000);
-                }
-                if(isFunction(params.actionAfter)) {
-                    params.status = true;
-                    params.actionAfter({pastTask:params});
-                }
             });
         },
         addToQueue: function(arrayOfQueuers) {
@@ -822,30 +887,34 @@ define(function (require, exports, module) {
             *   direction   {string}    ( download | upload )
             */
             $.each(arrayOfQueuers,function() {
+                this.remotePath = eqFTP.serviceFunctions.normalizePath(this.remotePath);
+                this.localPath = eqFTP.serviceFunctions.normalizePath(this.localPath);
                 if(this.queue == 'automatic') {
-                    eqFTP.globals.automaticQueue.push(this);
+                    eqFTP.globals.automaticQueue.unshift(this);
                     if(!queueBusy) {
                         eqFTP.ftpFunctions.startQueue();
                     }
                 }else if(this.queue == 'paused') {
-                    eqFTP.globals.pausedQueue.push(this);
+                    eqFTP.globals.pausedQueue.unshift(this);
                 }
             });
             eqFTP.serviceFunctions.redrawQueue();
         },
         startQueue: function(params) {
             if(params!=undefined && params.pastTask!=undefined) {
+                eqFTP.globals.processQueue = [];
                 if(params.pastTask.status) {
-                    eqFTP.globals.successedQueue.push(params.pastTask);
+                    eqFTP.globals.successedQueue.unshift(params.pastTask);
                 }else{
-                    eqFTP.globals.failedQueue.push(params.pastTask);
+                    eqFTP.globals.failedQueue.unshift(params.pastTask);
                 }
                 eqFTP.serviceFunctions.redrawQueue();
             }
             if(eqFTP.globals.automaticQueue.length>0 && queuePaused==false) {
                 queueBusy = true;
                 currentQueueTask = eqFTP.globals.automaticQueue.shift();
-                currentQueueTask.actionAfter = eqFTP.ftpFunctions.startQueue;
+                currentQueueTask.continueQueue = true;
+                eqFTP.globals.processQueue.unshift(currentQueueTask);
                 eqFTP.serviceFunctions.redrawQueue();
                 if(currentQueueTask.direction == 'download') {
                     eqFTP.ftpFunctions.downloadFile(currentQueueTask);
@@ -1256,46 +1325,7 @@ define(function (require, exports, module) {
                 }
             }
         });        
-        /*
-        * Creating Context Menus
-        */
-        
-        var eqFTP_modalCmenu = Menus.registerContextMenu('equals182-eqftp-file_cmenu');
-        eqFTP_modalCmenu.addMenuItem("eqftp.downloadFileAndOpen");
-        eqFTP_modalCmenu.addMenuItem("eqftp.downloadFile");
-        eqFTP_modalCmenu.addMenuItem("eqftp.addToPausedQueue-d");
-        $("body").on('contextmenu', ".bracketsftp-file", function (e) {
-            tmp_modalClickedItem = $(this);
-            if (e.which === 3) {
-                eqFTP_modalCmenu.open(e);
-            }
-        });
-        
-        var eqFTP_queueCmenu = Menus.registerContextMenu('equals182-eqftp-queue_cmenu');
-        eqFTP_queueCmenu.addMenuItem("eqftp.startQueue");
-        eqFTP_queueCmenu.addMenuItem("eqftp.pauseQueue");
-        eqFTP_queueCmenu.addMenuDivider();
-        eqFTP_queueCmenu.addMenuItem("eqftp.clearQueue");
-        eqFTP_queueCmenu.addMenuItem("eqftp.clearComplitedQueue");
-        eqFTP_queueCmenu.addMenuItem("eqftp.clearFailedQueue");
-        $("body").on('contextmenu', "#eqFTPQueueHolder .table-container", function (e) {
-            if (e.which === 3 && 
-                (
-                    eqFTP.globals.pausedQueue.length > 0 || 
-                    eqFTP.globals.automaticQueue.length > 0 ||
-                    eqFTP.globals.successedQueue.length > 0 ||
-                    eqFTP.globals.failedQueue.length > 0
-                ) 
-               ) {
-                eqFTP_queueCmenu.open(e);
-            }
-        });
-        
-        var project_contextMenu = Menus.getContextMenu(Menus.ContextMenuIds.PROJECT_MENU);
-        project_contextMenu.addMenuDivider();
-        project_contextMenu.addMenuItem("eqftp.addToAutomaticQueue-u");
-        project_contextMenu.addMenuItem("eqftp.addToPausedQueue-u");
-        
+
         /*
         * Creating Queue Manager
         */
@@ -1319,7 +1349,7 @@ define(function (require, exports, module) {
     });
     
     AppInit.appReady(function () {
-        console.log("eqFTP Loaded");
+        console.log("[eqFTP] Loaded");
         
         nodeConnection = new NodeConnection();
         
@@ -1340,6 +1370,7 @@ define(function (require, exports, module) {
             });
             loadPromise.done(function (done) {
                 eqFTP.serviceFunctions.ftpLoaded(true);
+                eqFTP.serviceFunctions.contextMenus(true);
             });
             return loadPromise;
         }
@@ -1422,14 +1453,43 @@ define(function (require, exports, module) {
         });
         
         $(nodeConnection).on("bracketsftp.getFileResult", function (event, param) {
+            $('#toolbar-bracketsftp').removeClass('downloading');
+            var params = param.callParams;
             if (param.status === "complete") {
+                params.status = true;
+                if(params.openAfter) {
+                    if(eqFTP.globals.globalFtpDetails.main.noProjectOnDownload==false) {
+                        var currentProjectRoot = ProjectManager.getProjectRoot();
+                        if(currentProjectRoot._path==params.root+"/") {
+                            eqFTP.serviceFunctions.tryOpenFile(params.localPath+params.fileName);
+                        }else{
+                            var openFolderPromise = ProjectManager.openProject(params.root);
+                            openFolderPromise.done(function() {
+                                eqFTP.serviceFunctions.tryOpenFile(params.localPath+params.fileName);
+                            });
+                            openFolderPromise.fail(function() {
+                            });
+                        }
+                    }else{
+                        eqFTP.serviceFunctions.tryOpenFile(params.localPath+params.fileName);
+                    }
+                }
+            }else if(param.status === "downloaderror") {
+                params.status = false;
+            }else if (param.status === "filesize") {
+                params.status = false;
+            }
+            if(params.continueQueue) {
+                eqFTP.ftpFunctions.startQueue({pastTask:params});
             }
         });
         
         $(nodeConnection).on("bracketsftp.uploadResult", function (event, param) {
             var toolbarResetTimeout;
-            
-            if (param === "complete") {
+            $('#toolbar-bracketsftp').removeClass('uploading');
+            var params = param.callParams;
+            if (param.status === "complete") {
+                params.status = true;
                 console.log("[eqFTP] Upload complete", param);
                 $("#toolbar-bracketsftp").addClass("complete");
                 toolbarResetTimeout = setInterval(function () {
@@ -1438,7 +1498,8 @@ define(function (require, exports, module) {
                 }, 2000);
             }
             
-            if (param === "uploaderror") {
+            if (param.status === "uploaderror") {
+                params.status = false;
                 console.error("[eqFTP] Upload failed");
                 $("#toolbar-bracketsftp").addClass("error");
                 toolbarResetTimeout = setInterval(function () {
@@ -1447,7 +1508,8 @@ define(function (require, exports, module) {
                 }, 2000);
             }
             
-            if (param === "autherror") {
+            if (param.status === "autherror") {
+                params.status = false;
                 console.error("[eqFTP] FTP authetication failed");
                 $("#toolbar-bracketsftp").addClass("error");
                 toolbarResetTimeout = setInterval(function () {
@@ -1455,6 +1517,24 @@ define(function (require, exports, module) {
                     clearInterval(toolbarResetTimeout);
                 }, 2000);
             }
+            if(params.continueQueue) {
+                eqFTP.ftpFunctions.startQueue({pastTask:params});
+            }
+        });
+        
+        $(nodeConnection).on("bracketsftp.connectError", function (event, result) {
+            Dialogs.showModalDialog('DIALOG_ID_ERROR',"Can't connect to Server", "The reason of this error may be your Farewall or Antivirus settings.<br>Please follow instructions:<br><ol><li>Save all opened files</li><li>Check Firewall settings for node.exe file and allow internet access for node.exe and brackets.exe.</li><li>Restart Brackets or press F5</li></ol>")
+            eqFTP.serviceFunctions.ftpLoaded(false);
+        });
+        
+        $(nodeConnection).on("bracketsftp.transferProgress", function (event, params) {
+            var data = params.data;
+            $.each(eqFTP.globals.processQueue, function(index, t) {
+                if(this.localPath == data.filename || this.remotePath == data.filename) {
+                    eqFTP.globals.processQueue[index].transferData = data;
+                }
+            });
+            eqFTP.serviceFunctions.redrawQueue();
         });
         
     });

@@ -397,4 +397,20 @@ li.opened>ul {
     padding: 3px 10px;
     text-align: left;
     border-bottom: 1px dotted #b7b7b7;
+    position: relative;
+}
+
+#eqFTPQueueHolder .table-container .transferring td span {
+    display: inline-block;
+    z-index: 2;
+    position: relative;
+}
+
+#eqFTPQueueHolder .table-container .transferring td .progessBar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    background-color: #a5dbff;
+    z-index: 1;
 }
