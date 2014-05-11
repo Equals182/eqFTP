@@ -33,7 +33,7 @@ You can fork this stuff and change it however you want.
 I'm thinking about this:
 
 * SFTP -- well, this feature is dead now
-* Sync -- like REAL sync (gotta figure it out)
+* Sync -- down/uploading whole things in both ways
 * Multi-language support
 * More UI integration
 * Open only readable by Brackets files (extension)
@@ -50,10 +50,6 @@ Whoah! Nothing here!
 
 ## Version History
 
-* 0.2.0 (5/11/14)
- * Improved queueing (should work faster)
- * Directory downloading in both ways
- * Code refactoring
 * 0.1.0 (5/10/14)
  * Added progress bar for queue
  * Lots of queue improvements
