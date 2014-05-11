@@ -260,15 +260,13 @@ li[data-eqFTP-addConnection]:hover>.eqFTP-icon-plus{
 
 #eqFTPLoading {
     display: inline-block;
-    height: 18px;
-    width: 18px;
+    height: 15px;
+    width: 15px;
     background-image: url(img/loading.gif);
     background-repeat: no-repeat;
     background-position: center center;
     background-size: 100% auto;
     vertical-align: middle;
-    margin-left: 5px;
-    opacity: 0.7;
 }
 
 .field-group{
@@ -384,7 +382,6 @@ li.opened>ul {
 
 #eqFTPQueueHolder .table-container table {
     width: 100%;
-    table-layout: fixed;
 }
 
 #eqFTPQueueHolder .table-container th {
@@ -400,15 +397,6 @@ li.opened>ul {
     padding: 3px 10px;
     text-align: left;
     border-bottom: 1px dotted #b7b7b7;
-    position: relative;
-}
-
-#eqFTPQueueHolder .table-container td.path span, #eqFTPQueueHolder .table-container td.name span {
-    display: inline-block;
-    width: 100%;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
     position: relative;
 }
 
