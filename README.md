@@ -41,12 +41,11 @@ I'm thinking about this:
 * Creating, deleting and renaming files on remote server
 * FTP panel resizing
 
-## Known Issues
+## Some Links
 
-Whoah! Nothing here!
-
-## [Troubleshooting](https://github.com/Equals182/eqFTP/wiki/1.5-Troubleshooting)
-[There's special page for this stuff](https://github.com/Equals182/eqFTP/wiki/1.5-Troubleshooting)
+- [Known Issues](https://github.com/Equals182/eqFTP/issues?state=open)
+- [Troubleshooting](https://github.com/Equals182/eqFTP/wiki/1.5-Troubleshooting)
+- [FAQ](https://github.com/Equals182/eqFTP/wiki/1.6-Frequently-Asked-Questions)
 
 ## Version History
 
