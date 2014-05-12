@@ -331,7 +331,7 @@ define(function (require, exports, module) {
             if(isNaN(l)) { l = 0; }
             var lpx = l * 10;
             var html = "";
-            console.log("[eqFTP] Rendering structure (level "+l+"): "+JSON.stringify(fileList));
+            //console.log("[eqFTP] Rendering structure (level "+l+"): "+JSON.stringify(fileList));
             if(fileList!=undefined) {
                 $.each(fileList,function() {
                     var add = "";
@@ -1555,9 +1555,7 @@ define(function (require, exports, module) {
                 addFolder:  thisFolderStructure,
                 state:      'opened'
             });
-            
-            console.log("[eqFTP] Now cached remote structure for "+eqFTP.globals.connectedServer+" is: "+JSON.stringify(eqFTP.globals.remoteStructure));
-            
+    
             //var html = Mustache.render(FileBrowserTemplate, {ftpFileList: remoteStructure[connectedServer]});
             eqFTP.serviceFunctions.redrawFileTree();
             $('#eqFTPLoading').hide();        
@@ -1613,7 +1611,6 @@ define(function (require, exports, module) {
                         remoteArray.pop();
                         remoteArray.reverse();
                         localArray.reverse();
-                        var i = 0;
                         $.each(localArray,function() {
                             if(localArray[0]!=undefined && localArray[0].trim()==""){
                                 localArray.shift();
@@ -1621,7 +1618,7 @@ define(function (require, exports, module) {
                             if(remoteArray[0]!=undefined && remoteArray[0].trim()==""){
                                 remoteArray.shift();
                             }
-                            if(i>remoteArray.length) {
+                            if(remoteArray.length<1) {
                                 localArray.reverse();
                                 root = localArray.join("/");
                                 return false;
@@ -1630,7 +1627,6 @@ define(function (require, exports, module) {
                             if(ratmp==localArray[0]) {
                                 localArray.shift();
                             }
-                            i++;
                         });
                         var currentProjectRoot = ProjectManager.getProjectRoot();
                         if(currentProjectRoot._path==root+"/") {
