@@ -274,7 +274,8 @@ define(function (require, exports, module) {
                         if(this.localpath.trim()=="") {
                             localRoot = eqFTP.globals.globalFtpDetails.main.folderToProjects;
                             localRoot.trim();
-                            localRoot = localRoot + "/" + this.connectionName
+                            localRoot = localRoot + "/" + this.connectionName;
+                            FileSystem.getDirectoryForPath(localRoot).create();
                         }
                         localRoot.trim();
                         if(localRoot!="") {
@@ -1604,7 +1605,6 @@ define(function (require, exports, module) {
             }else if(params.status == "uploadComplete") {
                 eqFTP.globals.successedQueue.unshift(item);
             }else if(params.status == "downloadComplete") {
-                eqFTP.serviceFunctions.eqNote({action:"writeAll"});
                 if(params.element.openAfter) {
                     if(eqFTP.globals.globalFtpDetails.main.noProjectOnDownload==false) {
                         var root = "";
