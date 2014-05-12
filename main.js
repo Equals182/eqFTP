@@ -19,7 +19,10 @@
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
  *
- * varsion 0.2.0
+ * version 0.2.1
+ * - some very minor fixes
+ * 
+ * version 0.2.0
  * - Improved queueing (should work faster)
  * - Directory downloading in both ways
  * - Code refactoring
@@ -169,14 +172,16 @@ define(function (require, exports, module) {
             if($.isArray(object.children)) {
                object = object.children;
             }
-            $.each(object, function() {
-                var object = this;
-                if(object.type == "folder" && object.name == names[level]) {
-                    level++;
-                    object = recursiveSearch({level:level,object:object,names:names,addFolder:addFolder,state:state});
-                    return false;
-                }
-            });
+            if(object) {
+                $.each(object, function() {
+                    var object = this;
+                    if(object.type == "folder" && object.name == names[level]) {
+                        level++;
+                        object = recursiveSearch({level:level,object:object,names:names,addFolder:addFolder,state:state});
+                        return false;
+                    }
+                });
+            }
         }
         return object;
     }
@@ -277,11 +282,13 @@ define(function (require, exports, module) {
             $('#eqFTP-serverChoosing').html('');
             $('#eqFTP-serverChoosing').append('<option disabled selected value="">Select Remote Server to Connect...</option><option disabled>------------------------------</option>');
             var i=0;
-            $.each(eqFTP.globals.globalFtpDetails.ftp,function() {
-                var t = this;
-                $('#eqFTP-serverChoosing').append('<option value="'+i+'">'+t.connectionName+'</option>');
-                i++;
-            });
+            if(eqFTP.globals.globalFtpDetails.ftp.length>0) {
+                $.each(eqFTP.globals.globalFtpDetails.ftp,function() {
+                    var t = this;
+                    $('#eqFTP-serverChoosing').append('<option value="'+i+'">'+t.connectionName+'</option>');
+                    i++;
+                });
+            }
             var tmp_connectedServer = parseInt(eqFTP.globals.connectedServer);
             if(!isNaN(tmp_connectedServer)) {
                 $('#eqFTP-serverChoosing option').prop('selected',false);
@@ -302,29 +309,31 @@ define(function (require, exports, module) {
             if(isNaN(l)) { l = 0; }
             var lpx = l * 10;
             var html = "";
-            $.each(fileList,function() {
-                var add = "";
-                var v = this;
-                var path = params.path+"/"+v.name;
-                if(v.children!=undefined && v.children.length>0) {
-                    add = '<ul class="eqFTPFileTreeHolder">'+eqFTP.serviceFunctions.renderFTPTree({ftpFileList:v.children,level:l+1,path:path})+'</ul>';
-                }
-                var opened = "";
-                if(v.state!=undefined && v.state=='opened') {
-                    opened = "opened";
-                }else if(v.state=='closed') {
-                    opened = "closed";
-                }
-                var lp = l+1;
-                var w = 170 - lpx;
-                html = html+'<li class="eqFTPLevel'+lp+' eqFTPFileTreeRow '+opened+'" data-bftControl="'+uniqueTreeVar+'">'+
-                            '<div class="eqFTPFileTreeCell bracketsftp-'+v.type+' eqFTPTableNamecol" data-path="'+path+'" style="padding-left:'+lpx+'px; width:'+w+'px"><span class="eqFTPFileTreePlusMinus"></span><span title="'+v.name+'" class="eqFTPModalItemTitle">'+v.name+'</span></div>'+
-                            '<div class="eqFTPFileTreeCell eqFTPTableSizecol" style="text-align:right;"><span title="'+v.size+'">'+v.sizeShort+'</span></div>'+
-                            '<div class="eqFTPFileTreeCell eqFTPTableTypecol" style="text-align:right;"><span title="'+v.type+'">'+v.type+'</span></div>'+
-                            '<div class="eqFTPFileTreeCell eqFTPTableLUcol" style="text-align:right;"><span title="'+v.lastupdated+'">'+v.lastupdatedShort+'</span></div>'+
-                            add+'</li>';
-                uniqueTreeVar++;
-            });
+            if(fileList!=undefined) {
+                $.each(fileList,function() {
+                    var add = "";
+                    var v = this;
+                    var path = params.path+"/"+v.name;
+                    if(v.children!=undefined && v.children.length>0) {
+                        add = '<ul class="eqFTPFileTreeHolder">'+eqFTP.serviceFunctions.renderFTPTree({ftpFileList:v.children,level:l+1,path:path})+'</ul>';
+                    }
+                    var opened = "";
+                    if(v.state!=undefined && v.state=='opened') {
+                        opened = "opened";
+                    }else if(v.state=='closed') {
+                        opened = "closed";
+                    }
+                    var lp = l+1;
+                    var w = 170 - lpx;
+                    html = html+'<li class="eqFTPLevel'+lp+' eqFTPFileTreeRow '+opened+'" data-bftControl="'+uniqueTreeVar+'">'+
+                                '<div class="eqFTPFileTreeCell bracketsftp-'+v.type+' eqFTPTableNamecol" data-path="'+path+'" style="padding-left:'+lpx+'px; width:'+w+'px"><span class="eqFTPFileTreePlusMinus"></span><span title="'+v.name+'" class="eqFTPModalItemTitle">'+v.name+'</span></div>'+
+                                '<div class="eqFTPFileTreeCell eqFTPTableSizecol" style="text-align:right;"><span title="'+v.size+'">'+v.sizeShort+'</span></div>'+
+                                '<div class="eqFTPFileTreeCell eqFTPTableTypecol" style="text-align:right;"><span title="'+v.type+'">'+v.type+'</span></div>'+
+                                '<div class="eqFTPFileTreeCell eqFTPTableLUcol" style="text-align:right;"><span title="'+v.lastupdated+'">'+v.lastupdatedShort+'</span></div>'+
+                                add+'</li>';
+                    uniqueTreeVar++;
+                });
+            }
             return html;
         },
         triggerSettingsNotification: function(params) {
@@ -388,11 +397,13 @@ define(function (require, exports, module) {
             }
             $('#bracketsftpAllServerList').html('');
             var i=0;
-            $.each(eqFTP.globals.globalFtpDetails.ftp,function() {
-                var t = this;
-                $('#bracketsftpAllServerList').append('<li data-eqFTP-openSettings="'+i+'"><i class="eqFTP-icon-close eqFTP-icon" style="vertical-align:middle; margin-right:5px; margin-left:-10px;" title="Delete This Connection"></i>'+t.connectionName+'</li>');
-                i++;
-            });
+            if(eqFTP.globals.globalFtpDetails.ftp.length>0) {
+                $.each(eqFTP.globals.globalFtpDetails.ftp,function() {
+                    var t = this;
+                    $('#bracketsftpAllServerList').append('<li data-eqFTP-openSettings="'+i+'"><i class="eqFTP-icon-close eqFTP-icon" style="vertical-align:middle; margin-right:5px; margin-left:-10px;" title="Delete This Connection"></i>'+t.connectionName+'</li>');
+                    i++;
+                });
+            }
             $('#bracketsftpAllServerList').append('<li data-eqFTP-addConnection="'+eqFTP.globals.globalFtpDetails.ftp.length+'"><i class="eqFTP-icon-plus eqFTP-icon" style="vertical-align:middle; margin-right:5px; margin-left:-10px;" title="Add New Connection"></i>Create New Connection...</li>');
             var id = parseInt($('#eqFTP-connectionID').val());
             if(!isNaN(id)) {
@@ -1506,6 +1517,7 @@ define(function (require, exports, module) {
                 eqFTP.globals.remoteStructure[eqFTP.globals.connectedServer] = [];
             }
             var thisFolderStructure = sanitizedFolders.concat(sanitizedFiles);
+            console.log("[eqFTP] Got folder structure: "+JSON.stringify(thisFolderStructure));
             if(eqFTP.globals.currentRemoteDirectory=="/") {
                 var tmpCurrentDirectoryArray = [];
             }else{
