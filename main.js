@@ -19,8 +19,8 @@
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
  *
- * version 0.2.1
- * - some very minor fixes
+ * version 0.2.2
+ * - fixes eqFTP-note bug
  * 
  * version 0.2.0
  * - Improved queueing (should work faster)
@@ -267,6 +267,27 @@ define(function (require, exports, module) {
                 }else{
                     return false;
                 }
+            }else if(params.action === "writeAll") {
+                if(eqFTP.globals.globalFtpDetails.ftp.length>0) {
+                    $.each(eqFTP.globals.globalFtpDetails.ftp,function(index){
+                        var localRoot = this.localpath;
+                        if(this.localpath.trim()=="") {
+                            localRoot = eqFTP.globals.globalFtpDetails.main.folderToProjects;
+                            localRoot.trim();
+                            localRoot = localRoot + "/" + this.connectionName
+                        }
+                        localRoot.trim();
+                        if(localRoot!="") {
+                            eqFTP.serviceFunctions.eqNote({
+                                path: localRoot,
+                                action: "write",
+                                data: {
+                                    eqFTPid: index
+                                }
+                            });
+                        }
+                    });
+                }
             }
             return readSettingsPromise;
         },
@@ -309,6 +330,7 @@ define(function (require, exports, module) {
             if(isNaN(l)) { l = 0; }
             var lpx = l * 10;
             var html = "";
+            console.log("[eqFTP] Rendering structure (level "+l+"): "+JSON.stringify(fileList));
             if(fileList!=undefined) {
                 $.each(fileList,function() {
                     var add = "";
@@ -728,7 +750,7 @@ define(function (require, exports, module) {
         eqFTP.processSettingsFile({text:ftpData,direction:'to'},function(result) {
             if(result) {
                 FileUtils.writeText(fileEntry, result).done(function () {
-
+                    eqFTP.serviceFunctions.eqNote({action:"writeAll"});
                 });
             }
         });
@@ -1517,7 +1539,7 @@ define(function (require, exports, module) {
                 eqFTP.globals.remoteStructure[eqFTP.globals.connectedServer] = [];
             }
             var thisFolderStructure = sanitizedFolders.concat(sanitizedFiles);
-            console.log("[eqFTP] Got folder structure: "+JSON.stringify(thisFolderStructure));
+            //console.log("[eqFTP] Got folder structure: "+JSON.stringify(thisFolderStructure));
             if(eqFTP.globals.currentRemoteDirectory=="/") {
                 var tmpCurrentDirectoryArray = [];
             }else{
@@ -1532,6 +1554,8 @@ define(function (require, exports, module) {
                 addFolder:  thisFolderStructure,
                 state:      'opened'
             });
+            
+            console.log("[eqFTP] Now cached remote structure for "+eqFTP.globals.connectedServer+" is: "+JSON.stringify(eqFTP.globals.remoteStructure));
             
             //var html = Mustache.render(FileBrowserTemplate, {ftpFileList: remoteStructure[connectedServer]});
             eqFTP.serviceFunctions.redrawFileTree();
@@ -1580,6 +1604,7 @@ define(function (require, exports, module) {
             }else if(params.status == "uploadComplete") {
                 eqFTP.globals.successedQueue.unshift(item);
             }else if(params.status == "downloadComplete") {
+                eqFTP.serviceFunctions.eqNote({action:"writeAll"});
                 if(params.element.openAfter) {
                     if(eqFTP.globals.globalFtpDetails.main.noProjectOnDownload==false) {
                         var root = "";
