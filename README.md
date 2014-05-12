@@ -49,6 +49,8 @@ I'm thinking about this:
 
 ## Version History
 
+* 0.2.2 (5/12/14) 
+ * Fixes the bug with .eqFTP-note file
 * 0.2.0 (5/11/14)
  * Improved queueing (should work faster)
  * Directory downloading in both ways
