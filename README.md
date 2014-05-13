@@ -66,10 +66,11 @@ I'm thinking about this:
 >
 >If I fix something critical I throw update on registry and for that I need to increase version number (I'm trying to follow [Semantic Versioning](http://semver.org/)). If update is too minor and it's not critical enough for extension work, I'll just wait till it get bigger or till weekends.
 
-* 0.2.1-0.2.4 (5/12/14) 
+* 0.2.1-0.2.6 (5/12/14) 
  * Fixing the bug with .eqFTP-note file
  * Fixing files downloading bug
  * Changed default projects folder
+ * Changed default settings folder
 * 0.2.0 (5/11/14)
  * Improved queueing (should work faster)
  * Directory downloading in both ways
