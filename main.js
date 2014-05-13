@@ -19,10 +19,11 @@
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
  *
- * versions 0.2.1-0.2.4
+ * versions 0.2.1-0.2.5
  * - Fixing the bug with .eqFTP-note file
  * - Fixing files downloading bug
  * - Changed default projects folder
+ * - Changed default folder for settings file
  * 
  * version 0.2.0
  * - Improved queueing (should work faster)
@@ -90,7 +91,7 @@ define(function (require, exports, module) {
         eqFTPNoteFilename: ".eqFTP-note",
         currentRemoteDirectory: '',
         masterPassword: null,
-        defaultSettingsPath: ExtensionUtils.getModulePath(module),
+        defaultSettingsPath: tmp_defaultUsersDir,
         prefs: PreferencesManager.getExtensionPrefs("eqFTP"),
         useEncryption: false,
         ftpLoaded: false,
@@ -1173,7 +1174,7 @@ define(function (require, exports, module) {
         if($('#eqFTP-SettingsFolder').val()!="") {
             eqFTP.globals.prefs.set('defaultSettingsPath',$('#eqFTP-SettingsFolder').val());
         }else{
-            eqFTP.globals.prefs.set('defaultSettingsPath',ExtensionUtils.getModulePath(module));
+            eqFTP.globals.prefs.set('defaultSettingsPath',tmp_defaultUsersDir));
         }
         if($('#eqFTP-useEncryption').is(':checked')) {
             eqFTP.globals.prefs.set('useEncryption',true);
