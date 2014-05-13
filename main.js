@@ -879,7 +879,6 @@ define(function (require, exports, module) {
                 //var ftpPromise = nodeConnection.domains.bracketsftp.getDirectorySFTP(eqFTP.globals.currentRemoteDirectory, ftp);
             } else {
                 $('#eqFTPLoading').show();
-                console.log("[Lets see] I just asked jsftp for this path: <"+eqFTP.globals.currentRemoteDirectory+"> using this credits: "+JSON.stringify(ftp));
                 var ftpPromise = nodeConnection.domains.bracketsftp.getDirectory({
                     path: eqFTP.globals.currentRemoteDirectory, 
                     connection: ftp
@@ -1497,7 +1496,6 @@ define(function (require, exports, module) {
         });
         
         $(nodeConnection).on("bracketsftp.getDirectory", function (event, result) {
-            console.log("[Lets see] And jsftp answered this: "+JSON.stringify(result));
             var files = JSON.parse(result.files);
             var sanitizedFolders = new Array();
             var sanitizedFiles = new Array();
