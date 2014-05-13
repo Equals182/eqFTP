@@ -1,10 +1,10 @@
 {
 	"name": "equals182.eqftp",
 	"title": "eqFTP",
-	"version": "0.2.3",
+	"version": "0.2.4",
 	"description": "FTP client for Brackets",
 	"homepage": "https://github.com/Equals182/eqFTP",
-	"author": "Alexander <equals182@gmail.com> (http://en.equals182.com)",
+	"author": "Alexander <equals182@gmail.com>",
 	"license": "MIT",
 	"categories": ["livedev","external"],
 	"keywords": ["FTP","Sync"],
