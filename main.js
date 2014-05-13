@@ -19,7 +19,7 @@
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
  *
- * versions 0.2.1-0.2.5
+ * versions 0.2.1-0.2.6
  * - Fixing the bug with .eqFTP-note file
  * - Fixing files downloading bug
  * - Changed default projects folder
@@ -79,10 +79,12 @@ define(function (require, exports, module) {
     /*
     * Here we set some global variables we'll use in future. Lasers. Hovercars. 
     */
-    var tmp_defaultUsersDir = brackets.app.getUserDocumentsDirectory() + "/" + "eqFTP Projects";
+    var defaultUsersDir = brackets.app.getUserDocumentsDirectory();
+    var defaultProjectsDir = defaultUsersDir+"/eqFTP Projects";
+    FileSystem.getDirectoryForPath(defaultProjectsDir).create();
     
     eqFTP.globals = {
-        globalFtpDetails: {'main':{folderToProjects:tmp_defaultUsersDir},'ftp':[]},
+        globalFtpDetails: {'main':{folderToProjects:defaultProjectsDir},'ftp':[]},
         remoteStructure: [],
         currentRemoteRoot: '',
         currentLocalRoot: "",
@@ -92,7 +94,7 @@ define(function (require, exports, module) {
         eqFTPNoteFilename: ".eqFTP-note",
         currentRemoteDirectory: '',
         masterPassword: null,
-        defaultSettingsPath: tmp_defaultUsersDir,
+        defaultSettingsPath: defaultProjectsDir,
         prefs: PreferencesManager.getExtensionPrefs("eqFTP"),
         useEncryption: false,
         ftpLoaded: false,
@@ -104,7 +106,7 @@ define(function (require, exports, module) {
         processQueue: []
     };
     
-    eqFTP.globals.prefs.definePreference("defaultSettingsPath", "string", eqFTP.globals.defaultSettingsPath);
+    eqFTP.globals.prefs.definePreference("defaultSettingsPathPref", "string", eqFTP.globals.defaultSettingsPath);
     eqFTP.globals.prefs.definePreference("useEncryption", "string", "false");
     var tmp_defaultSettingsPath = eqFTP.globals.prefs.get("defaultSettingsPath");
     if(tmp_defaultSettingsPath!=undefined && tmp_defaultSettingsPath!="") {
@@ -112,7 +114,7 @@ define(function (require, exports, module) {
     }
     
     eqFTP.globals.prefs.on("change", function () {
-        eqFTP.globals.defaultSettingsPath = eqFTP.globals.prefs.get("defaultSettingsPath");
+        eqFTP.globals.defaultSettingsPath = eqFTP.globals.prefs.get("defaultSettingsPathPref");
         eqFTP.globals.useEncryption = eqFTP.globals.prefs.get("useEncryption");
         if(eqFTP.globals.useEncryption == true && eqFTP.globals.masterPassword==null) {
             //masterPassword = callPasswordDialog();
@@ -733,7 +735,7 @@ define(function (require, exports, module) {
                         params.pass = pass;
                         return doThis(params);
                     }else{
-                        eqFTP.globals.globalFtpDetails = {'main':{folderToProjects:tmp_defaultUsersDir},'ftp':[]};
+                        eqFTP.globals.globalFtpDetails = {'main':{folderToProjects:defaultProjectsDir},'ftp':[]};
                         eqFTP.serviceFunctions.ftpLoaded(true);
                         callback(false);
                     }
@@ -1173,9 +1175,9 @@ define(function (require, exports, module) {
         }
         
         if($('#eqFTP-SettingsFolder').val()!="") {
-            eqFTP.globals.prefs.set('defaultSettingsPath',$('#eqFTP-SettingsFolder').val());
+            eqFTP.globals.prefs.set('defaultSettingsPathPref',$('#eqFTP-SettingsFolder').val());
         }else{
-            eqFTP.globals.prefs.set('defaultSettingsPath',tmp_defaultUsersDir);
+            eqFTP.globals.prefs.set('defaultSettingsPathPref',defaultProjectsDir);
         }
         if($('#eqFTP-useEncryption').is(':checked')) {
             eqFTP.globals.prefs.set('useEncryption',true);
