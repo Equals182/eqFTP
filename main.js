@@ -19,8 +19,10 @@
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
  *
- * version 0.2.2
- * - fixes eqFTP-note bug
+ * versions 0.2.1-0.2.4
+ * - Fixing the bug with .eqFTP-note file
+ * - Fixing files downloading bug
+ * - Changed default projects folder
  * 
  * version 0.2.0
  * - Improved queueing (should work faster)
