@@ -1,6 +1,19 @@
 eqFTP
 =====
 
+## Super serious thing you need to know
+
+> Uh.. Well if you updated to 0.2.6 version your setting for `Folder for Settings` was changed with path to `eqFTP Projects` folder.
+> It's okay. It was necessary, trust me. If you earlier set a different folder for this setting then your ftp connection are saved. If not - you need to set them up again and backup them by copying `.remotesettings` file somewhere.
+> 
+> **For those who did changed path earlier:**
+>  1. Copy `.remotesettings` file from your old place to another safe place.
+>  2. Then set `Folder for Settings` to your path
+>  3. Apply settings (don't forget to turn on safety if you used it before and your `.remotesettings` file is encrypted and use same password)
+>  4. Exit Brackets
+>  5. Copy `.remotesettings` file to path that you set on step 2.
+>  6. Start Brackets
+
 FTP integration for Brackets code editor.
 
 This extension brings simple FTP support to Brackets.
@@ -22,7 +35,7 @@ It's really basic and I hope you'll enjoy this extension. [Click here for more i
 
 This extenstion supports data encryption. To enable this feature check it in settings dialog. [Click here for more information](https://github.com/Equals182/eqFTP/wiki/Setting-Up#start).
 
-**This extension is SO fresh so please use it carefully, and if you find a bug [tweet me @Equals182](https://twitter.com/Equals182)**
+**This extension is SO fresh so please use it carefully, and if you find a bug [create an issue now](https://github.com/Equals182/eqFTP/issues/new)**
 
 ## What's Next
 
