@@ -80,6 +80,7 @@ define(function (require, exports, module) {
     * Here we set some global variables we'll use in future. Lasers. Hovercars. 
     */
     var tmp_defaultUsersDir = brackets.app.getUserDocumentsDirectory() + "/" + "eqFTP Projects";
+    
     eqFTP.globals = {
         globalFtpDetails: {'main':{folderToProjects:tmp_defaultUsersDir},'ftp':[]},
         remoteStructure: [],
@@ -1174,7 +1175,7 @@ define(function (require, exports, module) {
         if($('#eqFTP-SettingsFolder').val()!="") {
             eqFTP.globals.prefs.set('defaultSettingsPath',$('#eqFTP-SettingsFolder').val());
         }else{
-            eqFTP.globals.prefs.set('defaultSettingsPath',tmp_defaultUsersDir));
+            eqFTP.globals.prefs.set('defaultSettingsPath',tmp_defaultUsersDir);
         }
         if($('#eqFTP-useEncryption').is(':checked')) {
             eqFTP.globals.prefs.set('useEncryption',true);
