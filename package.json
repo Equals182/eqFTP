@@ -2,11 +2,7 @@
 	"name": "equals182.eqftp",
 	"title": "eqFTP",
 	"version": "0.2.6",
-<<<<<<< HEAD
 	"description": "FTP client for Brackets. THERE IS IMPORTANT UPDATE. CLICK READ MORE.",
-=======
-	"description": "FTP client for Brackets.",
->>>>>>> f7b7d2fe37ead64127643eead3efb050b6fa8adb
 	"homepage": "https://github.com/Equals182/eqFTP",
 	"author": "Alexander <equals182@gmail.com>",
 	"license": "MIT",
