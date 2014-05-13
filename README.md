@@ -49,6 +49,10 @@ I'm thinking about this:
 
 ## Version History
 
+>Please don't kick my ass for updating extension so often. I just want to fix every bug that was found.
+>
+>If I fix something critical I throw update on registry and for that I need to increase version number (I'm trying to follow [Semantic Versioning](http://semver.org/)). If update is too minor and it's not critical enough for extension work, I'll just wait till it get bigger or till weekends.
+
 * 0.2.1-0.2.4 (5/12/14) 
  * Fixing the bug with .eqFTP-note file
  * Fixing files downloading bug
