@@ -54,12 +54,14 @@ maxerr: 50, node: true */
             port: params.connection.port
         });
         
+        console.log("[Lets see] I'm ftpDomain and I got: "+JSON.stringify(params));
         client.auth(params.connection.username, params.connection.password, function (err, res) {
             if (err) {
                 console.error("[eqFTP-ftpDomain] There was an error with authorization while trying to get directory.");
                 console.error(err);
                 _domainManager.emitEvent("bracketsftp", "uploadResult", "autherror");
             } else {
+                console.log("[Lets see] ftpDomain There was no errors with auth");
                 if(params.recursive) {
                     params.client = client;
                     params.callback = function(files) {
@@ -73,6 +75,7 @@ maxerr: 50, node: true */
                     getDirectoryRecursive(params);
                 }else{
                     client.ls(params.path, function (err, files) {
+                        console.log("[Lets see] ftpDomain I got directory: "+JSON.stringify(files));
                         var arrayString = JSON.stringify(files);
                         _domainManager.emitEvent("bracketsftp", "getDirectory", {err:err, files:[arrayString]});
                     });
