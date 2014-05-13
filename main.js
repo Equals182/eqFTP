@@ -76,7 +76,7 @@ define(function (require, exports, module) {
     /*
     * Here we set some global variables we'll use in future. Lasers. Hovercars. 
     */
-    var tmp_defaultUsersDir = FileUtils.getNativeBracketsDirectoryPath() + "/" + "Projects";
+    var tmp_defaultUsersDir = brackets.app.getUserDocumentsDirectory() + "/" + "eqFTP Projects";
     eqFTP.globals = {
         globalFtpDetails: {'main':{folderToProjects:tmp_defaultUsersDir},'ftp':[]},
         remoteStructure: [],
