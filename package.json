@@ -2,7 +2,7 @@
 	"name": "equals182.eqftp",
 	"title": "eqFTP",
 	"version": "0.2.6",
-	"description": "FTP client for Brackets. PLEASE SET YOUR OWN FOLDER FOR SETTING FILE IF YOU DIDN'T DONE IT BEFORE. IT IS VERY IMPORTANT TO SET IT NOW IF YOU DON'T WANT YOUR SETTINGS TO BE ERASED.",
+	"description": "FTP client for Brackets.",
 	"homepage": "https://github.com/Equals182/eqFTP",
 	"author": "Alexander <equals182@gmail.com>",
 	"license": "MIT",
