@@ -49,9 +49,10 @@ I'm thinking about this:
 
 ## Version History
 
-* 0.2.1-0.2.3 (5/12/14) 
+* 0.2.1-0.2.4 (5/12/14) 
  * Fixing the bug with .eqFTP-note file
  * Fixing files downloading bug
+ * Changed default projects folder
 * 0.2.0 (5/11/14)
  * Improved queueing (should work faster)
  * Directory downloading in both ways
