@@ -35,7 +35,7 @@ It's really basic and I hope you'll enjoy this extension. [Click here for more i
 
 ## Please Note
 
-This extenstion supports data encryption. To enable this feature check it in settings dialog. [Click here for more information](https://github.com/Equals182/eqFTP/wiki/Setting-Up#start).
+This extenstion supports data encryption. To enable this feature check it in settings dialog. [Click here for more information](https://github.com/Equals182/eqFTP/wiki/1.1.-Setting-Up#store-passwords-safely).
 
 **This extension is SO fresh so please use it carefully, and if you find a bug [create an issue now](https://github.com/Equals182/eqFTP/issues/new)**
 
