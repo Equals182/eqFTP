@@ -19,6 +19,11 @@
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
  *
+ * version 0.2.7
+ * - Correct remote root recognition
+ * - Better error handling. It's not crushing now. Wow.
+ * - Minor but still important bugfixes
+ * 
  * versions 0.2.1-0.2.6
  * - Fixing the bug with .eqFTP-note file
  * - Fixing files downloading bug
