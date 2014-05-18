@@ -19,6 +19,9 @@
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
  *
+ * version 0.3.0
+ * - Multilaguage Support (Contribute with translating!)
+ * 
  * version 0.2.7
  * - Correct remote root recognition
  * - Better error handling. It's not crushing now. Wow.
@@ -34,12 +37,6 @@
  * - Improved queueing (should work faster)
  * - Directory downloading in both ways
  * - Code refactoring
- * 
- * version 0.1.0
- * - Added progress bar for queue
- * - Lots of queue improvements
- * - Better errors handling
- * - Checking filesize before trying opening it
  * 
  */
 
@@ -66,8 +63,8 @@ define(function (require, exports, module) {
         ProjectManager = brackets.getModule("project/ProjectManager"),
         FileSystem  = brackets.getModule("filesystem/FileSystem"),
         FileUtils = brackets.getModule("file/FileUtils"),
-        Strings = brackets.getModule("strings"),
         PreferencesManager = brackets.getModule("preferences/PreferencesManager"),
+        eqFTPstrings = require("strings"),
         eqFTPToolbarTemplate = require("text!htmlContent/eqFTP-toolbar.html"),
         eqFTPModalTemplate = require("text!htmlContent/eqFTP-modal.html"),
         eqFTPPasswordTemplate = require("text!htmlContent/eqFTP-password.html"),
@@ -81,13 +78,19 @@ define(function (require, exports, module) {
         currentQueueTask,
         queuePanel = false;
     
+    eqFTPSettingsTemplate = Mustache.render(eqFTPSettingsTemplate, eqFTPstrings);
+    eqFTPPasswordTemplate = Mustache.render(eqFTPPasswordTemplate, eqFTPstrings);
+    eqFTPModalTemplate = Mustache.render(eqFTPModalTemplate, eqFTPstrings);
+    eqFTPToolbarTemplate = Mustache.render(eqFTPToolbarTemplate, eqFTPstrings);
+    eqFTPQueueTemplate = Mustache.render(eqFTPQueueTemplate, eqFTPstrings);
+
     /*
     * Here we set some global variables we'll use in future. Lasers. Hovercars. 
     */
     var defaultUsersDir = brackets.app.getUserDocumentsDirectory();
     var defaultProjectsDir = defaultUsersDir+"/eqFTP Projects";
     FileSystem.getDirectoryForPath(defaultProjectsDir).create();
-    
+
     eqFTP.globals = {
         globalFtpDetails: {'main':{folderToProjects:defaultProjectsDir},'ftp':[]},
         remoteStructure: [],
@@ -158,7 +161,7 @@ define(function (require, exports, module) {
         t.removeClass('eqFTP-error');
         if(tmp=="") {
             t.addClass('eqFTP-error');
-            eqFTP.serviceFunctions.triggerSettingsNotification({type:'error', state:true, text: 'Oh! Looks like something gone wrong. Check input fields and try again.'});
+            eqFTP.serviceFunctions.triggerSettingsNotification({type:'error', state:true, text: eqFTPstrings.SETTINGSWIND_ERR_BLANKS});
             return false;
         }
         return true;
@@ -245,7 +248,7 @@ define(function (require, exports, module) {
                 $('#eqFTP-serverChoosing').hide();
                 $('#eqFTP-openSettingsWindow').hide();
                 $('#eqFTPLoading').show();
-                $('#eqFTPLoading').hide().after('<span id="eqFTPLoadingFailed">Loading failed :(</span>');
+                $('#eqFTPLoading').hide().after('<span id="eqFTPLoadingFailed">'+eqFTPstrings.ERR_LOADING+'</span>');
                 $('#toolbar-eqFTP').addClass('disabled');
                 $("#eqFTPQueueIndicator").addClass('disabled');
             }
@@ -314,7 +317,7 @@ define(function (require, exports, module) {
         },
         redrawRemoteModalServerList: function() {
             $('#eqFTP-serverChoosing').html('');
-            $('#eqFTP-serverChoosing').append('<option disabled selected value="">Select Remote Server to Connect...</option><option disabled>------------------------------</option>');
+            $('#eqFTP-serverChoosing').append('<option disabled selected value="">'+eqFTPstrings.OTHER_SELECT_SERVER_DROPDOWN+'</option><option disabled>------------------------------</option>');
             var i=0;
             if(eqFTP.globals.globalFtpDetails.ftp.length>0) {
                 $.each(eqFTP.globals.globalFtpDetails.ftp,function() {
@@ -435,11 +438,11 @@ define(function (require, exports, module) {
             if(eqFTP.globals.globalFtpDetails.ftp.length>0) {
                 $.each(eqFTP.globals.globalFtpDetails.ftp,function() {
                     var t = this;
-                    $('#eqFTPAllServerList').append('<li data-eqFTP-openSettings="'+i+'"><i class="eqFTP-icon-close eqFTP-icon" style="vertical-align:middle; margin-right:5px; margin-left:-10px;" title="Delete This Connection"></i>'+t.connectionName+'</li>');
+                    $('#eqFTPAllServerList').append('<li data-eqFTP-openSettings="'+i+'"><i class="eqFTP-icon-close eqFTP-icon" style="vertical-align:middle; margin-right:5px; margin-left:-10px;" title="'+eqFTPstrings.SETTINGSWIND_DELETECONN_HOVER+'"></i>'+t.connectionName+'</li>');
                     i++;
                 });
             }
-            $('#eqFTPAllServerList').append('<li data-eqFTP-addConnection="'+eqFTP.globals.globalFtpDetails.ftp.length+'"><i class="eqFTP-icon-plus eqFTP-icon" style="vertical-align:middle; margin-right:5px; margin-left:-10px;" title="Add New Connection"></i>Create New Connection...</li>');
+            $('#eqFTPAllServerList').append('<li data-eqFTP-addConnection="'+eqFTP.globals.globalFtpDetails.ftp.length+'"><i class="eqFTP-icon-plus eqFTP-icon" style="vertical-align:middle; margin-right:5px; margin-left:-10px;" title="'+eqFTPstrings.SETTINGSWIND_ADDCONN_HOVER+'"></i>'+eqFTPstrings.SETTINGSWIND_ADDCONN_STRING+'</li>');
             var id = parseInt($('#eqFTP-connectionID').val());
             if(!isNaN(id)) {
                 $('*[data-eqFTP-opensettings='+id+']').addClass('clicked');
@@ -518,7 +521,7 @@ define(function (require, exports, module) {
                         var percent = status;
                         status+="%";
                     }else if(this.status == undefined) {
-                        var status = "Waiting";
+                        var status = eqFTPstrings.OTHER_WAITING;
                     }
                     trs +=  "<tr class='transferring'>"+
                                 "<td class='name' width='30%'><span title='"+this.name+"'>"+this.name+"</span></td>"+
@@ -535,11 +538,11 @@ define(function (require, exports, module) {
                         var path = this.localPath;
                     }
                     if(this.status == undefined) {
-                        var status = 'Waiting';
+                        var status = eqFTPstrings.OTHER_WAITING;
                     }else if(this.status) {
-                        var status = 'Completed';
+                        var status = eqFTPstrings.OTHER_COMPLETED;
                     }else{
-                        var status = 'Error';
+                        var status = eqFTPstrings.OTHER_ERROR;
                     }
                     trs +=  "<tr class='automatic'>"+
                                 "<td class='name' width='30%'><span title='"+this.name+"'>"+this.name+"</span></td>"+
@@ -555,7 +558,7 @@ define(function (require, exports, module) {
                     }else if(this.direction == 'upload'){
                         var path = this.localPath;
                     }
-                    var status = 'Paused';
+                    var status = eqFTPstrings.OTHER_PAUSED;
                     trs +=  "<tr class='paused'>"+
                                 "<td class='name' width='30%'><span title='"+this.name+"'>"+this.name+"</span></td>"+
                                 "<td class='path' width='30%'><span title='"+path+"'>"+path+"</span></td>"+
@@ -570,7 +573,7 @@ define(function (require, exports, module) {
                     }else if(this.direction == 'upload'){
                         var path = this.localPath;
                     }
-                    var status = 'Error';
+                    var status = eqFTPstrings.OTHER_ERROR;
                     if(this.status) {
                         status = this.status;
                     }
@@ -588,7 +591,7 @@ define(function (require, exports, module) {
                     }else if(this.direction == 'upload'){
                         var path = this.localPath;
                     }
-                    var status = 'Completed';
+                    var status = eqFTPstrings.OTHER_COMPLETED;
                     trs +=  "<tr class='paused'>"+
                                 "<td class='name' width='30%'><span title='"+this.name+"'>"+this.name+"</span></td>"+
                                 "<td class='path' width='30%'><span title='"+path+"'>"+path+"</span></td>"+
@@ -596,7 +599,7 @@ define(function (require, exports, module) {
                             "</tr>";
                 }
             });
-            var thead = "<thead><tr><th>Name</th><th>Path</th><th>Status</th></tr></thead>";
+            var thead = "<thead><tr><th>"+eqFTPstrings.QUEUE_HEADER_NAME+"</th><th>"+eqFTPstrings.QUEUE_HEADER_PATH+"</th><th>"+eqFTPstrings.QUEUE_HEADER_STATUS+"</th></tr></thead>";
             var html = "<table>"+thead+trs+"</table>";
             $('#eqFTPQueueHolder .table-container').html(html);
         },
@@ -1117,11 +1120,11 @@ define(function (require, exports, module) {
     $('body').on('click','.eqFTP-icon-close',function() {
         var id = parseInt($(this).parent().attr('data-eqFTP-openSettings'));
         if(!isNaN(id)) {
-            var r=confirm("Please confirm deletion of \""+eqFTP.globals.globalFtpDetails.ftp[id].connectionName+"\" connection.");
+            var r=confirm(eqFTPstrings.SETTINGSWIND_DELETECONNCONF_1+'"'+eqFTP.globals.globalFtpDetails.ftp[id].connectionName+'"'+eqFTPstrings.SETTINGSWIND_DELETECONNCONF_2);
             if (r==true) {
                 eqFTP.globals.globalFtpDetails.ftp.splice(id,1);
                 eqFTP.saveGlobalRemoteSettings();
-                eqFTP.serviceFunctions.triggerSettingsNotification({type:"notification",state:true,text:"Everything's saved! :)"});
+                eqFTP.serviceFunctions.triggerSettingsNotification({type:"notification",state:true,text:eqFTPstrings.SETTINGSWIND_NOTIF_DONE});
                 eqFTP.serviceFunctions.showSettingsWindow();
                 eqFTP.serviceFunctions.switchToMainSettings();
             }
@@ -1196,11 +1199,11 @@ define(function (require, exports, module) {
         
         var tmp = eqFTP.saveGlobalRemoteSettings();
         if(tmp==true) {
-            eqFTP.serviceFunctions.triggerSettingsNotification({type:"notification",state:true,text:"Everything's saved! :)"});
+            eqFTP.serviceFunctions.triggerSettingsNotification({type:"notification",state:true,text:eqFTPstrings.SETTINGSWIND_NOTIF_DONE});
             eqFTP.serviceFunctions.showSettingsWindow();
             eqFTP.serviceFunctions.redrawRemoteModalServerList();
         }else{
-            eqFTP.serviceFunctions.triggerSettingsNotification({type:"error",state:true,text:"Something gone totally wrong! I can't write settings to file!"});
+            eqFTP.serviceFunctions.triggerSettingsNotification({type:"error",state:true,text:eqFTPstrings.SETTINGSWIND_ERR_CANTWRITE});
         }
     });
     
@@ -1255,7 +1258,7 @@ define(function (require, exports, module) {
         * Preparing Context Menus' commands
         */
 
-        CommandManager.register("Download", "eqftp.downloadFile", function() { 
+        CommandManager.register(eqFTPstrings.CONTEXTM_DOWNLOAD, "eqftp.downloadFile", function() { 
             var name = tmp_modalClickedItem.find('.eqFTPModalItemTitle:first').text();
             var remotePath = tmp_modalClickedItem.attr('data-path');
             if(tmp_modalClickedItem.hasClass('eqFTP-folder')) {
@@ -1277,7 +1280,7 @@ define(function (require, exports, module) {
                 ]);
             }
         });
-        CommandManager.register("Open", "eqftp.downloadFileAndOpen", function() { 
+        CommandManager.register(eqFTPstrings.CONTEXTM_OPEN, "eqftp.downloadFileAndOpen", function() { 
             var name = tmp_modalClickedItem.find('.eqFTPModalItemTitle:first').text();
             var remotePath = tmp_modalClickedItem.attr('data-path');
             eqFTP.ftpFunctions.addToQueue([
@@ -1291,7 +1294,7 @@ define(function (require, exports, module) {
                 }
             ]);
         });
-        CommandManager.register("Add to Queue", "eqftp.addToPausedQueue-d", function() {
+        CommandManager.register(eqFTPstrings.CONTEXTM_ADDQUEUE, "eqftp.addToPausedQueue-d", function() {
             var remotePath = tmp_modalClickedItem.attr('data-path');
             var name = tmp_modalClickedItem.find('.eqFTPModalItemTitle:first').text();
             if(tmp_modalClickedItem.hasClass('eqFTP-folder')) {
@@ -1313,7 +1316,7 @@ define(function (require, exports, module) {
                 ]);
             }
         });
-        CommandManager.register("Start Task", "eqftp.startQueue", function() {
+        CommandManager.register(eqFTPstrings.QUEUE_CONTEXTM_STARTQ, "eqftp.startQueue", function() {
             queuePaused = false;
             var tmpQ = [];
             $.each(eqFTP.globals.pausedQueue, function() {
@@ -1324,14 +1327,14 @@ define(function (require, exports, module) {
             eqFTP.ftpFunctions.addToQueue(tmpQ);
             eqFTP.globals.pausedQueue = [];
         });
-        CommandManager.register("Pause Task", "eqftp.pauseQueue", function() { 
+        CommandManager.register(eqFTPstrings.QUEUE_CONTEXTM_PAUSEQ, "eqftp.pauseQueue", function() { 
             queuePaused = true;
             nodeConnection.domains.eqFTP.queueControl({action:"pause",pause:queuePaused});
             if(queuePanel) {
                 eqFTP.serviceFunctions.redrawQueue();
             }
         });
-        CommandManager.register("Clear Queue", "eqftp.clearQueue", function() { 
+        CommandManager.register(eqFTPstrings.QUEUE_CONTEXTM_CLEARQ, "eqftp.clearQueue", function() { 
             eqFTP.globals.pausedQueue = [];
             eqFTP.globals.automaticQueue = [];
             eqFTP.globals.successedQueue = [];
@@ -1342,19 +1345,19 @@ define(function (require, exports, module) {
             }
             nodeConnection.domains.eqFTP.queueControl({action:"clear"});
         });
-        CommandManager.register("Clear Complited Tasks", "eqftp.clearComplitedQueue", function() { 
+        CommandManager.register(eqFTPstrings.QUEUE_CONTEXTM_CLEARCOMPQ, "eqftp.clearComplitedQueue", function() { 
             eqFTP.globals.successedQueue = [];
             if(queuePanel) {
                 eqFTP.serviceFunctions.redrawQueue();
             }
         });
-        CommandManager.register("Clear Failed Tasks", "eqftp.clearFailedQueue", function() { 
+        CommandManager.register(eqFTPstrings.QUEUE_CONTEXTM_CLEARFAILQ, "eqftp.clearFailedQueue", function() { 
             eqFTP.globals.failedQueue = [];
             if(queuePanel) {
                 eqFTP.serviceFunctions.redrawQueue();
             }
         });
-        CommandManager.register("Restart Failed Tasks", "eqftp.resetFailedQueue", function() {
+        CommandManager.register(eqFTPstrings.QUEUE_CONTEXTM_RESTARTFAILQ, "eqftp.resetFailedQueue", function() {
             $.each(eqFTP.globals.failedQueue,function(i,e) {
                 eqFTP.globals.failedQueue[i].queue = "automatic";
             });
@@ -1364,7 +1367,7 @@ define(function (require, exports, module) {
                 eqFTP.serviceFunctions.redrawQueue();
             }
         });        
-        CommandManager.register("Add to Queue", "eqftp.addToPausedQueue-u", function() {
+        CommandManager.register(eqFTPstrings.CONTEXTM_ADDQUEUE, "eqftp.addToPausedQueue-u", function() {
             var fileEntry = ProjectManager.getSelectedItem();
             if(fileEntry.isDirectory) {
                 var localPath = fileEntry._path;
@@ -1401,7 +1404,7 @@ define(function (require, exports, module) {
                 }
             }
         });
-        CommandManager.register("Upload", "eqftp.addToAutomaticQueue-u", function() {
+        CommandManager.register(eqFTPstrings.CONTEXTM_UPLOAD, "eqftp.addToAutomaticQueue-u", function() {
             var fileEntry = ProjectManager.getSelectedItem();
             if(fileEntry.isDirectory) {
                 var localPath = fileEntry._path;
@@ -1444,10 +1447,9 @@ define(function (require, exports, module) {
         * Creating Queue Manager
         */
         
-        var eqFTPQueueHTML = Mustache.render(eqFTPQueueTemplate, Strings);
-        var eqFTPQueue = PanelManager.createBottomPanel("eqFTP.eqFTPQueue", $(eqFTPQueueHTML), 200);
+        var eqFTPQueue = PanelManager.createBottomPanel("eqFTP.eqFTPQueue", $(eqFTPQueueTemplate), 200);
         
-        var eqFTPQueueButton = "<div id='eqFTPQueueIndicator' title='eqFTP Queue' class='disabled'>eqFTP Queue</div>";
+        var eqFTPQueueButton = "<div id='eqFTPQueueIndicator' title='"+eqFTPstrings.QUEUE_TITLE_HOVER+"' class='disabled'>"+eqFTPstrings.QUEUE_TITLE+"</div>";
         $(eqFTPQueueButton).insertBefore("#status-language");
         StatusBar.addIndicator('eqFTPQueueIndicator', $("#eqFTPQueueIndicator"), true);
                 
@@ -1567,7 +1569,6 @@ define(function (require, exports, module) {
                 state:      'opened'
             });
     
-            //var html = Mustache.render(FileBrowserTemplate, {ftpFileList: remoteStructure[connectedServer]});
             eqFTP.serviceFunctions.redrawFileTree();
             $('#eqFTPLoading').hide();
         });
@@ -1594,12 +1595,12 @@ define(function (require, exports, module) {
         $(nodeConnection).on("eqFTP.otherEvents", function (event, params) {
             if(params.event=='connectError') {
                 if(params.err.code=="ENOTFOUND") {
-                    Dialogs.showModalDialog('DIALOG_ID_ERROR',"Server Doesn't Exist", "Looks like this server doesn't exist.<br>Check Server filed in connection settings.");
+                    Dialogs.showModalDialog('DIALOG_ID_ERROR',eqFTPstrings.ERR_DIAG_SERVNOEXIST_TITLE, eqFTPstrings.ERR_DIAG_SERVNOEXIST_CONTENT);
                 }else if(params.err.code=="EACCES") {
-                    Dialogs.showModalDialog('DIALOG_ID_ERROR',"Can't Reach Server", "I just can't reach server.<br>Maybe your Firewall don't let me do this.");
+                    Dialogs.showModalDialog('DIALOG_ID_ERROR',eqFTPstrings.ERR_DIAG_SERVCANTREACH_TITLE, eqFTPstrings.ERR_DIAG_SERVCANTREACH_CONTENT);
                 }
             }else if(params.event="authError") {
-                Dialogs.showModalDialog('DIALOG_ID_ERROR',"Incorrect Authorization Data", "I can't authorize with those login and password you gave me.<br>Please check them.");
+                Dialogs.showModalDialog('DIALOG_ID_ERROR',eqFTPstrings.ERR_DIAG_AUTHORIZEERR_TITLE, eqFTPstrings.ERR_DIAG_AUTHORIZEERR_CONTENT);
             }
             $('#eqFTPLoading').hide();
         });
@@ -1663,22 +1664,21 @@ define(function (require, exports, module) {
             }else if(params.status == "uploadError") {
                 eqFTP.globals.failedQueue.unshift(item);
             }else if(params.status == "downloadError") {
-                item.status = "Error "+params.element.status.code+".";
+                item.status = eqFTPstrings.OTHER_ERROR+" "+params.element.status.code+".";
                 if(params.element.status.code==550) {
-                    item.status += " Access denied. Check file's permissions.";
+                    item.status += " "+eqFTPstrings.ERR_FILE_ACCESSDENIED;
                 }
                 eqFTP.globals.failedQueue.unshift(item);
             }else if(params.status == "downloadFilesize0") {
                 eqFTP.globals.failedQueue.unshift(item);
             }else if(params.status == "authError") {
-                item.status = "Authorization Error. Check your login & password.";
+                item.status = eqFTPstrings.ERR_FILE_AUTHORIZATION;
                 eqFTP.globals.failedQueue.unshift(item);
             }else if(params.status == "connectError") {
                 if(params.err.code=="ENOTFOUND") {
-                    item.status = "Server Doesn't Exist. Maybe you mistyped it.";
+                    item.status = eqFTPstrings.ERR_FILE_SERVNOEXIST;
                 }else if(params.err.code=="EACCES") {
-                    item.status = "Can't Reach Server. Check Firewall.";
-                    Dialogs.showModalDialog('DIALOG_ID_ERROR',"Can't Reach Server", "I just can't reach server.<br>Maybe your Firewall don't let me do this.");
+                    item.status = eqFTPstrings.ERR_FILE_SERVCANTREACH;
                 }
                 eqFTP.globals.failedQueue.unshift(item);
             }

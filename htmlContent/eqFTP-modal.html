@@ -1,7 +1,7 @@
 <div id="eqFTP-project-dialog" class="eqFTP-settings template modal detached-modal">
     <div class="modal-header">
-        <h1 class="dialog-title">Remote Server</h1>
-        <a href="#" id="eqFTP-openSettingsWindow" title="Open Connection Manager" style="display:none;"></a>
+        <h1 class="dialog-title">{{SIDEPANEL_TITLE}}</h1>
+        <a href="#" id="eqFTP-openSettingsWindow" title="{{SIDEPANEL_OPENCONNMANGR}}" style="display:none;"></a>
         <select id="eqFTP-serverChoosing" style="display:none;">
             
         </select>
@@ -12,10 +12,10 @@
             <div>
                 <ul class="eqFTPFileTreeHolder">
                     <li class="eqFTPFileTreeRow header">
-                        <div class="eqFTPFileTreeCell eqFTPTableNamecol eqFTPFileTreeHeader">Name</div>
-                        <div class="eqFTPFileTreeCell eqFTPTableSizecol eqFTPFileTreeHeader">Size</div>
-                        <div class="eqFTPFileTreeCell eqFTPTableTypecol eqFTPFileTreeHeader">Type</div>
-                        <div class="eqFTPFileTreeCell eqFTPTableLUcol eqFTPFileTreeHeader">Modified</div>
+                        <div class="eqFTPFileTreeCell eqFTPTableNamecol eqFTPFileTreeHeader">{{SIDEPANEL_FILETREE_NAME}}</div>
+                        <div class="eqFTPFileTreeCell eqFTPTableSizecol eqFTPFileTreeHeader">{{SIDEPANEL_FILETREE_SIZE}}</div>
+                        <div class="eqFTPFileTreeCell eqFTPTableTypecol eqFTPFileTreeHeader">{{SIDEPANEL_FILETREE_TYPE}}</div>
+                        <div class="eqFTPFileTreeCell eqFTPTableLUcol eqFTPFileTreeHeader">{{SIDEPANEL_FILETREE_MODIFIED}}</div>
                     </li>
                 </ul>
             </div>
@@ -25,8 +25,8 @@
         </div>
     </div>
     <div class="modal-footer">
-        <span id="eqFTPConnectionControl" class="eqFTPtoolbarBottomIcons" title="(Dis)connect"></span>
-        <span id="eqFTPRefresh" class="eqFTPtoolbarBottomIcons" title="Refresh"></span>
-        <span id="eqFTPSettingsRefresh" class="eqFTPtoolbarBottomIcons" title="Reload Settings & Re-enter Password"></span>
+        <span id="eqFTPConnectionControl" class="eqFTPtoolbarBottomIcons" title="{{SIDEPANEL_CONDISCONNECT}}"></span>
+        <span id="eqFTPRefresh" class="eqFTPtoolbarBottomIcons" title="{{SIDEPANEL_REFRESH}}"></span>
+        <span id="eqFTPSettingsRefresh" class="eqFTPtoolbarBottomIcons" title="{{SIDEPANEL_RELOADSETTINGS}}"></span>
     </div>
 </div>

@@ -3,6 +3,8 @@ eqFTP
 
 ### [Important thing you need to know after *updating* from 0.2.5- to 0.2.6+ version](https://github.com/Equals182/eqFTP/wiki/1.5-Troubleshooting#i-just-updated-to-new-version-and-all-my-saved-settings-are-gone-now)
 
+### [Contribute with translating!](placeholder)
+
 FTP integration for Brackets code editor.
 
 This extension brings simple FTP support to Brackets.
@@ -36,7 +38,6 @@ I'm thinking about this:
 
 * SFTP -- well, this feature is dead now
 * Sync -- like REAL sync (gotta figure it out)
-* Multi-language support
 * More UI integration
 * Open only readable by Brackets files (extension)
 * Auto-moving all projects from old default directory to new
@@ -55,6 +56,8 @@ I'm thinking about this:
 >
 >If I fix something critical I throw update on registry and for that I need to increase version number (I'm trying to follow [Semantic Versioning](http://semver.org/)). If update is too minor and it's not critical enough for extension work, I'll just wait till it get bigger or till weekends.
 
+* 0.3.0 (5/16/14)
+ * Multilaguage Support (Contribute with translating!)
 * 0.2.7 (5/18/14)
  * Correct remote root recognition
  * Better error handling. It's not crushing now. Wow.
