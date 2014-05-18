@@ -1,4 +1,4 @@
-#toolbar-bracketsftp{
+#toolbar-eqFTP{
     display:inline-block;
     width:16px;
     height:16px;
@@ -7,27 +7,27 @@
     opacity:0.75;
 }
 
-#toolbar-bracketsftp:hover{
+#toolbar-eqFTP:hover{
     opacity:1;
 }
 
-#toolbar-bracketsftp.downloading{
+#toolbar-eqFTP.downloading{
     background-image:url('img/folder-downloading.svg');
 }
 
-#toolbar-bracketsftp.uploading{
+#toolbar-eqFTP.uploading{
     background-image:url('img/folder-uploading.svg');
 }
 
-#toolbar-bracketsftp.complete{
+#toolbar-eqFTP.complete{
     background-image:url('img/checkmark.svg');
 }
 
-#toolbar-bracketsftp.error{
+#toolbar-eqFTP.error{
     background-image:url('img/cross.svg');
 }
 
-#toolbar-bracketsftp.disabled {
+#toolbar-eqFTP.disabled {
     background-image:url('img/folder-disabled.svg');
 }
 
@@ -57,7 +57,7 @@
     font-weight: bold;
 }
 
-#bracketsftp-project-settings {
+#eqFTP-project-settings {
     width:800px;
 }
 
@@ -187,7 +187,7 @@ li[data-eqFTP-addConnection]:hover>.eqFTP-icon-plus{
     margin:0;
 }
 
-#bracketsftp-openSettingsWindow {
+#eqFTP-openSettingsWindow {
     width: 20px;
     height: 20px;
     background-image: url(img/settings.svg);
@@ -200,7 +200,7 @@ li[data-eqFTP-addConnection]:hover>.eqFTP-icon-plus{
     vertical-align: middle;
 }
 
-#bracketsftp-openSettingsWindow:hover {
+#eqFTP-openSettingsWindow:hover {
     background-color: rgba(255,255,255,0.8);
     opacity: 0.6;
     border-radius: 2px;
@@ -242,11 +242,11 @@ li[data-eqFTP-addConnection]:hover>.eqFTP-icon-plus{
     background-image: url(img/directoryArrows.svg);
     background-position: bottom center;
 }
-#eqFTPDirectoryListing div .eqFTPTableNamecol.bracketsftp-file span.eqFTPFileTreePlusMinus {
+#eqFTPDirectoryListing div .eqFTPTableNamecol.eqFTP-file span.eqFTPFileTreePlusMinus {
     display: none !important;
 }
 
-#eqFTPDirectoryListing div .bracketsftp-folder span {
+#eqFTPDirectoryListing div .eqFTP-folder span {
     opacity: 0.7;
 }
 
