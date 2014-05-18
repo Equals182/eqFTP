@@ -14,9 +14,9 @@ Here's some features:
 * Downloading -- On double click you can download file to edit
 * Uploading -- You can upload files on save
 * FTP Connection Manager -- You can manage all your connections in single window
-* Queue -- You can queue lots of files and then upload them with one click. It also allows to develop directory uploading and syncronisation in future 
+* Queue -- You can queue lots of files and then upload them with one click.
 
-This extension created on base of https://github.com/theproducer/brackets-ftp. Actually I rewrote almost everything, but still. 
+This extension created on base of [Brackets FTP](https://github.com/theproducer/brackets-ftp). Actually I rewrote almost everything, but still. 
 
 Inspired by Dreamweaver's FTP implementation. First you create new connection in manager, next you connect, download file, edit, save and it's uploads automatically.
 
