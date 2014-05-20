@@ -88,6 +88,11 @@ I'm thinking about this:
 * 0.0.1 (4/20/14)
  * Initial release.
 
+## Contributors
+
+* @Wikunia -- translating, bugs finding, testing
+* @mackenza -- bugs finding, testing
+
 ## License
 
 MIT-licensed -- see main.js for details.
