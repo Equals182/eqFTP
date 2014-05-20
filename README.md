@@ -90,8 +90,8 @@ I'm thinking about this:
 
 ## Contributors
 
-* @Wikunia -- translating, bugs finding, testing
-* @mackenza -- bugs finding, testing
+* [Wikunia](https://github.com/Wikunia) -- translating, bugs finding, testing
+* [mackenza](https://github.com/mackenza) -- bugs finding, testing
 
 ## License
 
