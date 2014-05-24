@@ -1,13 +1,7 @@
 eqFTP
 =====
 
-## Voluntary Donations
-
-This extension is totally free to use or edit because of license but if you **really** have tons of money and want to throw some dollars at me -- you're welcome! Use button below to give me moneyz for my work!
-
-*Donate so I could buy air conditioning so my hands stop sticking to table because of sweat! Because it's summertime!*
-
-[![Donate! :3](https://pp.vk.me/c617327/v617327212/806b/DPUcVE7PTRQ.jpg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=XNJ33D53AR9JJ)
+*Donate so I could buy air conditioning so my hands stop sticking to table because of sweat! Because it's summertime! More info below!*
 
 ### [Important thing you need to know after *updating* from 0.2.5- to 0.2.6+ version](https://github.com/Equals182/eqFTP/wiki/1.5-Troubleshooting#i-just-updated-to-new-version-and-all-my-saved-settings-are-gone-now)
 
@@ -103,3 +97,9 @@ I'm thinking about this:
 ## License
 
 MIT-licensed -- see main.js for details.
+
+## Voluntary Donations
+
+This extension is totally free to use or edit because of license but if you **really** have tons of money and want to throw some dollars at me -- you're welcome! Use button below to give me moneyz for my work!
+
+[![Donate! :3](https://pp.vk.me/c617327/v617327212/806b/DPUcVE7PTRQ.jpg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=XNJ33D53AR9JJ)
