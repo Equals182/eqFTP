@@ -92,6 +92,7 @@ I'm thinking about this:
 
 * [Wikunia](https://github.com/Wikunia) -- translating, bugs finding, testing
 * [mackenza](https://github.com/mackenza) -- bugs finding, testing
+* [fmaida](https://github.com/fmaida) -- translating
 
 ## License
 
