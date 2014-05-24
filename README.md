@@ -1,13 +1,20 @@
 eqFTP
 =====
 
+## Voluntary Donations
+
+This extension is totally free to use or edit because of license but if you **really** have tons of money and want to throw some dollars at me -- you're welcome! Use button below to give me moneyz for my work!
+
+*Donate so I could buy air conditioning so my hands stop sticking to table because of sweat! Because it's summertime!*
+
+[![Donate! :3](https://pp.vk.me/c617327/v617327212/806b/DPUcVE7PTRQ.jpg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=XNJ33D53AR9JJ)
+
 ### [Important thing you need to know after *updating* from 0.2.5- to 0.2.6+ version](https://github.com/Equals182/eqFTP/wiki/1.5-Troubleshooting#i-just-updated-to-new-version-and-all-my-saved-settings-are-gone-now)
 
 ### [Help with translations!](https://github.com/Equals182/eqFTP/wiki/1.6-Frequently-Asked-Questions#how-can-i-translate-this-extension-to-language-of-my-people)
 
 FTP integration for Brackets code editor.
 
-This extension brings simple FTP support to Brackets.
 Here's some features:
 
 * FTP File Manager -- You can explore remote server
@@ -17,7 +24,6 @@ Here's some features:
 * Queue -- You can queue lots of files and then upload them with one click.
 
 This extension created on base of [Brackets FTP](https://github.com/theproducer/brackets-ftp). Actually I rewrote almost everything, but still. 
-
 Inspired by Dreamweaver's FTP implementation. First you create new connection in manager, next you connect, download file, edit, save and it's uploads automatically.
 
 It's really basic and I hope you'll enjoy this extension. [Click here for more information](https://github.com/Equals182/eqFTP/wiki)
@@ -97,9 +103,3 @@ I'm thinking about this:
 ## License
 
 MIT-licensed -- see main.js for details.
-
-## Voluntary Donations
-
-This extension is totally free to use or edit because of license but if you **really** have tons of money and want to throw some dollars at me -- you're welcome! Use button below to give me moneyz for my work!
-
-[![Donate! :3](https://pp.vk.me/c617327/v617327212/806b/DPUcVE7PTRQ.jpg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=XNJ33D53AR9JJ)
