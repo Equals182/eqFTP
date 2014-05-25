@@ -17,6 +17,8 @@ define({
     "ERR_DIAG_SERVCANTREACH_CONTENT" : "Я просто не могу достать до сервера.<br>Может у вас Файервол мешает.",
     "ERR_DIAG_AUTHORIZEERR_TITLE" : "Неверные данные авторизации",
     "ERR_DIAG_AUTHORIZEERR_CONTENT" : "Я не могу авторизоваться с теми логином и паролем, которые вы мне дали.<br>Пожалуйста проверьте их.",
+    "ERR_DIAG_NOSERVERFOUND_TITLE" : "Не могу найти соединение",
+    "ERR_DIAG_NOSERVERFOUND_CONTENT" : "К этому проекту не привязано eqFTP соединение или нет установленного соединения.<br>Подключитесь к серверу или укажите текущую папку проекта как \"Путь к проекту на ПК\" в настройках eqFTP.",
     
     "PASSWDWIND_TITLE" : "Введите пароль",
     "PASSWDWIND_CONTENT" : "Введите пароль к eqFTP:",
@@ -24,6 +26,7 @@ define({
     "SETTINGSWIND_TITLE" : "Менеджер соединений eqFTP",
     "SETTINGSWIND_ERR_BLANKS" : "Оу! Кажется, что-то пошло не так. Проверьте поля ввода и попробуйте снова.",
     "SETTINGSWIND_ERR_CANTWRITE" : "Что-то пошло совсем не так! Я не могу записать настройки в файл!",
+    "SETTINGSWIND_ERR_LOCALPATHREPEAT" : "Путь, который вы пытаетесь использовать в данный момент используется другим соединением.",
     "SETTINGSWIND_NOTIF_DONE" : "Все сохранено! :)",
     "SETTINGSWIND_SAVEDCONN" : "Сохраненные FTP соединения",
     "SETTINGSWIND_DELETECONN_HOVER" : "Удалить это соединение",
@@ -56,6 +59,7 @@ define({
     "SETTINGSWIND_GLOB_UPLOADONSAVE" : "Загружать файлы после сохранения",
     "SETTINGSWIND_GLOB_EVENDISCONN" : "Даже, если не подключен к FTP",
     "SETTINGSWIND_GLOB_EVENDISCONN_EXPLAIN" : "Эта опция дает вам возможность загружать только что сохраненные файлы, если этот файл находится в проекте, который был создан или связан с FTP соединением, или если этот файл был загружен с FTP. Надеюсь, я нормально объяснил..",
+    "SETTINGSWIND_GLOB_LOCALPATH_FILLWPROJECT_TITLE" : "Вставить путь к текущему проекту",
     
     "QUEUE_TITLE" : "eqFTP очередь",
     "QUEUE_TITLE_HOVER" : "Нажмите, чтобы открыть eqFTP очередь",
