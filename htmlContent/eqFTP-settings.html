@@ -40,6 +40,7 @@
                                 <input type="checkbox" id="eqFTP-useEncryption" />
                                 <div class="clear:both;"></div>
                             </div>
+
                         </div>    
                     </div>
                     <div id="eqFTPSettingsHolder" style="display:none;">
@@ -82,8 +83,9 @@
                             <div style="clear:both;"></div>
                         </div>  
                         <div class="field-container2">
-                            <label for="eqFTP-remotelocal">{{SETTINGSWIND_GLOB_LOCALPATH_TITLE}}</label>
-                            <input type="text" id="eqFTP-remotelocal"  placeholder="{{SETTINGSWIND_GLOB_LOCALPATH_FIELD}}"/>
+                            <label for="eqFTP-localroot">{{SETTINGSWIND_GLOB_LOCALPATH_TITLE}}</label>
+                            <input type="text" id="eqFTP-localroot" class="eqFTPUseDirectoryOpener" placeholder="{{SETTINGSWIND_GLOB_LOCALPATH_FIELD}}" data-eqFTP_ODT="{{SETTINGSWIND_GLOB_LOCALPATH_TITLE}}"/>
+                            <i class="eqFTP-icon" id="eqFTPautolocalpath" title="{{SETTINGSWIND_GLOB_LOCALPATH_FILLWPROJECT_TITLE}}"></i>
                             <div style="clear:both;"></div>
                         </div>
                         <div class="field-container2">

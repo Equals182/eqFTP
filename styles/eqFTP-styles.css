@@ -130,6 +130,13 @@
 #eqFTPCTSEIDHelp {
     background-image: url(img/info.svg);
     height:20px;
+    width:20px;
+    vertical-align:middle;
+}
+
+#eqFTPautolocalpath {
+    background-image: url(img/folder-add.svg);
+    height:20px;
     width:15px;
     vertical-align:middle;
 }
@@ -243,7 +250,8 @@ li[data-eqFTP-addConnection]:hover>.eqFTP-icon-plus{
     background-position: bottom center;
 }
 #eqFTPDirectoryListing div .eqFTPTableNamecol.eqFTP-file span.eqFTPFileTreePlusMinus {
-    display: none !important;
+    background: none;
+    width: 0px !important;
 }
 
 #eqFTPDirectoryListing div .eqFTP-folder span {
@@ -254,7 +262,7 @@ li[data-eqFTP-addConnection]:hover>.eqFTP-icon-plus{
     background-color: #95bfd3;
 }
 
-#eqFTPTable li:hover>div {
+#eqFTPTable li:hover>div:not(.clicked) {
     background-color: rgba(0,0,0,0.1);
 }
 
@@ -275,7 +283,6 @@ li[data-eqFTP-addConnection]:hover>.eqFTP-icon-plus{
     padding:14px;
     background-color:#f5f5f5;
     border:1px solid #dddddd;
-    
     margin-bottom:20px;
 }
 

@@ -13,6 +13,8 @@ maxerr: 50, node: true */
     
     var _domainManager;
     console.log('jsftp-ok');
+    
+    var directoryClient = null;
         
     function normalizePath(input) {
         if(input != undefined) {
@@ -26,14 +28,15 @@ maxerr: 50, node: true */
     var globalRecursiveInterval;
     function getDirectoryRecursive(params) {
         if(params.files==undefined) { params.files = []; }
-        var curAbsPath = normalizePath(params.remoteRoot + "/" + params.path);
+        var shortPath = params.paths[0];
+        var curAbsPath = normalizePath(params.remoteRoot + "/" + shortPath);
         params.client.ls(curAbsPath, function (err, files) {
             if(files) {
                 files.forEach(function(obj){
                     if(obj.type==0) {
                         //File
                         params.files.push({
-                            remotePath: params.path+"/"+obj.name,
+                            remotePath: shortPath+"/"+obj.name,
                             connectionID: params.downloadParams.connectionID,
                             queue: params.downloadParams.queue,
                             direction: params.downloadParams.direction,
@@ -42,7 +45,7 @@ maxerr: 50, node: true */
                     }else if(obj.type==1) {
                         //Folder
                         params.files.concat(getDirectoryRecursive({
-                            path: params.path+"/"+obj.name,
+                            paths: [shortPath+"/"+obj.name],
                             files: params.files,
                             remoteRoot: params.remoteRoot,
                             client: params.client,
@@ -59,6 +62,34 @@ maxerr: 50, node: true */
         });
     }
     
+    var gdrbli = 0;
+    var pathsToResolve = [];
+    function getDirectoriesRecursiveByList(params) {
+        var shortPath = pathsToResolve[gdrbli];
+        if(shortPath==="'eqFTP'root'" || shortPath==="") {
+            shortPath = "/";
+        }
+        console.log(shortPath);
+        var path = normalizePath(params.root+"/"+shortPath);
+        var last = false;
+        params.client.ls(path, function (err, files) {
+            var arrayString = JSON.stringify(files);
+            console.log('[eqFTP] Got Directory: '+path);
+            gdrbli++;
+            if(gdrbli>=pathsToResolve.length) {
+                last = true;
+                gdrbli = 0;
+                pathsToResolve = [];
+                params.client.raw.abor();
+                params.client.raw.quit();
+                directoryClient = null;
+            }else{
+                getDirectoriesRecursiveByList(params);
+            }
+            _domainManager.emitEvent("eqFTP", "getDirectory", {err:err, files:[arrayString], last:last, path: shortPath, replace: params.replace});
+        });
+    }
+    
     function getPWD(params) {
         params.client.raw.pwd(null,function(err, data) {
             var path = data.text.match(/257\s"(.*?)"/i);
@@ -67,8 +98,8 @@ maxerr: 50, node: true */
             }else{
                 path = path[1];
             }
-            console.log("[eqFTP test] PWD data: "+data);
-            console.log("[eqFTP test] PWD path extracted: "+path);
+            //console.log("[eqFTP-test] PWD data: "+JSON.stringify(data));
+            //console.log("[eqFTP-test] PWD path extracted: "+path);
             if(params.callback) {
                 params.callback(path);
             }
@@ -92,28 +123,28 @@ maxerr: 50, node: true */
     }
 
     function cmdGetDirectory(params) {
-        var client = new FTPClient({
+        directoryClient = new FTPClient({
             host: params.connection.server,
             user: params.connection.username,
             pass: params.connection.password,
             port: params.connection.port
         });
         
-        client.on('error', function(err) {
+        directoryClient.on('error', function(err) {
             console.error("[eqFTP-ftpDomain] "+err);
             _domainManager.emitEvent("eqFTP", "otherEvents", {event:"connectError", err:err});
             return false;
         });
         
-        client.on('connect', function() {
-            client.auth(params.connection.username, params.connection.password, function (err, res) {
+        directoryClient.on('connect', function() {
+            directoryClient.auth(params.connection.username, params.connection.password, function (err, res) {
                 if (err) {
                     console.error("[eqFTP-ftpDomain] There was an error with authorization while trying to get directory.");
                     console.error("[eqFTP-ftpDomain] "+err);
                     _domainManager.emitEvent("eqFTP", "otherEvents", {event:"authError", err:err});
                 } else {
                     if(params.recursive) {
-                        params.client = client;
+                        params.client = directoryClient;
                         params.callback = function(files) {
                             clearInterval(globalRecursiveInterval);
                             globalRecursiveInterval = setInterval(function() {
@@ -121,27 +152,35 @@ maxerr: 50, node: true */
                                 _domainManager.emitEvent("eqFTP", "getDirectoryRecursive", {err:err, files:files});
                                 clearInterval(globalRecursiveInterval);
                             },2000);
+                            if(directoryClient!=null) {
+                                directoryClient.raw.abor();
+                                directoryClient.raw.quit();
+                                directoryClient = null;
+                            }
                         }
                         getRemoteRoot({
                             path: params.remoteRoot,
-                            client: client,
+                            client: directoryClient,
                             callback: function(path) {
+                                console.log('[eqFTP-ftpDomain] Getting directory structure.');
                                 params.remoteRoot = path;
                                 getDirectoryRecursive(params);
                             }
                         });
                     }else{
+                        var i = 0;
                         var doThis = function(path) {
-                            path = normalizePath(path+"/"+params.path);
-                            client.ls(path, function (err, files) {
-                                var arrayString = JSON.stringify(files);
-                                console.log('[eqFTP] Got Directory: '+path);
-                                _domainManager.emitEvent("eqFTP", "getDirectory", {err:err, files:[arrayString]});
-                            });
+                            pathsToResolve = pathsToResolve.concat(params.paths);
+                            var p = {
+                                client: directoryClient,
+                                root: path,
+                                replace: params.replace
+                            };
+                            getDirectoriesRecursiveByList(p);
                         }
                         getRemoteRoot({
                             path: params.remoteRoot,
-                            client: client,
+                            client: directoryClient,
                             callback: doThis
                         });
                     }
@@ -342,8 +381,6 @@ maxerr: 50, node: true */
                                                     console.error("[eqFTP-ftpDomain] "+hadErr);
                                                     _domainManager.emitEvent("eqFTP", "queueEvent", {status: "uploadError", element: el});
                                                     if(queueClient!=null) {
-                                                        queueClient.raw.abor();
-                                                        queueClient.raw.quit();
                                                         queueClient=null;
                                                     }
                                                 }
@@ -522,6 +559,19 @@ maxerr: 50, node: true */
             }
         }
     }
+    
+    function cmdQuit() {
+        if(queueClient!=null) {
+            queueClient.raw.abor();
+            queueClient.raw.quit();
+            queueClient = null;
+        }
+        if(directoryClient!=null) {
+            directoryClient.raw.abor();
+            directoryClient.raw.quit();
+            directoryClient = null;
+        }
+    }
 
     function init(DomainManager) {
         if (!DomainManager.hasDomain("eqFTP")) {
@@ -529,6 +579,13 @@ maxerr: 50, node: true */
         }
         _domainManager = DomainManager;
 
+        DomainManager.registerCommand(
+            "eqFTP",
+            "quit",
+            cmdQuit,
+            false
+        );
+        
         DomainManager.registerCommand(
             "eqFTP",
             "getDirectory",
@@ -596,21 +653,9 @@ maxerr: 50, node: true */
         
         DomainManager.registerEvent(
         	"eqFTP",
-        	"getDirectory",
-        	[
-        		{
-        			name: "path",
-        			type: "string",
-        			description: "path for returned files"
-        		},
-        		{
-        			name: "files",
-        			type: "string",
-        			description: "files in path"
-        		}        			
-        	]
+        	"getDirectory"
         );
-        
+
         DomainManager.registerEvent(
             "eqFTP",
             "transferProgress"

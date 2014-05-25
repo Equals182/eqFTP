@@ -19,6 +19,14 @@
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
  *
+ * version 0.4.0
+ * - German translation
+ * - Italian translation
+ * - Remote FileTree scroll save!
+ * - Added Folder Open Dialog for Local Root setting + autoinsert option
+ * - Better file upload handling + updating folders after upload
+ * - Removed .eqFTP-note file dependence + automatic connectionID resolving by path
+ *
  * version 0.3.0
  * - Multilaguage Support (Contribute with translating!)
  * 
@@ -39,9 +47,6 @@
  * - Code refactoring
  * 
  */
-
-/*jslint vars: true, plusplus: true, devel: true, nomen: true, regexp: true, indent: 4, maxerr: 50 */
-/*global define, $, Mustache, brackets, window */
 
 
 define(function (require, exports, module) {
@@ -99,10 +104,10 @@ define(function (require, exports, module) {
         connectedServer: null,
         currentDownloadedDocuments: [],
         settingsFilename: ".remotesettings",
-        eqFTPNoteFilename: ".eqFTP-note",
         currentRemoteDirectory: '',
         masterPassword: null,
         defaultSettingsPath: defaultProjectsDir,
+        settingsLoaded: false,
         prefs: PreferencesManager.getExtensionPrefs("eqFTP"),
         useEncryption: false,
         ftpLoaded: false,
@@ -111,7 +116,9 @@ define(function (require, exports, module) {
         pausedQueue: [],
         failedQueue: [],
         successedQueue: [],
-        processQueue: []
+        processQueue: [],
+        scrllTop: 0,
+        clickedTreeElement: 0
     };
     
     eqFTP.globals.prefs.definePreference("defaultSettingsPathPref", "string", eqFTP.globals.defaultSettingsPath);
@@ -136,6 +143,11 @@ define(function (require, exports, module) {
     *
     *
     */
+    
+    function isFunction(functionToCheck) {
+        var getType = {};
+        return functionToCheck && getType.toString.call(functionToCheck) === '[object Function]';
+    }
     
     function isJSON(input) {
         try { JSON.parse(input); } catch (e) { return false; }
@@ -182,16 +194,40 @@ define(function (require, exports, module) {
             }
         }else if($.isArray(object) && object.length==0) {
             object = addFolder;
+        }else if(params.replace===true && params.replaceNow===true) {
+            $.each(addFolder, function(i,o) {
+                if(o.type=="folder") {
+                    $.each(object, function(i2,o2) {
+                        if(o2.type=="folder" && o2.name==o.name) {
+                            addFolder[i].children = o2.children;
+                            addFolder[i].state = o2.state;
+                        }
+                    });
+                }
+            });
+            object.children = addFolder;
         }else{
             if($.isArray(object.children)) {
-               object = object.children;
+                object = object.children;
             }
             if(object) {
                 $.each(object, function() {
                     var object = this;
                     if(object.type == "folder" && object.name == names[level]) {
-                        level++;
-                        object = recursiveSearch({level:level,object:object,names:names,addFolder:addFolder,state:state});
+                        if(params.replace===true) {
+                            var replaceNow=true;
+                        }else{
+                            level++;
+                        }
+                        object = recursiveSearch({
+                            level:level,
+                            object:object,
+                            names:names,
+                            addFolder:addFolder,
+                            state:state,
+                            replace:params.replace,
+                            replaceNow:replaceNow
+                        });
                         return false;
                     }
                 });
@@ -200,9 +236,40 @@ define(function (require, exports, module) {
         return object;
     }
     
-    function isFunction(functionToCheck) {
-        var getType = {};
-        return functionToCheck && getType.toString.call(functionToCheck) === '[object Function]';
+    var recSearch2Int = null;
+    function recursiveSearch2(params) {
+        if(params.stack==undefined) {
+            params.stack = [];
+        }
+        var searchIn = params.searchIn;
+        $.each(searchIn, function() {
+            if(this.type == "folder" && this.state == params.state) {
+                if(params.name==undefined) {
+                    params.name = "";
+                    params.stack.push("");
+                }
+                params.stack.push(params.name + "/" + this.name);
+                if(this.children!=undefined && this.children.length>0) {
+                    recursiveSearch2({
+                        name: params.name + "/" + this.name,
+                        searchIn: this.children,
+                        stack: params.stack,
+                        state: params.state,
+                        callback: params.callback
+                    });
+                }
+            }
+            if(recSearch2Int!=null) {
+                clearInterval(recSearch2Int);
+                recSearch2Int = null;
+            }
+            recSearch2Int = setInterval(function(){
+                if(isFunction(params.callback)) {
+                    params.callback(params.stack);
+                }
+                clearInterval(recSearch2Int);
+            },500);
+        });
     }
     
     var recDirInt = null;
@@ -256,57 +323,6 @@ define(function (require, exports, module) {
             eqFTP.serviceFunctions.redrawFileTree();
             eqFTP.globals.ftpLoaded = e;
         },
-        eqNote: function(params) {
-            if(params.action === "write") {
-                new FileSystem.resolve(params.path + "/" + eqFTP.globals.eqFTPNoteFilename, function(err, item, stat) { 
-                    if(err) {
-                        var fileEntry = new FileSystem.getFileForPath(params.path + "/" + eqFTP.globals.eqFTPNoteFilename);
-                        var jsonData = JSON.stringify(params.data);
-                        var readSettingsPromise = FileUtils.writeText(fileEntry, jsonData).done(function () {
-
-                        });
-                    }
-                });
-            }else if(params.action === "delete") {
-                var fileEntry = new FileSystem.getFileForPath(params.path + eqFTP.globals.eqFTPNoteFilename);
-                if (fileEntry) {
-                    var jsonData = JSON.stringify(params.data);
-                    var readSettingsPromise = FileUtils.writeText(fileEntry, jsonData).done(function () {
-
-                    });
-                }
-            }else if(params.action === "read") {
-                var fileEntry = new FileSystem.getFileForPath(params.path + eqFTP.globals.eqFTPNoteFilename);
-                if (fileEntry) {
-                    var readSettingsPromise = FileUtils.readAsText(fileEntry);
-                }else{
-                    return false;
-                }
-            }else if(params.action === "writeAll") {
-                if(eqFTP.globals.globalFtpDetails.ftp.length>0) {
-                    $.each(eqFTP.globals.globalFtpDetails.ftp,function(index){
-                        var localRoot = this.localpath;
-                        if(this.localpath.trim()=="") {
-                            localRoot = eqFTP.globals.globalFtpDetails.main.folderToProjects;
-                            localRoot.trim();
-                            localRoot = localRoot + "/" + this.connectionName;
-                            FileSystem.getDirectoryForPath(localRoot).create();
-                        }
-                        localRoot.trim();
-                        if(localRoot!="") {
-                            eqFTP.serviceFunctions.eqNote({
-                                path: localRoot,
-                                action: "write",
-                                data: {
-                                    eqFTPid: index
-                                }
-                            });
-                        }
-                    });
-                }
-            }
-            return readSettingsPromise;
-        },
         normalizePath: function(input) {
             if(input != undefined) {
                 var tmp = input.replace(/\\+/g,'/');
@@ -334,9 +350,13 @@ define(function (require, exports, module) {
         },
         redrawFileTree: function() {
             var target = $(eqFTP.globals.fileBrowserResults).find("#eqFTPTable");
-            if(target.is(':visible')) {
-                var html = eqFTP.serviceFunctions.renderFTPTree({ftpFileList: eqFTP.globals.remoteStructure[eqFTP.globals.connectedServer],path:"/"});
-                target.empty().append(html);
+            uniqueTreeVar = 0;
+            var html = eqFTP.serviceFunctions.renderFTPTree({ftpFileList: eqFTP.globals.remoteStructure[eqFTP.globals.connectedServer],path:"/"});
+            target.empty().append(html);
+            $('#eqFTP-project-dialog>.modal-body').scrollTop(eqFTP.globals.scrllTop);
+            if(eqFTP.globals.clickedTreeElement!=0) {
+                $('.eqFTPFileTreeCell').removeClass('clicked');
+                $('li[data-bftControl="'+eqFTP.globals.clickedTreeElement+'"]:first').find('>div').addClass('clicked');
             }
         },
         renderFTPTree: function(params) {
@@ -666,6 +686,11 @@ define(function (require, exports, module) {
             project_contextMenu.addMenuDivider();
             project_contextMenu.addMenuItem("eqftp.addToAutomaticQueue-u");
             project_contextMenu.addMenuItem("eqftp.addToPausedQueue-u");
+            
+            var working_contextMenu = Menus.getContextMenu(Menus.ContextMenuIds.WORKING_SET_MENU);
+            working_contextMenu.addMenuDivider();
+            working_contextMenu.addMenuItem("eqftp.addToAutomaticQueue-u");
+            working_contextMenu.addMenuItem("eqftp.addToPausedQueue-u");
         },
         getLocalDirectory: function(params) {
             var dir = params.directoryObject;
@@ -686,7 +711,7 @@ define(function (require, exports, module) {
         },
         getRemoteDirectory: function(params) {
             var ftpPromise = nodeConnection.domains.eqFTP.getDirectory({
-                path: eqFTP.serviceFunctions.normalizePath(params.path),
+                paths: [eqFTP.serviceFunctions.normalizePath(params.path)],
                 recursive: true,
                 remoteRoot: eqFTP.globals.globalFtpDetails.ftp[eqFTP.globals.connectedServer].remotepath,
                 connection: eqFTP.globals.globalFtpDetails.ftp[eqFTP.globals.connectedServer],
@@ -696,6 +721,119 @@ define(function (require, exports, module) {
                     direction: 'download'
                 }
             });
+        },
+        contextLocalAddToQueue: function(params) {
+            var fileEntry = ProjectManager.getSelectedItem();
+            var queueType = params.queueType;
+            if(fileEntry.isDirectory) {
+                var localPath = fileEntry._path;
+                if(ProjectManager.isWithinProject(localPath)) {
+                    var projectRoot = ProjectManager.getProjectRoot();
+                    eqFTP.serviceFunctions.getConnectionIDbyPath({
+                        path: projectRoot._path,
+                        callback: function(params) {
+                            if(params.connectionID!==false) {
+                                eqFTP.serviceFunctions.getLocalDirectory({
+                                    directoryObject: fileEntry, 
+                                    connectionID: params.connectionID, 
+                                    queueType: queueType
+                                });
+                            }else{
+                                console.error("[eqFTP] Uploding directory. There's no connectionID.");
+                            }
+                        }
+                    });
+                }else{
+                    // Will probably never happen.
+                    console.error("[eqFTP-test] I don't know how you did this but this is a separate folder. I mean this folder ins't within project. It's not possible.");
+                }
+            }else{
+                var localPath = fileEntry._path;
+                var name = fileEntry._name;
+                if(ProjectManager.isWithinProject(localPath)) {
+                    var projectRoot = ProjectManager.getProjectRoot();
+                    var path = projectRoot._path;
+                }else{
+                    var path = localPath;
+                    console.log("[eqFTP-test] This is a separate file.");
+                }
+                eqFTP.serviceFunctions.getConnectionIDbyPath({
+                    path: path,
+                    callback: function(params) {
+                        if(params.connectionID!==false) {
+                            if(params.tied==false) {
+                                if(eqFTP.globals.clickedTreeElement!=0) {
+                                    var t = $('li[data-bftControl="'+eqFTP.globals.clickedTreeElement+'"]:first');
+                                    if($(t).length==1) {
+                                        var d = $(t).find('div[data-path]:first');
+                                        var path = d.attr('data-path');
+                                        if(d.hasClass('eqFTP-folder')) {
+                                            var remotePath = eqFTP.serviceFunctions.normalizePath(path+"/"+name);
+                                        }else if(d.hasClass('eqfTP-file')) {
+                                            var remotePath = eqFTP.serviceFunctions.normalizePath(FileSystem.getDirectoryForPath(path)+"/"+name);
+                                        }
+                                    }
+                                }
+                            }
+                            eqFTP.ftpFunctions.addToQueue([
+                                {
+                                    localPath: localPath,
+                                    remotePath: remotePath,
+                                    name: name,
+                                    direction: 'upload',
+                                    queue: queueType,
+                                    connectionID: params.connectionID
+                                }
+                            ]);
+                        }else{
+                            console.error("[eqFTP] Uploading file. There's no connectionID.");
+                        }
+                    }
+                });
+            }
+        },
+        getConnectionIDbyPath: function(params) {
+            var f = false;
+            var doThis = function(params) {
+                $.each(eqFTP.globals.globalFtpDetails.ftp,function(i,o) {
+                    if(
+                        eqFTP.serviceFunctions.normalizePath(o.localpath + "/") == eqFTP.serviceFunctions.normalizePath(params.path + "/") || 
+                        eqFTP.serviceFunctions.normalizePath(eqFTP.globals.globalFtpDetails.main.folderToProjects + "/" + o.connectionName + "/") == eqFTP.serviceFunctions.normalizePath(params.path + "/")
+                    ) {
+                        f = true;
+                        if(params.callback) {
+                            params.callback({
+                                connectionID: i,
+                                tied: true
+                            });
+                            return false;
+                        }
+                    }
+                });
+                if(f===false) {
+                    if(eqFTP.globals.connectedServer!=null) {
+                        params.callback({
+                            connectionID: eqFTP.globals.connectedServer,
+                            tied: false
+                        });
+                    }else{
+                        Dialogs.showModalDialog('DIALOG_ID_ERROR',eqFTPstrings.ERR_DIAG_NOSERVERFOUND_TITLE, eqFTPstrings.ERR_DIAG_NOSERVERFOUND_CONTENT);
+                        params.callback({
+                            connectionID: false,
+                            tied: false
+                        });
+                    }
+                }
+            }
+            if(eqFTP.globals.settingsLoaded==false) {
+                eqFTP.readGlobalRemoteSettings(function(status) {
+                    if(status) {
+                        doThis(params);
+                    }
+                });
+            }else{
+                doThis(params);
+            }
         }
     };
     
@@ -771,7 +909,6 @@ define(function (require, exports, module) {
         eqFTP.processSettingsFile({text:ftpData,direction:'to'},function(result) {
             if(result) {
                 FileUtils.writeText(fileEntry, result).done(function () {
-                    eqFTP.serviceFunctions.eqNote({action:"writeAll"});
                 });
             }
         });
@@ -788,6 +925,7 @@ define(function (require, exports, module) {
                     eqFTP.processSettingsFile({'text':result,'direction':'from'},function(result) {
                         if(result) {
                             eqFTP.globals.globalFtpDetails = $.parseJSON(result);
+                            eqFTP.globals.settingsLoaded = true;
                         }
                         eqFTP.serviceFunctions.ftpLoaded(true);
                         if(isFunction(callback)) {
@@ -809,6 +947,7 @@ define(function (require, exports, module) {
                 var t = e.target;
                 var p = $(t).parents('#eqFTP-project-dialog');
                 if(p.length!=1) {
+                    eqFTP.globals.scrllTop = $('#eqFTP-project-dialog>.modal-body').scrollTop();
                     $('#detachedModalHolder').hide();
                     $('body').off('click','#detachedModalHolder',function(e) {});
                 }
@@ -829,52 +968,55 @@ define(function (require, exports, module) {
         $('#detachedModalHolder').show();
         $('#detachedModalHolder>#detachedModal>.modal').css('width',width);
         $('#eqFTPDirectoryListing').css('min-height',400);
+        if(!isNaN(parseInt(eqFTP.globals.connectedServer))) {
+            $('#eqFTPConnectionControl').addClass('on');
+        }
         
         eqFTP.serviceFunctions.ftpLoaded(eqFTP.globals.ftpLoaded);
     }
     
     eqFTP.ftpFunctions = {
         changeDirectory: function(params) {
+            eqFTP.globals.scrllTop = $('#eqFTP-project-dialog>.modal-body').scrollTop();
             if(isNaN(parseInt(eqFTP.globals.connectedServer))) {
                 return false;
             }
-            var ftp = eqFTP.globals.globalFtpDetails.ftp[eqFTP.globals.connectedServer];
-            var shortPath = params.path;
-            var newPath = shortPath;
-            console.log("[eqFTP] Changing directory to: "+newPath);    
             $("#eqFTP-filebrowser .table-container").toggleClass("loading");
             $("#eqFTP-filebrowser .table-container table").fadeOut(100);
-            eqFTP.globals.currentRemoteDirectory = newPath;
-
-            if(!newPath || newPath === "") {
-                if(!ftp.remotepath || ftp.remotepath=="") {
-                    newPath = "'eqFTP'root'";   
-                }else{
-                    newPath = ftp.remotepath;
-                }
-            }
-
-            eqFTP.globals.currentRemoteDirectory = eqFTP.serviceFunctions.normalizePath(eqFTP.globals.currentRemoteDirectory);
-            var t = $('div[data-path="'+shortPath+'"]').parent();
-            var ul = $(t).children('ul:first');
-            var tmpCRD = eqFTP.globals.currentRemoteDirectory;
-            var tmpRP = ftp.remotepath;
-            tmpRP = tmpRP.replace(/\/$/,"");
-            if(tmpCRD=="'eqFTP'root'" || tmpCRD=="" || tmpCRD=="/") {
-                var tmpCurrentDirectoryArray = [];
+            var ftp = eqFTP.globals.globalFtpDetails.ftp[eqFTP.globals.connectedServer];
+            var shortPath = params.path;
+            var paths = params.paths;
+            if(paths!=undefined && paths.length>0) {
+                var switchTo = paths;
             }else{
-                tmpCRD = eqFTP.serviceFunctions.normalizePath(tmpCRD);
-                var tmpCurrentDirectoryArray = tmpCRD.split('/');
-                tmpCurrentDirectoryArray.splice(0,1);
-            }
-            if(t.hasClass('opened')) {
-                eqFTP.globals.remoteStructure[eqFTP.globals.connectedServer] = recursiveSearch({level:0,object:eqFTP.globals.remoteStructure[eqFTP.globals.connectedServer],names:tmpCurrentDirectoryArray,state:'closed'});
-                t.removeClass('opened').addClass('closed');
-                return true;
-            }else if(ul.length>0){
-                eqFTP.globals.remoteStructure[eqFTP.globals.connectedServer] = recursiveSearch({level:0,object:eqFTP.globals.remoteStructure[eqFTP.globals.connectedServer],names:tmpCurrentDirectoryArray,state:'opened'});
-                t.addClass('opened').removeClass('closed');
-                return true;
+                var newPath = shortPath;
+                console.log("[eqFTP] Changing directory to: "+newPath);    
+
+                if(!newPath || newPath === "") {
+                    newPath = "'eqFTP'root'";   
+                    var tmpCurrentDirectoryArray = [];
+                    newPath = eqFTP.serviceFunctions.normalizePath(newPath);
+                }else{
+                    newPath = eqFTP.serviceFunctions.normalizePath(newPath);
+                    var tmp_path = newPath.replace(/(^\/|\/$)/gi,'');
+                    tmpCurrentDirectoryArray = tmp_path.split("/");
+                }
+
+                var t = $('div[data-path="'+shortPath+'"]').parent();
+                var ul = $(t).children('ul:first');
+                
+                if(!params.reload) {
+                    if(t.hasClass('opened')) {
+                        eqFTP.globals.remoteStructure[eqFTP.globals.connectedServer] = recursiveSearch({level:0,object:eqFTP.globals.remoteStructure[eqFTP.globals.connectedServer],names:tmpCurrentDirectoryArray,state:'closed'});
+                        t.removeClass('opened').addClass('closed');
+                        return true;
+                    }else if(ul.length>0){
+                        eqFTP.globals.remoteStructure[eqFTP.globals.connectedServer] = recursiveSearch({level:0,object:eqFTP.globals.remoteStructure[eqFTP.globals.connectedServer],names:tmpCurrentDirectoryArray,state:'opened'});
+                        t.addClass('opened').removeClass('closed');
+                        return true;
+                    }
+                }
+                var switchTo = [newPath];
             }
 
             if (ftp.protocol === "sftp") {
@@ -882,9 +1024,10 @@ define(function (require, exports, module) {
             } else {
                 $('#eqFTPLoading').show();
                 var ftpPromise = nodeConnection.domains.eqFTP.getDirectory({
-                    path: eqFTP.globals.currentRemoteDirectory, 
+                    paths: switchTo,
                     connection: ftp,
-                    remoteRoot: ftp.remotepath
+                    remoteRoot: ftp.remotepath,
+                    replace: params.reload
                 });
             }
         },
@@ -935,19 +1078,23 @@ define(function (require, exports, module) {
                             eqFTP.globals.processQueue[index].localPath = eqFTP.serviceFunctions.normalizePath(root + "/" + pathArray.join("/") + "/");
                             eqFTP.globals.processQueue[index].remoteRoot = eqFTP.globals.globalFtpDetails.ftp[this.connectionID].remotepath;
                         }else if(this.direction=='upload') {
+                            //console.log('[eqFTP-test] Params: '+JSON.stringify(obj));
                             if(!eqFTP.globals.globalFtpDetails.ftp[this.connectionID].connectToServerEvenIfDisconnected && this.connectionID != eqFTP.globals.connectedServer) {
                                 console.warn("[eqFTP] You're not allowing me to upload files on this server when you're not connected to it.");
                                 eqFTP.globals.failedQueue.unshift(eqFTP.globals.processQueue[index]);
                                 eqFTP.globals.processQueue.splice(index, 1);
                             }else{
                                 if(this.remotePath == undefined || this.remotePath == "") {
-                                    var pathArray = ProjectManager.makeProjectRelativeIfPossible(this.localPath).split("/");
-                                    pathArray.pop();
-                                    var i = 0;
-                                    var remoteRoot = eqFTP.globals.globalFtpDetails.ftp[this.connectionID].remotepath;
-                                    var pathArrayString = pathArray.join('/');
+                                    if(ProjectManager.isWithinProject(this.localPath)) {
+                                        var pathArray = ProjectManager.makeProjectRelativeIfPossible(this.localPath).split("/");
+                                        pathArray.pop();
+                                        var i = 0;
+                                        var remoteRoot = eqFTP.globals.globalFtpDetails.ftp[this.connectionID].remotepath;
+                                        var pathArrayString = pathArray.join('/');
+                                    }else{
+                                        pathArrayString = "";
+                                    }
                                     eqFTP.globals.processQueue[index].remotePath = pathArrayString + "/" + this.name;
-                                    console.log('test: '+eqFTP.globals.processQueue[index].remotePath);
                                 }
                                 eqFTP.globals.processQueue[index].remotePath = eqFTP.serviceFunctions.normalizePath(eqFTP.globals.processQueue[index].remotePath);
                                 eqFTP.globals.processQueue[index].localPath = eqFTP.serviceFunctions.normalizePath(eqFTP.globals.processQueue[index].localPath);
@@ -965,7 +1112,7 @@ define(function (require, exports, module) {
             }
             if(eqFTP.globals.automaticQueue.length>0 && queuePaused==false) {
                 queueBusy = true;
-                if(eqFTP.globals.globalFtpDetails.ftp.length==0 || eqFTP.globals.masterPassword == null) {
+                if(eqFTP.globals.settingsLoaded==false) {
                     eqFTP.readGlobalRemoteSettings(function(status) {
                         if(status) {
                             doThis(params);
@@ -1023,7 +1170,7 @@ define(function (require, exports, module) {
             $("#eqFTP-username").val(setting.username);
             $("#eqFTP-password").val(setting.password);
             $("#eqFTP-remoteroot").val(setting.remotepath);
-            $('#eqFTP-remotelocal').val(setting.localpath);
+            $('#eqFTP-localroot').val(setting.localpath);
             $("#eqFTP-protocol option").prop('selected', false);
             $("#eqFTP-protocol option[value=" + setting.protocol + "]").prop('selected', true);
             if (setting.uploadOnSave) {
@@ -1058,7 +1205,7 @@ define(function (require, exports, module) {
             $("#eqFTP-username").val('');
             $("#eqFTP-password").val('');
             $("#eqFTP-remoteroot").val('');
-            $('#eqFTP-remotelocal').val('');
+            $('#eqFTP-localroot').val('');
             $("#eqFTP-connectToServerEvenIfDisconnected").prop('checked',false);
             $("#eqFTP-protocol option").prop('selected', false);
             $("#eqFTP-protocol option[value=FTP]").prop('selected', true);
@@ -1072,10 +1219,13 @@ define(function (require, exports, module) {
     
     $('body').on('click','#eqFTPSettingsRefresh',function() {
         eqFTP.globals.masterPassword = null;
+        eqFTP.globals.settingsLoaded = false;
         eqFTP.readGlobalRemoteSettings();
     });
     
     $('body').on('change','#eqFTP-serverChoosing',function() {
+        eqFTP.globals.scrllTop = 0;
+        eqFTP.globals.clickedTreeElement = 0;
         var id = parseInt($(this).val());
         if(isNaN(id)) { id = null; }
         eqFTP.globals.connectedServer = id;
@@ -1090,7 +1240,18 @@ define(function (require, exports, module) {
     
     $('body').on('click','.eqFTPFileTreeCell',function() {
         $('.eqFTPFileTreeCell').removeClass('clicked');
-        $(this).parent().find('>div').addClass('clicked');
+        var p = $(this).parent();
+        p.find('>div').addClass('clicked');
+        var id = p.attr('data-bftControl');
+        eqFTP.globals.clickedTreeElement = id;
+    });
+    
+    $('body').on('click','#eqFTPDirectoryListing',function(e) {
+        var t = e.target;
+        if(!$(t).is('#eqFTPTable') && $(t).parents('#eqFTPTable:first').length<1) {
+            eqFTP.globals.clickedTreeElement = 0;
+            $('.eqFTPFileTreeCell').removeClass('clicked');
+        }
     });
     
     $('body').on('click','#eqFTPConnectionControl',function() {
@@ -1102,6 +1263,7 @@ define(function (require, exports, module) {
             var id = parseInt($('#eqFTP-serverChoosing').val());
             if(isNaN(id)) {
                 eqFTP.globals.connectedServer = null;
+                nodeConnection.domains.eqFTP.quit();
             }else{
                 eqFTP.globals.connectedServer = id;
                 $(this).addClass('on');
@@ -1112,8 +1274,14 @@ define(function (require, exports, module) {
     
     $('body').on('click','#eqFTPRefresh',function() {
         if(!isNaN(parseInt(eqFTP.globals.connectedServer))) {
-            eqFTP.globals.remoteStructure[eqFTP.globals.connectedServer] = [];
-            eqFTP.ftpFunctions.changeDirectory({path:""});
+            recursiveSearch2({
+                searchIn: eqFTP.globals.remoteStructure[eqFTP.globals.connectedServer],
+                state: "opened",
+                callback: function(paths) {
+                    eqFTP.globals.remoteStructure[eqFTP.globals.connectedServer] = [];
+                    eqFTP.ftpFunctions.changeDirectory({paths:paths, reload:true});
+                }
+            });
         }
     });
     
@@ -1161,7 +1329,7 @@ define(function (require, exports, module) {
                     var tmp_uploadonsave = true;
                 }
                 
-                var tmp_localroot = $("#eqFTP-remotelocal").val();
+                var tmp_localroot = $("#eqFTP-localroot").val();
                 var tmp = {
                     connectionName: tmp_connectionName,
                     server: tmp_server,
@@ -1215,6 +1383,26 @@ define(function (require, exports, module) {
         });
     });
     
+    $("body").on("click", "#eqFTPautolocalpath", function() {
+        var projectRoot = ProjectManager.getProjectRoot();
+        projectRoot = projectRoot._path;
+        var f = false;
+        var n = $('#eqFTP-connectionName').val();
+        $.each(eqFTP.globals.globalFtpDetails.ftp,function() {
+            if(
+                (this.localpath == projectRoot || eqFTP.serviceFunctions.normalizePath(eqFTP.globals.globalFtpDetails.main.folderToProjects + "/" + this.connectionName + "/") == projectRoot)
+                && this.connectionName != n
+            ) {
+                f = true;
+            }
+        });
+        if(f) {
+            eqFTP.serviceFunctions.triggerSettingsNotification({type:"error",state:true,text:eqFTPstrings.SETTINGSWIND_ERR_LOCALPATHREPEAT});
+        }else{
+            $("#eqFTP-localroot").val(projectRoot);
+        }
+    });
+
     AppInit.htmlReady(function () {
         ExtensionUtils.loadStyleSheet(module, "styles/eqFTP-styles.css");
         
@@ -1368,79 +1556,14 @@ define(function (require, exports, module) {
             }
         });        
         CommandManager.register(eqFTPstrings.CONTEXTM_ADDQUEUE, "eqftp.addToPausedQueue-u", function() {
-            var fileEntry = ProjectManager.getSelectedItem();
-            if(fileEntry.isDirectory) {
-                var localPath = fileEntry._path;
-                if(ProjectManager.isWithinProject(localPath)) {
-                    var projectRoot = ProjectManager.getProjectRoot();
-                    var promise = eqFTP.serviceFunctions.eqNote({path:projectRoot._path,action:"read"});
-                    promise.done(function(result) {
-                        var r = $.parseJSON(result);
-                        var connectionID = r.eqFTPid;
-                        
-                        eqFTP.serviceFunctions.getLocalDirectory({directoryObject: fileEntry, connectionID:connectionID, queueType: 'paused'});
-                    });
-                }
-            }else{
-                var localPath = fileEntry._path;
-                var name = fileEntry._name;
-                if(ProjectManager.isWithinProject(localPath)) {
-                    var projectRoot = ProjectManager.getProjectRoot();
-                    var promise = eqFTP.serviceFunctions.eqNote({path:projectRoot._path,action:"read"});
-                    promise.done(function(result) {
-                        var r = $.parseJSON(result);
-                        var connectionID = r.eqFTPid;
-                        
-                        eqFTP.ftpFunctions.addToQueue([
-                            {
-                                localPath: localPath,
-                                name: name,
-                                direction: 'upload',
-                                queue: 'paused',
-                                connectionID: connectionID
-                            }
-                        ]);
-                    });
-                }
-            }
+            eqFTP.serviceFunctions.contextLocalAddToQueue({
+                queueType: 'paused'
+            });
         });
         CommandManager.register(eqFTPstrings.CONTEXTM_UPLOAD, "eqftp.addToAutomaticQueue-u", function() {
-            var fileEntry = ProjectManager.getSelectedItem();
-            if(fileEntry.isDirectory) {
-                var localPath = fileEntry._path;
-                if(ProjectManager.isWithinProject(localPath)) {
-                    var projectRoot = ProjectManager.getProjectRoot();
-                    var promise = eqFTP.serviceFunctions.eqNote({path:projectRoot._path,action:"read"});
-                    promise.done(function(result) {
-                        var r = $.parseJSON(result);
-                        var connectionID = r.eqFTPid;
-                        
-                        eqFTP.serviceFunctions.getLocalDirectory({directoryObject: fileEntry, connectionID:connectionID, queueType: 'automatic'});
-                    });
-                }
-                //console.log("I can't upload directories yet.");
-            }else{
-                var localPath = fileEntry._path;
-                var name = fileEntry._name;
-                if(ProjectManager.isWithinProject(localPath)) {
-                    var projectRoot = ProjectManager.getProjectRoot();
-                    var promise = eqFTP.serviceFunctions.eqNote({path:projectRoot._path,action:"read"});
-                    promise.done(function(result) {
-                        var r = $.parseJSON(result);
-                        var connectionID = r.eqFTPid;
-                        
-                        eqFTP.ftpFunctions.addToQueue([
-                            {
-                                localPath: localPath,
-                                name: name,
-                                direction: 'upload',
-                                queue: 'automatic',
-                                connectionID: connectionID
-                            }
-                        ]);
-                    });
-                }
-            }
+            eqFTP.serviceFunctions.contextLocalAddToQueue({
+                queueType: 'automatic'
+            });
         });        
 
         /*
@@ -1480,7 +1603,7 @@ define(function (require, exports, module) {
             var path = ExtensionUtils.getModulePath(module, "node/ftpDomain");
             var loadPromise = nodeConnection.loadDomains([path], true);
             loadPromise.fail(function (err) {
-                console.log(err);
+                console.error(err);
                 eqFTP.serviceFunctions.ftpLoaded(false);
             });
             loadPromise.done(function (done) {
@@ -1498,79 +1621,82 @@ define(function (require, exports, module) {
         });
         
         $(nodeConnection).on("eqFTP.getDirectory", function (event, result) {
-            var files = JSON.parse(result.files);
-            var sanitizedFolders = new Array();
-            var sanitizedFiles = new Array();
-            
-            //Get all files
-            $.each(files, function (index, value) {
-                if (value !== null) {
-                    if (value.type === 0) {
-                        var date = eqFTP.serviceFunctions.convertDate({input:value.time,type:'full'});
-                        var dateShort = eqFTP.serviceFunctions.convertDate({input:value.time,type:'short'});
-                        var sizeShort = eqFTP.serviceFunctions.shortenFilesize({input:value.size,type:'short'});
-                        var fileObject = {
-                            name: value.name,
-                            lastupdatedShort: dateShort,
-                            lastupdated: date,
-                            sizeShort : sizeShort,
-                            size: value.size,
-                            type: "file",
-                        };
-                        
-                        sanitizedFiles.push(fileObject);
-                    }
-                }
-            });
-            
-            //Get all folders
-            $.each(files, function (index, value) {
-                if (value !== null) {
-                    if (value.type === 1) {  
-                        var date = eqFTP.serviceFunctions.convertDate({input:value.time,type:'full'});
-                        var dateShort = eqFTP.serviceFunctions.convertDate({input:value.time,type:'short'});
-                        var fileObject = {
-                            name: value.name,
-                            lastupdatedShort: dateShort,
-                            lastupdated: date,
-                            size: "",
-                            sizeShort : "",
-                            type: "folder",
-                            children: {},
-                        };
-                        
-                        sanitizedFolders.push(fileObject);
-                    }
-                }
-            });
-            
-            if(eqFTP.globals.remoteStructure[eqFTP.globals.connectedServer]==undefined) {
-                eqFTP.globals.remoteStructure[eqFTP.globals.connectedServer] = [];
-            }
-            var thisFolderStructure = sanitizedFolders.concat(sanitizedFiles);
-            //console.log("[eqFTP] Got folder structure: "+JSON.stringify(thisFolderStructure)); 
-            var tmpCRD = eqFTP.globals.currentRemoteDirectory;
-            var tmpRP = eqFTP.globals.globalFtpDetails.ftp[eqFTP.globals.connectedServer].remotepath;
-            tmpRP = tmpRP.replace(/\/$/,"");
-            console.log(tmpCRD);
-            //tmpCRD = tmpCRD.replace(tmpRP,"");
-            if(tmpCRD=="'eqFTP'root'" || tmpCRD=="" || tmpCRD=="/") {
-                var tmpCurrentDirectoryArray = [];
+            if(result.err) {
+                eqFTP.serviceFunctions.redrawFileTree();
+                $('#eqFTPLoading').hide();
             }else{
-                tmpCRD = eqFTP.serviceFunctions.normalizePath(tmpCRD);
-                var tmpCurrentDirectoryArray = tmpCRD.split('/');
-                tmpCurrentDirectoryArray.splice(0,1);
+                var files = JSON.parse(result.files);
+                var sanitizedFolders = new Array();
+                var sanitizedFiles = new Array();
+
+                //Get all files
+                $.each(files, function (index, value) {
+                    if (value !== null) {
+                        if (value.type === 0) {
+                            var date = eqFTP.serviceFunctions.convertDate({input:value.time,type:'full'});
+                            var dateShort = eqFTP.serviceFunctions.convertDate({input:value.time,type:'short'});
+                            var sizeShort = eqFTP.serviceFunctions.shortenFilesize({input:value.size,type:'short'});
+                            var fileObject = {
+                                name: value.name,
+                                lastupdatedShort: dateShort,
+                                lastupdated: date,
+                                sizeShort : sizeShort,
+                                size: value.size,
+                                type: "file",
+                            };
+
+                            sanitizedFiles.push(fileObject);
+                        }
+                    }
+                });
+
+                //Get all folders
+                $.each(files, function (index, value) {
+                    if (value !== null) {
+                        if (value.type === 1) {  
+                            var date = eqFTP.serviceFunctions.convertDate({input:value.time,type:'full'});
+                            var dateShort = eqFTP.serviceFunctions.convertDate({input:value.time,type:'short'});
+                            var fileObject = {
+                                name: value.name,
+                                lastupdatedShort: dateShort,
+                                lastupdated: date,
+                                size: "",
+                                sizeShort : "",
+                                type: "folder",
+                                children: {},
+                            };
+
+                            sanitizedFolders.push(fileObject);
+                        }
+                    }
+                });
+
+                var thisFolderStructure = sanitizedFolders.concat(sanitizedFiles);
+                //console.log("[eqFTP] Got folder structure: "+JSON.stringify(thisFolderStructure)); 
+                var tmpCRD = result.path;
+                var tmpRP = eqFTP.globals.globalFtpDetails.ftp[eqFTP.globals.connectedServer].remotepath;
+                var tmpCurrentDirectoryArray = [];
+                if(tmpCRD!=="'eqFTP'root'" && tmpCRD!=="" && tmpCRD!=="/") {
+                    tmpCRD = eqFTP.serviceFunctions.normalizePath(tmpCRD);
+                    var tmp_path = tmpCRD.replace(/(^\/|\/$)/gi,'');
+                    tmpCurrentDirectoryArray = tmp_path.split("/");
+                }
+                if(eqFTP.globals.remoteStructure[eqFTP.globals.connectedServer]==undefined) {
+                    eqFTP.globals.remoteStructure[eqFTP.globals.connectedServer] = [];
+                }
+                eqFTP.globals.remoteStructure[eqFTP.globals.connectedServer] = recursiveSearch({
+                    level:      0,
+                    object:     eqFTP.globals.remoteStructure[eqFTP.globals.connectedServer],
+                    names:      tmpCurrentDirectoryArray,
+                    addFolder:  thisFolderStructure,
+                    state:      'opened',
+                    replace:    result.replace
+                });
+                if(result.last) {
+                    eqFTP.serviceFunctions.redrawFileTree();
+                    $('#eqFTPLoading').hide();
+                }
             }
-            eqFTP.globals.remoteStructure[eqFTP.globals.connectedServer] = recursiveSearch({
-                level:      0,
-                object:     eqFTP.globals.remoteStructure[eqFTP.globals.connectedServer],
-                names:      tmpCurrentDirectoryArray,
-                addFolder:  thisFolderStructure,
-                state:      'opened'
-            });
-    
-            eqFTP.serviceFunctions.redrawFileTree();
-            $('#eqFTPLoading').hide();
         });
         
         $(nodeConnection).on("eqFTP.transferProgress", function (event, params) {
@@ -1587,7 +1713,7 @@ define(function (require, exports, module) {
         });
         
         $(nodeConnection).on("eqFTP.getDirectoryRecursive", function (event, params) {
-            if(params.error==null) {
+            if(params.err==null) {
                 eqFTP.ftpFunctions.addToQueue(params.files);
             }
         });
@@ -1618,6 +1744,8 @@ define(function (require, exports, module) {
                     clearInterval(toolbarResetTimeout);
                 }, 2000);
             }else if(params.status == "uploadComplete") {
+                var path = FileUtils.getDirectoryPath(item.remotePath);
+                eqFTP.ftpFunctions.changeDirectory({path:"//"+path, reload:true});
                 eqFTP.globals.successedQueue.unshift(item);
             }else if(params.status == "downloadComplete") {
                 if(params.element.openAfter) {
@@ -1699,39 +1827,44 @@ define(function (require, exports, module) {
         var document = DocumentManager.getCurrentDocument();
         if(ProjectManager.isWithinProject(document.file.fullPath)) {
             var projectRoot = ProjectManager.getProjectRoot();
-            var promise = eqFTP.serviceFunctions.eqNote({path:projectRoot._path,action:"read"});
-            promise.done(function(result) {
-                var r = $.parseJSON(result);
-                var connectionID = r.eqFTPid;
-                var doUpload = function() {
-                    var document = DocumentManager.getCurrentDocument();
-                    var name = document.file.name;
-                    
-                    if(eqFTP.globals.globalFtpDetails.ftp[connectionID].server !== "") {   
-                        if (eqFTP.globals.globalFtpDetails.ftp[connectionID].uploadOnSave === true) {
-                            var tmp_queuetype = "automatic";
-                        }else{
-                            var tmp_queuetype = "paused";
-                        }
-                        if(eqFTP.globals.globalFtpDetails.ftp[connectionID].connectToServerEvenIfDisconnected==true || connectionID==eqFTP.globals.connectedServer) {
-                            eqFTP.ftpFunctions.addToQueue([
-                                {
-                                    localPath: document.file.fullPath,
-                                    name: name,
-                                    direction: 'upload',
-                                    queue: tmp_queuetype,
-                                    connectionID: connectionID
+            eqFTP.serviceFunctions.getConnectionIDbyPath({
+                path: projectRoot._path,
+                callback: function(params) {
+                    if(params.connectionID!==false) {
+                        var connectionID = params.connectionID;
+                        var doUpload = function() {
+                            var document = DocumentManager.getCurrentDocument();
+                            var name = document.file.name;
+                            if(eqFTP.globals.globalFtpDetails.ftp[connectionID].server !== "") {   
+                                if (eqFTP.globals.globalFtpDetails.ftp[connectionID].uploadOnSave === true) {
+                                    var tmp_queuetype = "automatic";
+                                }else{
+                                    var tmp_queuetype = "paused";
                                 }
-                            ]);
+                                if(eqFTP.globals.globalFtpDetails.ftp[connectionID].connectToServerEvenIfDisconnected==true || connectionID==eqFTP.globals.connectedServer) {
+                                    eqFTP.ftpFunctions.addToQueue([
+                                        {
+                                            localPath: document.file.fullPath,
+                                            name: name,
+                                            direction: 'upload',
+                                            queue: tmp_queuetype,
+                                            connectionID: connectionID
+                                        }
+                                    ]);
+                                }
+                            }else{
+                                console.log('[eqFTP-test] Everythings ok, except your server field is empty.');
+                            }
                         }
+                        if(eqFTP.globals.globalFtpDetails.ftp[connectionID]==undefined) {
+                            eqFTP.readGlobalRemoteSettings(doUpload);
+                        }else{
+                            doUpload();
+                        }
+                    }else{
+                        console.error("[eqFTP] Upload on save. There's no connectionID.");
                     }
                 }
-                if(eqFTP.globals.globalFtpDetails.ftp[connectionID]==undefined) {
-                    eqFTP.readGlobalRemoteSettings(doUpload);
-                }else{
-                    doUpload();
-                }
-
             });
         }else if(typeof eqFTP.globals.currentDownloadedDocuments[fileid] === "object" && eqFTP.globals.currentDownloadedDocuments[fileid]!="undefined") {
             var remotePath = eqFTP.globals.currentDownloadedDocuments[fileid].path;
