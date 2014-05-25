@@ -92,7 +92,7 @@ I'm thinking about this:
 
 * [Wikunia](https://github.com/Wikunia) -- translating, bugs finding, testing
 * [mackenza](https://github.com/mackenza) -- bugs finding, testing
-* [fmaida](https://github.com/fmaida) -- translating
+* [fmaida](https://github.com/fmaida) -- translating, donating
 
 ## License
 
@@ -104,4 +104,4 @@ This extension is totally free to use or edit because of license but if you **re
 
 [![Donate! :3](https://pp.vk.me/c617327/v617327212/806b/DPUcVE7PTRQ.jpg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=XNJ33D53AR9JJ)
 
-$0 -- donated. $440 -- current goal (A/C).
+$5 -- donated. $440 -- current goal (A/C).
