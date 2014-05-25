@@ -63,37 +63,8 @@ I'm thinking about this:
  * Added Folder Open Dialog for Local Root setting + autoinsert option
  * Better file upload handling + updating folders after upload
  * Removed .eqFTP-note file dependence + automatic connectionID resolving by path
-* 0.3.0 (5/16/14)
- * Multilaguage Support (Contribute with translating!)
-* 0.2.7 (5/18/14)
- * Correct remote root recognition
- * Better error handling. It's not crushing now. Wow.
- * Minor but still important bugfixes
-* 0.2.1-0.2.6 (5/12/14) 
- * Fixing the bug with .eqFTP-note file
- * Fixing files downloading bug
- * Changed default projects folder
- * Changed default settings folder
-* 0.2.0 (5/11/14)
- * Improved queueing (should work faster)
- * Directory downloading in both ways
- * Code refactoring
-* 0.1.0 (5/10/14)
- * Added progress bar for queue
- * Lots of queue improvements
- * Better errors handling
- * Checking filesize before trying opening it
-* 0.0.3 (5/4/14)
- * Added queue
- * Removed deprecated methods
- * Added context menu on right click on files in remote browser
- * New menu items in context menu in project files
- * Context menu for queue panel
- * Folder opening dialog for input fields which needs it
-* 0.0.2 (4/27/14)
- * Added encrypting settings file option.
-* 0.0.1 (4/20/14)
- * Initial release.
+
+[See full history...](https://github.com/Equals182/eqFTP/wiki/1.7-Version-History)
 
 ## Contributors
 
