@@ -56,6 +56,13 @@ I'm thinking about this:
 >
 >If I fix something critical I throw update on registry and for that I need to increase version number (I'm trying to follow [Semantic Versioning](http://semver.org/)). If update is too minor and it's not critical enough for extension work, I'll just wait till it get bigger or till weekends.
 
+* 0.4.0 (5/25/14)
+ * German translation
+ * Italian translation
+ * Remote FileTree scroll save!
+ * Added Folder Open Dialog for Local Root setting + autoinsert option
+ * Better file upload handling + updating folders after upload
+ * Removed .eqFTP-note file dependence + automatic connectionID resolving by path
 * 0.3.0 (5/16/14)
  * Multilaguage Support (Contribute with translating!)
 * 0.2.7 (5/18/14)
