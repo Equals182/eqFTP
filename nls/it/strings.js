@@ -17,14 +17,21 @@ define({
     "ERR_DIAG_SERVCANTREACH_CONTENT" : "Non posso connettermi al server.<br>Forse il tuo firewall non mi permette di farlo.",
     "ERR_DIAG_AUTHORIZEERR_TITLE" : "Dati Di Autenticazione Errati",
     "ERR_DIAG_AUTHORIZEERR_CONTENT" : "Non riesco ad autorizzare l'accesso con la login e la password inseriti.<br>Ti prego di verificarli.",
+    // Two strings below used in one error dialog wich appears when user trying to upload file
+    // but this file isn't in project (wich used in eqFTP connection) and there is no currently connected server.
+    "ERR_DIAG_NOSERVERFOUND_TITLE" : "Nessuna connessione specificata", // NEW
+    "ERR_DIAG_NOSERVERFOUND_CONTENT" : "Non hai specificato nessuna connessione in eqFTP che associ il tuo progetto corrente ad un server remoto.<br>Specifica un server remoto per la connessione oppure utilizza l'attuale cartella del progetto come percorso locale nelle impostazioni.", //NEW
     
-    "PASSWDWIND_TITLE" : "Inserisci La Tua Password",
-    "PASSWDWIND_CONTENT" : "La tua password per eqFTP:",
+    "PASSWDWIND_TITLE" : "Inserisci La Master Password",
+    "PASSWDWIND_CONTENT" : "La tua master password per eqFTP:",
     
     "SETTINGSWIND_TITLE" : "eqFTP Connection Manager",
-    "SETTINGSWIND_ERR_BLANKS" : "Oh! Sembra che qualcosa sia andato storto... controlla i campi e riprova.",
+    "SETTINGSWIND_ERR_BLANKS" : "Oh! Qualcosa è andato storto... controlla il contenuto dei campi e riprova.",
     "SETTINGSWIND_ERR_CANTWRITE" : "Qualcosa è andato davvero storto! Non posso scrivere le impostazioni sul file!",
-    "SETTINGSWIND_NOTIF_DONE" : "Tutto è stato salvato! :)",
+    // New string below is an error message when user tring to insert path to current project
+    // but current project is currently in use in another connection.
+    "SETTINGSWIND_ERR_LOCALPATHREPEAT" : "Il percorso che stai cercando di inserire è attualmente in uso da parte di un'altra connessione.", //NEW
+    "SETTINGSWIND_NOTIF_DONE" : "Detto, fatto! :)",
     "SETTINGSWIND_SAVEDCONN" : "Connessioni FTP Memorizzate",
     "SETTINGSWIND_DELETECONN_HOVER" : "Rimuovi Questa Connessione",
     "SETTINGSWIND_ADDCONN_HOVER" : "Aggiungi Nuova Connessione",
@@ -35,13 +42,13 @@ define({
     "SETTINGSWIND_DELETECONNCONF_2" : ".",
     "SETTINGSWIND_OPENGLOBSET" : "Apri Le Impostazioni FTP Globali...",
     "SETTINGSWIND_NOTHINGYETMSG" : "Seleziona una connessione da modificare nella barra laterale o creane una nuova.",
-    "SETTINGSWIND_GLOB_FOLDERFORPROJ" : "Cartella Dei Progetti:",
+    "SETTINGSWIND_GLOB_FOLDERFORPROJ" : "Cartella Progetti:",
     "SETTINGSWIND_GLOB_FOLDERFORPROJ_DIAGTITLE" : "Cartella Dei i Progetti Con i File Scaricati:",
-    "SETTINGSWIND_GLOB_FOLDERFORSET" : "Cartella delle impostazioni:",
+    "SETTINGSWIND_GLOB_FOLDERFORSET" : "Cartella Impostazioni:",
     "SETTINGSWIND_GLOB_FOLDERFORSET_DIAGTITLE" : "Cartella Con il File Delle Impostazioni",
     "SETTINGSWIND_GLOB_DONTOPENPROJECTS" : "Non Aprire i Progetti Dopo Il Download",
     "SETTINGSWIND_GLOB_STORESAFELY" : "Memorizza Le Password In Modo Sicuro",
-    "SETTINGSWIND_GLOB_CONNECTIONNAME_TITLE" : "Nome Della Connessione:",
+    "SETTINGSWIND_GLOB_CONNECTIONNAME_TITLE" : "Nome Connessione:",
     "SETTINGSWIND_GLOB_CONNECTIONNAME_FIELD" : "Inserisci il nome della connessione",
     "SETTINGSWIND_GLOB_SERVER_TITLE" : "Server:",
     "SETTINGSWIND_GLOB_PROTOCOL_TITLE" : "Tipo Di Protocollo:",
@@ -53,11 +60,13 @@ define({
     "SETTINGSWIND_GLOB_REMOTEPATH_FIELD" : "Inserisci il percorso remoto alla cartella radice del progetto",
     "SETTINGSWIND_GLOB_LOCALPATH_TITLE" : "Percorso Locale:",
     "SETTINGSWIND_GLOB_LOCALPATH_FIELD" : "Crea una nuova cartella nella posizione di default se vuoto",
-    "SETTINGSWIND_GLOB_UPLOADONSAVE" : "Upload File Durante Il Salvataggio",
+    "SETTINGSWIND_GLOB_UPLOADONSAVE" : "Esegui Upload Dei Files Durante Il Salvataggio",
     "SETTINGSWIND_GLOB_EVENDISCONN" : "Anche Quando Disconnesso",
-    "SETTINGSWIND_GLOB_EVENDISCONN_EXPLAIN" : "Questa opzione permette di collegarsi automaticamente ad un server quando un file salvato viene aperto dal server oppure quando si trova dentro il progetto corrente ed il progetto è stato creato da questa estensione FTP. Beh, spero che tu mi abbia capito...",
+    "SETTINGSWIND_GLOB_EVENDISCONN_EXPLAIN" : "Questa opzione permette di collegarsi automaticamente ad un server quando un file salvato viene aperto dal server oppure quando si trova dentro il progetto corrente ed il progetto è stato creato da questa estensione FTP. Beh, spero che tu mi abbia capito..",
+    // this one is tooltip for icon near "Local Path" field in connection settings window.
+    "SETTINGSWIND_GLOB_LOCALPATH_FILLWPROJECT_TITLE" : "Aggiungi il percorso al progetto corrente", //NEW
     
-    "QUEUE_TITLE" : "Coda Di eqFTP",
+    "QUEUE_TITLE" : "Coda di eqFTP",
     "QUEUE_TITLE_HOVER" : "Clicca Per Aprire La Coda Di eqFTP",
     "QUEUE_HEADER_NAME" : "Nome",
     "QUEUE_HEADER_PATH" : "Percorso",
