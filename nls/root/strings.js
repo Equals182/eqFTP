@@ -17,10 +17,12 @@ define({
     "ERR_DIAG_SERVCANTREACH_CONTENT" : "I just can't reach server.<br>Maybe your Firewall don't let me do this.",
     "ERR_DIAG_AUTHORIZEERR_TITLE" : "Incorrect Authorization Data",
     "ERR_DIAG_AUTHORIZEERR_CONTENT" : "I can't authorize with those login and password you gave me.<br>Please check them.",
-    // Two strings below used in one error dialog wich appears when user trying to upload file
-    // but this file isn't in project (wich used in eqFTP connection) and there is no currently connected server.
-    "ERR_DIAG_NOSERVERFOUND_TITLE" : "Can't find connection", // NEW
-    "ERR_DIAG_NOSERVERFOUND_CONTENT" : "There are no eqFTP connections tied with current project and no connected server.<br>Connect to server or specify current project's folder as local path for connection in Settings.", //NEW
+    "ERR_DIAG_NOSERVERFOUND_TITLE" : "Can't find connection",
+    "ERR_DIAG_NOSERVERFOUND_CONTENT" : "There are no eqFTP connections tied with current project and no connected server.<br>Connect to server or specify current project's folder as local path for connection in Settings.",
+    "ERR_DIAG_ECONNRESET_TITLE" : "Server denying connections",
+    "ERR_DIAG_ECONNRESET_CONTENT" : "I can't connect to server, it doesn't allows me.<br>Try restart Brackets.",
+    "ERR_DIAG_UNIVERSAL_TITLE" : "There's an error",
+    "ERR_DIAG_UNIVERSAL_CONTENT" : "Look at this error! How could it happen?",
     
     "PASSWDWIND_TITLE" : "Please Enter Your Password",
     "PASSWDWIND_CONTENT" : "Your Password for eqFTP:",
@@ -28,9 +30,7 @@ define({
     "SETTINGSWIND_TITLE" : "eqFTP Connections Manager",
     "SETTINGSWIND_ERR_BLANKS" : "Oh! Looks like something gone wrong. Check input fields and try again.",
     "SETTINGSWIND_ERR_CANTWRITE" : "Something gone totally wrong! I can't write settings to file!",
-    // New string below is an error message when user tring to insert path to current project
-    // but current project is currently in use in another connection.
-    "SETTINGSWIND_ERR_LOCALPATHREPEAT" : "The path you're trying to insert is currently in use by another connection.", //NEW
+    "SETTINGSWIND_ERR_LOCALPATHREPEAT" : "The path you're trying to insert is currently in use by another connection.",
     "SETTINGSWIND_NOTIF_DONE" : "Everything's saved! :)",
     "SETTINGSWIND_SAVEDCONN" : "Saved FTP Connections",
     "SETTINGSWIND_DELETECONN_HOVER" : "Delete This Connection",
@@ -63,8 +63,7 @@ define({
     "SETTINGSWIND_GLOB_UPLOADONSAVE" : "Upload File on Save",
     "SETTINGSWIND_GLOB_EVENDISCONN" : "Even If Disconnected",
     "SETTINGSWIND_GLOB_EVENDISCONN_EXPLAIN" : "This option allows automatically connect to server when saved file is opened from server or saved file is within current project and this project was created by this ftp extension. Oh, I really hope I explained it well..",
-    // this one is tooltip for icon near "Local Path" field in connection settings window.
-    "SETTINGSWIND_GLOB_LOCALPATH_FILLWPROJECT_TITLE" : "Insert current project's path", //NEW
+    "SETTINGSWIND_GLOB_LOCALPATH_FILLWPROJECT_TITLE" : "Insert current project's path",
     
     "QUEUE_TITLE" : "eqFTP Queue",
     "QUEUE_TITLE_HOVER" : "Click to Open eqFTP Queue",

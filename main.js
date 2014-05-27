@@ -19,6 +19,11 @@
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
  *
+ * version 0.4.2
+ * - Improved Italian translation
+ * - Updating file tree after upload temporary removed
+ * version 0.4.1
+ * - New strings added in German translation
  * version 0.4.0
  * - German translation
  * - Italian translation
@@ -29,22 +34,6 @@
  *
  * version 0.3.0
  * - Multilaguage Support (Contribute with translating!)
- * 
- * version 0.2.7
- * - Correct remote root recognition
- * - Better error handling. It's not crushing now. Wow.
- * - Minor but still important bugfixes
- * 
- * versions 0.2.1-0.2.6
- * - Fixing the bug with .eqFTP-note file
- * - Fixing files downloading bug
- * - Changed default projects folder
- * - Changed default folder for settings file
- * 
- * version 0.2.0
- * - Improved queueing (should work faster)
- * - Directory downloading in both ways
- * - Code refactoring
  * 
  */
 
@@ -1724,6 +1713,10 @@ define(function (require, exports, module) {
                     Dialogs.showModalDialog('DIALOG_ID_ERROR',eqFTPstrings.ERR_DIAG_SERVNOEXIST_TITLE, eqFTPstrings.ERR_DIAG_SERVNOEXIST_CONTENT);
                 }else if(params.err.code=="EACCES") {
                     Dialogs.showModalDialog('DIALOG_ID_ERROR',eqFTPstrings.ERR_DIAG_SERVCANTREACH_TITLE, eqFTPstrings.ERR_DIAG_SERVCANTREACH_CONTENT);
+                }else if(params.err.code=="ECONNRESET") {
+                    Dialogs.showModalDialog('DIALOG_ID_ERROR',eqFTPstrings.ERR_DIAG_ECONNRESET_TITLE, eqFTPstrings.ERR_DIAG_ECONNRESET_CONTENT);
+                }else{
+                    Dialogs.showModalDialog('DIALOG_ID_ERROR',eqFTPstrings.ERR_DIAG_UNIVERSAL_TITLE, eqFTPstrings.ERR_DIAG_UNIVERSAL_CONTENT+"<br>"+JSON.stringify(params.err));
                 }
             }else if(params.event="authError") {
                 Dialogs.showModalDialog('DIALOG_ID_ERROR',eqFTPstrings.ERR_DIAG_AUTHORIZEERR_TITLE, eqFTPstrings.ERR_DIAG_AUTHORIZEERR_CONTENT);
@@ -1744,8 +1737,8 @@ define(function (require, exports, module) {
                     clearInterval(toolbarResetTimeout);
                 }, 2000);
             }else if(params.status == "uploadComplete") {
-                var path = FileUtils.getDirectoryPath(item.remotePath);
-                eqFTP.ftpFunctions.changeDirectory({path:"//"+path, reload:true});
+                /*var path = FileUtils.getDirectoryPath(item.remotePath);
+                eqFTP.ftpFunctions.changeDirectory({path:"//"+path, reload:true});*/
                 eqFTP.globals.successedQueue.unshift(item);
             }else if(params.status == "downloadComplete") {
                 if(params.element.openAfter) {

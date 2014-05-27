@@ -24,6 +24,21 @@ maxerr: 50, node: true */
         }
         return undefined;
     }
+
+    function throwError(txt,log) {
+        var err = (new Error).stack;
+        err = err.split("\n")[2].match(/:(\d+):\d+$/i);
+        if(err == null || err[1] == undefined) {
+            var error = "";
+        }else{
+            var error = err[1]+": ";
+        }
+        if(log){
+            console.log("[eqFTP-ftpDomain]: "+error+txt);
+        }else{
+            console.error("[eqFTP-ftpDomain]: "+error+txt);
+        }
+    }
     
     var globalRecursiveInterval;
     function getDirectoryRecursive(params) {
@@ -74,15 +89,17 @@ maxerr: 50, node: true */
         var last = false;
         params.client.ls(path, function (err, files) {
             var arrayString = JSON.stringify(files);
-            console.log('[eqFTP] Got Directory: '+path);
+            throwError("Got Directory: "+path,true);
             gdrbli++;
             if(gdrbli>=pathsToResolve.length) {
                 last = true;
                 gdrbli = 0;
                 pathsToResolve = [];
-                params.client.raw.abor();
-                params.client.raw.quit();
-                directoryClient = null;
+                if(params.client!=null && params.client) {
+                    params.client.raw.abor();
+                    params.client.raw.quit();
+                    directoryClient = null;
+                }
             }else{
                 getDirectoriesRecursiveByList(params);
             }
@@ -108,15 +125,19 @@ maxerr: 50, node: true */
     
     function getRemoteRoot(params) {
         if(params.path!="'eqFTP'root'" || params.path!="") {
-            params.client.raw.cwd(params.path, function(err, data) {
-                if(err!=null || err) {
-                    params.client.raw.cwd("/", function(err, data) {
+            if(params.client!=null && params.client) {
+                params.client.raw.cwd(params.path, function(err, data) {
+                    if(err!=null || err) {
+                        if(params.client!=null && params.client) {
+                            params.client.raw.cwd("/", function(err, data) {
+                                getPWD(params);
+                            });
+                        }
+                    }else{
                         getPWD(params);
-                    });
-                }else{
-                    getPWD(params);
-                }
-            });
+                    }
+                });
+            }
         }else{
             getPWD(params);
         }
@@ -131,7 +152,7 @@ maxerr: 50, node: true */
         });
         
         directoryClient.on('error', function(err) {
-            console.error("[eqFTP-ftpDomain] "+err);
+            throwError(err);
             _domainManager.emitEvent("eqFTP", "otherEvents", {event:"connectError", err:err});
             return false;
         });
@@ -139,8 +160,8 @@ maxerr: 50, node: true */
         directoryClient.on('connect', function() {
             directoryClient.auth(params.connection.username, params.connection.password, function (err, res) {
                 if (err) {
-                    console.error("[eqFTP-ftpDomain] There was an error with authorization while trying to get directory.");
-                    console.error("[eqFTP-ftpDomain] "+err);
+                    throwError("There was an error with authorization while trying to get directory.");
+                    throwError(err);
                     _domainManager.emitEvent("eqFTP", "otherEvents", {event:"authError", err:err});
                 } else {
                     if(params.recursive) {
@@ -148,7 +169,7 @@ maxerr: 50, node: true */
                         params.callback = function(files) {
                             clearInterval(globalRecursiveInterval);
                             globalRecursiveInterval = setInterval(function() {
-                                console.log('[eqFTP-ftpDomain] Got directory structure.');
+                                throwError("Got directory structure.",true);
                                 _domainManager.emitEvent("eqFTP", "getDirectoryRecursive", {err:err, files:files});
                                 clearInterval(globalRecursiveInterval);
                             },2000);
@@ -162,7 +183,7 @@ maxerr: 50, node: true */
                             path: params.remoteRoot,
                             client: directoryClient,
                             callback: function(path) {
-                                console.log('[eqFTP-ftpDomain] Getting directory structure.');
+                                throwError("Getting directory structure.",true);
                                 params.remoteRoot = path;
                                 getDirectoryRecursive(params);
                             }
@@ -273,7 +294,7 @@ maxerr: 50, node: true */
             if(entry==undefined) {
                 if(params.tmp_path == params.finalPath) {
                     if(params.callback!=undefined) {
-                        console.log('[eqFTP-ftpDomain] Created directory structure on remote server.')
+                        throwError("Created directory structure on remote server.",true);
                         params.callback();
                     }
                     return true;
@@ -299,13 +320,13 @@ maxerr: 50, node: true */
                                                 params.i++;
                                                 return recursiveRemoteDirectoryCreation(params);
                                             }else{
-                                                console.error("[eqFTP-ftpDomain] Can't create remote directory: "+tmp);
+                                                throwError("Can't create remote directory: "+tmp);
                                                 return false;
                                             }
                                         });
                                     }
                                 }else{
-                                    console.error("[eqFTP-ftpDomain] Can't get in directory: "+params.tmp_path);
+                                    throwError("Can't get in directory: "+params.tmp_path);
                                     return false;
                                 }
                             });
@@ -348,8 +369,8 @@ maxerr: 50, node: true */
         progressTotalsize = false;
     
     function cmdhandleQueue(elem) {
-        console.log('[eqFTP-ftpDomain] Got cmdhandleQueue Command');
-        
+        throwError("Got cmdhandleQueue Command",true);
+                
         if(queue.length>0 && queuePaused==false) {
             if(elem==undefined) {
                 var el = queue.shift();
@@ -365,7 +386,7 @@ maxerr: 50, node: true */
                             var remoteRoot = path;
                             path = normalizePath(path+"/"+el.remotePath);
                             el.absRemotePath = path;
-                            console.log("[eqFTP-ftpDomain] Trying to upload file: "+el.localPath+" to "+path);
+                            throwError("Trying to upload file: "+el.localPath+" to "+path,true);
                             progressReaded = 0;
                             progressTotalsize = false;
                             if(queueClient!=null) {
@@ -374,11 +395,11 @@ maxerr: 50, node: true */
                                         if(queueClient!=null) {
                                             queueClient.put(el.localPath, path, function(hadErr) {
                                                 if (!hadErr) {
-                                                    console.log("[eqFTP-ftpDomain] File uploaded successfully!");
+                                                    throwError("File uploaded successfully!",true);
                                                     _domainManager.emitEvent("eqFTP", "queueEvent", {status: "uploadComplete", element: el});
                                                 }else{
-                                                    console.error('[eqFTP-ftpDomain] There was an error uploading the file.');
-                                                    console.error("[eqFTP-ftpDomain] "+hadErr);
+                                                    throwError("There was an error uploading the file.");
+                                                    throwError(hadErr);
                                                     _domainManager.emitEvent("eqFTP", "queueEvent", {status: "uploadError", element: el});
                                                     if(queueClient!=null) {
                                                         queueClient=null;
@@ -389,7 +410,7 @@ maxerr: 50, node: true */
                                         }
                                     }
                                     if(err!=null) {
-                                        console.error("[eqFTP-ftpDomain] "+err);
+                                        throwError(err);
                                         if(err.code == 450) {
                                             var pathArray = el.remotePath.split('/');
                                             pathArray.pop();
@@ -417,13 +438,13 @@ maxerr: 50, node: true */
                         callback: function(path) {
                             path = normalizePath(path+el.remotePath);
                             el.absRemotePath = path;
-                            console.log("[eqFTP-ftpDomain] Trying to download file: "+path+" to "+el.localPath+el.name);
+                            throwError("Trying to download file: "+path+" to "+el.localPath+el.name,true);
                             mkpath(el.localPath, function (err) {
                                 if (err) {
-                                    console.error("[eqFTP-ftpDomain] "+err);
+                                    throwError(err);
                                     cmdhandleQueue();
                                 }else{
-                                    console.log('[eqFTP-ftpDomain] Directory structure '+el.localPath+' created');
+                                    throwError("Directory structure "+el.localPath+" created.",true);
                                     if(queueClient!=null) {
                                         queueClient.ls(path+"*", function (err, files) {
                                             if(files!=undefined && err==null) {
@@ -438,13 +459,13 @@ maxerr: 50, node: true */
                                                             if (hadErr) {
                                                                 el.status = hadErr;
                                                                 _domainManager.emitEvent("eqFTP", "queueEvent", {status: "downloadError", element: el});
-                                                                console.error('[eqFTP-ftpDomain] There was an error downloading the file.');
-                                                                console.error("[eqFTP-ftpDomain] "+hadErr);
+                                                                throwError("There was an error downloading the file.");
+                                                                throwError(hadErr);
                                                                 if(queueClient!=null) {
                                                                     queueClient=null;
                                                                 }
                                                             } else {
-                                                                console.log('[eqFTP-ftpDomain] File downloaded successfully!');
+                                                                throwError("File downloaded successfully!",true);
                                                                 _domainManager.emitEvent("eqFTP", "queueEvent", {status: 'downloadComplete', element: el});
                                                             }
                                                             cmdhandleQueue();
@@ -452,7 +473,7 @@ maxerr: 50, node: true */
                                                     }
                                                 }else{
                                                     _domainManager.emitEvent("eqFTP", "queueEvent", {status: "downloadFilesize0", element: el});
-                                                    console.error("[eqFTP-ftpDomain] This file so empty I can't even download it. (Filesize=0)");
+                                                    throwError("This file so empty I can't even download it. (Filesize=0)");
                                                     if(queueClient!=null) {
                                                         queueClient.raw.abor();
                                                         queueClient.raw.quit();
@@ -462,8 +483,8 @@ maxerr: 50, node: true */
                                                 }
                                             }else{
                                                 _domainManager.emitEvent("eqFTP", "queueEvent", {status: "downloadError", element: el});
-                                                console.error('[eqFTP-ftpDomain] There was an error downloading the file.');
-                                                console.error("[eqFTP-ftpDomain] "+err);
+                                                throwError("There was an error downloading the file.");
+                                                throwError(err);
                                                 if(queueClient!=null) {
                                                     queueClient.raw.abor();
                                                     queueClient.raw.quit();
@@ -494,7 +515,7 @@ maxerr: 50, node: true */
                 });
 
                 queueClient.on('error', function(err) {
-                    console.error("[eqFTP-ftpDomain] "+err);
+                    throwError(err);
                     _domainManager.emitEvent("eqFTP", "queueEvent", {status: "connectError", element: el, err:err});
                     queueClient = null;
                     cmdhandleQueue();
@@ -503,8 +524,8 @@ maxerr: 50, node: true */
                 queueClient.on('connect', function(){
                     queueClient.auth(el.connection.username, el.connection.password, function (err, res) {
                         if (err) {
-                            console.error("[eqFTP-ftpDomain] There was an error with authorization while trying to download file");
-                            console.error("[eqFTP-ftpDomain] "+err);
+                            throwError("There was an error with authorization while trying to download file.");
+                            throwError(err);
                             _domainManager.emitEvent("eqFTP", "queueEvent", {status: "authError", element: el});
                         } else {
                             lastConnectionID = el.connectionID;
@@ -529,7 +550,7 @@ maxerr: 50, node: true */
                 doThis(el);
             }
         }else{
-            console.log("[eqFTP-ftpDomain] Queue is empty or paused.");
+            throwError("Queue is empty or paused.",true);
             _domainManager.emitEvent("eqFTP", "queueEvent", {status: "queueDone"});
             if(queueClient!=null) {
                 queueClient.raw.abor();
@@ -549,7 +570,7 @@ maxerr: 50, node: true */
                 queueClient.raw.quit();
                 queueClient=null;
             }
-            console.log("[eqFTP-ftpDomain] Queue is cleared.");
+            throwError("Queue is cleared.",true);
         }else if(params.action=="pause") {
             queuePaused = params.pause;
             if(queueClient!=null) {
