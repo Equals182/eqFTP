@@ -16,11 +16,11 @@ define({
     "ERR_DIAG_SERVCANTREACH_TITLE" : "Der Server ist nicht erreichbar",
     "ERR_DIAG_SERVCANTREACH_CONTENT" : "Ich kann den Server nicht erreichen.<br>Vielleicht liegt es an deiner Firewall.",
     "ERR_DIAG_AUTHORIZEERR_TITLE" : "Falsche Autorisierungsdaten",
-    "ERR_DIAG_AUTHORIZEERR_CONTENT" : "Vermutlich ist dein Passwort oder dein Username falsch.<br>Überprüfe bitte deine Eingaben nochmal",
+    "ERR_DIAG_AUTHORIZEERR_CONTENT" : "Vermutlich ist dein Passwort oder dein Username falsch.<br>Überprüfe bitte deine Eingaben noch einmal",
     
 	 // Two strings below used in one error dialog wich appears when user trying to upload file
     // but this file isn't in project (wich used in eqFTP connection) and there is no currently connected server.
-    "ERR_DIAG_NOSERVERFOUND_TITLE" : "Verbindung kann nicht gefunden werden", 
+    "ERR_DIAG_NOSERVERFOUND_TITLE" : "Es konnte keine Verbindung gefunden werden.", 
     "ERR_DIAG_NOSERVERFOUND_CONTENT" : "Es gibt keine eqFTP Verbindung mit dem derzeitigen Ordner und keinen verbundenen Server.<br>Verbinde dich mit einem Server oder ändere die Einstellungen so, dass der aktuelle Pfad eine lokaler Pfad für eine Verbindung ist.", 
     
 	
@@ -62,13 +62,13 @@ define({
     "SETTINGSWIND_GLOB_LOCALPATH_FIELD" : "Neuer Ordner, wenn leer",
     "SETTINGSWIND_GLOB_UPLOADONSAVE" : "Lade Datei beim Speichern hoch",
     "SETTINGSWIND_GLOB_EVENDISCONN" : "Auch wenn die Verbindung getrennt ist",
-    "SETTINGSWIND_GLOB_EVENDISCONN_EXPLAIN" : "Diese Option ermöglicht es, dass automatische Verbinden mit dem Server, wenn eine Datei die sich in einem Projektordner befindet, der mit eqFTP erstellt wurde, gespeichert wurde. Ich hoffe ich habe es gut erklärt :D",
+    "SETTINGSWIND_GLOB_EVENDISCONN_EXPLAIN" : "Diese Option ermöglicht es, dass automatische Verbinden mit dem Server, wenn eine Datei die sich in einem Projektordner befindet, der mit eqFTP erstellt wurde, gespeichert wurde. Ich hoffe ich habe es gut erklärt.",
     
 	// this one is tooltip for icon near "Local Path" field in connection settings window.
     "SETTINGSWIND_GLOB_LOCALPATH_FILLWPROJECT_TITLE" : "Füge den derzeitiegen Projekt-Pfad ein", 
 	
     "QUEUE_TITLE" : "eqFTP Warteschlange",
-    "QUEUE_TITLE_HOVER" : "Klicke um die Warteschlange zu öffnen",
+    "QUEUE_TITLE_HOVER" : "Klicke, um die Warteschlange zu öffnen",
     "QUEUE_HEADER_NAME" : "Name",
     "QUEUE_HEADER_PATH" : "Pfad",
     "QUEUE_HEADER_STATUS" : "Status",
