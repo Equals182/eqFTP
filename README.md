@@ -82,6 +82,7 @@ I'm thinking about this:
 * [fmaida](https://github.com/fmaida) -- translating (Italian), donating
 * Roger Reghin -- translating (Portuguese)
 * [Tilotiti](https://github.com/Tilotiti) -- translating (French)
+* [Anachron](https://github.com/Anachron) -- German translation improvements
 
 ## License
 
