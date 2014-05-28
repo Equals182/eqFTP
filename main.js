@@ -22,7 +22,7 @@
  * version 0.4.3
  * - Added French translation
  * - Added Portuguese translation
- * - Removed Error Dialog on save when project isn't connected to server.
+ * - Temporary removed Error Dialog on save when project isn't connected to server.
  * version 0.4.2
  * - Improved Italian translation
  * - Updating file tree after upload temporary removed
@@ -1859,7 +1859,7 @@ define(function (require, exports, module) {
                             doUpload();
                         }
                     }else{
-                        console.error("[eqFTP] Upload on save. There's no connectionID.");
+                        console.log("[eqFTP] Upload on save. There's no connectionID.");
                     }
                 }
             });
