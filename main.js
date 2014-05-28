@@ -19,6 +19,10 @@
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
  *
+ * version 0.4.3
+ * - Added French translation
+ * - Added Portuguese translation
+ * - Removed Error Dialog on save when project isn't connected to server.
  * version 0.4.2
  * - Improved Italian translation
  * - Updating file tree after upload temporary removed
@@ -806,7 +810,7 @@ define(function (require, exports, module) {
                             tied: false
                         });
                     }else{
-                        Dialogs.showModalDialog('DIALOG_ID_ERROR',eqFTPstrings.ERR_DIAG_NOSERVERFOUND_TITLE, eqFTPstrings.ERR_DIAG_NOSERVERFOUND_CONTENT);
+                        //Dialogs.showModalDialog('DIALOG_ID_ERROR',eqFTPstrings.ERR_DIAG_NOSERVERFOUND_TITLE, eqFTPstrings.ERR_DIAG_NOSERVERFOUND_CONTENT);
                         params.callback({
                             connectionID: false,
                             tied: false
