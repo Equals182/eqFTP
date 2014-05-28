@@ -10,6 +10,7 @@ maxerr: 50, node: true */
     var assert = require("assert");
     var FTPClient = require("jsftp");
     var mkpath = require("mkpath");
+    var debug = false;
     
     var _domainManager;
     console.log('jsftp-ok');
@@ -148,7 +149,8 @@ maxerr: 50, node: true */
             host: params.connection.server,
             user: params.connection.username,
             pass: params.connection.password,
-            port: params.connection.port
+            port: params.connection.port,
+            debugMode: debug
         });
         
         directoryClient.on('error', function(err) {
@@ -203,6 +205,12 @@ maxerr: 50, node: true */
                             path: params.remoteRoot,
                             client: directoryClient,
                             callback: doThis
+                        });
+                    }
+                    if(debug) {
+                        directoryClient.on('jsftp_debug', function(eventType, data) {
+                            console.log('DIRECTORY DEBUG: ', eventType);
+                            console.log(JSON.stringify(data, null, 2));
                         });
                     }
                 }
@@ -511,7 +519,8 @@ maxerr: 50, node: true */
                     host: el.connection.server,
                     user: el.connection.username,
                     pass: el.connection.password,
-                    port: el.connection.port
+                    port: el.connection.port,
+                    debugMode: debug
                 });
 
                 queueClient.on('error', function(err) {
@@ -543,6 +552,12 @@ maxerr: 50, node: true */
                                     _domainManager.emitEvent("eqFTP", "transferProgress", {data: data});
                                 }
                             });
+                            if(debug) {
+                                queueClient.on('jsftp_debug', function(eventType, data) {
+                                    console.log('FILE TRANSFER DEBUG: ', eventType);
+                                    console.log(JSON.stringify(data, null, 2));
+                                });
+                            }
                         }
                     });
                 });
