@@ -73,9 +73,11 @@ I'm thinking about this:
 
 ## Contributors
 
-* [Wikunia](https://github.com/Wikunia) -- translating, bugs finding, testing
+* [Wikunia](https://github.com/Wikunia) -- translating (German), bugs finding, testing
 * [mackenza](https://github.com/mackenza) -- bugs finding, testing
-* [fmaida](https://github.com/fmaida) -- translating, donating
+* [fmaida](https://github.com/fmaida) -- translating (Italian), donating
+* Roger Reghin -- translating (Portuguese)
+* [Tilotiti](https://github.com/Tilotiti) -- translating (French)
 
 ## License
 
