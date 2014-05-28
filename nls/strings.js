@@ -13,6 +13,8 @@ define(function (require, exports, module) {
         root: true,
         "de": true,
         "ru": true,
-        "it": true
+        "it": true,
+        "pt": true,
+        "fr": true
     };
 });

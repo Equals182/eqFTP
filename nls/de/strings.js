@@ -18,12 +18,19 @@ define({
     "ERR_DIAG_AUTHORIZEERR_TITLE" : "Falsche Autorisierungsdaten",
     "ERR_DIAG_AUTHORIZEERR_CONTENT" : "Vermutlich ist dein Passwort oder dein Username falsch.<br>Überprüfe bitte deine Eingaben nochmal",
     
+	 // Two strings below used in one error dialog wich appears when user trying to upload file
+    // but this file isn't in project (wich used in eqFTP connection) and there is no currently connected server.
+    "ERR_DIAG_NOSERVERFOUND_TITLE" : "Verbindung kann nicht gefunden werden", 
+    "ERR_DIAG_NOSERVERFOUND_CONTENT" : "Es gibt keine eqFTP Verbindung mit dem derzeitigen Ordner und keinen verbundenen Server.<br>Verbinde dich mit einem Server oder ändere die Einstellungen so, dass der aktuelle Pfad eine lokaler Pfad für eine Verbindung ist.", 
+    
+	
     "PASSWDWIND_TITLE" : "Bitte gebe dein Passwort ein",
     "PASSWDWIND_CONTENT" : "Dein Passwort für eqFTP:",
     
     "SETTINGSWIND_TITLE" : "eqFTP Verbindungsmanager",
     "SETTINGSWIND_ERR_BLANKS" : "Oh hier ist irgendwas falsch gelaufen :/. Überprüfe deine Eingaben und probiere es erneut.",
     "SETTINGSWIND_ERR_CANTWRITE" : "Irgendwas läuft hier gewaltig schief! Es ist nicht möglich die Einstellungen zu speichern!",
+	"SETTINGSWIND_ERR_LOCALPATHREPEAT" : "Der eingegebene Pfad wird derzeit von einer anderen Verbindung genutzt", 
     "SETTINGSWIND_NOTIF_DONE" : "Alles gespeichert! :)",
     "SETTINGSWIND_SAVEDCONN" : "Gespeicherte FTP Verbindungen",
     "SETTINGSWIND_DELETECONN_HOVER" : "Lösche diese Verbindung",
@@ -57,6 +64,9 @@ define({
     "SETTINGSWIND_GLOB_EVENDISCONN" : "Auch wenn die Verbindung getrennt ist",
     "SETTINGSWIND_GLOB_EVENDISCONN_EXPLAIN" : "Diese Option ermöglicht es, dass automatische Verbinden mit dem Server, wenn eine Datei die sich in einem Projektordner befindet, der mit eqFTP erstellt wurde, gespeichert wurde. Ich hoffe ich habe es gut erklärt :D",
     
+	// this one is tooltip for icon near "Local Path" field in connection settings window.
+    "SETTINGSWIND_GLOB_LOCALPATH_FILLWPROJECT_TITLE" : "Füge den derzeitiegen Projekt-Pfad ein", 
+	
     "QUEUE_TITLE" : "eqFTP Warteschlange",
     "QUEUE_TITLE_HOVER" : "Klicke um die Warteschlange zu öffnen",
     "QUEUE_HEADER_NAME" : "Name",
