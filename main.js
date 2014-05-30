@@ -804,7 +804,7 @@ define(function (require, exports, module) {
                     }
                 });
                 if(f===false) {
-                    if(eqFTP.globals.connectedServer!=null) {
+                    /*if(eqFTP.globals.connectedServer!=null) {
                         params.callback({
                             connectionID: eqFTP.globals.connectedServer,
                             tied: false
@@ -815,7 +815,11 @@ define(function (require, exports, module) {
                             connectionID: false,
                             tied: false
                         });
-                    }
+                    }*/
+                    params.callback({
+                        connectionID: false,
+                        tied: false
+                    });
                 }
             }
             if(eqFTP.globals.settingsLoaded==false) {
