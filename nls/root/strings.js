@@ -62,7 +62,7 @@ define({
     "SETTINGSWIND_GLOB_LOCALPATH_FIELD" : "Creates new folder in default location if blank",
     "SETTINGSWIND_GLOB_UPLOADONSAVE" : "Upload File on Save",
     "SETTINGSWIND_GLOB_EVENDISCONN" : "Even If Disconnected",
-    "SETTINGSWIND_GLOB_EVENDISCONN_EXPLAIN" : "This option automatically connects to a server when a saved file is opened from the server or saved file is within current project and this project was created by this ftp extension. Oh, I really hope I explained it well...",
+    "SETTINGSWIND_GLOB_EVENDISCONN_EXPLAIN" : "This option automatically connects to a server when a saved file is opened from the server or a saved file is within the current project and this project was created by this ftp extension. Oh, I really hope I explained it well...",
     "SETTINGSWIND_GLOB_LOCALPATH_FILLWPROJECT_TITLE" : "Insert current project's path",
     
     "QUEUE_TITLE" : "eqFTP Queue",
