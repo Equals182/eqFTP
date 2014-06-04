@@ -83,6 +83,7 @@ I'm thinking about this:
 * Roger Reghin -- translating (Portuguese)
 * [Tilotiti](https://github.com/Tilotiti) -- translating (French)
 * [Anachron](https://github.com/Anachron) -- German translation improvements
+* [topwebs](https://github.com/topwebs) -- bugs finding, testing
 
 ## License
 
