@@ -28,8 +28,8 @@ define({
     "PASSWDWIND_CONTENT" : "Your Password for eqFTP:",
     
     "SETTINGSWIND_TITLE" : "eqFTP Connections Manager",
-    "SETTINGSWIND_ERR_BLANKS" : "Oh! Looks like something gone wrong. Check input fields and try again.",
-    "SETTINGSWIND_ERR_CANTWRITE" : "Something gone totally wrong! I can't write settings to file!",
+    "SETTINGSWIND_ERR_BLANKS" : "Oops! Looks like something is wrong. Check input fields and try again.",
+    "SETTINGSWIND_ERR_CANTWRITE" : "Something went totally wrong! I can't write settings to file!",
     "SETTINGSWIND_ERR_LOCALPATHREPEAT" : "The path you're trying to insert is currently in use by another connection.",
     "SETTINGSWIND_NOTIF_DONE" : "Everything's saved! :)",
     "SETTINGSWIND_SAVEDCONN" : "Saved FTP Connections",
