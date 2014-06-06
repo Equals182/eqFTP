@@ -84,6 +84,7 @@ I'm thinking about this:
 * [Tilotiti](https://github.com/Tilotiti) -- translating (French)
 * [Anachron](https://github.com/Anachron) -- German translation improvements
 * [topwebs](https://github.com/topwebs) -- bugs finding, testing
+* [oytunyuksel](https://github.com/oytunyuksel) -- translating (Turkish)
 
 ## License
 
