@@ -19,15 +19,15 @@ define({
     "ERR_DIAG_AUTHORIZEERR_CONTENT" : "Non riesco ad autorizzare l'accesso con la login e la password inseriti.<br>Ti prego di verificarli.",
     "ERR_DIAG_NOSERVERFOUND_TITLE" : "Nessuna connessione specificata",
     "ERR_DIAG_NOSERVERFOUND_CONTENT" : "Non hai specificato nessuna connessione in eqFTP che associ il tuo progetto corrente ad un server remoto.<br>Specifica un server remoto per la connessione oppure utilizza l'attuale cartella del progetto come percorso locale nelle impostazioni.",
-	"ERR_DIAG_ECONNRESET_TITLE" : "Server denying connections",
-	"ERR_DIAG_ECONNRESET_CONTENT" : "I can't connect to server, it doesn't allows me.<br>Try restart Brackets.",
-	"ERR_DIAG_UNIVERSAL_TITLE" : "There's an error",
-	"ERR_DIAG_UNIVERSAL_CONTENT" : "Look at this error! How could it happen?",
+	"ERR_DIAG_ECONNRESET_TITLE" : "Server sta rifiutando le connessioni",
+	"ERR_DIAG_ECONNRESET_CONTENT" : "Non riesco a connettermi al server, non mi é permesso.<br>Prova a riavviare Brackets.",
+	"ERR_DIAG_UNIVERSAL_TITLE" : "C'é un errore",
+	"ERR_DIAG_UNIVERSAL_CONTENT" : "Guarda questo errore! Come è potuto accadere?",
     
     "PASSWDWIND_TITLE" : "Inserisci La Master Password",
-    "PASSWDWIND_CONTENT" : "La tua master password per eqFTP:",
+    "PASSWDWIND_CONTENT" : "La tua Master Password per eqFTP:",
     
-    "SETTINGSWIND_TITLE" : "eqFTP Connection Manager",
+    "SETTINGSWIND_TITLE" : "eqFTP Gestore Connessione",
     "SETTINGSWIND_ERR_BLANKS" : "Oh! Qualcosa è andato storto... controlla il contenuto dei campi e riprova.",
     "SETTINGSWIND_ERR_CANTWRITE" : "Qualcosa è andato davvero storto! Non posso scrivere le impostazioni sul file!",
     "SETTINGSWIND_ERR_LOCALPATHREPEAT" : "Il percorso che stai cercando di inserire è attualmente in uso da parte di un'altra connessione.",
@@ -66,20 +66,20 @@ define({
     "SETTINGSWIND_GLOB_KEEPALIVE" : "Keep alive interval", //NEW
     "SETTINGSWIND_GLOB_KEEPALIVE_DESC" : "Value in seconds. Recommended value is 10. Use zero to forbid keep alive commands and disconnect from server every time command is done.", //NEW
     "SETTINGSWIND_GLOB_DEBUG" : "Debug:", //NEW
-    "SETTINGSWIND_GLOB_TIMEFORMAT" : "Date Format:", //NEW
+    "SETTINGSWIND_GLOB_TIMEFORMAT" : "Formato data:", //NEW
     "SETTINGSWIND_GLOB_TIMEFORMAT_US" : "US", //NEW
-    "SETTINGSWIND_GLOB_TIMEFORMAT_EU" : "European", //NEW
-    "SETTINGSWIND_GLOB_SYNC" : "Synchronize", //NEW
-    "SETTINGSWIND_GLOB_SYNC_DESC" : "Will delete or rename file on remote server after it was changed in Brackets.", //NEW
+    "SETTINGSWIND_GLOB_TIMEFORMAT_EU" : "Europeo", //NEW
+    "SETTINGSWIND_GLOB_SYNC" : "Sincronizza", //NEW
+    "SETTINGSWIND_GLOB_SYNC_DESC" : "Sarà eliminato o rinominato i file sul server remoto dopo che è stato modificato in Brackets.", //NEW
     
     "QUEUE_TITLE" : "Coda di eqFTP",
     "QUEUE_TITLE_HOVER" : "Clicca Per Aprire La Coda Di eqFTP",
     "QUEUE_HEADER_NAME" : "Nome",
     "QUEUE_HEADER_PATH" : "Percorso",
-	"QUEUE_HEADER_FROM" : "Source Path", //NEW
-	"QUEUE_HEADER_TO" : "Destination Path", //NEW
+	"QUEUE_HEADER_FROM" : "Percorso sorgente", //NEW
+	"QUEUE_HEADER_TO" : "Percorso destinazione", //NEW
     "QUEUE_HEADER_STATUS" : "Stato",
-	"QUEUE_REMOVE" : "Remove from Queue", //NEW
+	"QUEUE_REMOVE" : "Rimuovi dalla coda", //NEW
     "QUEUE_CONTEXTM_STARTQ" : "Inizia Lavoro",
     "QUEUE_CONTEXTM_PAUSEQ" : "Sospendi Lavoro",
     "QUEUE_CONTEXTM_CLEARQ" : "Ripulisci La Coda",
@@ -95,18 +95,18 @@ define({
     "CONTEXTM_UPLOAD" : "Upload",
     "CONTEXTM_ADDQUEUE" : "Aggiungi Alla Coda",
     "CONTEXTM_OPEN" : "Apri",
-    "CONTEXTM_DELETE" : "Delete",
-    "CONTEXTM_RENAME" : "Rename",
+    "CONTEXTM_DELETE" : "Cancella",
+    "CONTEXTM_RENAME" : "Rinnomina",
     
     "OTHER_SELECT_SERVER_DROPDOWN" : "Seleziona un server remoto...",
     "OTHER_ERROR" : "Errore",
     "OTHER_PAUSED" : "In pausa",
     "OTHER_COMPLETED" : "Completato",
-	"OTHER_CANCELLED" : "Cancelled", //NEW
+	"OTHER_CANCELLED" : "Cancellato", //NEW
     "OTHER_WAITING" : "In attesa",
     "OTHER_OK" : "Ok",
     "OTHER_CANCEL" : "Annulla",
     "OTHER_APPLY" : "Applica",
     "OTHER_CLOSE" : "Chiudi",
-	"OTHER_DELETE" : "Delete", //NEW
+	"OTHER_DELETE" : "Elimina", //NEW
 });
