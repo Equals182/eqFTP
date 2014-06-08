@@ -82,6 +82,7 @@ I'm thinking about this:
 * [Anachron](https://github.com/Anachron) -- German translation improvements
 * [topwebs](https://github.com/topwebs) -- bugs finding, testing
 * [oytunyuksel](https://github.com/oytunyuksel) -- translating (Turkish)
+* [Denisov21](https://github.com/Denisov21) -- translating (Italian)
 
 ## License
 
