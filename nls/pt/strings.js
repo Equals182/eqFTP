@@ -1,6 +1,6 @@
 define({
     "ERR_LOADING" : "Falha ao carregar :(",
-    
+
     "SIDEPANEL_TITLE" : "eqFTP",
     "SIDEPANEL_OPENCONNMANGR" : "Abrir Gerenciador de Conexões",
     "SIDEPANEL_FILETREE_NAME" : "Nome",
@@ -23,10 +23,10 @@ define({
     "ERR_DIAG_ECONNRESET_CONTENT" : "Não pude conectar ao servidor, pois ele não me permite.<br>Experimente reiniciar o Brackets.",
     "ERR_DIAG_UNIVERSAL_TITLE" : "Houve um erro",
     "ERR_DIAG_UNIVERSAL_CONTENT" : "Veja esse erro! Como isso pôde acontecer?",
-    
+
     "PASSWDWIND_TITLE" : "Por favor, entre com sua senha",
     "PASSWDWIND_CONTENT" : "Sua senha para o eqFTP:",
-    
+
     "SETTINGSWIND_TITLE" : "Gerenciador de Conexões do eqFTP",
     "SETTINGSWIND_ERR_BLANKS" : "Nossa! Parece que aconteceu alguma coisa errada. Verifique os campos de entrada e tente novamente.",
     "SETTINGSWIND_ERR_CANTWRITE" : "Alguma coisa muito errada aconteceu! Não pude gravar as configurações no arquivo!",
@@ -36,8 +36,6 @@ define({
     "SETTINGSWIND_DELETECONN_HOVER" : "Remover esta conexão",
     "SETTINGSWIND_ADDCONN_HOVER" : "Adicionar nova conexão",
     "SETTINGSWIND_ADDCONN_STRING" : "Criar nova conexão...",
-    // Those 2 strings below are going like this: SETTINGSWIND_DELETECONNCONF_1 + VAL + SETTINGSWIND_DELETECONNCONF_2
-    // So if in your language there's no need in 2 strings, just leave one of them blank
     "SETTINGSWIND_DELETECONNCONF_1" : "Por favor, confirme a remoção da conexão ",
     "SETTINGSWIND_DELETECONNCONF_2" : ".",
     "SETTINGSWIND_OPENGLOBSET" : "Abrir configuração globais de FTP...",
@@ -64,12 +62,24 @@ define({
     "SETTINGSWIND_GLOB_EVENDISCONN" : "Mesmo se desconectado",
     "SETTINGSWIND_GLOB_EVENDISCONN_EXPLAIN" : "Essa opção permite conectar automaticamente ao servidor quando o arquivo sendo gravado tiver sido aberto daquele servidor, ou quando o arquivo sendo gravado estiver dentro do projeto atual e este projeto tiver sido criado por esta extensão ftp. Nossa, espero ter conseguido explicar isso direito...",
     "SETTINGSWIND_GLOB_LOCALPATH_FILLWPROJECT_TITLE" : "Insira o caminho do projeto atual",
-    
+    "SETTINGSWIND_GLOB_USELIST" : "Usar método alternativo para listagem das pastas",
+    "SETTINGSWIND_GLOB_KEEPALIVE" : "Intervalo de Keep Alive",
+    "SETTINGSWIND_GLOB_KEEPALIVE_DESC" : "Valor em segundos. O valor recomendado é 10. Use zero para desativar o keep alive e desconectar do servidor a cada comando executado.",
+    "SETTINGSWIND_GLOB_DEBUG" : "Debug:",
+    "SETTINGSWIND_GLOB_TIMEFORMAT" : "Formato da data:",
+    "SETTINGSWIND_GLOB_TIMEFORMAT_US" : "US",
+    "SETTINGSWIND_GLOB_TIMEFORMAT_EU" : "Europeu",
+    "SETTINGSWIND_GLOB_SYNC" : "Sincronizar",
+    "SETTINGSWIND_GLOB_SYNC_DESC" : "Irá excluir ou renomear o arquivo no servidor remoto após ele ter sido alterado no Brackets.",
+
     "QUEUE_TITLE" : "Fila eqFTP",
     "QUEUE_TITLE_HOVER" : "Clique para abrir a fila eqFTP",
     "QUEUE_HEADER_NAME" : "Nome",
     "QUEUE_HEADER_PATH" : "Caminho",
+    "QUEUE_HEADER_FROM" : "De/Origem",
+    "QUEUE_HEADER_TO" : "Para/Destino",
     "QUEUE_HEADER_STATUS" : "Status",
+	"QUEUE_REMOVE" : "Excluir da fila", 
     "QUEUE_CONTEXTM_STARTQ" : "Iniciar tarefa",
     "QUEUE_CONTEXTM_PAUSEQ" : "Pausar tarefa",
     "QUEUE_CONTEXTM_CLEARQ" : "Limpar fila",
@@ -80,19 +90,23 @@ define({
     "ERR_FILE_AUTHORIZATION" : "Erro de autorização. Verifique seu usuário e senha.",
     "ERR_FILE_SERVNOEXIST" : "Servidor não existe. Talvez você tenha digitado errado o endereço.",
     "ERR_FILE_SERVCANTREACH" : "Não pude alcançar o servidor. Verifique o firewall.",
-    
+
     "CONTEXTM_DOWNLOAD" : "Download",
     "CONTEXTM_UPLOAD" : "Upload",
     "CONTEXTM_ADDQUEUE" : "Adicionar à Fila",
     "CONTEXTM_OPEN" : "Abrir",
-    
+    "CONTEXTM_DELETE" : "Excluir",
+    "CONTEXTM_RENAME" : "Renomear",
+
     "OTHER_SELECT_SERVER_DROPDOWN" : "Selecionar servidor remoto para conexão...",
     "OTHER_ERROR" : "Erro",
     "OTHER_PAUSED" : "Pausado",
     "OTHER_COMPLETED" : "Completo",
+	"OTHER_CANCELLED" : "Cancelado",
     "OTHER_WAITING" : "Aguardando",
     "OTHER_OK" : "Ok",
     "OTHER_CANCEL" : "Cancelar",
     "OTHER_APPLY" : "Aplicar",
     "OTHER_CLOSE" : "Fechar",
+	"OTHER_DELETE" : "Excluir",
 });

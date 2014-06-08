@@ -1,9 +1,7 @@
 eqFTP
 =====
 
-*Donate so I could buy air conditioning so my hands stop sticking to table because of sweat! Because it's summertime! More info below!*
-
-### [Important thing you need to know after *updating* from 0.2.5- to 0.2.6+ version](https://github.com/Equals182/eqFTP/wiki/1.5-Troubleshooting#i-just-updated-to-new-version-and-all-my-saved-settings-are-gone-now)
+*My hands are sweaty! They stick to my table and I cant type! Donate for air conditioner!*
 
 ### [Help with translations!](https://github.com/Equals182/eqFTP/wiki/1.6-Frequently-Asked-Questions#how-can-i-translate-this-extension-to-language-of-my-people)
 
@@ -56,22 +54,21 @@ I'm thinking about this:
 >
 >If I fix something critical I throw update on registry and for that I need to increase version number (I'm trying to follow [Semantic Versioning](http://semver.org/)). If update is too minor and it's not critical enough for extension work, I'll just wait till it get bigger or till weekends.
 
+* version 0.5.0
+ * Added resizing for FTP panel + fixed position
+ * Fixed month in Modified Date
+ * Added date formats
+ * Remastered ftpDomain.js - stability, universal queue and more
+ * Added Keep Alive feature
+ * Added debug mode
+ * Checking local paths for connections now doesn't require eqFTP password
+ * Resizable columns in Queue
+ * Added second mode for directory listing
+ * Added Remove Queuer feature
 * 0.4.3 (5/28/14)
  * Added French translation
  * Added Portuguese translation
  * Temporary removed Error Dialog on save when project isn't connected to server.
-* 0.4.2 (5/27/14)
- * Improved Italian translation
- * Updating file tree after upload temporary removed
-* 0.4.1 (5/26/14)
- * New strings added in German translation
-* 0.4.0 (5/25/14)
- * German translation
- * Italian translation
- * Remote FileTree scroll save!
- * Added Folder Open Dialog for Local Root setting + autoinsert option
- * Better file upload handling + updating folders after upload
- * Removed .eqFTP-note file dependence + automatic connectionID resolving by path
 
 [See full history...](https://github.com/Equals182/eqFTP/wiki/1.7-Version-History)
 

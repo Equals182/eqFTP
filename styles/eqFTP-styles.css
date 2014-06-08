@@ -41,20 +41,83 @@
 }
 
 #detachedModal{
+    position: absolute;
+    min-width: 300px;
+    min-height: 600px;
+}
+
+#eqFTP-project-dialog {
+    width: 100% !important;
+    height: 100% !important;
     position: relative;
+    z-index: 1;
+}
+
+#eqFTP-project-dialog .modal-footer {
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    padding: 0 !important;
+}
+
+#eqFTP-project-dialog .modal-footer>div {
+    padding: 10px 15px 12px;
+}
+
+#eqFTP-project-dialog .modal-body {
+    max-height: none;
+    position: absolute;
+    top: 75px;
+    bottom: 43px;
+    margin: 0;
+    width: 100%;
+    padding: 0;
 }
 
 #eqFTPDirectoryListing {
-    height: 90%;
+    min-width: 400px;
+    width: 100% !important;
     position: relative;
 }
 
-#eqFTPDirectoryListing table {
-    width:100%;
+#eqFTPDirectoryListing>div {
+    padding: 10px 10px 0 10px;
+}
+#eqFTPDirectoryListing>div.condensed-table {
+    padding: 0 10px 10px 10px;
 }
 
-#eqFTPDirectoryListing table thead {
-    font-weight: bold;
+.eqFTPFileTreeRow {
+    
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    flex-flow: row wrap;
+    
+}
+
+#eqFTPDirectoryListing .eqFTPFileTreeCell {
+    flex: 1 auto;
+    text-align: right;
+}
+
+#eqFTPDirectoryListing .eqFTPFileTreeCell.eqFTPTableNamecol{
+    flex: 2 30%;
+    text-align: left;
+}
+
+#eqFTPDirectoryListing .eqFTPFileTreeCell.eqFTPTableSizecol{
+
+}
+
+#eqFTPDirectoryListing .eqFTPFileTreeCell.eqFTPTableTypecol{
+
+}
+
+.eqFTPFileTreeRow>.eqFTPFileTreeHolder {
+    flex: 1 100%;
 }
 
 #eqFTP-project-settings {
@@ -286,7 +349,7 @@ li[data-eqFTP-addConnection]:hover>.eqFTP-icon-plus{
     margin-bottom:20px;
 }
 
-#eqFTPSettingsHolder #eqFTP-serverport{
+#eqFTPSettingsHolder #eqFTP-serverport, #eqFTP-keepAlive{
     width:40px;
 }
 
@@ -294,22 +357,6 @@ li[data-eqFTP-addConnection]:hover>.eqFTP-icon-plus{
     display: inline-block;
     height: 20px;
     vertical-align: middle;
-}
-
-.eqFTPFileTreeCell.eqFTPTableNamecol {
-    width:170px;
-}
-
-.eqFTPFileTreeCell.eqFTPTableSizecol {
-    width:60px;
-}
-
-.eqFTPFileTreeCell.eqFTPTableTypecol {
-    width:50px;
-}
-
-.eqFTPFileTreeCell.eqFTPTableLUcol {
-    width:70px;
 }
 
 li.eqFTPFileTreeRow, ul.eqFTPFileTreeHolder {
@@ -386,7 +433,7 @@ li.opened>ul {
 }
 
 #eqFTPQueueIndicator.disabled {
-    color: red;
+    color: #F00 !important;
 }
 
 #eqFTPQueueHolder .table-container table {
@@ -410,9 +457,13 @@ li.opened>ul {
     position: relative;
 }
 
-#eqFTPQueueHolder .table-container td.path span, #eqFTPQueueHolder .table-container td.name span {
+#eqFTPQueueHolder .table-container th span, #eqFTPQueueHolder .table-container td span {
+	padding: 0 5px;
+}
+
+#eqFTPQueueHolder .table-container td.path>span, #eqFTPQueueHolder .table-container td.name>span {
     display: inline-block;
-    width: 100%;
+    width: 95%;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -432,4 +483,47 @@ li.opened>ul {
     height: 100%;
     background-color: #a5dbff;
     z-index: 1;
+}
+
+#eqFTPQueueTabs>div {
+    display: inline-block;
+    padding: 2px 3px;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    margin: 0 2px;
+    background-color: #f2f2f2;
+}
+#eqFTPQueueTabs>div.active {
+    background-color: #fafafa; 
+}
+#eqFTPQueueTabs>div>.eqFTPQueueClose {
+    display: inline-block;
+    padding-left: 3px;
+    opacity: 0.8;
+    cursor: pointer;
+}
+#eqFTPQueueTabs>div>.eqFTPQueueClose:hover {
+    opacity: 1;
+}
+#eqFTP-dmhandle {
+    position: absolute;
+    z-index: 2;
+    bottom: -1px;
+    left: 1px;
+    width: 15px;
+    height: 15px;
+    cursor: ne-resize;
+    border-bottom-left-radius: 4px;
+    background-image: url(img/resizeHandler.png);
+}
+
+.JColResizer{table-layout:fixed;} .JColResizer td, .JColResizer th{overflow:hidden;padding-left:0!important; padding-right:0!important;}  .JCLRgrips{ height:0px; position:relative;} .JCLRgrip{margin-left:-5px; position:absolute; z-index:5; } .JCLRgrip .JColResizer{position:absolute;background-color:red;filter:alpha(opacity=1);opacity:0;width:10px;height:100%;top:0px} .JCLRLastGrip{position:absolute; width:1px; } .JCLRgripDrag{ border-left:1px dotted black;	}
+
+span[data-eqFTPQueueRemove] {
+	cursor: pointer;
+	opacity: 0.8;
+}
+
+span[data-eqFTPQueueRemove]:hover {
+	opacity: 1;
 }

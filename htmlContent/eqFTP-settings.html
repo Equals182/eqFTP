@@ -40,7 +40,20 @@
                                 <input type="checkbox" id="eqFTP-useEncryption" />
                                 <div class="clear:both;"></div>
                             </div>
-
+                            <div class="field-container2">
+                                <label for="eqFTP-debug" style="width:215px;">{{SETTINGSWIND_GLOB_DEBUG}}</label>
+                                <input type="checkbox" id="eqFTP-debug" />
+                                <div class="clear:both;"></div>
+                            </div>
+                            <div class="field-container2">
+                                <label for="eqFTP-timeFormat" style="width:215px;">{{SETTINGSWIND_GLOB_TIMEFORMAT}}</label>
+                                <select id="eqFTP-timeFormat">
+                                    <option value="US">{{SETTINGSWIND_GLOB_TIMEFORMAT_US}}</option>
+                                    <option value="EU">{{SETTINGSWIND_GLOB_TIMEFORMAT_EU}}</option>
+                                </select>
+                                <div class="clear:both;"></div>
+                            </div>
+                            
                         </div>    
                     </div>
                     <div id="eqFTPSettingsHolder" style="display:none;">
@@ -91,11 +104,15 @@
                         <div class="field-container2">
                             <label for="eqFTP-uploadonsave" style="width:130px;">{{SETTINGSWIND_GLOB_UPLOADONSAVE}}</label>
                             <input type="checkbox" id="eqFTP-uploadonsave" />
+                            <label for="eqFTP-connectToServerEvenIfDisconnected" style="width:130px;">{{SETTINGSWIND_GLOB_EVENDISCONN}}</label>
+                            <input type="checkbox" id="eqFTP-connectToServerEvenIfDisconnected" /> <i id="eqFTPCTSEIDHelp" class="eqFTP-icon" data-toggle="tooltip" title="{{SETTINGSWIND_GLOB_EVENDISCONN_EXPLAIN}}"></i>
                             <div class="clear:both;"></div>
                         </div>
                         <div class="field-container2">
-                            <label for="eqFTP-connectToServerEvenIfDisconnected" style="width:130px;">{{SETTINGSWIND_GLOB_EVENDISCONN}}</label>
-                            <input type="checkbox" id="eqFTP-connectToServerEvenIfDisconnected" /> <i id="eqFTPCTSEIDHelp" class="eqFTP-icon" data-toggle="tooltip" title="{{SETTINGSWIND_GLOB_EVENDISCONN_EXPLAIN}}"></i>
+                            <label for="eqFTP-useList" style="width:130px;">{{SETTINGSWIND_GLOB_USELIST}}</label>
+                            <input type="checkbox" id="eqFTP-useList" />
+                            <label for="eqFTP-keepAlive">{{SETTINGSWIND_GLOB_KEEPALIVE}}</label>
+                            <input type="number" id="eqFTP-keepAlive" value="10" placeholder="#" title="{{SETTINGSWIND_GLOB_KEEPALIVE_DESC}}"/>
                             <div class="clear:both;"></div>
                         </div>
                         
