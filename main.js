@@ -355,7 +355,7 @@ JColResizer.colResizable=function(a,b){b=$.extend({draggingClass:"JCLRgripDrag",
                                 '<div class="eqFTPFileTreeCell eqFTP-' + v.type + ' eqFTPTableNamecol" data-path="' + path + '" style="padding-left:' + lpx + 'px;"><span class="eqFTPFileTreePlusMinus"></span><span title="' + v.name + '" class="eqFTPModalItemTitle">' + v.name + '</span></div>' +
                                 '<div class="eqFTPFileTreeCell eqFTPTableSizecol" style="text-align:right;"><span title="' + v.size + '">' + v.sizeShort + '</span></div>' +
                                 '<div class="eqFTPFileTreeCell eqFTPTableTypecol" style="text-align:right;"><span title="' + v.type + '">' + v.type + '</span></div>' +
-                                '<div class="eqFTPFileTreeCell eqFTPTableLUcol" style="text-align:right;"><span title="' + v.lastupdated + '">' + v.lastupdatedShort + '</span></div>' +
+                                '<div class="eqFTPFileTreeCell eqFTPTableLUcol" style="text-align:right;"><span title="' + eqFTP.serviceFunctions.convertDate({input: v.lastupdated, type: 'full'}) + '">' + eqFTP.serviceFunctions.convertDate({input: v.lastupdatedShort, type: 'short'}) + '</span></div>' +
                                 add + '</li>';
                     uniqueTreeVar++;
                 });
@@ -1707,6 +1707,7 @@ JColResizer.colResizable=function(a,b){b=$.extend({draggingClass:"JCLRgripDrag",
         }
         nodeConnection.domains.eqFTP.addConnections({connections:eqFTP.globals.globalFtpDetails.ftp});
         nodeConnection.domains.eqFTP.updateSettings({debug:eqFTP.globals.globalFtpDetails.main.debug});
+        eqFTP.serviceFunctions.redrawFileTree();
     });
     
     $("body").on('click','.eqFTPUseDirectoryOpener',function() {
@@ -2041,13 +2042,11 @@ JColResizer.colResizable=function(a,b){b=$.extend({draggingClass:"JCLRgripDrag",
                 $.each(files, function (index, value) {
                     if (value !== null) {
                         if (value.type === 0) {
-                            var date = eqFTP.serviceFunctions.convertDate({input:value.time,type:'full'});
-                            var dateShort = eqFTP.serviceFunctions.convertDate({input:value.time,type:'short'});
                             var sizeShort = eqFTP.serviceFunctions.shortenFilesize({input:value.size,type:'short'});
                             var fileObject = {
                                 name: value.name,
-                                lastupdatedShort: dateShort,
-                                lastupdated: date,
+                                lastupdatedShort: value.time,
+                                lastupdated: value.time,
                                 sizeShort : sizeShort,
                                 size: value.size,
                                 type: "file",
@@ -2062,12 +2061,10 @@ JColResizer.colResizable=function(a,b){b=$.extend({draggingClass:"JCLRgripDrag",
                 $.each(files, function (index, value) {
                     if (value !== null) {
                         if (value.type === 1) {  
-                            var date = eqFTP.serviceFunctions.convertDate({input:value.time,type:'full'});
-                            var dateShort = eqFTP.serviceFunctions.convertDate({input:value.time,type:'short'});
                             var fileObject = {
                                 name: value.name,
-                                lastupdatedShort: dateShort,
-                                lastupdated: date,
+                                lastupdatedShort: value.time,
+                                lastupdated: value.time,
                                 size: "",
                                 sizeShort : "",
                                 type: "folder",
