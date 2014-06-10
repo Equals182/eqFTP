@@ -69,7 +69,7 @@ maxerr: 50, node: true */
                     element.username === old.username &&
                     element.password === old.password &&
                     element.port === old.port && 
-                    element.remotePath === old.remotePath
+                    element.remotepath === old.remotepath
                 ) {
                     eqFTPconnections[index].client = old.client;
                     eqFTPconnections[index].processQueuePaused = old.processQueuePaused;
