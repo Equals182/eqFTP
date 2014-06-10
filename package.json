@@ -1,7 +1,7 @@
 {
 	"name": "equals182.eqftp",
 	"title": "eqFTP",
-	"version": "0.5.0",
+	"version": "0.5.1",
 	"description": "FTP client for Brackets. Please restart Brackets manually after update.",
 	"homepage": "https://github.com/Equals182/eqFTP",
 	"author": "Alexander <equals182@gmail.com>",
