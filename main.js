@@ -2154,6 +2154,10 @@ JColResizer.colResizable=function(a,b){b=$.extend({draggingClass:"JCLRgripDrag",
                 console.log("[eqFTP] Disconnected from server");
             } else if (params.event === "connect") {
                 console.log("[eqFTP] Connected to serve");
+            } else if (params.event === "refreshFileTree") {
+                if (eqFTP.globals.connectedServer === params.id) {
+                    eqFTP.ftpFunctions.changeDirectory({path:""});
+                }
             }
             $('#eqFTPLoading').hide();
         });
