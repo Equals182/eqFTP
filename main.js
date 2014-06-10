@@ -19,6 +19,9 @@
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
  *
+ * version 0.5.1
+ * - Italian translation update
+ * - Remote Path bug fix
  * version 0.5.0
  * - Added resizing for FTP panel + fixed position
  * - Fixed month in Modified Date
@@ -30,10 +33,6 @@
  * - Resizable columns in Queue
  * - Added second mode for directory listing
  * - Added Remove Queuer feature
- * version 0.4.3
- * - Added French translation
- * - Added Portuguese translation
- * - Temporary removed Error Dialog on save when project isn't connected to server.
  *
  */
 
