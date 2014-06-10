@@ -65,6 +65,7 @@ maxerr: 50, node: true */
             eqFTPconnections.forEach(function (element, index, array) {
                 var old = tmpSavedConnections[index];
                 //throwError("Updating connections data: OLD: " + JSON.stringify(old) + " NEW: " + JSON.stringify(element), true);
+                eqFTPconnections[index].listeners = old.listeners;
                 if (
                     element.server === old.server &&
                     element.username === old.username &&
@@ -103,6 +104,9 @@ maxerr: 50, node: true */
                 if (eqFTPconnections[params.connectionID].useList) {
                     useList = true;
                 }
+                if (!eqFTPconnections[params.connectionID].listeners) {
+                    eqFTPconnections[params.connectionID].listeners = {};
+                }
                 throwError("Connecting...", true);
                 eqFTPconnections[params.connectionID].client = new FTPClient({
                     host: eqFTPconnections[params.connectionID].server,
@@ -113,6 +117,7 @@ maxerr: 50, node: true */
                     debugMode: debug
                 });
                 eqFTPconnections[params.connectionID].client.on('error', function (err) {
+                    eqFTPconnections[params.connectionID].listeners.error = true;
                     throwError(err);
                     _domainManager.emitEvent("eqFTP", "otherEvents", {event: "connectError", err: err});
                     throwError("connect: Can't create new FTPClient.");
@@ -126,17 +131,22 @@ maxerr: 50, node: true */
                 });
 
                 eqFTPconnections[params.connectionID].client.on('connect', function () {
+                    eqFTPconnections[params.connectionID].listeners.connect = true;
                     throwError("Connected...", true);
                     eqFTPconnections[params.connectionID].client.auth(eqFTPconnections[params.connectionID].username, eqFTPconnections[params.connectionID].password, function (err, res) {
                         if (err) {
-                            throwError("connect: client can't auth.");
+                            throwError("connect: client can't auth. ConnectionID: " + params.connectionID);
                             throwError(err);
+                            disconnect({
+                                connectionID: params.connectionID
+                            });
                             _domainManager.emitEvent("eqFTP", "otherEvents", {event: "authError", err: err});
                         } else {
                             if (eqFTPconnections[params.connectionID].keepAlive && eqFTPconnections[params.connectionID].keepAlive > 0) {
                                 eqFTPconnections[params.connectionID].client.keepAlive(eqFTPconnections[params.connectionID].keepAlive * 1000);
                             }
                             eqFTPconnections[params.connectionID].client.on('progress', function(data) {
+                                eqFTPconnections[params.connectionID].listeners.progress = true;
                                 if (progressTotalsize !== false) {
                                     data.total = progressTotalsize;
                                 }
@@ -156,11 +166,13 @@ maxerr: 50, node: true */
                     });
                     if (debug) {
                         eqFTPconnections[params.connectionID].client.on('jsftp_debug', function (eventType, data) {
+                            eqFTPconnections[params.connectionID].listeners.debug = true;
                             console.log('DEBUG: ', eventType);
                             console.log(JSON.stringify(data, null, 2));
                         });
                     }
                     eqFTPconnections[params.connectionID].client.on('customError', function (data) {
+                        eqFTPconnections[params.connectionID].listeners.customError = true;
                         throwError(data.text, true);
                         reconnect({
                             connectionID: params.connectionID,
@@ -192,10 +204,31 @@ maxerr: 50, node: true */
             throwError("Disonnecting...", true);
             eqFTPconnections[params.connectionID].processQueuePaused = true;
             if (eqFTPconnections[params.connectionID].client) {
-                eqFTPconnections[params.connectionID].client.removeListener('connect');
-                eqFTPconnections[params.connectionID].client.removeListener('customError');
-                eqFTPconnections[params.connectionID].client.removeListener('error');
-                eqFTPconnections[params.connectionID].client.removeListener('progress');
+                if (eqFTPconnections[params.connectionID].listeners.connect) {
+                    eqFTPconnections[params.connectionID].client.removeListener('connect', function() {
+                        eqFTPconnections[params.connectionID].listeners.connect = false;
+                    });
+                }
+                if (eqFTPconnections[params.connectionID].listeners.customError) {
+                    eqFTPconnections[params.connectionID].client.removeListener('customError', function() {
+                        eqFTPconnections[params.connectionID].listeners.customError = false;
+                    });
+                }
+                if (eqFTPconnections[params.connectionID].listeners.error) {
+                    eqFTPconnections[params.connectionID].client.removeListener('error', function() {
+                        eqFTPconnections[params.connectionID].listeners.error = false;
+                    });
+                }
+                if (eqFTPconnections[params.connectionID].listeners.progress) {
+                    eqFTPconnections[params.connectionID].client.removeListener('progress', function() {
+                        eqFTPconnections[params.connectionID].listeners.progress = false;
+                    });
+                }
+                if (eqFTPconnections[params.connectionID].listeners.debug) {
+                    eqFTPconnections[params.connectionID].client.removeListener('jsftp_debug', function() {
+                        eqFTPconnections[params.connectionID].listeners.debug = false;
+                    });
+                }
                 eqFTPconnections[params.connectionID].client.raw.abor();
                 eqFTPconnections[params.connectionID].client.raw.quit();
                 eqFTPconnections[params.connectionID].client.destroy();
