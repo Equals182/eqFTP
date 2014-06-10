@@ -64,6 +64,7 @@ maxerr: 50, node: true */
             eqFTPconnections = params.connections;
             eqFTPconnections.forEach(function (element, index, array) {
                 var old = tmpSavedConnections[index];
+                //throwError("Updating connections data: OLD: " + JSON.stringify(old) + " NEW: " + JSON.stringify(element), true);
                 if (
                     element.server === old.server &&
                     element.username === old.username &&
@@ -71,21 +72,25 @@ maxerr: 50, node: true */
                     element.port === old.port && 
                     element.remotepath === old.remotepath
                 ) {
+                    throwError("Server, username, password, port and remotepath didn't changed so I'm keeping old connection and client.", true);
                     eqFTPconnections[index].client = old.client;
                     eqFTPconnections[index].processQueuePaused = old.processQueuePaused;
                     eqFTPconnections[index].queue = old.queue;
                     eqFTPconnections[index].remoteRoot = old.remoteRoot;
                 } else {
+                    throwError("Server, username, password, port and remotepath changed so I'm reconnecting with new settings.", true);
                     eqFTPconnections[index].processQueuePaused = false;
                     eqFTPconnections[index].queue = [];
                     eqFTPconnections[index].remoteRoot = false;
+                    reconnect({
+                        connectionID: index
+                    });
                 }
             });
         }
     }
     
     function updateSettings(params) {
-        throwError("Got settings: " + JSON.stringify(params), true);
         debug = params.debug || false;
     }
     
@@ -187,6 +192,10 @@ maxerr: 50, node: true */
             throwError("Disonnecting...", true);
             eqFTPconnections[params.connectionID].processQueuePaused = true;
             if (eqFTPconnections[params.connectionID].client) {
+                eqFTPconnections[params.connectionID].client.removeListener('connect');
+                eqFTPconnections[params.connectionID].client.removeListener('customError');
+                eqFTPconnections[params.connectionID].client.removeListener('error');
+                eqFTPconnections[params.connectionID].client.removeListener('progress');
                 eqFTPconnections[params.connectionID].client.raw.abor();
                 eqFTPconnections[params.connectionID].client.raw.quit();
                 eqFTPconnections[params.connectionID].client.destroy();

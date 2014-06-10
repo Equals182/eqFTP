@@ -462,8 +462,10 @@ JColResizer.colResizable=function(a,b){b=$.extend({draggingClass:"JCLRgripDrag",
                 params.path = eqFTP.serviceFunctions.normalizePath(params.path);
                 var wait = setInterval(function() {
                     var currentDocument = DocumentManager.getCurrentDocument();
-                    var cDID = currentDocument.file._id;
-                    eqFTP.globals.currentDownloadedDocuments[cDID] = {doc:currentDocument,path:params.path,connectionID:eqFTP.globals.connectedServer};
+                    if (currentDocument) {
+                        var cDID = currentDocument.file._id;
+                        eqFTP.globals.currentDownloadedDocuments[cDID] = {doc:currentDocument,path:params.path,connectionID:eqFTP.globals.connectedServer};                        
+                    }
                     clearInterval(wait);
                 },1000);
             }else if(params.action=="delete") {
