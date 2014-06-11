@@ -90,6 +90,8 @@ maxerr: 50, node: true */
                                 }
                             }
                         });
+                    } else {
+                        _domainManager.emitEvent("eqFTP", "otherEvents", {event: "refreshFileTree", id: index});
                     }
                 }
             });

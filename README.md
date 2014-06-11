@@ -54,6 +54,8 @@ I'm thinking about this:
 >
 >If I fix something critical I throw update on registry and for that I need to increase version number (I'm trying to follow [Semantic Versioning](http://semver.org/)). If update is too minor and it's not critical enough for extension work, I'll just wait till it get bigger or till weekends.
 
+* 0.5.2
+ * Remote Path bug ACTUAL FIX
 * 0.5.1
  * Italian translation update
  * Remote Path bug fix

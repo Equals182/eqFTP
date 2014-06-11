@@ -19,6 +19,8 @@
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
  *
+ * version 0.5.2
+ * - Remote Path bug ACTUAL FIX
  * version 0.5.1
  * - Italian translation update
  * - Remote Path bug fix
@@ -2154,6 +2156,7 @@ JColResizer.colResizable=function(a,b){b=$.extend({draggingClass:"JCLRgripDrag",
             } else if (params.event === "connect") {
                 console.log("[eqFTP] Connected to serve");
             } else if (params.event === "refreshFileTree") {
+                eqFTP.globals.remoteStructure[params.id] = [];
                 if (eqFTP.globals.connectedServer === params.id) {
                     eqFTP.ftpFunctions.changeDirectory({path:""});
                 }
