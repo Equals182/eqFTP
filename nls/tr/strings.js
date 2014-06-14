@@ -76,10 +76,10 @@ define({
     "QUEUE_TITLE_HOVER" : "eqFTP Kuyruğunu Açmak İçin Tıklayın",
     "QUEUE_HEADER_NAME" : "İsim",
     "QUEUE_HEADER_PATH" : "Yol",
-	"QUEUE_HEADER_FROM" : "Source Path", //NEW
-	"QUEUE_HEADER_TO" : "Destination Path", //NEW
+    "QUEUE_HEADER_FROM" : "Kaynak Yolu",
+    "QUEUE_HEADER_TO" : "Hedef Yolu",
     "QUEUE_HEADER_STATUS" : "Durum",
-	"QUEUE_REMOVE" : "Remove from Queue", //NEW
+    "QUEUE_REMOVE" : "Kuyruktan Sil",
     "QUEUE_CONTEXTM_STARTQ" : "Görevi Başlat",
     "QUEUE_CONTEXTM_PAUSEQ" : "Görevi Durdur",
     "QUEUE_CONTEXTM_CLEARQ" : "Kuyruğu Temizle",
@@ -102,11 +102,11 @@ define({
     "OTHER_ERROR" : "Hata",
     "OTHER_PAUSED" : "Durduruldu",
     "OTHER_COMPLETED" : "Tamamlandı",
-	"OTHER_CANCELLED" : "Cancelled", //NEW
+    "OTHER_CANCELLED" : "İptal Edildi",
     "OTHER_WAITING" : "Bekleniyor",
     "OTHER_OK" : "Tamam",
     "OTHER_CANCEL" : "İptal",
     "OTHER_APPLY" : "Uygula",
     "OTHER_CLOSE" : "Kapat",
-	"OTHER_DELETE" : "Delete", //NEW
+    "OTHER_DELETE" : "Sil",
 });
