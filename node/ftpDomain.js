@@ -626,7 +626,7 @@ maxerr: 50, node: true */
                                                 if (progressTotalsize > 0) {
                                                     if (eqFTPconnections[params.connectionID].client) {
                                                         eqFTPconnections[params.connectionID].client.get(path, params.localPath + params.name, function (hadErr) {
-                                                            if (hadErr) {
+                                                            if (hadErr && hadErr!=null) {
                                                                 eqFTPconnections[params.connectionID].currentElement.status = hadErr.code;
                                                                 _domainManager.emitEvent("eqFTP", "queueEvent", {status: "downloadError", element: eqFTPconnections[params.connectionID].currentElement});
                                                                 throwError("There was an error downloading the file.");
