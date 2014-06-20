@@ -616,7 +616,7 @@ maxerr: 50, node: true */
                                 if (result) {
                                     if (eqFTPconnections[params.connectionID].client) {
                                         eqFTPconnections[params.connectionID].client.ls(path + "*", function (err, files) {
-                                            if (err === null) {
+                                            if (files !== undefined && err === null && files.length > 0 && files[0] !== undefined) {
                                                 progressTotalsize = files[0].size;
                                                 progressReaded = false;
                                                 path = files[0].name;
