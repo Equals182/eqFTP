@@ -616,7 +616,7 @@ maxerr: 50, node: true */
                                 if (result) {
                                     if (eqFTPconnections[params.connectionID].client) {
                                         eqFTPconnections[params.connectionID].client.ls(path + "*", function (err, files) {
-                                            if (files !== undefined && err === null && files.length > 0 && files[0] !== undefined) {
+                                            if (err === null) {
                                                 progressTotalsize = files[0].size;
                                                 progressReaded = false;
                                                 path = files[0].name;
@@ -672,7 +672,7 @@ maxerr: 50, node: true */
                                                 }
                                             } else {
                                                 _domainManager.emitEvent("eqFTP", "queueEvent", {status: "downloadError", element: eqFTPconnections[params.connectionID].currentElement});
-                                                throwError("There was an error downloading the file.");
+                                                throwError("There was an error checking the file before downloading.");
                                                 throwError(err);
                                                 if (params.callback) {
                                                     params.callback(false);
