@@ -12,13 +12,13 @@ define({
 	"SIDEPANEL_RELOADSETTINGS" : "Recharger les paramètres et re-rentrer son mot de passe",
 
 	"ERR_DIAG_SERVNOEXIST_TITLE" : "Le serveur n'existe pas",
-	"ERR_DIAG_SERVNOEXIST_CONTENT" : "Il semblerait que ce serveur n'existe pas.<br>Vérifiez les serveurs renseignés dans le gestionnaire de connecion.",
+	"ERR_DIAG_SERVNOEXIST_CONTENT" : "Il semblerait que ce serveur n'existe pas.<br>Vérifiez les serveurs renseignés dans le gestionnaire de connexion.",
 	"ERR_DIAG_SERVCANTREACH_TITLE" : "Impossible d'atteindre le serveur",
 	"ERR_DIAG_SERVCANTREACH_CONTENT" : "Je ne peux pas joindre le serveur<br>Peut-être que votre pare-feu m'en empêche.",
 	"ERR_DIAG_AUTHORIZEERR_TITLE" : "Accès impossible",
 	"ERR_DIAG_AUTHORIZEERR_CONTENT" : "Je ne peux pas vous autoriser l'accès avec le nom d'utilisateur et le mot de passe que vous m'avez fourni.<br>Merci de les vérifier.",
 	"ERR_DIAG_NOSERVERFOUND_TITLE" : "Impossible de trouver la connexion",
-	"ERR_DIAG_NOSERVERFOUND_CONTENT" : "Il n'y a aucune connecion eqFTP liée à ce projet et aucun serveur connecté.<br>Connectez-vous à un serveur ou précisez le chemin du projet en cours comme chemin local comme connexion dans les paramètres.",
+	"ERR_DIAG_NOSERVERFOUND_CONTENT" : "Il n'y a aucune connexion eqFTP liée à ce projet et aucun serveur connecté.<br>Connectez-vous à un serveur ou précisez le chemin du projet en cours comme chemin local comme connexion dans les paramètres.",
 	"ERR_DIAG_ECONNRESET_TITLE" : "Le serveur refuse la connexion",
 	"ERR_DIAG_ECONNRESET_CONTENT" : "Je ne peux pas me connecter au serveur, il ne me laisse pas faire.<br>Essayez de redémarrer Brackets.",
 	"ERR_DIAG_UNIVERSAL_TITLE" : "Il y a une erreur",
@@ -49,7 +49,7 @@ define({
 	"SETTINGSWIND_GLOB_CONNECTIONNAME_TITLE" : "Nom de la connexion :",
 	"SETTINGSWIND_GLOB_CONNECTIONNAME_FIELD" : "Renseignez le nom de votre connexion",
 	"SETTINGSWIND_GLOB_SERVER_TITLE" : "Serveur :",
-	"SETTINGSWIND_GLOB_PROTOCOL_TITLE" : "Protocol :",
+	"SETTINGSWIND_GLOB_PROTOCOL_TITLE" : "Protocole :",
 	"SETTINGSWIND_GLOB_USERNAME_TITLE" : "Nom d'utilisateur :",
 	"SETTINGSWIND_GLOB_USERNAME_FIELD" : "Nom d'utilisateur FTP",
 	"SETTINGSWIND_GLOB_PASSWORD_TITLE" : "Mot de passe:",
@@ -78,7 +78,7 @@ define({
 	"QUEUE_HEADER_PATH" : "Répertoire",
 	"QUEUE_HEADER_FROM" : "Chemin source", //NEW
 	"QUEUE_HEADER_TO" : "Chemin de destination", //NEW
-	"QUEUE_HEADER_STATUS" : "Status",
+	"QUEUE_HEADER_STATUS" : "Statut",
 	"QUEUE_REMOVE" : "Retirer de la file d'attente", //NEW
 	"QUEUE_CONTEXTM_STARTQ" : "Démarrer la tâche",
 	"QUEUE_CONTEXTM_PAUSEQ" : "Mettre la tâche en pause",
@@ -95,10 +95,10 @@ define({
 	"CONTEXTM_UPLOAD" : "Charger",
 	"CONTEXTM_ADDQUEUE" : "Ajouter à la liste d'attente",
 	"CONTEXTM_OPEN" : "Ouvrir",
-	"CONTEXTM_DELETE" : "Delete",
-	"CONTEXTM_RENAME" : "Rename",
+	"CONTEXTM_DELETE" : "Supprimer",
+	"CONTEXTM_RENAME" : "Renommer",
 
-	"OTHER_SELECT_SERVER_DROPDOWN" : "Sélectionnez le serveur distan à ouvrir ...",
+	"OTHER_SELECT_SERVER_DROPDOWN" : "Sélectionnez le serveur distant à ouvrir ...",
 	"OTHER_ERROR" : "Erreur",
 	"OTHER_PAUSED" : "En pause",
 	"OTHER_COMPLETED" : "Terminé",
