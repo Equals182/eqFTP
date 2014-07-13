@@ -20,7 +20,7 @@ define({
 "ERR_DIAG_AUTHORIZEERR_CONTENT" : "No puedo autenticar con los datos que me diste.<br>Por favor revísalos.",
 "ERR_DIAG_NOSERVERFOUND_TITLE" : "No se puede encontrar la conexión",
 "ERR_DIAG_NOSERVERFOUND_CONTENT" : "No hay ningún servidor conectado ni conexiones eqFTP asociadas al proyecto actual.<br>Conéctese a un servidor o especifique la carpeta del proyecto actual como directorio local para conexión en la configuración.",
-"ERR_DIAG_ECONNRESET_TITLE" : "Servidor esta rechazando conexiones"",
+"ERR_DIAG_ECONNRESET_TITLE" : "Servidor esta rechazando conexiones",
 "ERR_DIAG_ECONNRESET_CONTENT" : "No me puedo conectar al servidor, el no me lo permite.<br>Prueba reiniciando Brackets.",
 "ERR_DIAG_UNIVERSAL_TITLE" : "Aquí hay un error",
 "ERR_DIAG_UNIVERSAL_CONTENT" : "Mira este error! Como pudo pasar esto?",
