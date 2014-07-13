@@ -84,6 +84,7 @@ I'm thinking about this:
 * [topwebs](https://github.com/topwebs) -- bugs finding, testing
 * [oytunyuksel](https://github.com/oytunyuksel) -- translating (Turkish)
 * [Denisov21](https://github.com/Denisov21) -- translating (Italian)
+* [AlexFermon](https://github.com/fermongroup) -- translating (Spanish)
 
 ## License
 
