@@ -85,6 +85,7 @@ I'm thinking about this:
 * [oytunyuksel](https://github.com/oytunyuksel) -- translating (Turkish)
 * [Denisov21](https://github.com/Denisov21) -- translating (Italian)
 * [AlexFermon](https://github.com/fermongroup) -- translating (Spanish)
+* [Bramdv](https://github.com/Bramdv) -- translating (Dutch)
 
 ## License
 
