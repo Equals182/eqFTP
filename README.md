@@ -1,7 +1,7 @@
 eqFTP
 =====
 
-*My hands are sweaty! They stick to my table so I can't type! Donate for air conditioner! <3*
+*I don't know when I'll release new version! I just have no time. I'm sorry :(*
 
 ### [Help with translations!](https://github.com/Equals182/eqFTP/wiki/1.6-Frequently-Asked-Questions#how-can-i-translate-this-extension-to-language-of-my-people)
 
