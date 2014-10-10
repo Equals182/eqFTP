@@ -21,8 +21,13 @@ define({
     "ERR_DIAG_NOSERVERFOUND_CONTENT" : "Güncel projeye bağlı eqFTP bağlantısı yok veya sunucuya bağlı değil.<br>Sunucuya bağlanın veya ayarlarda yerel yol olarak güncel proje klasörünü belirleyin.",
     "ERR_DIAG_ECONNRESET_TITLE" : "Sunucu bağlantıyı reddediyor",
     "ERR_DIAG_ECONNRESET_CONTENT" : "Sunucuya bağlanılamadı, buna izin yok.<br>Brackets'ı yeniden başlatmayı deneyin.",
+    "ERR_DIAG_ECONNABORTED_TITLE" : "You've been disconnected from server", //NEW
+	"ERR_DIAG_ECONNABORTED_CONTENT" : "Connection aborted. Trying to reconnect.", //NEW
     "ERR_DIAG_UNIVERSAL_TITLE" : "Bir sorun var!",
     "ERR_DIAG_UNIVERSAL_CONTENT" : "Sanırım bir hata oluştu! Bu nasıl oldu?",
+
+    "NOT_DIAG_CONNECTED" : "Connected to server.", //NEW
+    "NOT_DIAG_DISCONNECTED" : "Disconnected from server.", //NEW
     
     "PASSWDWIND_TITLE" : "Lütfen Şifrenizi Girin",
     "PASSWDWIND_CONTENT" : "eqFTP için Şifreniz:",
@@ -69,8 +74,13 @@ define({
     "SETTINGSWIND_GLOB_TIMEFORMAT" : "Tarih Formatı:",
     "SETTINGSWIND_GLOB_TIMEFORMAT_US" : "ABD",
     "SETTINGSWIND_GLOB_TIMEFORMAT_EU" : "Avrupa",
+	"SETTINGSWIND_GLOB_TIMEFORMAT_ASIAN" : "Asian", //NEW
     "SETTINGSWIND_GLOB_SYNC" : "Senkronizasyon",
     "SETTINGSWIND_GLOB_SYNC_DESC" : "Dosyalar Brackets'ta silindiğinde veya ismi değiştirildiğinde, uzak sunucuda da aynı işlem uygulanacak.",
+	"SETTINGSWIND_GLOB_AUTOCLEAR" : "Auto-clear Queue", //NEW
+    "SETTINGSWIND_GLOB_NOTIFICATIONS" : "Notifications", //NEW
+    "SETTINGSWIND_GLOB_TIMEOFFSET" : "Time Offset:", //NEW
+    "SETTINGSWIND_GLOB_TIMEOFFSET_DESC" : "Use this option to set correct time for Modified column", //NEW
     
     "QUEUE_TITLE" : "eqFTP Kuyruğu",
     "QUEUE_TITLE_HOVER" : "eqFTP Kuyruğunu Açmak İçin Tıklayın",
@@ -85,11 +95,17 @@ define({
     "QUEUE_CONTEXTM_CLEARQ" : "Kuyruğu Temizle",
     "QUEUE_CONTEXTM_CLEARCOMPQ" : "Tamamlanan Görevleri Sil",
     "QUEUE_CONTEXTM_CLEARFAILQ" : "Tamamlanamayan Görevleri Sil",
+	"QUEUE_CONTEXTM_CLEARPAUSQ" : "Clear Paused Tasks", //NEW
     "QUEUE_CONTEXTM_RESTARTFAILQ" : "Tamamlanamayan Görevleri Yeniden Başlat",
+	"QUEUE_DONT_ADD_COMPLETED" : "Auto-clear Completed tasks", //NEW
     "ERR_FILE_ACCESSDENIED" : "Erişim Reddedildi. Dosya izinlerini kontrol edin.",
     "ERR_FILE_AUTHORIZATION" : "Yetkilendirme Hatası. Kullanıcı adı ve şifre bilgilerinizi kontrol edin.",
     "ERR_FILE_SERVNOEXIST" : "Sunucu Yok. Belkide yanlış yazmışsınızdır.",
     "ERR_FILE_SERVCANTREACH" : "Sunucuya ulaşılamadı. Firewall'ı kontrol edin.",
+	"ERR_FILE_FILESIZE0" : "Can't download file. Filesize is 0.", //NEW
+    "ERR_FILE_DOWNLOAD" : "Can't download file.", //NEW
+    "ERR_FILE_DOESNTEXIST" : "File doesn't exist", //NEW
+    "ERR_FOLDER_OPEN" : "There's an error opening folder as project", //NEW
     
     "CONTEXTM_DOWNLOAD" : "İndir",
     "CONTEXTM_UPLOAD" : "Yükle",
@@ -97,6 +113,7 @@ define({
     "CONTEXTM_OPEN" : "Aç",
     "CONTEXTM_DELETE" : "Sil",
     "CONTEXTM_RENAME" : "İsmini Değiştir",
+	"CONTEXTM_REDOWNLOAD" : "Download from server", //NEW
     
     "OTHER_SELECT_SERVER_DROPDOWN" : "Bağlanmak için bir Bağlantı Seçin",
     "OTHER_ERROR" : "Hata",
@@ -109,4 +126,6 @@ define({
     "OTHER_APPLY" : "Uygula",
     "OTHER_CLOSE" : "Kapat",
     "OTHER_DELETE" : "Sil",
+	"OTHER_CONFIRM_DELETE" : "Are you sure you want to delete this item?", //NEW
+	"OTHER_ERROR_EVENDISCONN" : "Can't upload file. 'Even If Disconnected' option is off.", //NEW
 });

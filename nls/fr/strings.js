@@ -21,9 +21,14 @@ define({
 	"ERR_DIAG_NOSERVERFOUND_CONTENT" : "Il n'y a aucune connexion eqFTP liée à ce projet et aucun serveur connecté.<br>Connectez-vous à un serveur ou précisez le chemin du projet en cours comme chemin local comme connexion dans les paramètres.",
 	"ERR_DIAG_ECONNRESET_TITLE" : "Le serveur refuse la connexion",
 	"ERR_DIAG_ECONNRESET_CONTENT" : "Je ne peux pas me connecter au serveur, il ne me laisse pas faire.<br>Essayez de redémarrer Brackets.",
+    "ERR_DIAG_ECONNABORTED_TITLE" : "You've been disconnected from server", //NEW
+	"ERR_DIAG_ECONNABORTED_CONTENT" : "Connection aborted. Trying to reconnect...", //NEW
 	"ERR_DIAG_UNIVERSAL_TITLE" : "Il y a une erreur",
 	"ERR_DIAG_UNIVERSAL_CONTENT" : "Regardez-moi cette erreur ! Comment ça a pu arriver ?",
 
+    "NOT_DIAG_CONNECTED" : "Connected to server.", //NEW
+    "NOT_DIAG_DISCONNECTED" : "Disconnected from server.", //NEW
+    
 	"PASSWDWIND_TITLE" : "Merci de renseigner votre mot de passe",
 	"PASSWDWIND_CONTENT" : "Votre mot de passe pour eqFTP:",
 
@@ -69,27 +74,38 @@ define({
 	"SETTINGSWIND_GLOB_TIMEFORMAT" : "Format de date :",
 	"SETTINGSWIND_GLOB_TIMEFORMAT_US" : "US",
 	"SETTINGSWIND_GLOB_TIMEFORMAT_EU" : "Européen",
+	"SETTINGSWIND_GLOB_TIMEFORMAT_ASIAN" : "Asian", //NEW
 	"SETTINGSWIND_GLOB_SYNC" : "Synchroniser",
 	"SETTINGSWIND_GLOB_SYNC_DESC" : "Renommer et supprimer les fichiers sur le serveur distant lors d'un changement sur Brackets.",
+	"SETTINGSWIND_GLOB_AUTOCLEAR" : "Auto-clear Queue", //NEW
+    "SETTINGSWIND_GLOB_NOTIFICATIONS" : "Notifications", //NEW
+    "SETTINGSWIND_GLOB_TIMEOFFSET" : "Time Offset:", //NEW
+    "SETTINGSWIND_GLOB_TIMEOFFSET_DESC" : "Use this option to set correct time for Modified column", //NEW
 
 	"QUEUE_TITLE" : "File d'attente eqFTP",
 	"QUEUE_TITLE_HOVER" : "Cliquez pour ouvrir la file d'attente eqFTP",
 	"QUEUE_HEADER_NAME" : "Nom",
 	"QUEUE_HEADER_PATH" : "Répertoire",
-	"QUEUE_HEADER_FROM" : "Chemin source", //NEW
-	"QUEUE_HEADER_TO" : "Chemin de destination", //NEW
+	"QUEUE_HEADER_FROM" : "Chemin source",
+	"QUEUE_HEADER_TO" : "Chemin de destination",
 	"QUEUE_HEADER_STATUS" : "Statut",
-	"QUEUE_REMOVE" : "Retirer de la file d'attente", //NEW
+	"QUEUE_REMOVE" : "Retirer de la file d'attente",
 	"QUEUE_CONTEXTM_STARTQ" : "Démarrer la tâche",
 	"QUEUE_CONTEXTM_PAUSEQ" : "Mettre la tâche en pause",
 	"QUEUE_CONTEXTM_CLEARQ" : "Vider la file d'attente",
 	"QUEUE_CONTEXTM_CLEARCOMPQ" : "Supprimer les tâches terminées",
 	"QUEUE_CONTEXTM_CLEARFAILQ" : "Supprimer les tâches échouées",
+	"QUEUE_CONTEXTM_CLEARPAUSQ" : "Clear Paused Tasks", //NEW
 	"QUEUE_CONTEXTM_RESTARTFAILQ" : "Redémarrer les tâches échouées",
+	"QUEUE_DONT_ADD_COMPLETED" : "Auto-clear Completed tasks", //NEW
 	"ERR_FILE_ACCESSDENIED" : "Accès impossible. Vérifiez les droits.",
 	"ERR_FILE_AUTHORIZATION" : "Erreur d'autorisation. Vérifiez votre nom d'utilisateur et votre mot de passe.",
 	"ERR_FILE_SERVNOEXIST" : "Le serveur n'existe pas. Peut-être l'avez-vous mal écrit.",
 	"ERR_FILE_SERVCANTREACH" : "Impossible de joindre le serveur. Vérifiez votre pare-feu.",
+	"ERR_FILE_FILESIZE0" : "Can't download file. Filesize is 0.", //NEW
+    "ERR_FILE_DOWNLOAD" : "Can't download file.", //NEW
+    "ERR_FILE_DOESNTEXIST" : "File doesn't exist", //NEW
+    "ERR_FOLDER_OPEN" : "There's an error opening folder as project", //NEW
 
 	"CONTEXTM_DOWNLOAD" : "Télécharger",
 	"CONTEXTM_UPLOAD" : "Charger",
@@ -97,16 +113,19 @@ define({
 	"CONTEXTM_OPEN" : "Ouvrir",
 	"CONTEXTM_DELETE" : "Supprimer",
 	"CONTEXTM_RENAME" : "Renommer",
+	"CONTEXTM_REDOWNLOAD" : "Download from server", //NEW
 
 	"OTHER_SELECT_SERVER_DROPDOWN" : "Sélectionnez le serveur distant à ouvrir ...",
 	"OTHER_ERROR" : "Erreur",
 	"OTHER_PAUSED" : "En pause",
 	"OTHER_COMPLETED" : "Terminé",
-	"OTHER_CANCELLED" : "Annulé", //NEW
+	"OTHER_CANCELLED" : "Annulé",
 	"OTHER_WAITING" : "En attente",
 	"OTHER_OK" : "Ok",
 	"OTHER_CANCEL" : "Annuler",
 	"OTHER_APPLY" : "Appliquer",
 	"OTHER_CLOSE" : "Fermer",
-	"OTHER_DELETE" : "Supprimer", //NEW
+	"OTHER_DELETE" : "Supprimer",
+	"OTHER_CONFIRM_DELETE" : "Are you sure you want to delete this item?", //NEW
+	"OTHER_ERROR_EVENDISCONN" : "Can't upload file. 'Even If Disconnected' option is off.", //NEW
 });

@@ -21,8 +21,13 @@ define({
 	"ERR_DIAG_NOSERVERFOUND_CONTENT" : "There are no eqFTP connections tied with current project and no connected server.<br>Connect to server or specify current project's folder as local path for connection in Settings.",
 	"ERR_DIAG_ECONNRESET_TITLE" : "Server denying connections",
 	"ERR_DIAG_ECONNRESET_CONTENT" : "I can't connect to server, it doesn't allows me.<br>Try restart Brackets.",
+    "ERR_DIAG_ECONNABORTED_TITLE" : "You've been disconnected from server", //NEW
+	"ERR_DIAG_ECONNABORTED_CONTENT" : "Connection aborted. Trying to reconnect...", //NEW
 	"ERR_DIAG_UNIVERSAL_TITLE" : "There's an error",
 	"ERR_DIAG_UNIVERSAL_CONTENT" : "Look at this error! How could it happen?",
+    
+    "NOT_DIAG_CONNECTED" : "Connected to server.", //NEW
+    "NOT_DIAG_DISCONNECTED" : "Disconnected from server.", //NEW
 
 	"PASSWDWIND_TITLE" : "Please Enter Your Password",
 	"PASSWDWIND_CONTENT" : "Your Password for eqFTP:",
@@ -69,27 +74,38 @@ define({
 	"SETTINGSWIND_GLOB_TIMEFORMAT" : "Date Format:",
 	"SETTINGSWIND_GLOB_TIMEFORMAT_US" : "US",
 	"SETTINGSWIND_GLOB_TIMEFORMAT_EU" : "European",
+	"SETTINGSWIND_GLOB_TIMEFORMAT_ASIAN" : "Asian", //NEW
 	"SETTINGSWIND_GLOB_SYNC" : "Synchronize",
 	"SETTINGSWIND_GLOB_SYNC_DESC" : "Will delete or rename file on remote server after it was changed in Brackets.",
+	"SETTINGSWIND_GLOB_AUTOCLEAR" : "Auto-clear Queue", //NEW
+    "SETTINGSWIND_GLOB_NOTIFICATIONS" : "Notifications", //NEW
+    "SETTINGSWIND_GLOB_TIMEOFFSET" : "Time Offset:", //NEW
+    "SETTINGSWIND_GLOB_TIMEOFFSET_DESC" : "Use this option to set correct time for Modified column", //NEW
 
 	"QUEUE_TITLE" : "eqFTP Queue",
 	"QUEUE_TITLE_HOVER" : "Click to Open eqFTP Queue",
 	"QUEUE_HEADER_NAME" : "Name",
 	"QUEUE_HEADER_PATH" : "Path",
-	"QUEUE_HEADER_FROM" : "Source Path", //NEW
-	"QUEUE_HEADER_TO" : "Destination Path", //NEW
+	"QUEUE_HEADER_FROM" : "Source Path",
+	"QUEUE_HEADER_TO" : "Destination Path",
 	"QUEUE_HEADER_STATUS" : "Status",
-	"QUEUE_REMOVE" : "Remove from Queue", //NEW
+	"QUEUE_REMOVE" : "Remove from Queue",
 	"QUEUE_CONTEXTM_STARTQ" : "Start Task",
 	"QUEUE_CONTEXTM_PAUSEQ" : "Pause Task",
 	"QUEUE_CONTEXTM_CLEARQ" : "Clear Queue",
-	"QUEUE_CONTEXTM_CLEARCOMPQ" : "Clear Complited Tasks",
+	"QUEUE_CONTEXTM_CLEARCOMPQ" : "Clear Completed Tasks",
 	"QUEUE_CONTEXTM_CLEARFAILQ" : "Clear Failed Tasks",
+	"QUEUE_CONTEXTM_CLEARPAUSQ" : "Clear Paused Tasks", //NEW
 	"QUEUE_CONTEXTM_RESTARTFAILQ" : "Restart Failed Tasks",
+	"QUEUE_DONT_ADD_COMPLETED" : "Auto-clear Completed tasks", //NEW
 	"ERR_FILE_ACCESSDENIED" : "Access denied. Check file's permissions.",
 	"ERR_FILE_AUTHORIZATION" : "Authorization Error. Check your login & password.",
 	"ERR_FILE_SERVNOEXIST" : "Server Doesn't Exist. Maybe you mistyped it.",
 	"ERR_FILE_SERVCANTREACH" : "Can't Reach Server. Check Firewall.",
+	"ERR_FILE_FILESIZE0" : "Can't download file. Filesize is 0.", //NEW
+    "ERR_FILE_DOWNLOAD" : "Can't download file.", //NEW
+    "ERR_FILE_DOESNTEXIST" : "File doesn't exist", //NEW
+    "ERR_FOLDER_OPEN" : "There's an error opening folder as project", //NEW
 
 	"CONTEXTM_DOWNLOAD" : "Download",
 	"CONTEXTM_UPLOAD" : "Upload",
@@ -97,16 +113,19 @@ define({
 	"CONTEXTM_OPEN" : "Open",
 	"CONTEXTM_DELETE" : "Delete",
 	"CONTEXTM_RENAME" : "Rename",
+	"CONTEXTM_REDOWNLOAD" : "Download from server", //NEW
 
 	"OTHER_SELECT_SERVER_DROPDOWN" : "Select Remote Server to Connect...",
 	"OTHER_ERROR" : "Error",
 	"OTHER_PAUSED" : "Paused",
 	"OTHER_COMPLETED" : "Completed",
-	"OTHER_CANCELLED" : "Cancelled", //NEW
+	"OTHER_CANCELLED" : "Cancelled",
 	"OTHER_WAITING" : "Waiting",
 	"OTHER_OK" : "Ok",
 	"OTHER_CANCEL" : "Cancel",
 	"OTHER_APPLY" : "Apply",
 	"OTHER_CLOSE" : "Close",
-	"OTHER_DELETE" : "Delete", //NEW
+	"OTHER_DELETE" : "Delete",
+	"OTHER_CONFIRM_DELETE" : "Are you sure you want to delete this item?", //NEW
+	"OTHER_ERROR_EVENDISCONN" : "Can't upload file. 'Even If Disconnected' option is off.", //NEW
 });

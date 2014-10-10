@@ -21,8 +21,13 @@ define({
     "ERR_DIAG_NOSERVERFOUND_CONTENT" : "Non hai specificato nessuna connessione in eqFTP che associ il tuo progetto corrente ad un server remoto.<br>Specifica un server remoto per la connessione oppure utilizza l'attuale cartella del progetto come percorso locale nelle impostazioni.",
 	"ERR_DIAG_ECONNRESET_TITLE" : "Server sta rifiutando le connessioni",
 	"ERR_DIAG_ECONNRESET_CONTENT" : "Non riesco a connettermi al server, non mi é permesso.<br>Prova a riavviare Brackets.",
+    "ERR_DIAG_ECONNABORTED_TITLE" : "You've been disconnected from server", //NEW
+	"ERR_DIAG_ECONNABORTED_CONTENT" : "Connection aborted. Trying to reconnect...", //NEW
 	"ERR_DIAG_UNIVERSAL_TITLE" : "C'é un errore",
 	"ERR_DIAG_UNIVERSAL_CONTENT" : "Guarda questo errore! Come è potuto accadere?",
+
+    "NOT_DIAG_CONNECTED" : "Connected to server.", //NEW
+    "NOT_DIAG_DISCONNECTED" : "Disconnected from server.", //NEW
     
     "PASSWDWIND_TITLE" : "Inserisci La Master Password",
     "PASSWDWIND_CONTENT" : "La tua Master Password per eqFTP:",
@@ -66,30 +71,41 @@ define({
     "SETTINGSWIND_GLOB_KEEPALIVE" : "Keep alive interval", //NEW
     "SETTINGSWIND_GLOB_KEEPALIVE_DESC" : "Value in seconds. Recommended value is 10. Use zero to forbid keep alive commands and disconnect from server every time command is done.", //NEW
     "SETTINGSWIND_GLOB_DEBUG" : "Debug:", //NEW
-    "SETTINGSWIND_GLOB_TIMEFORMAT" : "Formato data:", //NEW
-    "SETTINGSWIND_GLOB_TIMEFORMAT_US" : "US", //NEW
-    "SETTINGSWIND_GLOB_TIMEFORMAT_EU" : "Europeo", //NEW
-    "SETTINGSWIND_GLOB_SYNC" : "Sincronizza", //NEW
-    "SETTINGSWIND_GLOB_SYNC_DESC" : "Sarà eliminato o rinominato i file sul server remoto dopo che è stato modificato in Brackets.", //NEW
+    "SETTINGSWIND_GLOB_TIMEFORMAT" : "Formato data:",
+    "SETTINGSWIND_GLOB_TIMEFORMAT_US" : "US",
+    "SETTINGSWIND_GLOB_TIMEFORMAT_EU" : "Europeo",
+	"SETTINGSWIND_GLOB_TIMEFORMAT_ASIAN" : "Asian", //NEW
+    "SETTINGSWIND_GLOB_SYNC" : "Sincronizza",
+    "SETTINGSWIND_GLOB_SYNC_DESC" : "Sarà eliminato o rinominato i file sul server remoto dopo che è stato modificato in Brackets.",
+	"SETTINGSWIND_GLOB_AUTOCLEAR" : "Auto-clear Queue", //NEW
+    "SETTINGSWIND_GLOB_NOTIFICATIONS" : "Notifications", //NEW
+    "SETTINGSWIND_GLOB_TIMEOFFSET" : "Time Offset:", //NEW
+    "SETTINGSWIND_GLOB_TIMEOFFSET_DESC" : "Use this option to set correct time for Modified column", //NEW
     
     "QUEUE_TITLE" : "Coda di eqFTP",
     "QUEUE_TITLE_HOVER" : "Clicca Per Aprire La Coda Di eqFTP",
     "QUEUE_HEADER_NAME" : "Nome",
     "QUEUE_HEADER_PATH" : "Percorso",
-	"QUEUE_HEADER_FROM" : "Percorso sorgente", //NEW
-	"QUEUE_HEADER_TO" : "Percorso destinazione", //NEW
+	"QUEUE_HEADER_FROM" : "Percorso sorgente",
+	"QUEUE_HEADER_TO" : "Percorso destinazione",
     "QUEUE_HEADER_STATUS" : "Stato",
-	"QUEUE_REMOVE" : "Rimuovi dalla coda", //NEW
+	"QUEUE_REMOVE" : "Rimuovi dalla coda",
     "QUEUE_CONTEXTM_STARTQ" : "Inizia Lavoro",
     "QUEUE_CONTEXTM_PAUSEQ" : "Sospendi Lavoro",
     "QUEUE_CONTEXTM_CLEARQ" : "Ripulisci La Coda",
     "QUEUE_CONTEXTM_CLEARCOMPQ" : "Ripulisci i Lavori Completati",
     "QUEUE_CONTEXTM_CLEARFAILQ" : "Ripulisci i Lavori Falliti",
+	"QUEUE_CONTEXTM_CLEARPAUSQ" : "Clear Paused Tasks", //NEW
     "QUEUE_CONTEXTM_RESTARTFAILQ" : "Ricomincia i Lavori Falliti",
+	"QUEUE_DONT_ADD_COMPLETED" : "Auto-clear Completed tasks", //NEW
     "ERR_FILE_ACCESSDENIED" : "Accesso Negato. Controlla i permessi del file.",
     "ERR_FILE_AUTHORIZATION" : "Autorizzazione fallita. Controlla la tua login e la tua password.",
     "ERR_FILE_SERVNOEXIST" : "Il Server Non Esiste. Forse hai sbagliato a trascriverlo.",
     "ERR_FILE_SERVCANTREACH" : "Non Posso Collegarmi Al Server. Controlla il Firewall.",
+	"ERR_FILE_FILESIZE0" : "Can't download file. Filesize is 0.", //NEW
+    "ERR_FILE_DOWNLOAD" : "Can't download file.", //NEW
+    "ERR_FILE_DOESNTEXIST" : "File doesn't exist", //NEW
+    "ERR_FOLDER_OPEN" : "There's an error opening folder as project", //NEW
     
     "CONTEXTM_DOWNLOAD" : "Download",
     "CONTEXTM_UPLOAD" : "Upload",
@@ -97,16 +113,19 @@ define({
     "CONTEXTM_OPEN" : "Apri",
     "CONTEXTM_DELETE" : "Cancella",
     "CONTEXTM_RENAME" : "Rinnomina",
+	"CONTEXTM_REDOWNLOAD" : "Download from server", //NEW
     
     "OTHER_SELECT_SERVER_DROPDOWN" : "Seleziona un server remoto...",
     "OTHER_ERROR" : "Errore",
     "OTHER_PAUSED" : "In pausa",
     "OTHER_COMPLETED" : "Completato",
-	"OTHER_CANCELLED" : "Cancellato", //NEW
+	"OTHER_CANCELLED" : "Cancellato",
     "OTHER_WAITING" : "In attesa",
     "OTHER_OK" : "Ok",
     "OTHER_CANCEL" : "Annulla",
     "OTHER_APPLY" : "Applica",
     "OTHER_CLOSE" : "Chiudi",
-	"OTHER_DELETE" : "Elimina", //NEW
+	"OTHER_DELETE" : "Elimina",
+	"OTHER_CONFIRM_DELETE" : "Are you sure you want to delete this item?", //NEW
+	"OTHER_ERROR_EVENDISCONN" : "Can't upload file. 'Even If Disconnected' option is off.", //NEW
 });

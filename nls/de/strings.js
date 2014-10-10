@@ -21,8 +21,13 @@ define({
 	"ERR_DIAG_NOSERVERFOUND_CONTENT" : "Es gibt keine eqFTP Verbindung mit dem derzeitigen Ordner und keinen verbundenen Server.<br>Verbinde dich mit einem Server oder ändere die Einstellungen so, dass der aktuelle Pfad eine lokaler Pfad für eine Verbindung ist.", 
 	"ERR_DIAG_ECONNRESET_TITLE" : "Server verweigert Verbindungen.",
 	"ERR_DIAG_ECONNRESET_CONTENT" : "Ich kann mich nicht zum Server verbinden, die Verbindung wird verweigert.<br>Versuche, Brackets neu zu starten.",
+    "ERR_DIAG_ECONNABORTED_TITLE" : "Die Verbindung zum Server wurde getrennt", 
+	"ERR_DIAG_ECONNABORTED_CONTENT" : "Verbindung abgebrochen. Versuche Verbindung wiederherzustellen...", 
 	"ERR_DIAG_UNIVERSAL_TITLE" : "Es gab einen Fehler.",
 	"ERR_DIAG_UNIVERSAL_CONTENT" : "Schau dir diesen Fehler an. Wie konnte dies passieren?",
+
+    "NOT_DIAG_CONNECTED" : "Mit dem Server verbunden.", 
+    "NOT_DIAG_DISCONNECTED" : "Vom Server getrennt.",
 
 	"PASSWDWIND_TITLE" : "Bitte gebe dein Passwort ein",
 	"PASSWDWIND_CONTENT" : "Dein Passwort für eqFTP:",
@@ -69,27 +74,38 @@ define({
 	"SETTINGSWIND_GLOB_TIMEFORMAT" : "Datumsformat:",
 	"SETTINGSWIND_GLOB_TIMEFORMAT_US" : "US",
 	"SETTINGSWIND_GLOB_TIMEFORMAT_EU" : "Europäisch",
+	"SETTINGSWIND_GLOB_TIMEFORMAT_ASIAN" : "Asiatisch", 
 	"SETTINGSWIND_GLOB_SYNC" : "Synchronisiere",
 	"SETTINGSWIND_GLOB_SYNC_DESC" : "Wird Dateien auf dem verbundenen Server entfernen oder umbenennen, nachdem diese in Brackets geändert wurden.",
+	"SETTINGSWIND_GLOB_AUTOCLEAR" : "Leere Warteschlange automatisch", 
+    "SETTINGSWIND_GLOB_NOTIFICATIONS" : "Benachrichtigungen", 
+    "SETTINGSWIND_GLOB_TIMEOFFSET" : "Zeitversatz:", 
+    "SETTINGSWIND_GLOB_TIMEOFFSET_DESC" : "Benutze diese Option um die korrekte Zeit für die modifizierte Spalte zu setzen", 
 
 	"QUEUE_TITLE" : "eqFTP Warteschlange",
 	"QUEUE_TITLE_HOVER" : "Klicke, um die Warteschlange zu öffnen",
 	"QUEUE_HEADER_NAME" : "Name",
 	"QUEUE_HEADER_PATH" : "Pfad",
-	"QUEUE_HEADER_FROM" : "Quelle", //NEW
-	"QUEUE_HEADER_TO" : "Ziel", //NEW
+	"QUEUE_HEADER_FROM" : "Quelle",
+	"QUEUE_HEADER_TO" : "Ziel",
 	"QUEUE_HEADER_STATUS" : "Status",
-	"QUEUE_REMOVE" : "Von Warteschlange entfernen", //NEW
+	"QUEUE_REMOVE" : "Von Warteschlange entfernen",
 	"QUEUE_CONTEXTM_STARTQ" : "Starte Auftrag",
 	"QUEUE_CONTEXTM_PAUSEQ" : "Pausiere Auftrag",
 	"QUEUE_CONTEXTM_CLEARQ" : "Warteschlange leeren",
 	"QUEUE_CONTEXTM_CLEARCOMPQ" : "Leere fertig gestellte Aufträge",
 	"QUEUE_CONTEXTM_CLEARFAILQ" : "Leere fehlgeschlagene Aufträge",
+	"QUEUE_CONTEXTM_CLEARPAUSQ" : "Leere pausierte Aufträge", 
 	"QUEUE_CONTEXTM_RESTARTFAILQ" : "Versuche fehlgeschlagene Aufträge erneut auszuführen",
+	"QUEUE_DONT_ADD_COMPLETED" : "Leere fertiggestellte Aufträge", 
 	"ERR_FILE_ACCESSDENIED" : "Zugriff verweigert. Überprüfe die Dateiberechtigungen.",
 	"ERR_FILE_AUTHORIZATION" : "Autorisierungsfehler. Überprüfe deine Anmeldedaten.",
 	"ERR_FILE_SERVNOEXIST" : "Server existiert nicht. Möglicherweise hast du dich vertippt.",
 	"ERR_FILE_SERVCANTREACH" : "Server nicht erreichbar. Überprüfe die Einstellungen der Firewall.",
+	"ERR_FILE_FILESIZE0" : "Datei konnte nicht heruntergeladen werden. Die Datei ist leer.", 
+    "ERR_FILE_DOWNLOAD" : "Datei konnte nicht heruntergeladen werden.", 
+    "ERR_FILE_DOESNTEXIST" : "Die Datei existiert nicht",
+    "ERR_FOLDER_OPEN" : "There's an error opening folder as project", //NEW
 
 	"CONTEXTM_DOWNLOAD" : "Download",
 	"CONTEXTM_UPLOAD" : "Upload",
@@ -97,16 +113,19 @@ define({
 	"CONTEXTM_OPEN" : "Öffnen",
 	"CONTEXTM_DELETE" : "Entfernen",
 	"CONTEXTM_RENAME" : "Umbenennen",
+	"CONTEXTM_REDOWNLOAD" : "Lade vom Server", 
 
 	"OTHER_SELECT_SERVER_DROPDOWN" : "Wähle einen Server aus...",
 	"OTHER_ERROR" : "Fehler",
 	"OTHER_PAUSED" : "Pausiert",
 	"OTHER_COMPLETED" : "Fertig gestellt",
-	"OTHER_CANCELLED" : "Abgebrochen", //NEW
+	"OTHER_CANCELLED" : "Abgebrochen",
 	"OTHER_WAITING" : "Warten",
 	"OTHER_OK" : "Ok",
 	"OTHER_CANCEL" : "Abbruch",
 	"OTHER_APPLY" : "Anwenden",
 	"OTHER_CLOSE" : "Schließen",
-	"OTHER_DELETE" : "Entfernen", //NEW
+	"OTHER_DELETE" : "Entfernen",
+	"OTHER_CONFIRM_DELETE" : "Bist du sicher, dass du diesen Einträg löschen möchtest?", 
+	"OTHER_ERROR_EVENDISCONN" : "Datei Upload fehlgeschlagen. Die Option 'Auch wenn die Verbindung getrennt ist' ist ausgeschaltet.",
 });

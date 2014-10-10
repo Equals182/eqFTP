@@ -43,7 +43,7 @@
 #detachedModal{
     position: absolute;
     min-width: 300px;
-    min-height: 600px;
+    min-height: 200px;
 }
 
 #eqFTP-project-dialog {
@@ -197,11 +197,19 @@
     vertical-align:middle;
 }
 
+.dark #eqFTPCTSEIDHelp {
+    background-image: url(img/dark-info.svg);
+}
+
 #eqFTPautolocalpath {
     background-image: url(img/folder-add.svg);
     height:20px;
     width:15px;
     vertical-align:middle;
+}
+
+.dark #eqFTPautolocalpath {
+    background-image: url(img/dark-folder-add.svg);
 }
 
 .eqFTP-icon:hover {
@@ -274,6 +282,14 @@ li[data-eqFTP-addConnection]:hover>.eqFTP-icon-plus{
     background-color: rgba(255,255,255,0.8);
     opacity: 0.6;
     border-radius: 2px;
+}
+
+.dark #eqFTP-openSettingsWindow {
+    background-image: url(img/dark-settings.svg);
+}
+
+.dark #eqFTP-openSettingsWindow:hover {
+    background-color: rgba(255,255,255,0.2);
 }
 
 #eqFTP-serverChoosing {
@@ -349,7 +365,7 @@ li[data-eqFTP-addConnection]:hover>.eqFTP-icon-plus{
     margin-bottom:20px;
 }
 
-#eqFTPSettingsHolder #eqFTP-serverport, #eqFTP-keepAlive{
+#eqFTPSettingsHolder #eqFTP-serverport, #eqFTP-keepAlive, #eqFTP-timeOffset {
     width:40px;
 }
 
@@ -415,17 +431,34 @@ li.opened>ul {
     width: 30px;
 }
 
+.dark #eqFTPConnectionControl {
+    background-image: url(img/dark-connection_off.svg);
+}
+
 #eqFTPConnectionControl.on {
     background-image: url(img/connection_on.svg);
+}
+
+.dark #eqFTPConnectionControl.on {
+    background-image: url(img/dark-connection_on.svg);
 }
 
 #eqFTPRefresh {
     background-image: url(img/refresh.svg);
 }
 
+.dark #eqFTPRefresh {
+    background-image: url(img/dark-refresh.svg);
+}
+
 #eqFTPSettingsRefresh {
     background-image: url(img/settings-refresh.svg);
     width:24px;
+}
+
+
+.dark #eqFTPSettingsRefresh {
+    background-image: url(img/dark-settings-refresh.svg);
 }
 
 #eqFTPQueueIndicator {
@@ -448,6 +481,11 @@ li.opened>ul {
     border-right: 1px solid #b7b7b7;
     width:30%;
     background-color: #fafafa;
+}
+
+.dark #eqFTPQueueHolder .table-container th {
+    background-color: #646464;
+    color: #FFFFFF;
 }
 
 #eqFTPQueueHolder .table-container td {
@@ -492,10 +530,13 @@ li.opened>ul {
     border-top-right-radius: 3px;
     margin: 0 2px;
     background-color: #f2f2f2;
+    color: #000000;
 }
 #eqFTPQueueTabs>div.active {
-    background-color: #fafafa; 
+    background-color: #fafafa;
+    color: #000000;
 }
+
 #eqFTPQueueTabs>div>.eqFTPQueueClose {
     display: inline-block;
     padding-left: 3px;
@@ -504,6 +545,18 @@ li.opened>ul {
 }
 #eqFTPQueueTabs>div>.eqFTPQueueClose:hover {
     opacity: 1;
+}
+
+.dark #eqFTPQueueTabs>div {
+    background-color: #585858;
+    color: #FFFFFF;
+}
+.dark #eqFTPQueueTabs>div.active {
+    background-color: #646464;
+    color: #FFFFFF;
+}
+.dark #eqFTPQueueTabs>div>.eqFTPQueueClose {
+    color: #FFFFFF;
 }
 #eqFTP-dmhandle {
     position: absolute;
@@ -526,4 +579,90 @@ span[data-eqFTPQueueRemove] {
 
 span[data-eqFTPQueueRemove]:hover {
 	opacity: 1;
+}
+
+.eqFTP-customErrorHolder {
+    position: absolute;
+    z-index: 3;
+    bottom: 0;
+    right: 45px;
+    padding: 5px;
+    border-radius: 3px;
+}
+.eqFTP-customErrorHolder strong {
+    font-weight: bold;
+}
+
+.eqFTP-customErrorHolder.error {
+    background-color: #f2354b;
+    color: #FFFFFF;
+}
+
+.eqFTP-customErrorHolder.notification {
+    background-color: #75e240;
+    color: #000000;
+}
+
+.eqFTP-customErrorHolder.notification strong {
+    color: #000000;
+}
+
+.eqFTP-customErrorHolder.warning {
+    background-color: #e2ae40;
+    color: #000000;
+}
+
+.eqFTP-customErrorHolder.error strong {
+    color: #FFFFFF;
+}
+
+.eqFTP-customErrorHolder.notification .close{
+    color: #000000;
+}
+
+.eqFTP-customErrorHolder.error .close {
+    color: #FFFFFF;    
+}
+
+.eqFTP-customErrorHolder .close {
+    float: right;
+    margin-left: 10px;
+}
+
+.eqFTP-customErrorHolder .text {
+    float: left;
+}
+
+.eqFTPModalItemRename {
+    height: 16px;
+    display: inline-block;
+    width: 90%;
+    background-color: #dfe2e2;
+    box-shadow: 0 0 16px #95bfd3;
+    border: none;
+}
+
+.dark .eqFTPFileTreeCell.clicked {
+    background-color: #d4d4d4;
+    color: #000000;
+}
+
+.dark .eqFTPFileTreeCell.clicked .eqFTPModalItemTitle {
+    color: #000000;
+}
+
+.dark #eqFTP-project-settings .well {
+    color: #000000;
+}
+
+.dark #eqFTP-project-settings .well h5 {
+    color: #000000;
+}
+
+.dark #eqFTP-project-settings .field-group label {
+    color: #000000;
+}
+
+.dark #eqFTPQueueHolder .table-container .transferring td .progessBar {
+    background-color: #1A1A1A;
 }

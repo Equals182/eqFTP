@@ -21,8 +21,13 @@ define({
 	"ERR_DIAG_NOSERVERFOUND_CONTENT" : "Er zijn geen eqFTP verbindingen/server gekoppeld aan dit project.<br>Verbind met de server of stel de momentele projectlocatie in als lokale path voor dit project.",
 	"ERR_DIAG_ECONNRESET_TITLE" : "Server staat geen verbindingen toe.",
 	"ERR_DIAG_ECONNRESET_CONTENT" : "Ik kan niet verbinden met de server. Het sluit me uit.<br>Probeer Brackets eens te herstarten.",
+    "ERR_DIAG_ECONNABORTED_TITLE" : "You've been disconnected from server", //NEW
+	"ERR_DIAG_ECONNABORTED_CONTENT" : "Connection aborted. Trying to reconnect.", //NEW
 	"ERR_DIAG_UNIVERSAL_TITLE" : "Er heeft zich een fout voorgedaan",
 	"ERR_DIAG_UNIVERSAL_CONTENT" : "Kijk naar deze fout! Hoe kon dit ooit gebeuren?",
+
+    "NOT_DIAG_CONNECTED" : "Connected to server.", //NEW
+    "NOT_DIAG_DISCONNECTED" : "Disconnected from server.", //NEW
 
 	"PASSWDWIND_TITLE" : "Gelieve uw wachtwoord in te voeren",
 	"PASSWDWIND_CONTENT" : "Uw wachtwoord voor eqFTP:",
@@ -69,27 +74,38 @@ define({
 	"SETTINGSWIND_GLOB_TIMEFORMAT" : "Datum formaat:",
 	"SETTINGSWIND_GLOB_TIMEFORMAT_US" : "Amerikaans",
 	"SETTINGSWIND_GLOB_TIMEFORMAT_EU" : "Europees",
+	"SETTINGSWIND_GLOB_TIMEFORMAT_ASIAN" : "Asian", //NEW
 	"SETTINGSWIND_GLOB_SYNC" : "Synchroniseren",
 	"SETTINGSWIND_GLOB_SYNC_DESC" : "Zal bestand hernoemen of verwijderen op de server nadat het is veranderd in Brackets.",
+	"SETTINGSWIND_GLOB_AUTOCLEAR" : "Auto-clear Queue", //NEW
+    "SETTINGSWIND_GLOB_NOTIFICATIONS" : "Notifications", //NEW
+    "SETTINGSWIND_GLOB_TIMEOFFSET" : "Time Offset:", //NEW
+    "SETTINGSWIND_GLOB_TIMEOFFSET_DESC" : "Use this option to set correct time for Modified column", //NEW
 
 	"QUEUE_TITLE" : "eqFTP Wachtrij",
 	"QUEUE_TITLE_HOVER" : "Klik om de eqFTP Wachtrij te openen",
 	"QUEUE_HEADER_NAME" : "Naam",
 	"QUEUE_HEADER_PATH" : "Path",
-	"QUEUE_HEADER_FROM" : "Oorspronkelijke Path", //NEW
-	"QUEUE_HEADER_TO" : "Bestemmings Path", //NEW
+	"QUEUE_HEADER_FROM" : "Oorspronkelijke Path",
+	"QUEUE_HEADER_TO" : "Bestemmings Path",
 	"QUEUE_HEADER_STATUS" : "Status",
-	"QUEUE_REMOVE" : "Verwijder van Wachtrij", //NEW
+	"QUEUE_REMOVE" : "Verwijder van Wachtrij",
 	"QUEUE_CONTEXTM_STARTQ" : "Start Taak",
 	"QUEUE_CONTEXTM_PAUSEQ" : "Pauzeer Taak",
 	"QUEUE_CONTEXTM_CLEARQ" : "Wis Wachtrij",
 	"QUEUE_CONTEXTM_CLEARCOMPQ" : "Wis Complete Taken",
 	"QUEUE_CONTEXTM_CLEARFAILQ" : "Wis Mislukte Taken",
+	"QUEUE_CONTEXTM_CLEARPAUSQ" : "Clear Paused Tasks", //NEW
 	"QUEUE_CONTEXTM_RESTARTFAILQ" : "Herstart Mislukte Taken",
+	"QUEUE_DONT_ADD_COMPLETED" : "Auto-clear Completed tasks", //NEW
 	"ERR_FILE_ACCESSDENIED" : "Toegang geweigerd. Controleer bestandsrechten.",
 	"ERR_FILE_AUTHORIZATION" : "Autorisatiefout. Controleer je logingegevens.",
 	"ERR_FILE_SERVNOEXIST" : "Server bestaat niet. Misschien een spellingsfout?",
 	"ERR_FILE_SERVCANTREACH" : "Kon server niet bereiken. Controleer je  Firewall.",
+	"ERR_FILE_FILESIZE0" : "Can't download file. Filesize is 0.", //NEW
+    "ERR_FILE_DOWNLOAD" : "Can't download file.", //NEW
+    "ERR_FILE_DOESNTEXIST" : "File doesn't exist", //NEW
+    "ERR_FOLDER_OPEN" : "There's an error opening folder as project", //NEW
 
 	"CONTEXTM_DOWNLOAD" : "Download",
 	"CONTEXTM_UPLOAD" : "Upload",
@@ -97,16 +113,19 @@ define({
 	"CONTEXTM_OPEN" : "Open",
 	"CONTEXTM_DELETE" : "Verwijder",
 	"CONTEXTM_RENAME" : "Hernoem",
+	"CONTEXTM_REDOWNLOAD" : "Download from server", //NEW
 
 	"OTHER_SELECT_SERVER_DROPDOWN" : "Selecteer server om te verbinden...",
 	"OTHER_ERROR" : "Error",
 	"OTHER_PAUSED" : "Gepauzeerd",
 	"OTHER_COMPLETED" : "Klaar",
-	"OTHER_CANCELLED" : "Gestopt", //NEW
+	"OTHER_CANCELLED" : "Gestopt",
 	"OTHER_WAITING" : "Wachten...",
 	"OTHER_OK" : "Ok",
 	"OTHER_CANCEL" : "Stoppen",
 	"OTHER_APPLY" : "Aanpassen",
 	"OTHER_CLOSE" : "Sluiten",
-	"OTHER_DELETE" : "Verwijderen", //NEW
+	"OTHER_DELETE" : "Verwijderen",
+	"OTHER_CONFIRM_DELETE" : "Are you sure you want to delete this item?", //NEW
+	"OTHER_ERROR_EVENDISCONN" : "Can't upload file. 'Even If Disconnected' option is off.", //NEW
 });

@@ -21,9 +21,14 @@ define({
     "ERR_DIAG_NOSERVERFOUND_CONTENT" : "Não há nenhuma conexão eqFTP ligada ao projeto atual, e não há nenhum servidor conectado.<br>Conecte-se a um servidor, ou especifique a pasta do projeto atual como caminho local para a conexão em Configurações.",
     "ERR_DIAG_ECONNRESET_TITLE" : "O servidor está negando as conexões",
     "ERR_DIAG_ECONNRESET_CONTENT" : "Não pude conectar ao servidor, pois ele não me permite.<br>Experimente reiniciar o Brackets.",
+    "ERR_DIAG_ECONNABORTED_TITLE" : "You've been disconnected from server", //NEW
+	"ERR_DIAG_ECONNABORTED_CONTENT" : "Connection aborted. Trying to reconnect...", //NEW
     "ERR_DIAG_UNIVERSAL_TITLE" : "Houve um erro",
     "ERR_DIAG_UNIVERSAL_CONTENT" : "Veja esse erro! Como isso pôde acontecer?",
 
+    "NOT_DIAG_CONNECTED" : "Connected to server.", //NEW
+    "NOT_DIAG_DISCONNECTED" : "Disconnected from server.", //NEW
+    
     "PASSWDWIND_TITLE" : "Por favor, entre com sua senha",
     "PASSWDWIND_CONTENT" : "Sua senha para o eqFTP:",
 
@@ -69,8 +74,13 @@ define({
     "SETTINGSWIND_GLOB_TIMEFORMAT" : "Formato da data:",
     "SETTINGSWIND_GLOB_TIMEFORMAT_US" : "US",
     "SETTINGSWIND_GLOB_TIMEFORMAT_EU" : "Europeu",
+	"SETTINGSWIND_GLOB_TIMEFORMAT_ASIAN" : "Asian", //NEW
     "SETTINGSWIND_GLOB_SYNC" : "Sincronizar",
     "SETTINGSWIND_GLOB_SYNC_DESC" : "Irá excluir ou renomear o arquivo no servidor remoto após ele ter sido alterado no Brackets.",
+	"SETTINGSWIND_GLOB_AUTOCLEAR" : "Auto-clear Queue", //NEW
+    "SETTINGSWIND_GLOB_NOTIFICATIONS" : "Notifications", //NEW
+    "SETTINGSWIND_GLOB_TIMEOFFSET" : "Time Offset:", //NEW
+    "SETTINGSWIND_GLOB_TIMEOFFSET_DESC" : "Use this option to set correct time for Modified column", //NEW
 
     "QUEUE_TITLE" : "Fila eqFTP",
     "QUEUE_TITLE_HOVER" : "Clique para abrir a fila eqFTP",
@@ -85,11 +95,17 @@ define({
     "QUEUE_CONTEXTM_CLEARQ" : "Limpar fila",
     "QUEUE_CONTEXTM_CLEARCOMPQ" : "Limpar tarefas concluídas",
     "QUEUE_CONTEXTM_CLEARFAILQ" : "Limpar tarefas que falharam",
+	"QUEUE_CONTEXTM_CLEARPAUSQ" : "Clear Paused Tasks", //NEW
     "QUEUE_CONTEXTM_RESTARTFAILQ" : "Reiniciar tarefas que falharam",
+	"QUEUE_DONT_ADD_COMPLETED" : "Auto-clear Completed tasks", //NEW
     "ERR_FILE_ACCESSDENIED" : "Acesso negado. Verifique as permissões do arquivo.",
     "ERR_FILE_AUTHORIZATION" : "Erro de autorização. Verifique seu usuário e senha.",
     "ERR_FILE_SERVNOEXIST" : "Servidor não existe. Talvez você tenha digitado errado o endereço.",
     "ERR_FILE_SERVCANTREACH" : "Não pude alcançar o servidor. Verifique o firewall.",
+	"ERR_FILE_FILESIZE0" : "Can't download file. Filesize is 0.", //NEW
+    "ERR_FILE_DOWNLOAD" : "Can't download file.", //NEW
+    "ERR_FILE_DOESNTEXIST" : "File doesn't exist", //NEW
+    "ERR_FOLDER_OPEN" : "There's an error opening folder as project", //NEW
 
     "CONTEXTM_DOWNLOAD" : "Download",
     "CONTEXTM_UPLOAD" : "Upload",
@@ -97,6 +113,7 @@ define({
     "CONTEXTM_OPEN" : "Abrir",
     "CONTEXTM_DELETE" : "Excluir",
     "CONTEXTM_RENAME" : "Renomear",
+	"CONTEXTM_REDOWNLOAD" : "Download from server", //NEW
 
     "OTHER_SELECT_SERVER_DROPDOWN" : "Selecionar servidor remoto para conexão...",
     "OTHER_ERROR" : "Erro",
@@ -109,4 +126,6 @@ define({
     "OTHER_APPLY" : "Aplicar",
     "OTHER_CLOSE" : "Fechar",
 	"OTHER_DELETE" : "Excluir",
+	"OTHER_CONFIRM_DELETE" : "Are you sure you want to delete this item?", //NEW
+	"OTHER_ERROR_EVENDISCONN" : "Can't upload file. 'Even If Disconnected' option is off.", //NEW
 });

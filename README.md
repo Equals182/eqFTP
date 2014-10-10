@@ -1,11 +1,11 @@
 eqFTP
 =====
 
-*HEY! v0.6.0 BETA IS NOW OUT! TEST IT [HERE](https://github.com/Equals182/Buggy-eqFTP)*
+*HEY! IT'S v0.6.0 PRE-RELEASE! CHECK IT OUT!*
 
 ### [Help with translations!](https://github.com/Equals182/eqFTP/wiki/1.6-Frequently-Asked-Questions#how-can-i-translate-this-extension-to-language-of-my-people)
 
-FTP integration for Brackets code editor.
+FTP client for Brackets code editor.
 
 Here's some features:
 
@@ -34,13 +34,11 @@ You can fork this stuff and change it however you want.
 
 I'm thinking about this:
 
-* SFTP -- well, this feature is dead now
+* SFTP -- IT'S GOING TO BE NEXT BIG THING HERE WAIT FOR IT
 * Sync -- like REAL sync (gotta figure it out)
-* More UI integration
 * Open only readable by Brackets files (extension)
 * Auto-moving all projects from old default directory to new
-* Creating, deleting and renaming files on remote server
-* FTP panel resizing
+* Creating files on remote server
 
 ## Some Links
 
@@ -54,6 +52,20 @@ I'm thinking about this:
 >
 >If I fix something critical I throw update on registry and for that I need to increase version number (I'm trying to follow [Semantic Versioning](http://semver.org/)). If update is too minor and it's not critical enough for extension work, I'll just wait till it get bigger or till weekends.
 
+* version 0.6.0
+ * File delete feature
+ * File rename feature
+ * Classy new notifications
+ * Improved rewritten jsftp!
+ * Works more like Filezilla!
+ * Auto-clear queue feature
+ * Updating filetree after saving settings
+ * Panel resizing and size control
+ * Improved dark theme compatibility
+ * Tonns of fixed bugs
+ * Added Dutch translation
+ * Added Spanish translation
+ * Redownload file feature
 * 0.5.2
  * Remote Path bug ACTUAL FIX
 * 0.5.1
@@ -86,7 +98,7 @@ I'm thinking about this:
 * [Denisov21](https://github.com/Denisov21) -- translating (Italian)
 * [AlexFermon](https://github.com/fermongroup) -- translating (Spanish)
 * [Bramdv](https://github.com/Bramdv) -- translating (Dutch)
-* [bloodygrizzly] (https://github.com/bloodygrizzly) -- bugs finding, testing
+* [bloodygrizzly](https://github.com/bloodygrizzly) -- bugs finding, testing
 
 ## License
 
