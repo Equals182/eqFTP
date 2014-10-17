@@ -295,7 +295,7 @@ JColResizer.colResizable=function(a,b){b=$.extend({draggingClass:"JCLRgripDrag",
                 input = input.toString();
                 return input.replace("'", "&#39;");
             } else {
-                console.log(input);
+                return input;
             }
         },
         generateUniqueId: function (params) {
@@ -2564,7 +2564,6 @@ JColResizer.colResizable=function(a,b){b=$.extend({draggingClass:"JCLRgripDrag",
                 }
             } else if (params.event === "delete") {
                 if (!params.err) {
-                    console.log(params.files.path);
                     eqFTP.globals.remoteStructure[params.files.connectionID] = eqFTP.serviceFunctions.recursiveReplace({
                         searchIn: eqFTP.globals.remoteStructure[params.files.connectionID],
                         connectionID: params.files.connectionID,

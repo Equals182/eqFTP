@@ -387,7 +387,6 @@ maxerr: 50, node: true */
                             command: "cwd",
                             arguments: [params.path], 
                             callback: function (err, data) {
-                                console.log("CHECK", err, data);
                                 if (err !== null && err) {
                                     if (params.client && params.client !== null) {
                                         params.client.raw({
