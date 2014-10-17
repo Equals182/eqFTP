@@ -65,6 +65,7 @@ I'm thinking about this:
  * Tonns of fixed bugs
  * Added Dutch translation
  * Added Spanish translation
+ * Added Hungarian translation
  * Redownload file feature
 * 0.5.2
  * Remote Path bug ACTUAL FIX
@@ -99,6 +100,7 @@ I'm thinking about this:
 * [AlexFermon](https://github.com/fermongroup) -- translating (Spanish)
 * [Bramdv](https://github.com/Bramdv) -- translating (Dutch)
 * [bloodygrizzly](https://github.com/bloodygrizzly) -- bugs finding, testing
+* Viktor -- translating (Hungarian)
 
 ## License
 

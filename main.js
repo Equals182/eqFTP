@@ -32,6 +32,7 @@
  * - Tonns of fixed bugs
  * - Added Dutch translation
  * - Added Spanish translation
+ * - Added Hungarian translation
  * - Added redownload feature
  */
 
