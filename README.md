@@ -1,7 +1,7 @@
 eqFTP
 =====
 
-*HEY! IT'S v0.6.0 PRE-RELEASE! CHECK IT OUT!*
+*Donate so I could buy some stuff like A/C for summertime :P*
 
 ### [Help with translations!](https://github.com/Equals182/eqFTP/wiki/1.6-Frequently-Asked-Questions#how-can-i-translate-this-extension-to-language-of-my-people)
 
