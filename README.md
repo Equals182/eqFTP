@@ -101,6 +101,7 @@ I'm thinking about this:
 * [Bramdv](https://github.com/Bramdv) -- translating (Dutch)
 * [bloodygrizzly](https://github.com/bloodygrizzly) -- bugs finding, testing
 * Viktor -- translating (Hungarian)
+* sirnightowl -- donating
 
 ## License
 
@@ -112,4 +113,4 @@ This extension is totally free to use or edit because of license but if you **re
 
 [![Donate! :3](https://pp.vk.me/c617327/v617327212/806b/DPUcVE7PTRQ.jpg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=XNJ33D53AR9JJ)
 
-$5 -- donated. $440 -- current goal (A/C).
+$15 -- donated. $440 -- current goal (A/C).
