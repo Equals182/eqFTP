@@ -91,7 +91,7 @@ I'm thinking about this:
 * [Wikunia](https://github.com/Wikunia) -- translating (German), bugs finding, testing
 * [mackenza](https://github.com/mackenza) -- bugs finding, testing
 * [fmaida](https://github.com/fmaida) -- translating (Italian), donating
-* Roger Reghin -- translating (Portuguese)
+* Roger Reghin -- translating (Brazilian Portuguese)
 * [Tilotiti](https://github.com/Tilotiti) -- translating (French)
 * [Anachron](https://github.com/Anachron) -- German translation improvements
 * [topwebs](https://github.com/topwebs) -- bugs finding, testing
