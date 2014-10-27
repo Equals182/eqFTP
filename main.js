@@ -19,21 +19,12 @@
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
  *
- * version 0.6.0
- * - File delete feature
- * - File rename feature
- * - Classy new notifications
- * - Improved rewritten jsftp!
- * - Works more like Filezilla!
- * - Auto-clear queue feature
- * - Updating filetree after saving settings
- * - Panel resizing and size control
- * - Improved dark theme compatibility
- * - Tonns of fixed bugs
- * - Added Dutch translation
- * - Added Spanish translation
- * - Added Hungarian translation
- * - Added redownload feature
+ * version 0.6.1
+ * - Fixed right click for Apple One Button Mouse
+ * - Removed dependences on deprecated modules
+ * - Finally fixed Brazilian Portuguese language! Woo-hoo!
+ * - File opening tries decreased from 3 to 1
+ * - Updated Parse-Listing module and removed it's dependace on Async module
  */
 
 /*jslint vars: true, plusplus: true, devel: true, nomen: true, indent: 4, maxerr: 50  */
@@ -49,7 +40,7 @@ define(function (require, exports, module) {
         Commands = brackets.getModule("command/Commands"),
         Dialogs = brackets.getModule("widgets/Dialogs"),
         StatusBar = brackets.getModule("widgets/StatusBar"),
-        PanelManager = brackets.getModule("view/PanelManager"),
+        WorkspaceManager = brackets.getModule("view/WorkspaceManager"),
         Resizer = brackets.getModule("utils/Resizer"),
         NodeConnection = brackets.getModule("utils/NodeConnection"),
         ExtensionUtils = brackets.getModule("utils/ExtensionUtils"),
@@ -525,7 +516,7 @@ JColResizer.colResizable=function(a,b){b=$.extend({draggingClass:"JCLRgripDrag",
                         }
                     }
                 });
-                if(i>3) {
+                if(i>1) {
                     clearInterval(waitASec);
                 }
             },1000);
@@ -758,9 +749,7 @@ JColResizer.colResizable=function(a,b){b=$.extend({draggingClass:"JCLRgripDrag",
             eqFTP_modalCmenu_file.addMenuItem("eqftp.delete");
             $("body").on('contextmenu', ".eqFTP-file", function (e) {
                 tmp_modalClickedItem = $(this);
-                if (e.which === 3) {
-                    eqFTP_modalCmenu_file.open(e);
-                }
+                eqFTP_modalCmenu_file.open(e);
             });
 
             var eqFTP_modalCmenu_folder = Menus.registerContextMenu('equals182-eqftp-folder_cmenu');
@@ -770,9 +759,7 @@ JColResizer.colResizable=function(a,b){b=$.extend({draggingClass:"JCLRgripDrag",
             eqFTP_modalCmenu_folder.addMenuItem("eqftp.delete");
             $("body").on('contextmenu', ".eqFTP-folder", function (e) {
                 tmp_modalClickedItem = $(this);
-                if (e.which === 3) {
-                    eqFTP_modalCmenu_folder.open(e);
-                }
+                eqFTP_modalCmenu_folder.open(e);
             });
 
             var eqFTP_queueCmenu = Menus.registerContextMenu('equals182-eqftp-queue_cmenu');
@@ -785,13 +772,11 @@ JColResizer.colResizable=function(a,b){b=$.extend({draggingClass:"JCLRgripDrag",
             eqFTP_queueCmenu.addMenuItem("eqftp.clearFailedQueue");
             eqFTP_queueCmenu.addMenuItem("eqftp.resetFailedQueue");
             $("body").on('contextmenu', "#eqFTPQueueHolder .table-container", function (e) {
-                if (e.which === 3 && 
-                    (
-                        eqFTP.globals.pausedQueue.length > 0 || 
-                        eqFTP.globals.automaticQueue.length > 0 ||
-                        eqFTP.globals.successedQueue.length > 0 ||
-                        eqFTP.globals.failedQueue.length > 0
-                    ) 
+                if ( 
+                    eqFTP.globals.pausedQueue.length > 0 || 
+                    eqFTP.globals.automaticQueue.length > 0 ||
+                    eqFTP.globals.successedQueue.length > 0 ||
+                    eqFTP.globals.failedQueue.length > 0
                    ) {
                     eqFTP_queueCmenu.open(e);
                 }
@@ -803,7 +788,7 @@ JColResizer.colResizable=function(a,b){b=$.extend({draggingClass:"JCLRgripDrag",
             project_contextMenu.addMenuItem("eqftp.addToPausedQueue-u");
             project_contextMenu.addMenuItem("eqftp.redownloadFile");
             
-            var working_contextMenu = Menus.getContextMenu(Menus.ContextMenuIds.WORKING_SET_MENU);
+            var working_contextMenu = Menus.getContextMenu(Menus.ContextMenuIds.WORKING_SET_CONTEXT_MENU);
             working_contextMenu.addMenuDivider();
             working_contextMenu.addMenuItem("eqftp.addToAutomaticQueue-u");
             working_contextMenu.addMenuItem("eqftp.addToPausedQueue-u");
@@ -2336,11 +2321,10 @@ JColResizer.colResizable=function(a,b){b=$.extend({draggingClass:"JCLRgripDrag",
         * Creating Queue Manager
         */
         
-        var eqFTPQueue = PanelManager.createBottomPanel("eqFTP.eqFTPQueue", $(eqFTPQueueTemplate), 200);
+        var eqFTPQueue = WorkspaceManager.createBottomPanel("eqFTP.eqFTPQueue", $(eqFTPQueueTemplate), 200);
         
-        var eqFTPQueueButton = "<div id='eqFTPQueueIndicator' title='"+eqFTPstrings.QUEUE_TITLE_HOVER+"' class='disabled'>"+eqFTPstrings.QUEUE_TITLE+"</div>";
-        $(eqFTPQueueButton).insertBefore("#status-language");
-        StatusBar.addIndicator('eqFTPQueueIndicator', $("#eqFTPQueueIndicator"), true);
+        var eqFTPQueueButton = $("<div id='eqFTPQueueIndicator' title='"+eqFTPstrings.QUEUE_TITLE_HOVER+"' class='disabled'>"+eqFTPstrings.QUEUE_TITLE+"</div>");
+        StatusBar.addIndicator('eqFTPQueueIndicator', eqFTPQueueButton, true);
         
         $("body").on("click", "#eqFTPQueueHolder .close", function () {
             eqFTP.serviceFunctions.toggleQueue();

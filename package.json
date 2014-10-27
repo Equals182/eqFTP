@@ -1,7 +1,7 @@
 {
 	"name": "equals182.eqftp",
 	"title": "eqFTP",
-	"version": "0.6.0",
+	"version": "0.6.1",
 	"description": "FTP client for Brackets. Please restart Brackets manually after update.",
 	"homepage": "https://github.com/Equals182/eqFTP",
 	"author": "Alexander <equals182@gmail.com>",
@@ -9,10 +9,10 @@
 	"categories": ["livedev","external"],
 	"keywords": ["FTP"],
 	"engines": {
-		"brackets": ">=0.34.0"
+		"brackets": ">=0.44.0"
 	},
     "i18n": [
-        "de", "en", "es", "fr", "it", "nl", "pt", "ru", "tr", "hu"
+        "de", "en", "es", "fr", "it", "nl", "pt-br", "ru", "tr", "hu"
     ],
     "package-i18n": {
         "en": {

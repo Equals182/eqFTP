@@ -7,16 +7,7 @@ eqFTP
 
 FTP client for Brackets code editor.
 
-Here's some features:
-
-* FTP File Manager -- You can explore remote server
-* Downloading -- On double click you can download file to edit
-* Uploading -- You can upload files on save
-* FTP Connection Manager -- You can manage all your connections in single window
-* Queue -- You can queue lots of files and then upload them with one click.
-
-This extension created on base of [Brackets FTP](https://github.com/theproducer/brackets-ftp). Actually I rewrote almost everything, but still. 
-Inspired by Dreamweaver's FTP implementation. First you create new connection in manager, next you connect, download file, edit, save and it's uploads automatically.
+![](http://equals182.com/eqFTP-1.gif)
 
 It's really basic and I hope you'll enjoy this extension. [Click here for more information](https://github.com/Equals182/eqFTP/wiki)
 
@@ -28,15 +19,12 @@ This extenstion supports data encryption. To enable this feature check it in set
 
 ## What's Next
 
-Well first of all I'd like to say I did this extension because I needed it. I will add new features if I'll need them or if you will pull request them.
-
-You can fork this stuff and change it however you want.
+You can fork this repository, add new features or make changes and pull request it back here. If your changes are OK, I'll add them to new version. You can ask for new features via [issues](https://github.com/Equals182/eqFTP/issues/new) and wait for me to make them real.
 
 I'm thinking about this:
 
 * SFTP -- IT'S GOING TO BE NEXT BIG THING HERE WAIT FOR IT
-* Sync -- like REAL sync (gotta figure it out)
-* Open only readable by Brackets files (extension)
+* Open only readable by Brackets files
 * Auto-moving all projects from old default directory to new
 * Creating files on remote server
 
@@ -52,6 +40,12 @@ I'm thinking about this:
 >
 >If I fix something critical I throw update on registry and for that I need to increase version number (I'm trying to follow [Semantic Versioning](http://semver.org/)). If update is too minor and it's not critical enough for extension work, I'll just wait till it get bigger or till weekends.
 
+* version 0.6.1
+ * Fixed right click for Apple One Button Mouse
+ * Removed dependences on deprecated modules
+ * Finally fixed Brazilian Portuguese language! Woo-hoo!
+ * File opening tries decreased from 3 to 1
+ * Updated Parse-Listing module and removed it's dependace on Async module
 * version 0.6.0
  * File delete feature
  * File rename feature
@@ -67,22 +61,6 @@ I'm thinking about this:
  * Added Spanish translation
  * Added Hungarian translation
  * Redownload file feature
-* 0.5.2
- * Remote Path bug ACTUAL FIX
-* 0.5.1
- * Italian translation update
- * Remote Path bug fix
-* 0.5.0
- * Added resizing for FTP panel + fixed position
- * Fixed month in Modified Date
- * Added date formats
- * Remastered ftpDomain.js - stability, universal queue and more
- * Added Keep Alive feature
- * Added debug mode
- * Checking local paths for connections now doesn't require eqFTP password
- * Resizable columns in Queue
- * Added second mode for directory listing
- * Added Remove Queuer feature
 
 [See full history...](https://github.com/Equals182/eqFTP/wiki/1.7-Version-History)
 
