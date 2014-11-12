@@ -80,6 +80,7 @@ I'm thinking about this:
 * [bloodygrizzly](https://github.com/bloodygrizzly) -- bugs finding, testing
 * Viktor -- translating (Hungarian)
 * sirnightowl -- donating
+* Nathan -- donating
 
 ## License
 
