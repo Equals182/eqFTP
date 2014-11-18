@@ -13,23 +13,23 @@ define({
 
     "ERR_DIAG_SERVNOEXIST_TITLE" : "Servidor não existe",
     "ERR_DIAG_SERVNOEXIST_CONTENT" : "Parece que esse servidor não existe.<br>Verifique o servidor nas configurações da conexão.",
-    "ERR_DIAG_SERVCANTREACH_TITLE" : "Servidor inalcançável",
-    "ERR_DIAG_SERVCANTREACH_CONTENT" : "Não pude alcançar o servidor.<br>Talvez o seu firewall não me permita.",
+    "ERR_DIAG_SERVCANTREACH_TITLE" : "Não foi possível conectar o servidor",
+    "ERR_DIAG_SERVCANTREACH_CONTENT" : "Não foi possível conectar o servidor.<br>Seu firewall não está bloqueando a conexão?.",
     "ERR_DIAG_AUTHORIZEERR_TITLE" : "Dados de autorização incorretos",
-    "ERR_DIAG_AUTHORIZEERR_CONTENT" : "Não consegui autorização com esse usuário e senha.<br>Por favor, verifique-os.",
-    "ERR_DIAG_NOSERVERFOUND_TITLE" : "Não pude encontrar a conexão",
-    "ERR_DIAG_NOSERVERFOUND_CONTENT" : "Não há nenhuma conexão eqFTP ligada ao projeto atual, e não há nenhum servidor conectado.<br>Conecte-se a um servidor, ou especifique a pasta do projeto atual como caminho local para a conexão em Configurações.",
+    "ERR_DIAG_AUTHORIZEERR_CONTENT" : "Erro ao logar com o usuário e senha informados.<br>Por favor, verifique-os.",
+    "ERR_DIAG_NOSERVERFOUND_TITLE" : "Conexão não encontrada",
+    "ERR_DIAG_NOSERVERFOUND_CONTENT" : "Não existem conexões ativas e nem servidores conectados ao projeto atual.<br>Conecte-se a um servidor ou especifique a pasta do projeto atual como caminho local para a conexão em Configurações.",
     "ERR_DIAG_ECONNRESET_TITLE" : "O servidor está negando as conexões",
-    "ERR_DIAG_ECONNRESET_CONTENT" : "Não pude conectar ao servidor, pois ele não me permite.<br>Experimente reiniciar o Brackets.",
-    "ERR_DIAG_ECONNABORTED_TITLE" : "You've been disconnected from server", //NEW
-	"ERR_DIAG_ECONNABORTED_CONTENT" : "Connection aborted. Trying to reconnect...", //NEW
-    "ERR_DIAG_UNIVERSAL_TITLE" : "Houve um erro",
+    "ERR_DIAG_ECONNRESET_CONTENT" : "Não foi possível conectar o servidor, acesso negado.<br>Experimente reiniciar o Brackets.",
+    "ERR_DIAG_ECONNABORTED_TITLE" : "Você foi desconectado do servidor", //NEW
+	"ERR_DIAG_ECONNABORTED_CONTENT" : "Conexão abortada. Tentando reconectar...", //NEW
+    "ERR_DIAG_UNIVERSAL_TITLE" : "Ocorreu um erro",
     "ERR_DIAG_UNIVERSAL_CONTENT" : "Veja esse erro! Como isso pôde acontecer?",
 
-    "NOT_DIAG_CONNECTED" : "Connected to server.", //NEW
-    "NOT_DIAG_DISCONNECTED" : "Disconnected from server.", //NEW
+    "NOT_DIAG_CONNECTED" : "Conectado ao servidor.", //NEW
+    "NOT_DIAG_DISCONNECTED" : "Desconectado do servidor.", //NEW
     
-    "PASSWDWIND_TITLE" : "Por favor, entre com sua senha",
+    "PASSWDWIND_TITLE" : "Por favor, informe sua senha",
     "PASSWDWIND_CONTENT" : "Sua senha para o eqFTP:",
 
     "SETTINGSWIND_TITLE" : "Gerenciador de Conexões do eqFTP",
@@ -74,13 +74,13 @@ define({
     "SETTINGSWIND_GLOB_TIMEFORMAT" : "Formato da data:",
     "SETTINGSWIND_GLOB_TIMEFORMAT_US" : "US",
     "SETTINGSWIND_GLOB_TIMEFORMAT_EU" : "Europeu",
-	"SETTINGSWIND_GLOB_TIMEFORMAT_ASIAN" : "Asian", //NEW
+	"SETTINGSWIND_GLOB_TIMEFORMAT_ASIAN" : "Ásia", //NEW
     "SETTINGSWIND_GLOB_SYNC" : "Sincronizar",
     "SETTINGSWIND_GLOB_SYNC_DESC" : "Irá excluir ou renomear o arquivo no servidor remoto após ele ter sido alterado no Brackets.",
-	"SETTINGSWIND_GLOB_AUTOCLEAR" : "Auto-clear Queue", //NEW
-    "SETTINGSWIND_GLOB_NOTIFICATIONS" : "Notifications", //NEW
-    "SETTINGSWIND_GLOB_TIMEOFFSET" : "Time Offset:", //NEW
-    "SETTINGSWIND_GLOB_TIMEOFFSET_DESC" : "Use this option to set correct time for Modified column", //NEW
+	"SETTINGSWIND_GLOB_AUTOCLEAR" : "Limpar queue automaticamente", //NEW
+    "SETTINGSWIND_GLOB_NOTIFICATIONS" : "Notificações", //NEW
+    "SETTINGSWIND_GLOB_TIMEOFFSET" : "Fuso horário:", //NEW
+    "SETTINGSWIND_GLOB_TIMEOFFSET_DESC" : "Use essa opção para definir a hora correta para a coluna modificada", //NEW
 
     "QUEUE_TITLE" : "Fila eqFTP",
     "QUEUE_TITLE_HOVER" : "Clique para abrir a fila eqFTP",
@@ -95,17 +95,17 @@ define({
     "QUEUE_CONTEXTM_CLEARQ" : "Limpar fila",
     "QUEUE_CONTEXTM_CLEARCOMPQ" : "Limpar tarefas concluídas",
     "QUEUE_CONTEXTM_CLEARFAILQ" : "Limpar tarefas que falharam",
-	"QUEUE_CONTEXTM_CLEARPAUSQ" : "Clear Paused Tasks", //NEW
+	"QUEUE_CONTEXTM_CLEARPAUSQ" : "Limpar tarefas pausadas", //NEW
     "QUEUE_CONTEXTM_RESTARTFAILQ" : "Reiniciar tarefas que falharam",
-	"QUEUE_DONT_ADD_COMPLETED" : "Auto-clear Completed tasks", //NEW
+	"QUEUE_DONT_ADD_COMPLETED" : "Auto limpar tarefas concluídas", //NEW
     "ERR_FILE_ACCESSDENIED" : "Acesso negado. Verifique as permissões do arquivo.",
     "ERR_FILE_AUTHORIZATION" : "Erro de autorização. Verifique seu usuário e senha.",
     "ERR_FILE_SERVNOEXIST" : "Servidor não existe. Talvez você tenha digitado errado o endereço.",
     "ERR_FILE_SERVCANTREACH" : "Não pude alcançar o servidor. Verifique o firewall.",
-	"ERR_FILE_FILESIZE0" : "Can't download file. Filesize is 0.", //NEW
-    "ERR_FILE_DOWNLOAD" : "Can't download file.", //NEW
-    "ERR_FILE_DOESNTEXIST" : "File doesn't exist", //NEW
-    "ERR_FOLDER_OPEN" : "There's an error opening folder as project", //NEW
+	"ERR_FILE_FILESIZE0" : "Erro ao baixar o arquivo. Ele está vazio.", //NEW
+    "ERR_FILE_DOWNLOAD" : "Erro ao baixar o arquivo.", //NEW
+    "ERR_FILE_DOESNTEXIST" : "Arquivo não existe", //NEW
+    "ERR_FOLDER_OPEN" : "Erro ao abrir a pasta do projeto", //NEW
 
     "CONTEXTM_DOWNLOAD" : "Download",
     "CONTEXTM_UPLOAD" : "Upload",
@@ -113,7 +113,7 @@ define({
     "CONTEXTM_OPEN" : "Abrir",
     "CONTEXTM_DELETE" : "Excluir",
     "CONTEXTM_RENAME" : "Renomear",
-	"CONTEXTM_REDOWNLOAD" : "Download from server", //NEW
+	"CONTEXTM_REDOWNLOAD" : "Baixar do servidor", //NEW
 
     "OTHER_SELECT_SERVER_DROPDOWN" : "Selecionar servidor remoto para conexão...",
     "OTHER_ERROR" : "Erro",
@@ -126,6 +126,6 @@ define({
     "OTHER_APPLY" : "Aplicar",
     "OTHER_CLOSE" : "Fechar",
 	"OTHER_DELETE" : "Excluir",
-	"OTHER_CONFIRM_DELETE" : "Are you sure you want to delete this item?", //NEW
-	"OTHER_ERROR_EVENDISCONN" : "Can't upload file. 'Even If Disconnected' option is off.", //NEW
+	"OTHER_CONFIRM_DELETE" : "Tem certeza que deseja deletar esse item?", //NEW
+	"OTHER_ERROR_EVENDISCONN" : "Erro ao enviar o arquivo. A opção 'Mesmo desconectado' está desativada.", //NEW
 });
