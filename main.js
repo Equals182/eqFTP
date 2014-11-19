@@ -19,12 +19,9 @@
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
  *
- * version 0.6.1
- * - Fixed right click for Apple One Button Mouse
- * - Removed dependences on deprecated modules
- * - Finally fixed Brazilian Portuguese language! Woo-hoo!
- * - File opening tries decreased from 3 to 1
- * - Updated Parse-Listing module and removed it's dependace on Async module
+ * version 0.6.2
+ * - Updated Once module and added SCP2 module for SFTP support.
+ * - Redesigned ftpDomain.js's structure for SFTP support.
  */
 
 /*jslint vars: true, plusplus: true, devel: true, nomen: true, indent: 4, maxerr: 50  */
@@ -66,7 +63,8 @@ define(function (require, exports, module) {
         allowDMHide = true,
         DMw = 300,
         DMh = 600,
-		JColResizer = {};
+		JColResizer = {},
+        eqftpVersion = "0.6.3";
     
     eqFTPSettingsTemplate = Mustache.render(eqFTPSettingsTemplate, eqFTPstrings);
     eqFTPPasswordTemplate = Mustache.render(eqFTPPasswordTemplate, eqFTPstrings);
@@ -497,6 +495,8 @@ JColResizer.colResizable=function(a,b){b=$.extend({draggingClass:"JCLRgripDrag",
             }
         },
         tryOpenFile: function (path, i) {
+            if (eqFTP.globals.globalFtpDetails.main.debug)
+                console.log('[eqFTP] Trying to open file: '+path);
             var waitASec = setInterval(function() {
                 if(i==undefined) { i = 0; }
                 i++;
@@ -511,7 +511,7 @@ JColResizer.colResizable=function(a,b){b=$.extend({draggingClass:"JCLRgripDrag",
                             openPromise.always(function() {
                             });
                             openPromise.fail(function(err) {
-                                console.error('[eqFTP] Try #' + i + ': failed open file.')
+                                console.error('[eqFTP] Try #' + i + ': failed open file.');
                             });
                         }
                     }
@@ -2358,7 +2358,7 @@ JColResizer.colResizable=function(a,b){b=$.extend({draggingClass:"JCLRgripDrag",
                 eqFTP.serviceFunctions.ftpLoaded(false);
             });
             loadPromise.done(function (done) {
-                console.log("[eqFTP] Loaded (v0.6.0)");
+                console.log("[eqFTP] Loaded (v"+eqftpVersion+")");
                 eqFTP.serviceFunctions.ftpLoaded(true);
                 eqFTP.serviceFunctions.contextMenus(true);
             });
@@ -2603,6 +2603,7 @@ JColResizer.colResizable=function(a,b){b=$.extend({draggingClass:"JCLRgripDrag",
 							var remoteArray = params.element.remotePath.split("/");
 							remoteArray.pop();
 							remoteArray.reverse();
+							localArray.pop();
 							localArray.reverse();
 							$.each(localArray, function() {
 								if (localArray[0] !== undefined && localArray[0].trim() === ""){
@@ -2623,12 +2624,12 @@ JColResizer.colResizable=function(a,b){b=$.extend({draggingClass:"JCLRgripDrag",
 							});
 							var currentProjectRoot = ProjectManager.getProjectRoot();
 							if (currentProjectRoot._path === root + "/") {
-								eqFTP.serviceFunctions.tryOpenFile(params.element.localPath + params.element.name);
+								eqFTP.serviceFunctions.tryOpenFile(params.element.localPath);
 							} else {
 								var openFolderPromise = ProjectManager.openProject(root);
 								openFolderPromise.done(function () {
                                     var tmpInt = setInterval(function() {
-                                        eqFTP.serviceFunctions.tryOpenFile(params.element.localPath + params.element.name);
+                                        eqFTP.serviceFunctions.tryOpenFile(params.element.localPath);
                                         clearInterval(tmpInt);
                                     }, 2000);
 								});
@@ -2638,7 +2639,7 @@ JColResizer.colResizable=function(a,b){b=$.extend({draggingClass:"JCLRgripDrag",
                                         message: params.element.name + ": " + eqFTPstrings.ERR_FOLDER_OPEN
                                     });
                                     var tmpInt = setInterval(function() {
-                                        eqFTP.serviceFunctions.tryOpenFile(params.element.localPath + params.element.name);
+                                        eqFTP.serviceFunctions.tryOpenFile(params.element.localPath);
                                         clearInterval(tmpInt);
                                     }, 2000);
 								});

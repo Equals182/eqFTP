@@ -40,27 +40,15 @@ I'm thinking about this:
 >
 >If I fix something critical I throw update on registry and for that I need to increase version number (I'm trying to follow [Semantic Versioning](http://semver.org/)). If update is too minor and it's not critical enough for extension work, I'll just wait till it get bigger or till weekends.
 
+* version 0.6.2
+ * Updated Once module and added SCP2 module for SFTP support.
+ * Redesigned ftpDomain.js's structure for SFTP support.
 * version 0.6.1
  * Fixed right click for Apple One Button Mouse
  * Removed dependences on deprecated modules
  * Finally fixed Brazilian Portuguese language! Woo-hoo!
  * File opening tries decreased from 3 to 1
  * Updated Parse-Listing module and removed it's dependace on Async module
-* version 0.6.0
- * File delete feature
- * File rename feature
- * Classy new notifications
- * Improved rewritten jsftp!
- * Works more like Filezilla!
- * Auto-clear queue feature
- * Updating filetree after saving settings
- * Panel resizing and size control
- * Improved dark theme compatibility
- * Tonns of fixed bugs
- * Added Dutch translation
- * Added Spanish translation
- * Added Hungarian translation
- * Redownload file feature
 
 [See full history...](https://github.com/Equals182/eqFTP/wiki/1.7-Version-History)
 
