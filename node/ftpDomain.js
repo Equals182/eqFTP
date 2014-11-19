@@ -701,6 +701,7 @@ maxerr: 50, node: true */
                             _commands.raw.pwd({
                                 connectionID: params.connectionID,
                                 callback: function(path) {
+                                    eqFTPconnections[params.connectionID].remoteRoot = path;
                                     if (params.callback)
                                         params.callback(path);
                                     else
@@ -1299,7 +1300,7 @@ maxerr: 50, node: true */
                         console.log(eqFTPconnections[params.connectionID]);
                     } else {
                         // FTP
-                        eqFTPconnections[params.connectionID].client.put(eqFTPconnections[params.connectionID].currentElement.localPath, eqFTPconnections[params.connectionID].currentElement.remotePath, function (hadErr) {
+                        eqFTPconnections[params.connectionID].client.put(eqFTPconnections[params.connectionID].currentElement.localPath, eqFTPconnections[params.connectionID].currentElement.aRemotePath, function (hadErr) {
                             if (!hadErr) {
                                 if (debug)
                                     throwError(eqFTPconnections[params.connectionID].currentElement.remotePath + ": File uploaded successfully!", true);
@@ -1377,14 +1378,17 @@ maxerr: 50, node: true */
             },
             process: function(params) {
                 if (params.connectionID > -1 && eqFTPconnections[params.connectionID] !== undefined) {
+                    console.log(eqFTPconnections[params.connectionID].currentElement);
                     var e = eqFTPconnections[params.connectionID].currentElement,
                         aRemotePath = normalizePath(eqFTPconnections[params.connectionID].remoteRoot + "/" + e.remotePath),
-                        dir = normalizePath(e.remotePath.substr(0, e.remotePath.lastIndexOf("/")));
+                        dir = normalizePath(aRemotePath.substr(0, aRemotePath.lastIndexOf("/")));
 
-                    eqFTPconnections[params.connectionID].currentElement.remotePath = aRemotePath;
+                    eqFTPconnections[params.connectionID].currentElement.aRemotePath = aRemotePath;
+                    eqFTPconnections[params.connectionID].currentElement.remotePath = e.remotePath;
                     if (debug)
                         throwError("Trying to "+e.direction+" file: " + e.localPath + " to " + aRemotePath, true);
 
+                    console.log(dir);
                     _commands.connection.connect({
                         connectionID: params.connectionID,
                         callback: function(result) {
