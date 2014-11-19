@@ -43,6 +43,7 @@ I'm thinking about this:
 * version 0.6.2
  * Updated Once module and added SCP2 module for SFTP support.
  * Redesigned ftpDomain.js's structure for SFTP support.
+ * Improved Brazilian Portuguese translation
 * version 0.6.1
  * Fixed right click for Apple One Button Mouse
  * Removed dependences on deprecated modules
