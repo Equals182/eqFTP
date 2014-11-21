@@ -1696,7 +1696,14 @@ maxerr: 50, node: true */
             "delete",
             _commands.file.delete.del,
             false
-        );        
+        );
+        
+        DomainManager.registerCommand(
+            "eqFTP",
+            "eqFTPcrypto",
+            cmdCrypto,
+            false
+        );
         
         DomainManager.registerEvent(
         	"eqFTP",
