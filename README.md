@@ -21,12 +21,7 @@ This extenstion supports data encryption. To enable this feature check it in set
 
 You can fork this repository, add new features or make changes and pull request it back here. If your changes are OK, I'll add them to new version. You can ask for new features via [issues](https://github.com/Equals182/eqFTP/issues/new) and wait for me to make them real.
 
-I'm thinking about this:
-
-* SFTP -- IT'S GOING TO BE NEXT BIG THING HERE WAIT FOR IT
-* Open only readable by Brackets files
-* Auto-moving all projects from old default directory to new
-* Creating files on remote server
+There's [ToDo list](https://github.com/Equals182/eqFTP/issues/73)
 
 ## Some Links
 
@@ -36,8 +31,6 @@ I'm thinking about this:
 
 ## Version History
 
->Please don't kick my ass for updating extension so often. I just want to fix every bug that was found.
->
 >If I fix something critical I throw update on registry and for that I need to increase version number (I'm trying to follow [Semantic Versioning](http://semver.org/)). If update is too minor and it's not critical enough for extension work, I'll just wait till it get bigger or till weekends.
 
 * version 0.6.2
