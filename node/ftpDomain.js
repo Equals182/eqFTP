@@ -1386,9 +1386,8 @@ maxerr: 50, node: true */
                     eqFTPconnections[params.connectionID].currentElement.aRemotePath = aRemotePath;
                     eqFTPconnections[params.connectionID].currentElement.remotePath = e.remotePath;
                     if (debug)
-                        throwError("Trying to "+e.direction+" file: " + e.localPath + " to " + aRemotePath, true);
+                        throwError("Trying to "+e.direction+" file. Local path: " + e.localPath + " Remote path: " + aRemotePath, true);
 
-                    console.log(dir);
                     _commands.connection.connect({
                         connectionID: params.connectionID,
                         callback: function(result) {
