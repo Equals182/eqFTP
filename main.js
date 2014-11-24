@@ -1337,15 +1337,20 @@ JColResizer.colResizable=function(a,b){b=$.extend({draggingClass:"JCLRgripDrag",
     };
     
     eqFTP.saveGlobalRemoteSettings = function() {
+        console.log('[TESTING] Saving function started');
         var deferred = $.Deferred();
         eqFTP.globals.defaultSettingsPath = eqFTP.serviceFunctions.normalizePath(eqFTP.globals.defaultSettingsPath);
         var fileEntry = new FileSystem.getFileForPath(eqFTP.globals.defaultSettingsPath + "/" + eqFTP.globals.settingsFilename);
         var ftpData = JSON.stringify(eqFTP.globals.globalFtpDetails);
         nodeConnection.domains.eqFTP.addConnections({connections:eqFTP.globals.globalFtpDetails.ftp});
         nodeConnection.domains.eqFTP.updateSettings({debug:eqFTP.globals.globalFtpDetails.main.debug});
+        console.log('[TESTING] Saving json: ', ftpData);
         eqFTP.processSettingsFile({text:ftpData,direction:'to'},function(result) {
+            console.log('[TESTING] Writing this to file: ', result);
+            console.log('[TESTING] This is file entry: ', fileEntry);
             if(result) {
                 FileUtils.writeText(fileEntry, result).done(function () {
+                    console.log('[TESTING] Looks like its done');
                     eqFTP.serviceFunctions.saveProjectsPaths();
                 });
             }
