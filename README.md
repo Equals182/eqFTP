@@ -44,6 +44,7 @@ I'm thinking about this:
  * Updated Once module and added SCP2 module for SFTP support.
  * Redesigned ftpDomain.js's structure for SFTP support.
  * Improved Brazilian Portuguese translation
+ * Added Ukrainian translation
 * version 0.6.1
  * Fixed right click for Apple One Button Mouse
  * Removed dependences on deprecated modules
@@ -70,6 +71,8 @@ I'm thinking about this:
 * Viktor -- translating (Hungarian)
 * sirnightowl -- donating
 * Nathan -- donating
+* [vagkaefer](https://github.com/vagkaefer) -- translating (Brazilian Portuguese)
+* [probil](https://github.com/probil) -- translating (Ukrainian)
 
 ## License
 

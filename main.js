@@ -23,7 +23,7 @@
  * - Updated Once module and added SCP2 module for SFTP support.
  * - Redesigned ftpDomain.js's structure for SFTP support.
  * - Improved Brazilian Portuguese translation
- * - 
+ * - Added Ukrainian translation
  */
 
 /*jslint vars: true, plusplus: true, devel: true, nomen: true, indent: 4, maxerr: 50  */
