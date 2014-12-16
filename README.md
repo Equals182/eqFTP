@@ -17,6 +17,10 @@ This extenstion supports data encryption. To enable this feature check it in set
 
 **This extension is SO fresh so please use it carefully, and if you find a bug [create an issue now](https://github.com/Equals182/eqFTP/issues/new)**
 
+Вы так же можете оставлять вопросы на русском языке, так как я на нем говорю всю свою жизнь. Помечайте, пожалуйста, вопросы с помощью `[RU]` в начале.
+
+For guys who didn't understood what the hell I wrote above: Russian speakers can leave their questions in Russian 'cause it's my first language and I can answer them.
+
 ## What's Next
 
 You can fork this repository, add new features or make changes and pull request it back here. If your changes are OK, I'll add them to new version. You can ask for new features via [issues](https://github.com/Equals182/eqFTP/issues/new) and wait for me to make them real.
