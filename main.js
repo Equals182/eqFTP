@@ -20,6 +20,7 @@
  * DEALINGS IN THE SOFTWARE.
  *
  * version 0.6.2
+ * - Updated node events stuff for Brackets 1.1
  * - Updated Once module and added SCP2 module for SFTP support.
  * - Redesigned ftpDomain.js's structure for SFTP support.
  * - Improved Brazilian Portuguese translation
@@ -2374,11 +2375,11 @@ JColResizer.colResizable=function(a,b){b=$.extend({draggingClass:"JCLRgripDrag",
         
         chain(connectNode, loadNodeFtp);
         
-        $(nodeConnection).on("eqFTP.getDirectorySFTP", function (event, result) {
+        $(nodeConnection).on("eqFTP:getDirectorySFTP", function (event, result) {
             console.log(result);
         });
         
-        $(nodeConnection).on("eqFTP.getDirectory", function (event, result) {
+        $(nodeConnection).on("eqFTP:getDirectory", function (event, result) {
             if(result.err) {
                 eqFTP.serviceFunctions.redrawFileTree();
                 $('#eqFTPLoading').hide();
@@ -2449,7 +2450,7 @@ JColResizer.colResizable=function(a,b){b=$.extend({draggingClass:"JCLRgripDrag",
             }
         });
         
-        $(nodeConnection).on("eqFTP.transferProgress", function (event, params) {
+        $(nodeConnection).on("eqFTP:transferProgress", function (event, params) {
             var data = params.data,
 				element = params.element;
             $.each(eqFTP.globals.processQueue, function(index, t) {
@@ -2470,13 +2471,13 @@ JColResizer.colResizable=function(a,b){b=$.extend({draggingClass:"JCLRgripDrag",
             });
         });
         
-        $(nodeConnection).on("eqFTP.getDirectoryRecursive", function (event, params) {
+        $(nodeConnection).on("eqFTP:getDirectoryRecursive", function (event, params) {
             if(params.err==null) {
                 eqFTP.ftpFunctions.addToQueue(params.files);
             }
         });
                 
-        $(nodeConnection).on("eqFTP.otherEvents", function (event, params) {
+        $(nodeConnection).on("eqFTP:otherEvents", function (event, params) {
             if (params.event === 'connectError') {
                 var connectionName = eqFTP.globals.globalFtpDetails.ftp[params.connectionID].connectionName;
                 if (params.err.code === "ENOTFOUND") {
@@ -2572,7 +2573,7 @@ JColResizer.colResizable=function(a,b){b=$.extend({draggingClass:"JCLRgripDrag",
             $('#eqFTPLoading').hide();
         });
 
-        $(nodeConnection).on("eqFTP.queueEvent", function (event, params) {
+        $(nodeConnection).on("eqFTP:queueEvent", function (event, params) {
             if(params.status == "queueDone") {
                 $("#toolbar-eqFTP").addClass("complete");
                 var toolbarResetTimeout = setInterval(function () {

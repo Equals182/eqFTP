@@ -38,6 +38,7 @@ There's [ToDo list](https://github.com/Equals182/eqFTP/issues/73)
 >If I fix something critical I throw update on registry and for that I need to increase version number (I'm trying to follow [Semantic Versioning](http://semver.org/)). If update is too minor and it's not critical enough for extension work, I'll just wait till it get bigger or till weekends.
 
 * version 0.6.2
+ * Updated node events stuff for Brackets 1.1
  * Updated Once module and added SCP2 module for SFTP support.
  * Redesigned ftpDomain.js's structure for SFTP support.
  * Improved Brazilian Portuguese translation
