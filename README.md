@@ -71,6 +71,7 @@ There's [ToDo list](https://github.com/Equals182/eqFTP/issues/73)
 * Nathan -- donating
 * [vagkaefer](https://github.com/vagkaefer) -- translating (Brazilian Portuguese)
 * [probil](https://github.com/probil) -- translating (Ukrainian)
+* Jakub Kalousek -- translating (Czech)
 
 ## License
 
