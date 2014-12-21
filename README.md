@@ -1,7 +1,7 @@
 eqFTP
 =====
 
-*[Donate](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=XNJ33D53AR9JJ) so I could buy some stuff like A/C for summertime :P*
+*Thanks to Putin, now your [donations](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=XNJ33D53AR9JJ) costs twice more for me. It's (probably) time limited awesome deal! Hurry up!*
 
 ### [Help with translations!](https://github.com/Equals182/eqFTP/wiki/1.6-Frequently-Asked-Questions#how-can-i-translate-this-extension-to-language-of-my-people)
 
