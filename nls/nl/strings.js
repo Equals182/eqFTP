@@ -21,13 +21,13 @@ define({
 	"ERR_DIAG_NOSERVERFOUND_CONTENT" : "Er zijn geen eqFTP verbindingen/server gekoppeld aan dit project.<br>Verbind met de server of stel de momentele projectlocatie in als lokale path voor dit project.",
 	"ERR_DIAG_ECONNRESET_TITLE" : "Server staat geen verbindingen toe.",
 	"ERR_DIAG_ECONNRESET_CONTENT" : "Ik kan niet verbinden met de server. Het sluit me uit.<br>Probeer Brackets eens te herstarten.",
-    "ERR_DIAG_ECONNABORTED_TITLE" : "You've been disconnected from server", //NEW
-	"ERR_DIAG_ECONNABORTED_CONTENT" : "Connection aborted. Trying to reconnect.", //NEW
+    "ERR_DIAG_ECONNABORTED_TITLE" : "Je bent disconnected van de server",
+	"ERR_DIAG_ECONNABORTED_CONTENT" : "Verbinding afgebroken. Probeer om opnieuw te verbinden.",
 	"ERR_DIAG_UNIVERSAL_TITLE" : "Er heeft zich een fout voorgedaan",
 	"ERR_DIAG_UNIVERSAL_CONTENT" : "Kijk naar deze fout! Hoe kon dit ooit gebeuren?",
 
-    "NOT_DIAG_CONNECTED" : "Connected to server.", //NEW
-    "NOT_DIAG_DISCONNECTED" : "Disconnected from server.", //NEW
+    "NOT_DIAG_CONNECTED" : "Verbonden met de server.", 
+    "NOT_DIAG_DISCONNECTED" : "Onverbonden met de server",
 
 	"PASSWDWIND_TITLE" : "Gelieve uw wachtwoord in te voeren",
 	"PASSWDWIND_CONTENT" : "Uw wachtwoord voor eqFTP:",
@@ -74,13 +74,13 @@ define({
 	"SETTINGSWIND_GLOB_TIMEFORMAT" : "Datum formaat:",
 	"SETTINGSWIND_GLOB_TIMEFORMAT_US" : "Amerikaans",
 	"SETTINGSWIND_GLOB_TIMEFORMAT_EU" : "Europees",
-	"SETTINGSWIND_GLOB_TIMEFORMAT_ASIAN" : "Asian", //NEW
+	"SETTINGSWIND_GLOB_TIMEFORMAT_ASIAN" : "Aziatisch",
 	"SETTINGSWIND_GLOB_SYNC" : "Synchroniseren",
 	"SETTINGSWIND_GLOB_SYNC_DESC" : "Zal bestand hernoemen of verwijderen op de server nadat het is veranderd in Brackets.",
-	"SETTINGSWIND_GLOB_AUTOCLEAR" : "Auto-clear Queue", //NEW
-    "SETTINGSWIND_GLOB_NOTIFICATIONS" : "Notifications", //NEW
-    "SETTINGSWIND_GLOB_TIMEOFFSET" : "Time Offset:", //NEW
-    "SETTINGSWIND_GLOB_TIMEOFFSET_DESC" : "Use this option to set correct time for Modified column", //NEW
+	"SETTINGSWIND_GLOB_AUTOCLEAR" : "Automatisch legen Queue",
+    "SETTINGSWIND_GLOB_NOTIFICATIONS" : "Notificaties",
+    "SETTINGSWIND_GLOB_TIMEOFFSET" : "Tijd Offset:",
+    "SETTINGSWIND_GLOB_TIMEOFFSET_DESC" : "Gebruik deze optie om de juiste tijd in te stelen voor de aangepaste kolom",
 
 	"QUEUE_TITLE" : "eqFTP Wachtrij",
 	"QUEUE_TITLE_HOVER" : "Klik om de eqFTP Wachtrij te openen",
@@ -95,17 +95,17 @@ define({
 	"QUEUE_CONTEXTM_CLEARQ" : "Wis Wachtrij",
 	"QUEUE_CONTEXTM_CLEARCOMPQ" : "Wis Complete Taken",
 	"QUEUE_CONTEXTM_CLEARFAILQ" : "Wis Mislukte Taken",
-	"QUEUE_CONTEXTM_CLEARPAUSQ" : "Clear Paused Tasks", //NEW
+	"QUEUE_CONTEXTM_CLEARPAUSQ" : "Wis Gepauzeerde Taken",
 	"QUEUE_CONTEXTM_RESTARTFAILQ" : "Herstart Mislukte Taken",
-	"QUEUE_DONT_ADD_COMPLETED" : "Auto-clear Completed tasks", //NEW
+	"QUEUE_DONT_ADD_COMPLETED" : "Automatisch verwijder voltooide taken",
 	"ERR_FILE_ACCESSDENIED" : "Toegang geweigerd. Controleer bestandsrechten.",
 	"ERR_FILE_AUTHORIZATION" : "Autorisatiefout. Controleer je logingegevens.",
 	"ERR_FILE_SERVNOEXIST" : "Server bestaat niet. Misschien een spellingsfout?",
 	"ERR_FILE_SERVCANTREACH" : "Kon server niet bereiken. Controleer je  Firewall.",
-	"ERR_FILE_FILESIZE0" : "Can't download file. Filesize is 0.", //NEW
-    "ERR_FILE_DOWNLOAD" : "Can't download file.", //NEW
-    "ERR_FILE_DOESNTEXIST" : "File doesn't exist", //NEW
-    "ERR_FOLDER_OPEN" : "There's an error opening folder as project", //NEW
+	"ERR_FILE_FILESIZE0" : "Kan bestand niet downloaden. Bestandsgrootte is 0.",
+    "ERR_FILE_DOWNLOAD" : "Kan bestand niet downloaden.",
+    "ERR_FILE_DOESNTEXIST" : "Bestand bestaat niet",
+    "ERR_FOLDER_OPEN" : "Er is en fout opgetreden bij het openen van een folder als een project",
 
 	"CONTEXTM_DOWNLOAD" : "Download",
 	"CONTEXTM_UPLOAD" : "Upload",
@@ -113,7 +113,7 @@ define({
 	"CONTEXTM_OPEN" : "Open",
 	"CONTEXTM_DELETE" : "Verwijder",
 	"CONTEXTM_RENAME" : "Hernoem",
-	"CONTEXTM_REDOWNLOAD" : "Download from server", //NEW
+	"CONTEXTM_REDOWNLOAD" : "Downloaden van server",
 
 	"OTHER_SELECT_SERVER_DROPDOWN" : "Selecteer server om te verbinden...",
 	"OTHER_ERROR" : "Error",
@@ -126,6 +126,6 @@ define({
 	"OTHER_APPLY" : "Aanpassen",
 	"OTHER_CLOSE" : "Sluiten",
 	"OTHER_DELETE" : "Verwijderen",
-	"OTHER_CONFIRM_DELETE" : "Are you sure you want to delete this item?", //NEW
-	"OTHER_ERROR_EVENDISCONN" : "Can't upload file. 'Even If Disconnected' option is off.", //NEW
+	"OTHER_CONFIRM_DELETE" : "Weet je zeker dat je dit item wilt verwijderen?",
+	"OTHER_ERROR_EVENDISCONN" : "Kan bestand niet uploaden. 'Zelfs Als Discconect' optie is uitgeschakeld", 
 });
