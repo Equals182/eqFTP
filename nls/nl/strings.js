@@ -127,5 +127,5 @@ define({
 	"OTHER_CLOSE" : "Sluiten",
 	"OTHER_DELETE" : "Verwijderen",
 	"OTHER_CONFIRM_DELETE" : "Weet je zeker dat je dit item wilt verwijderen?",
-	"OTHER_ERROR_EVENDISCONN" : "Kan bestand niet uploaden. 'Zelfs Als Discconect' optie is uitgeschakeld", 
+	"OTHER_ERROR_EVENDISCONN" : "Kan bestand niet uploaden. 'Zelfs als niet verbonden' optie is uitgeschakeld", 
 });
