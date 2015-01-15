@@ -67,11 +67,14 @@ There's [ToDo list](https://github.com/Equals182/eqFTP/issues/73)
 * [Bramdv](https://github.com/Bramdv) -- translating (Dutch)
 * [bloodygrizzly](https://github.com/bloodygrizzly) -- bugs finding, testing
 * Viktor -- translating (Hungarian)
-* sirnightowl -- donating
-* Nathan -- donating
 * [vagkaefer](https://github.com/vagkaefer) -- translating (Brazilian Portuguese)
 * [probil](https://github.com/probil) -- translating (Ukrainian)
 * Jakub Kalousek -- translating (Czech)
+
+## Donators
+* sirnightowl
+* Nathan
+* Jacob
 
 ## License
 
