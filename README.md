@@ -1,6 +1,8 @@
 eqFTP
 =====
 
+*Thanks to Putin, now your [donations](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=XNJ33D53AR9JJ) costs twice more for me. It's (probably) time limited awesome deal! Hurry up!*
+
 ### [Help with translations!](https://github.com/Equals182/eqFTP/wiki/1.6-Frequently-Asked-Questions#how-can-i-translate-this-extension-to-language-of-my-people)
 
 FTP client for Brackets code editor.
@@ -79,3 +81,11 @@ There's [ToDo list](https://github.com/Equals182/eqFTP/issues/73)
 ## License
 
 MIT-licensed -- see main.js for details.
+
+## Voluntary Donations
+
+This extension is totally free to use or edit because of license but if you **really** have tons of money and want to throw some dollars at me -- you're welcome! Use button below to give me moneyz for my work!
+
+[![Donate! :3](https://pp.vk.me/c617327/v617327212/806b/DPUcVE7PTRQ.jpg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=XNJ33D53AR9JJ)
+
+$55 -- donated. $440 -- current goal (A/C).
