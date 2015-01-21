@@ -72,7 +72,8 @@ There's [ToDo list](https://github.com/Equals182/eqFTP/issues/73)
 * Jakub Kalousek -- translating (Czech)
 
 ## Donators
-* sirnightowl
+* Francesco
+* Martin
 * Nathan
 * Jacob
 * Mel
@@ -87,4 +88,4 @@ This extension is totally free to use or edit because of license but if you **re
 
 [![Donate! :3](https://pp.vk.me/c617327/v617327212/806b/DPUcVE7PTRQ.jpg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=XNJ33D53AR9JJ)
 
-$50 -- donated. $440 -- current goal (A/C).
+$55 -- donated. $440 -- current goal (A/C).
