@@ -1,0 +1,40 @@
+<div id="eqFTP-checkDiffConfirm" class="modal" style="width: 500px; overflow: visible;">
+    <div class="modal-header">
+        <h1 class="dialog-title">{{CHECKDIFF_TITLE}}</h1>
+    </div>
+    <div class="modal-body">   
+
+        <div class="field-container2">
+            {{CHECKDIFF_CONTENT}}
+            <div style="clear:both;"></div>
+        </div>
+        
+        <div class="btn-group">
+          <button type="button" class="dialog-button btn primary" data-button-id="compare">{{CHECKDIFF_BUTTON_COMPARE}}</button>
+          <button type="button" class="btn primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+            <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="#" eqFTP-action="diff_show">{{CHECKDIFF_BUTTON_SHOWCHANGES}}</a></li>
+          </ul>
+        </div>
+        <div class="btn-group">
+          <button type="button" class="dialog-button btn" data-button-id="keep">{{CHECKDIFF_BUTTON_KEEPLOCAL}}</button>
+          <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+            <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="#" class="dialog-button" data-button-id="keep_all">{{CHECKDIFF_BUTTON_KEEPLOCALALL}}</a></li>
+          </ul>
+        </div>
+        <div class="btn-group">
+          <button type="button" class="dialog-button btn" data-button-id="replace">{{CHECKDIFF_BUTTON_GETREMOTE}}</button>
+          <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+            <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="#" class="dialog-button" data-button-id="replace_all">{{CHECKDIFF_BUTTON_GETREMOTEALL}}</a></li>
+          </ul>
+        </div>
+    </div>
+</div>

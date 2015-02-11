@@ -68,7 +68,7 @@
     max-height: none;
     position: absolute;
     top: 75px;
-    bottom: 43px;
+    bottom: 41px;
     margin: 0;
     width: 100%;
     padding: 0;
@@ -87,25 +87,43 @@
     padding: 0 10px 10px 10px;
 }
 
-.eqFTPFileTreeRow {
-    
-    display: -webkit-box;
-    display: -moz-box;
-    display: -ms-flexbox;
-    display: -webkit-flex;
-    display: flex;
-    flex-flow: row wrap;
-    
+.eqFTPFileTreeHeader i {
+    margin-right: 5px;
+}
+
+.eqFTPFileTreeHeader .resizer {
+    float: right;
+    display: inline-block !important;
+    width: 3px !important;
+    margin-left: 3px;
+    cursor: col-resize;
+}
+
+.eqFTPListingHeaders {
+    border-bottom: 1px solid #cecece;
+}
+
+.dark .eqFTPListingHeaders {
+    border-bottom: 1px solid #AAAAAA;
 }
 
 #eqFTPDirectoryListing .eqFTPFileTreeCell {
-    flex: 1 auto;
+    float: left;
+    width: 18.3%;
     text-align: right;
+    display: inline-block;
+    height: 20px;
+    vertical-align: middle;
+    overflow: hidden;
 }
 
 #eqFTPDirectoryListing .eqFTPFileTreeCell.eqFTPTableNamecol{
-    flex: 2 30%;
+    width: 45%;
     text-align: left;
+}
+
+#eqFTPDirectoryListing .eqFTPFileTreeCell.eqFTPTableNamecol .eqFTPModalItemTitle {
+    vertical-align: middle;
 }
 
 #eqFTPDirectoryListing .eqFTPFileTreeCell.eqFTPTableSizecol{
@@ -117,11 +135,18 @@
 }
 
 .eqFTPFileTreeRow>.eqFTPFileTreeHolder {
-    flex: 1 100%;
+    float: left;
+    width: 100%;
 }
 
 #eqFTP-project-settings {
     width:800px;
+}
+
+#eqFTPAllServerList {
+    height: 310px;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
 .nav.nav-tabs.nav-stacked li{
@@ -130,23 +155,16 @@
     border-top: 1px solid rgba(0, 0, 0, 0.1);
     vertical-align: middle;
 }
-.nav.nav-tabs.nav-stacked li:first-child{
-    /*
-    border-top-left-radius: 3px;
-    border-top-right-radius: 3px;
-    */
+.nav.nav-tabs.nav-stacked li .eqFTP-arrow {
+    opacity: 0;
+    float: right;
+    margin-top: 3px;
 }
 .nav.nav-tabs.nav-stacked li:last-child{
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-    /*
-    border-bottom-right-radius: 3px;
-    border-bottom-left-radius: 3px;
-    */
 }
-.nav.nav-tabs.nav-stacked li:hover{
-    background-image: url(img/arrows.png);
-    background-position: 226px 5px;
-    background-repeat: no-repeat;
+.nav.nav-tabs.nav-stacked li:hover .eqFTP-arrow {
+    opacity: 0.9;
 }
 .nav.nav-tabs.nav-stacked li.clicked{
     color:#288edf;
@@ -154,10 +172,14 @@
     border-top: 1px solid #bfbfbf;
     border-bottom: 1px solid #ffffff;
 }
-.nav.nav-tabs.nav-stacked li.clicked:hover{
-    background-image: url(img/arrows.png);
-    background-position: 226px -17px;
-    background-repeat: no-repeat;
+.dark .nav.nav-tabs.nav-stacked li.clicked{
+    color:#333333;
+    background-color: #aaaaaa;
+    border-top: 1px solid #888888;
+    border-bottom: 1px solid #bbbbbb;
+}
+.nav.nav-tabs.nav-stacked li.clicked:hover .eqFTP-arrow {
+    opacity: 0.9;
 }
 
 .nav.nav-tabs.nav-stacked li.clicked+li {
@@ -188,28 +210,34 @@
     background-repeat: no-repeat;
     background-position: center center;
     background-size: 100% 100%;
+    vertical-align: middle;
+    margin-right: 5px;
+    margin-left: -10px;
+    margin-top: -7px;
 }
 
 #eqFTPCTSEIDHelp {
-    background-image: url(img/info.svg);
-    height:20px;
-    width:20px;
     vertical-align:middle;
+    color: #000000;
+    margin-left: 0px;
+    margin-top: -5px;
+    font-size: 16px;
 }
 
 .dark #eqFTPCTSEIDHelp {
-    background-image: url(img/dark-info.svg);
+    color: #FFFFFF;
 }
 
 #eqFTPautolocalpath {
-    background-image: url(img/folder-add.svg);
-    height:20px;
-    width:15px;
     vertical-align:middle;
+    color: #000000;
+    margin-left: 0px;
+    margin-top: -5px;
+    font-size: 16px;
 }
 
 .dark #eqFTPautolocalpath {
-    background-image: url(img/dark-folder-add.svg);
+    color: #FFFFFF;
 }
 
 .eqFTP-icon:hover {
@@ -266,16 +294,16 @@ li[data-eqFTP-addConnection]:hover>.eqFTP-icon-plus{
 }
 
 #eqFTP-openSettingsWindow {
-    width: 20px;
-    height: 20px;
-    background-image: url(img/settings.svg);
+    padding: 3px 4px;
     background-repeat: no-repeat;
     background-position: center center;
     background-size: 100% 100%;
     display: inline-block;
+    font-size: 17px;
     opacity: 0.4;
     cursor: default;
     vertical-align: middle;
+    color: #000000;
 }
 
 #eqFTP-openSettingsWindow:hover {
@@ -285,7 +313,7 @@ li[data-eqFTP-addConnection]:hover>.eqFTP-icon-plus{
 }
 
 .dark #eqFTP-openSettingsWindow {
-    background-image: url(img/dark-settings.svg);
+    color: #FFFFFF;
 }
 
 .dark #eqFTP-openSettingsWindow:hover {
@@ -311,30 +339,44 @@ li[data-eqFTP-addConnection]:hover>.eqFTP-icon-plus{
     display: inline-block;
 }
 
-#eqFTPDirectoryListing div .eqFTPTableNamecol span.eqFTPFileTreePlusMinus {
-    display: inline-block;
+#eqFTPDirectoryListing .eqFTP-folder i.eqFTPFileTreePlusMinus {
     vertical-align: middle;
-    height: 8px !important;
-    width: 8px !important;
-    background-image: url(img/directoryArrows.svg);
-    background-repeat: no-repeat;
-    background-size: 100% auto;
     margin-right: 3px;
     margin-left: 3px;
-    background-position: top center;
 }
 
-#eqFTPDirectoryListing div .eqFTPFileTreeRow.opened>div>span.eqFTPFileTreePlusMinus {
-    background-image: url(img/directoryArrows.svg);
-    background-position: bottom center;
+#eqFTPDirectoryListing .eqFTP-folder i.eqFTPFileTreePlusMinus.fa-caret-down {
+    display: none;
+    margin-left: 2px;
 }
-#eqFTPDirectoryListing div .eqFTPTableNamecol.eqFTP-file span.eqFTPFileTreePlusMinus {
-    background: none;
+
+#eqFTPDirectoryListing .eqFTPFileTreeRow.opened>div>i.eqFTPFileTreePlusMinus.fa-caret-right {
+    display: none;
+}
+
+#eqFTPDirectoryListing .eqFTPFileTreeRow.opened>div>i.eqFTPFileTreePlusMinus.fa-caret-down {
+    display: inline-block;
+}
+
+#eqFTPDirectoryListing .eqFTP-file i.eqFTPFileTreePlusMinus {
+    display: none !important;
     width: 0px !important;
 }
+#eqFTPDirectoryListing .eqFTP-file span {
+    color: #000000;
+}
+.dark #eqFTPDirectoryListing .eqFTP-file span {
+    color: #FFFFFF;
+}
 
-#eqFTPDirectoryListing div .eqFTP-folder span {
+#eqFTPDirectoryListing .eqFTP-folder span {
     opacity: 0.7;
+}
+
+#eqFTPDirectoryListing .eqFTP-folder>ul>li {
+    margin-left: 4px;
+    border-left: 1px solid #666666;
+    padding-left: 5px;
 }
 
 .eqFTPFileTreeCell.clicked {
@@ -346,39 +388,54 @@ li[data-eqFTP-addConnection]:hover>.eqFTP-icon-plus{
 }
 
 #eqFTPLoading {
-    display: inline-block;
-    height: 18px;
-    width: 18px;
-    background-image: url(img/loading.gif);
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-size: 100% auto;
+    display: block;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    background-color: rgba(255,255,255,0.2);
+    opacity: 0.4;
+    z-index: 2;
+    top: 0;
+    left: 0;
+    line-height: 444px;
     vertical-align: middle;
-    margin-left: 5px;
-    opacity: 0.7;
+    font-size: 260px;
+    text-align: center;
+    color: #FFFFFF;
 }
+
+.dark #eqFTPLoading {
+    background-color: rgba(0,0,0,0.7);
+    color: #000000;
+}
+
 
 .field-group{
     padding:14px;
     background-color:#f5f5f5;
     border:1px solid #dddddd;
     margin-bottom:20px;
+    border-radius: 4px;
+    max-height: 347px;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
-#eqFTPSettingsHolder #eqFTP-serverport, #eqFTP-keepAlive, #eqFTP-timeOffset {
+.eqFTPSettingsHolder {
+    max-height: 375px;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.eqFTPSettingsHolder .eqFTP-serverport, .eqFTP-keepAlive, .eqFTP-timeOffset {
     width:40px;
-}
-
-.eqFTPFileTreeCell {
-    display: inline-block;
-    height: 20px;
-    vertical-align: middle;
 }
 
 li.eqFTPFileTreeRow, ul.eqFTPFileTreeHolder {
     list-style: none;
     margin: 0;
     padding: 0;
+    overflow: auto;
 }
 
 li.closed>ul {
@@ -391,23 +448,69 @@ li.opened>ul {
 
 #eqFTPGlobalSettings {
     display: inline-block;
-    height: 15px;
-    width: 10px;
-    background-image: url(img/glyphicons_136_cogwheel.png);
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-size: 100% auto;
     vertical-align: middle;
     margin-bottom: 3px;
     opacity: 0.3;
+    color: #000000;
+    cursor: pointer;
+}
+
+.eqFTPTabs {
+    margin-bottom: 5px;
+    padding: 10px;
+}
+
+.eqFTPTabs a {
+    display: inline-block;
+    margin-right: 5px;
+    color: #000000;
+    font-size: 16px;
+    opacity: 0.5;
+    margin-bottom: 4px;
+}
+
+.dark .eqFTPTabs a {
+    color: #FFFFFF;
+}
+
+.eqFTPTabs a:hover {
+    opacity: 1;
+    text-decoration: none;
+}
+
+.eqFTPTabs a.current {
+    border-bottom: 4px solid #288edf;
+    margin-bottom: 0px;
+    outline: none;
+    box-shadow: none;
+    opacity: 1;
+}
+.eqFTPTabs a:active, .eqFTPTabs a:focus {
+    outline: none;
+    box-shadow: none;
+}
+.dark .eqFTPTabs a.current {
+    border-bottom: 4px solid #016dc4;
+    outline: none;
+    box-shadow: none;
 }
 
 #eqFTPGlobalSettings:hover, #eqFTPGlobalSettings.clicked {
     opacity: 0.6;
 }
 
+.dark #eqFTPGlobalSettings {
+    color: #FFFFFF;
+}
+
 #eqFTPGlobalSettingsHolder {
     height: 370px;
+}
+
+.eqFTPsync-ignore {
+    width: 215px;
+    height: 70px;
+    resize: none;
 }
 
 .eqFTPtoolbarBottomIcons {
@@ -417,7 +520,7 @@ li.opened>ul {
     vertical-align: middle;
     opacity: 0.3;
     display: inline-block;
-    height: 20px;
+    color: #000000;
     width: 20px;
 }
 
@@ -425,40 +528,8 @@ li.opened>ul {
     opacity: 0.6;
 }
 
-#eqFTPConnectionControl {
-    background-image: url(img/connection_off.svg);
-    height: 20px;
-    width: 30px;
-}
-
-.dark #eqFTPConnectionControl {
-    background-image: url(img/dark-connection_off.svg);
-}
-
-#eqFTPConnectionControl.on {
-    background-image: url(img/connection_on.svg);
-}
-
-.dark #eqFTPConnectionControl.on {
-    background-image: url(img/dark-connection_on.svg);
-}
-
-#eqFTPRefresh {
-    background-image: url(img/refresh.svg);
-}
-
-.dark #eqFTPRefresh {
-    background-image: url(img/dark-refresh.svg);
-}
-
-#eqFTPSettingsRefresh {
-    background-image: url(img/settings-refresh.svg);
-    width:24px;
-}
-
-
-.dark #eqFTPSettingsRefresh {
-    background-image: url(img/dark-settings-refresh.svg);
+.dark .eqFTPtoolbarBottomIcons {
+    color: #FFFFFF;
 }
 
 #eqFTPQueueIndicator {
@@ -469,6 +540,15 @@ li.opened>ul {
     color: #F00 !important;
 }
 
+#eqFTPequeueTable tr.clicked {
+    background-color: #0f0f0f;
+    color: #FFFFFF;
+}
+.dark #eqFTPequeueTable tr.clicked {
+    background-color: #f0f0f0;
+    color: #000000;
+}
+
 #eqFTPQueueHolder .table-container table {
     width: 100%;
     table-layout: fixed;
@@ -477,26 +557,40 @@ li.opened>ul {
 #eqFTPQueueHolder .table-container th {
     padding: 3px 10px;
     text-align: left;
-    border-bottom: 1px solid #b7b7b7;
-    border-right: 1px solid #b7b7b7;
+    border-bottom: 1px solid #939393;
+    border-right: 1px solid #939393;
     width:30%;
-    background-color: #fafafa;
+    background-color: #f2f2f2;
 }
 
 .dark #eqFTPQueueHolder .table-container th {
-    background-color: #646464;
-    color: #FFFFFF;
+    background-color: #2b2b2b;
+    color: #aaaaaa;
+    border-bottom: 1px solid #222222;
+    border-right: 1px solid #222222;
+}
+
+.eqFTP_queue_remove {
+    font-size: 17px;
+    margin-top: -3px;
+    opacity: 0.8;
+    cursor: pointer;
+}
+.eqFTP_queue_remove:hover {
+    opacity: 1;
 }
 
 #eqFTPQueueHolder .table-container td {
     padding: 3px 10px;
     text-align: left;
-    border-bottom: 1px dotted #b7b7b7;
+    border-bottom: 1px dotted #222222;
     position: relative;
 }
 
 #eqFTPQueueHolder .table-container th span, #eqFTPQueueHolder .table-container td span {
 	padding: 0 5px;
+    display: inline-block;
+    vertical-align: middle;
 }
 
 #eqFTPQueueHolder .table-container td.path>span, #eqFTPQueueHolder .table-container td.name>span {
@@ -523,41 +617,46 @@ li.opened>ul {
     z-index: 1;
 }
 
-#eqFTPQueueTabs>div {
-    display: inline-block;
-    padding: 2px 3px;
-    border-top-left-radius: 3px;
-    border-top-right-radius: 3px;
-    margin: 0 2px;
-    background-color: #f2f2f2;
-    color: #000000;
+.eqFTPQueueCommands {
+    padding: 5px 10px;
+    border-bottom: 1px solid #AAAAAA;
+    background-color: #eeeeee;
 }
-#eqFTPQueueTabs>div.active {
-    background-color: #fafafa;
-    color: #000000;
+.dark .eqFTPQueueCommands {
+    border-bottom: 1px solid #111111;
+    background-color: #333333;
+}
+.eqFTPQueueCommands span {
+    margin-right: 5px;
+    padding: 3px 6px;
+    display: inline-block;
+    vertical-align: middle;
+}
+.eqFTPQueueCommands span:hover {
+    background-color: #f0f0f0;
+    border: 1px solid #cbcbcb;
+    border-radius: 4px;
+    padding: 2px 5px;
+}
+.eqFTPQueueCommands span:active {
+    background-color: #dedede;
+}
+.dark .eqFTPQueueCommands span:hover {
+    background-color: #444444;
+    border: 1px solid #111111;
+}
+.dark .eqFTPQueueCommands span:active {
+    background-color: #1f1f1f;
+}
+.eqFTPQueueCommands span i {
+    margin-right: 3px;
+}
+.eqFTPQueueCommands label {
+    display: inline-block;
+    margin: 0;
+    vertical-align: middle;
 }
 
-#eqFTPQueueTabs>div>.eqFTPQueueClose {
-    display: inline-block;
-    padding-left: 3px;
-    opacity: 0.8;
-    cursor: pointer;
-}
-#eqFTPQueueTabs>div>.eqFTPQueueClose:hover {
-    opacity: 1;
-}
-
-.dark #eqFTPQueueTabs>div {
-    background-color: #585858;
-    color: #FFFFFF;
-}
-.dark #eqFTPQueueTabs>div.active {
-    background-color: #646464;
-    color: #FFFFFF;
-}
-.dark #eqFTPQueueTabs>div>.eqFTPQueueClose {
-    color: #FFFFFF;
-}
 #eqFTP-dmhandle {
     position: absolute;
     z-index: 2;
@@ -633,7 +732,7 @@ span[data-eqFTPQueueRemove]:hover {
     float: left;
 }
 
-.eqFTPModalItemRename {
+.eqFTPinlineInput {
     height: 16px;
     display: inline-block;
     width: 90%;
@@ -651,18 +750,88 @@ span[data-eqFTPQueueRemove]:hover {
     color: #000000;
 }
 
-.dark #eqFTP-project-settings .well {
-    color: #000000;
-}
-
-.dark #eqFTP-project-settings .well h5 {
-    color: #000000;
-}
-
 .dark #eqFTP-project-settings .field-group label {
     color: #000000;
 }
 
 .dark #eqFTPQueueHolder .table-container .transferring td .progessBar {
     background-color: #1A1A1A;
+}
+
+.dark .field-group {
+    background-color: #444444;
+    color: #aaaaaa;
+    border-color: #111111;
+}
+
+.dark #eqFTP-project-settings .field-group label {
+    color: #aaaaaa;
+}
+
+.dark .well {
+    background-color: #444444;
+    color: #aaaaaa;
+    border-color: #111111;
+}
+
+.dark .well li {
+    color: #aaaaaa;
+}
+
+.dark .dropdown-menu a {
+    color: #FFFFFF;
+}
+
+.dark #eqFTP-project-settings .well h5 {
+    color: #aaaaaa;
+}
+
+#eqFTP-checkDiffConfirm {
+    overflow: visible !important;
+}
+
+#eqFTP-checkDiffConfirm .modal-body {
+    overflow: visible !important;
+}
+
+#eqFTPQueueHolder .progress {
+    height: 20px;
+    margin-bottom: 0px;
+    overflow: hidden;
+    background-color: #F5F5F5;
+    background-image: linear-gradient(to bottom, #f5f5f5, #f9f9f9);
+    background-repeat: repeat-x;
+    border-radius: 4px;
+    width: 99%;
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.1) inset;
+}
+.dark #eqFTPQueueHolder .progress {
+    background-color: #333333;
+    background-image: linear-gradient(to bottom, #333333, #383838);
+}
+#eqFTPQueueHolder .progress-bar {
+    float: left;
+    width: 0px;
+    height: 100%;
+    font-size: 12px;
+    line-height: 20px;
+    color: #FFF;
+    text-align: center;
+    background-color: #337AB7;
+    box-shadow: 0px -1px 0px rgba(0, 0, 0, 0.15) inset;
+}
+#eqFTPQueueHolder .progress-bar-striped, .progress-striped .progress-bar {
+    background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+    background-size: 40px 40px;
+}
+@-webkit-keyframes progress-bar-stripes {
+    from {
+        background-position: 40px 0
+    }
+    to {
+        background-position: 0 0
+    }
+}
+#eqFTPQueueHolder .progress-bar.active, .progress.active .progress-bar {
+    -webkit-animation: progress-bar-stripes 2s linear infinite;
 }

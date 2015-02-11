@@ -8,7 +8,8 @@
                 <div class="span4">
                     <div class="well" style="padding-left:0; padding-right:0;">
                         <div style="padding:0 19px;">
-                            <h5 style="margin-top:0; padding-top:0; display:inline-block;">{{SETTINGSWIND_SAVEDCONN}}</h5> <span id="eqFTPGlobalSettings" title="{{SETTINGSWIND_OPENGLOBSET}}" class="clicked"></span>
+                            <h5 style="margin-top:0; padding-top:0; display:inline-block;">{{SETTINGSWIND_SAVEDCONN}}</h5> <span id="eqFTPGlobalSettings" eqFTP-action="settingsWindow_globalSettings_open" title="{{SETTINGSWIND_OPENGLOBSET}}" class="clicked"><i class="fa fa-cog"></i>
+</span>
                         </div>
                         <ul class="nav nav-tabs nav-stacked" id="eqFTPAllServerList">
                         </ul>
@@ -22,27 +23,28 @@
                         <div class="field-group">
                             <div class="field-container2">
                                 <label for="eqFTP-ProjectsFolder">{{SETTINGSWIND_GLOB_FOLDERFORPROJ}}</label>
-                                <input type="text" id="eqFTP-ProjectsFolder" placeholder="D:\Path\To\Folder" class="eqFTPUseDirectoryOpener" data-eqFTP_ODT="{{SETTINGSWIND_GLOB_FOLDERFORPROJ_DIAGTITLE}}" />
+                                <input type="text" id="eqFTP-ProjectsFolder" placeholder="D:\Path\To\Folder" class="eqFTPUseDirectoryOpener" eqFTP-action="useDirectoryOpener" data-eqFTP_ODT="{{SETTINGSWIND_GLOB_FOLDERFORPROJ_DIAGTITLE}}" />
                                 <div style="clear:both;"></div>
                             </div>
                             <div class="field-container2">
                                 <label for="eqFTP-SettingsFolder">{{SETTINGSWIND_GLOB_FOLDERFORSET}}</label>
-                                <input type="text" id="eqFTP-SettingsFolder" placeholder="D:\Path\To\Folder" class="eqFTPUseDirectoryOpener" data-eqFTP_ODT="{{SETTINGSWIND_GLOB_FOLDERFORSET_DIAGTITLE}}" />
+                                <input type="text" id="eqFTP-SettingsFolder" placeholder="D:\Path\To\Folder" class="eqFTPUseDirectoryOpener" eqFTP-action="useDirectoryOpener" data-eqFTP_ODT="{{SETTINGSWIND_GLOB_FOLDERFORSET_DIAGTITLE}}" />
                                 <div style="clear:both;"></div>
                             </div>
                             <div class="field-container2">
-                                <label for="eqFTP-noProjectOnDownload" style="width:215px;">{{SETTINGSWIND_GLOB_DONTOPENPROJECTS}}</label>
-                                <input type="checkbox" id="eqFTP-noProjectOnDownload" />
-                                <div class="clear:both;"></div>
-                            </div>
-                            <div class="field-container2">
-                                <label for="eqFTP-useEncryption" style="width:215px;">{{SETTINGSWIND_GLOB_STORESAFELY}}</label>
+                                <label for="eqFTP-useEncryption" style="width:215px;">{{SETTINGSWIND_GLOB_MASTERPASSWORD}}</label>
                                 <input type="checkbox" id="eqFTP-useEncryption" />
+                                <input type="password" id="eqFTP-masterPassword" style="display:none;">
                                 <div class="clear:both;"></div>
                             </div>
                             <div class="field-container2">
-                                <label for="eqFTP-debug" style="width:215px;">{{SETTINGSWIND_GLOB_DEBUG}}</label>
-                                <input type="checkbox" id="eqFTP-debug" />
+                                <label for="eqFTP-notifications" style="width:215px;">{{SETTINGSWIND_GLOB_NOTIFICATIONS}}</label>
+                                <input type="checkbox" id="eqFTP-notifications" />
+                                <div class="clear:both;"></div>
+                            </div>
+                            <div class="field-container2">
+                                <label for="eqFTP-syncLocalProjectWithConnection" style="width:215px;">{{SETTINGSWIND_GLOB_SYNCLOCPROJWCONN}}</label>
+                                <input type="checkbox" id="eqFTP-syncLocalProjectWithConnection" />
                                 <div class="clear:both;"></div>
                             </div>
                             <div class="field-container2">
@@ -55,83 +57,159 @@
                                 <div class="clear:both;"></div>
                             </div>
                             <div class="field-container2">
-                                <label for="eqFTP-autoClear" style="width:215px;">{{SETTINGSWIND_GLOB_AUTOCLEAR}}</label>
-                                <input type="checkbox" id="eqFTP-autoClear" />
+                                <label for="eqFTP-debug" style="width:215px;">{{SETTINGSWIND_GLOB_DEBUG}}</label>
+                                <input type="checkbox" id="eqFTP-debug" />
                                 <div class="clear:both;"></div>
                             </div>
-                            <div class="field-container2">
-                                <label for="eqFTP-notifications" style="width:215px;">{{SETTINGSWIND_GLOB_NOTIFICATIONS}}</label>
-                                <input type="checkbox" id="eqFTP-notifications" />
-                                <div class="clear:both;"></div>
-                            </div>
-                            
+                            <a href="#" class="btn primary eqFTPButtonSave" eqFTP-action="settingsWindow_globalSettings_save">{{OTHER_SAVE}}</a>
                         </div>    
                     </div>
-                    <div id="eqFTPSettingsHolder" style="display:none;">
-                        <input type="hidden" id="eqFTP-connectionID" value="no">
+                    <div id="eqFTPSettingsHolder" class="eqFTPSettingsHolder" style="display:none;">
+                        <input type="hidden" name="eqFTP-connectionID" value="no">
                         <div class="field-container2">
-                            <label for="eqFTP-connectionName">{{SETTINGSWIND_GLOB_CONNECTIONNAME_TITLE}}</label>
-                            <input type="text" id="eqFTP-connectionName" placeholder="{{SETTINGSWIND_GLOB_CONNECTIONNAME_FIELD}}" />
-                            <div style="clear:both;"></div>
-                        </div>  
-                        <div class="field-group">
-                            <div class="field-container2">
-                                <label for="eqFTP-server">{{SETTINGSWIND_GLOB_SERVER_TITLE}}</label>
-                                <input type="text" id="eqFTP-server" placeholder="ftp.domain.com"/>
-                                <input type="number" id="eqFTP-serverport" value="21" placeholder="21" />
-                                <div style="clear:both;"></div>
+                            <div class="row-fluid">
+                                <div class="span10">
+                                    <label>{{SETTINGSWIND_GLOB_CONNECTIONNAME_TITLE}}</label>
+                                    <input type="text" name="eqFTP-connectionName" placeholder="{{SETTINGSWIND_GLOB_CONNECTIONNAME_FIELD}}" />
+                                    <div style="clear:both;"></div>
+                                </div>
+                                <div class="span2">
+                                    <a href="#" class="btn primary eqFTPButtonSave" eqFTP-action="settingsWindow_connection_save">{{OTHER_SAVE}}</a>
+                                </div>
                             </div>
+                        </div>  
+                        <div class="eqFTPTabs well well-sm">
+                            <a href="#" data-eqFTPSwitchTabTo=".eqFTPconnectionSettings" data-eqFTPTargetTabGroup="eqFTPcs_tab" data-eqFTPinLimits=".eqFTPSettingsHolder" class="current">{{SETTINGSWIND_GLOB_CONNECTIONTAB}}</a>
+                            <a href="#" data-eqFTPSwitchTabTo=".eqFTPautomatizationSettings" data-eqFTPTargetTabGroup="eqFTPcs_tab" data-eqFTPinLimits=".eqFTPSettingsHolder">{{SETTINGSWIND_GLOB_AUTOMATIZATIONTAB}}</a>
+                            <a href="#" data-eqFTPSwitchTabTo=".eqFTPadvancedSettings" data-eqFTPTargetTabGroup="eqFTPcs_tab" data-eqFTPinLimits=".eqFTPSettingsHolder">{{SETTINGSWIND_GLOB_ADVANCEDTAB}}</a>
+                        </div>
+                        <div class="eqFTPconnectionSettings" data-eqFTPTabGroup="eqFTPcs_tab">
+                            <div class="field-group">
+                                <div class="field-container2">
+                                    <label>{{SETTINGSWIND_GLOB_SERVER_TITLE}}</label>
+                                    <input type="text" name="eqFTP-server" placeholder="ftp.domain.com"/>
+                                    <input type="number" class="eqFTP-serverport" name="eqFTP-serverport" value="21" placeholder="21" data-eqFTPportChanged="false" />
+                                    <div style="clear:both;"></div>
+                                </div>
+                                <div class="field-container2">
+                                    <label>{{SETTINGSWIND_GLOB_PROTOCOL_TITLE}}</label>
+                                    <select name="eqFTP-protocol" >
+                                        <option value="ftp">FTP</option>
+                                        <option value="sftp">SFTP</option>
+                                        <!--<option value="ftps" disabled>FTPS</option>-->
+                                    </select>
+                                    <div style="clear:both;"></div>
+                                </div>
+                                <div class="field-container2">
+                                    <label>{{SETTINGSWIND_GLOB_USERNAME_TITLE}}</label>
+                                    <input type="text" name="eqFTP-username" placeholder="{{SETTINGSWIND_GLOB_USERNAME_FIELD}}"/>
+                                    <div style="clear:both;"></div>
+                                </div>
+                                <div class="field-container2">
+                                    <label>{{SETTINGSWIND_GLOB_PASSWORD_TITLE}}</label>         
+                                    <input type="password" name="eqFTP-password" placeholder="{{SETTINGSWIND_GLOB_PASSWORD_FIELD}}"/>       
+                                    <div style="clear:both;"></div>
+                                </div>
+                                <div class="field-container2 eqFTP_sftpOnly">
+                                    <label>{{SETTINGSWIND_GLOB_RSA_TITLE}}</label>         
+                                    <input type="text" name="eqFTP-RSA" placeholder="{{SETTINGSWIND_GLOB_RSA_FIELD}}" class="eqFTPUseFileOpener" eqFTP-action="useFileOpener" data-eqFTP_ODT="{{SETTINGSWIND_GLOB_FOLDERFORRSA_DIAGTITLE}}"/>       
+                                    <div style="clear:both;"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="eqFTPautomatizationSettings" data-eqFTPTabGroup="eqFTPcs_tab" style="display:none;">
                             <div class="field-container2">
-                                <label for="eqFTP-protocol">{{SETTINGSWIND_GLOB_PROTOCOL_TITLE}}</label>
-                                <select id="eqFTP-protocol" >
-                                    <option value="ftp">FTP</option>
-                                    <option value="sftp" disabled>SFTP</option>
-                                    <option value="ftps" disabled>FTPS</option>
+                                {{SETTINGSWIND_GLOB_AUTO_SET_TITLE}}
+                                <select name="eqFTP-automatization">
+                                    <option value="off">{{OTHER_OFF}}</option>
+                                    <option value="sync">{{SETTINGSWIND_GLOB_AUTO_SYNC}}</option>
+                                    <option value="classic">{{SETTINGSWIND_GLOB_AUTO_CLASSIC}}</option>
                                 </select>
                                 <div style="clear:both;"></div>
                             </div>
-                            <div class="field-container2">
-                                <label for="eqFTP-username">{{SETTINGSWIND_GLOB_USERNAME_TITLE}}</label>
-                                <input type="text" id="eqFTP-username" placeholder="{{SETTINGSWIND_GLOB_USERNAME_FIELD}}"/>
-                                <div style="clear:both;"></div>
+                            <div class="eqFTPauto_classic eqFTPauto" style="display:none;">
+                                <div class="field-group">
+                                    <div class="field-container2">
+                                        <label style="width:48%;"><input type="checkbox" name="eqFTP-uploadonsave" />{{SETTINGSWIND_GLOB_UPLOADONSAVE}}</label>
+                                        <span id="uploadOnSavePaused"><label style="width:48%;"><input type="checkbox" name="eqFTP-uploadonsavePaused" />{{SETTINGSWIND_GLOB_UPLOADONSAVEPAUSED}}</label></span>
+                                        <div style="clear:both;"></div>
+                                    </div>
+                                    <div class="field-container2">
+                                        <label style="width:100%;"><input type="checkbox" name="eqFTP-autoConnect" />{{SETTINGSWIND_GLOB_EVENDISCONN}}</label>
+                                        <br>
+                                        {{SETTINGSWIND_GLOB_EVENDISCONN_EXPLAIN}}
+                                        <div class="clear:both;"></div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="field-container2">
-                                <label for="eqFTP-password">{{SETTINGSWIND_GLOB_PASSWORD_TITLE}}</label>
-                                <input type="password" id="eqFTP-password" placeholder="{{SETTINGSWIND_GLOB_PASSWORD_FIELD}}"/>                
-                                <div style="clear:both;"></div>
+                            <div class="eqFTPauto_sync eqFTPauto" style="display:none;">
+                                <div class="field-group" style="margin-bottom: 0px;">
+                                    <div class="span6">
+                                        <h5>{{SETTINGSWIND_GLOB_AUTO_SYNC_SELECT_TITLE}}</h5>
+                                        <div class="field-container2">
+                                            <label style="width:150px;"><input type="checkbox" name="eqFTPsync-filecreation" />{{SETTINGSWIND_GLOB_AUTO_SYNC_FILECREATION}}</label>
+                                            <div style="clear:both;"></div>
+                                        </div>
+                                        <div class="field-container2">
+                                            <label style="width:150px;"><input type="checkbox" name="eqFTPsync-foldercreation" />{{SETTINGSWIND_GLOB_AUTO_SYNC_FOLDERCREATION}}</label>
+                                            <div style="clear:both;"></div>
+                                        </div>
+                                        <div class="field-container2">
+                                            <label style="width:150px;"><input type="checkbox" name="eqFTPsync-fileupdate" />{{SETTINGSWIND_GLOB_AUTO_SYNC_FILEUPLOAD}}</label>
+                                            <div style="clear:both;"></div>
+                                        </div>
+                                        <div class="field-container2">
+                                            <label style="width:150px;"><input type="checkbox" name="eqFTPsync-rename" />{{SETTINGSWIND_GLOB_AUTO_SYNC_RENAMING}}</label>
+                                            <div style="clear:both;"></div>
+                                        </div>
+                                        <div class="field-container2">
+                                            <label style="width:150px;"><input type="checkbox" name="eqFTPsync-delete" />{{SETTINGSWIND_GLOB_AUTO_SYNC_DELETING}}</label>
+                                            <div style="clear:both;"></div>
+                                        </div>
+                                    </div>
+                                    <div class="span6">
+                                        <h5>{{SETTINGSWIND_GLOB_AUTO_SYNC_IGNORELIST_TITLE}}</h5>
+                                        <textarea name="eqFTPsync-ignore" class="eqFTPsync-ignore" style="margin: 0px;"></textarea>
+                                        {{SETTINGSWIND_GLOB_AUTO_SYNC_IGNORELIST_EXPLAIN}}
+                                        <h5>{{SETTINGSWIND_GLOB_AUTO_SYNC_EXTRASETTINGS_TITLE}}</h5>
+                                        <div class="field-container2">
+                                            <label style="width:150px;"><input type="checkbox" name="eqFTPsync-checkdiff" />{{SETTINGSWIND_GLOB_AUTO_SYNC_CHECKDIFF}}</label>
+                                            <br>
+                                            {{SETTINGSWIND_GLOB_AUTO_SYNC_CHECKDIFF_EXPLAIN}}
+                                            <div style="clear:both;"></div>
+                                        </div>
+                                    </div>
+                                    <div class="clear:both;"></div>
+                                </div>
                             </div>
-                        </div>      
-
-                        <div class="field-container2">
-                            <label for="eqFTP-remoteroot">{{SETTINGSWIND_GLOB_REMOTEPATH_TITLE}}</label>
-                            <input type="text" id="eqFTP-remoteroot" placeholder="{{SETTINGSWIND_GLOB_REMOTEPATH_FIELD}}" />
-                            <div style="clear:both;"></div>
-                        </div>  
-                        <div class="field-container2">
-                            <label for="eqFTP-localroot">{{SETTINGSWIND_GLOB_LOCALPATH_TITLE}}</label>
-                            <input type="text" id="eqFTP-localroot" class="eqFTPUseDirectoryOpener" placeholder="{{SETTINGSWIND_GLOB_LOCALPATH_FIELD}}" data-eqFTP_ODT="{{SETTINGSWIND_GLOB_LOCALPATH_TITLE}}"/>
-                            <i class="eqFTP-icon" id="eqFTPautolocalpath" title="{{SETTINGSWIND_GLOB_LOCALPATH_FILLWPROJECT_TITLE}}"></i>
-                            <div style="clear:both;"></div>
                         </div>
-                        <div class="field-container2">
-                            <label for="eqFTP-uploadonsave" style="width:130px;">{{SETTINGSWIND_GLOB_UPLOADONSAVE}}</label>
-                            <input type="checkbox" id="eqFTP-uploadonsave" />
-                            <label for="eqFTP-connectToServerEvenIfDisconnected" style="width:130px;">{{SETTINGSWIND_GLOB_EVENDISCONN}}</label>
-                            <input type="checkbox" id="eqFTP-connectToServerEvenIfDisconnected" /> <i id="eqFTPCTSEIDHelp" class="eqFTP-icon" data-toggle="tooltip" title="{{SETTINGSWIND_GLOB_EVENDISCONN_EXPLAIN}}"></i>
-                            <div class="clear:both;"></div>
+                        <div class="eqFTPadvancedSettings" data-eqFTPTabGroup="eqFTPcs_tab" style="display:none;">
+                            <div class="field-group">
+                                <div class="field-container2">
+                                    <label>{{SETTINGSWIND_GLOB_REMOTEPATH_TITLE}}</label>
+                                    <input type="text" name="eqFTP-remoteroot" placeholder="{{SETTINGSWIND_GLOB_REMOTEPATH_FIELD}}" />
+                                    <div style="clear:both;"></div>
+                                </div>  
+                                <div class="field-container2">
+                                    <label>{{SETTINGSWIND_GLOB_LOCALPATH_TITLE}}</label>
+                                    <input type="text" name="eqFTP-localroot" class="eqFTPUseDirectoryOpener" eqFTP-action="useDirectoryOpener" placeholder="{{SETTINGSWIND_GLOB_LOCALPATH_FIELD}}" data-eqFTP_ODT="{{SETTINGSWIND_GLOB_LOCALPATH_TITLE}}"/><i class="eqFTP-icon" id="eqFTPautolocalpath" title="{{SETTINGSWIND_GLOB_LOCALPATH_FILLWPROJECT_TITLE}}"></i>
+                                    <div style="clear:both;"></div>
+                                </div>
+                                <div class="field-container2">
+                                    <label style="width: 100%;"><input type="checkbox" name="eqFTP-useList" />{{SETTINGSWIND_GLOB_USELIST}}</label>
+                                    <div style="clear:both;"></div>
+                                </div>
+                                <div class="field-container2">
+                                    <label>{{SETTINGSWIND_GLOB_KEEPALIVE}}</label>
+                                    <input type="number" class="eqFTP-keepAlive" name="eqFTP-keepAlive" value="10" placeholder="#" title="{{SETTINGSWIND_GLOB_KEEPALIVE_DESC}}"/>
+                                    <div class="clear:both;"></div>
+                                </div>
+                                <div class="field-container2">
+                                    <label style="width:130px;">{{SETTINGSWIND_GLOB_TIMEOFFSET}}</label>
+                                    <input type="number" class="eqFTP-timeOffset" name="eqFTP-timeOffset" value="10" placeholder="#" title="{{SETTINGSWIND_GLOB_TIMEOFFSET_DESC}}"/>
+                                </div>
+                            </div>
                         </div>
-                        <div class="field-container2">
-                            <label for="eqFTP-useList" style="width:130px;">{{SETTINGSWIND_GLOB_USELIST}}</label>
-                            <input type="checkbox" id="eqFTP-useList" />
-                            <label for="eqFTP-keepAlive">{{SETTINGSWIND_GLOB_KEEPALIVE}}</label>
-                            <input type="number" id="eqFTP-keepAlive" value="10" placeholder="#" title="{{SETTINGSWIND_GLOB_KEEPALIVE_DESC}}"/>
-                            <div class="clear:both;"></div>
-                        </div>
-                        <div class="field-container2">
-                            <label for="eqFTP-timeOffset" style="width:130px;">{{SETTINGSWIND_GLOB_TIMEOFFSET}}</label>
-                            <input type="number" id="eqFTP-timeOffset" value="10" placeholder="#" title="{{SETTINGSWIND_GLOB_TIMEOFFSET_DESC}}"/>
-                        </div>
-                        
                     </div>
                 </div>
             </div>
@@ -144,7 +222,6 @@
         </div>
         <div id="eqFTP-errorMessage" class="alert alert-error eqFTP-alert hide">
         </div>
-        <a href="#" class="btn primary" id="eqFTPButtonApply">{{OTHER_APPLY}}</a>
         <a href="#" class="dialog-button btn" data-button-id="close">{{OTHER_CLOSE}}</a>
     </div>
 </div>
