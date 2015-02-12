@@ -2310,6 +2310,7 @@ define(function (require, exports, module) {
                         useList: $(esh).find("[name='eqFTP-useList']").is(':checked'),
                         keepAlive: $(esh).find("[name='eqFTP-keepAlive']").val(),
                         timeOffset: $(esh).find("[name='eqFTP-timeOffset']").val(),
+                        RSA: $(esh).find("[name='eqFTP-RSA']").val(),
                         automatization: {
                             type: $(esh).find("[name='eqFTP-automatization']").val(),
                             sync: {
