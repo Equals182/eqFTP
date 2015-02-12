@@ -240,12 +240,20 @@ maxerr: 50, node: true */
 
                         if(eqFTPconnections[params.connectionID].protocol === "sftp") {
                             // SFTP
-                            eqFTPconnections[params.connectionID].ftpDomain.client = new SFTPClient.Client({
+                            var sftp_params = {
                                 host: eqFTPconnections[params.connectionID].server,
                                 username: eqFTPconnections[params.connectionID].username,
-                                password: eqFTPconnections[params.connectionID].password,
                                 port: eqFTPconnections[params.connectionID].port
-                            });
+                            };
+                            if (eqFTPconnections[params.connectionID].RSA) {
+                                if(fs.existsSync(eqFTPconnections[params.connectionID].RSA)){
+                                    sftp_params.privateKey = fs.readFileSync(eqFTPconnections[params.connectionID].RSA);
+                                }
+                            } else if (eqFTPconnections[params.connectionID].password) {
+                                sftp_params.password = eqFTPconnections[params.connectionID].password;
+                            }
+                                
+                            eqFTPconnections[params.connectionID].ftpDomain.client = new SFTPClient.Client(sftp_params);
                             _commands.service.listeners({
                                 connectionID: params.connectionID,
                                 action: "add"
