@@ -1035,7 +1035,7 @@ maxerr: 50, node: true */
                                                 tmp.push({
                                                     name: files[i].filename,
                                                     type: ( ( (files[i].attrs.isDirectory()) ? 1 : ( (files[i].attrs.isFile()) ? 0 : false ) ) ),
-                                                    time: files[i].attrs.mtime,
+                                                    time: files[i].attrs.mtime * 1000,
                                                     size: files[i].attrs.size,
                                                     owner: files[i].attrs.uid,
                                                     group: files[i].attrs.gid
@@ -1051,7 +1051,7 @@ maxerr: 50, node: true */
                                 } else {
                                     // FTP
                                     eqFTPconnections[params.connectionID].ftpDomain.client.ls(params.path, function (err, files) {
-                                        console.log(files);
+                                        //console.log(files);
                                         if (debug)
                                             throwError("[s.gP] Got Directory: " + params.path, true);
                                         if (params.callback)
@@ -1786,6 +1786,7 @@ maxerr: 50, node: true */
                     if (!eqFTPconnections[params.connectionID].ftpDomain.processQueuePaused) {
                         if (eqFTPconnections[params.connectionID].ftpDomain.queue.a !== undefined && eqFTPconnections[params.connectionID].ftpDomain.queue.a.length > 0) {
                             if (!eqFTPconnections[params.connectionID].ftpDomain.busy) {
+                                _domainManager.emitEvent("eqFTP", "events", {event: "working", work: true});
                                 var queuer = eqFTPconnections[params.connectionID].ftpDomain.queue.a.shift();
                                 queuer.status = statuses["g"];
                                 _domainManager.emitEvent("eqFTP", "events", {
@@ -1968,14 +1969,17 @@ maxerr: 50, node: true */
                                 });
                             }
                             eqFTPconnections[params.connectionID].ftpDomain.checkDiffAction = false;
+                            _domainManager.emitEvent("eqFTP", "events", {event: "working", work: false});
                             if (debug)
                                 throwError("[q.p] Queue is empty", true);
                         }
                     } else {
+                        _domainManager.emitEvent("eqFTP", "events", {event: "working", work: false});
                         if (debug)
                             throwError("[q.p] Queue paused for this connection ID: " + params.connectionID);
                     }
                 } else {
+                    _domainManager.emitEvent("eqFTP", "events", {event: "working", work: false});
                     if (debug)
                         throwError("[q.p] There's no connection with this ID: " + params.connectionID);
                     if (params.callback)

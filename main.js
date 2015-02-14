@@ -1385,7 +1385,7 @@ define(function (require, exports, module) {
     }
     eqFTP.ftp = {
         connect: function(params) {
-            if (params.connectionID > -1) {
+            if (params.connectionID > -1 && params.connectionID != eqFTP.globals.connectedServer) {
                 eqFTP.ftp.disconnect({
                     connectionID: eqFTP.globals.connectedServer,
                     callback: function() {
@@ -1765,6 +1765,18 @@ define(function (require, exports, module) {
                 eqFTP.sf.remoteStructure.redraw({
                     connectionID: params.connectionID
                 });
+                if (eqFTP.globals.globalFtpDetails.main.syncLocalProjectWithConnection) {
+                    eqFTP.sf.settings.read(function(result) {
+                        if (result) {
+                            if (eqFTP.globals.projectsPaths[params.connectionID]) {
+                                FileSystem.resolve(eqFTP.globals.projectsPaths[params.connectionID], function(err) {
+                                    if (!err)
+                                        ProjectManager.openProject(eqFTP.globals.projectsPaths[params.connectionID]);
+                                });
+                            }
+                        }
+                    });
+                }
                 console.log("[eqFTP] Connected to server");
             }
             else if (e === "server_connection_error")
@@ -1956,6 +1968,13 @@ define(function (require, exports, module) {
                     progress.attr("aria-valuenow", percent).css("width", percent + "%");
                     progressText.text(Math.floor(percent) + "%");
                 }
+            }
+            else if (e === "working")
+            {
+                if (params.work)
+                    $("#toolbar-eqFTP").html("<i class='fa fa-circle-o-notch fa-spin'></i>");
+                else
+                    $("#toolbar-eqFTP").html("");
             }
         });
         
@@ -2196,18 +2215,6 @@ define(function (require, exports, module) {
             eqFTP.ftp.connect({
                 connectionID: id
             });
-            if (eqFTP.globals.globalFtpDetails.main.syncLocalProjectWithConnection) {
-                eqFTP.sf.settings.read(function(result) {
-                    if (result) {
-                        if (eqFTP.globals.projectsPaths[id]) {
-                            FileSystem.resolve(eqFTP.globals.projectsPaths[id], function(err) {
-                                if (!err)
-                                    ProjectManager.openProject(eqFTP.globals.projectsPaths[id]);
-                            });
-                        }
-                    }
-                });
-            }
         });
         $("body").on("click", "[eqFTP-action]", function(e) {
             var action = $(this).attr("eqFTP-action");
@@ -2965,7 +2972,7 @@ define(function (require, exports, module) {
             if (eqFTP.globals.globalFtpDetails.main.syncLocalProjectWithConnection) {
                 if (eqFTP.globals.connectedServer > -1 && eqFTP.globals.projectsPaths[eqFTP.globals.connectedServer] !== proj._path) {
                     eqFTP.sf.connections.getByPath(proj._path, function(connectionID) {
-                        if (!isNaN(parseInt(connectionID)) && connectionID > -1) {
+                        if (!isNaN(parseInt(connectionID)) && connectionID > -1 && connectionID != parseInt($("#eqFTP-serverChoosing").val())) {
                             eqFTP.ftp.connect({
                                 connectionID: connectionID
                             });

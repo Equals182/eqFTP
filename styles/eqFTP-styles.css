@@ -11,24 +11,10 @@
     opacity:1;
 }
 
-#toolbar-eqFTP.downloading{
-    background-image:url('img/folder-downloading.svg');
-}
-
-#toolbar-eqFTP.uploading{
-    background-image:url('img/folder-uploading.svg');
-}
-
-#toolbar-eqFTP.complete{
-    background-image:url('img/checkmark.svg');
-}
-
-#toolbar-eqFTP.error{
-    background-image:url('img/cross.svg');
-}
-
-#toolbar-eqFTP.disabled {
-    background-image:url('img/folder-disabled.svg');
+#toolbar-eqFTP i {
+    font-size: 10px;
+    margin-top: 8px;
+    color: #000000;
 }
 
 #detachedModalHolder{
