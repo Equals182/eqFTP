@@ -176,7 +176,8 @@ define({
     "OTHER_SAVE" : "Uložit",
     "OTHER_CLOSE" : "Zavřít",
     "OTHER_DELETE" : "Smazat",
-    "OTHER_CONFIRM_DELETE" : "Jste si jisti, že chcete smazat tuto položku", 
+    "OTHER_CONFIRM_DELETE" : "Jste si jisti, že chcete smazat tuto položku",
+    "OTHER_CONFIRM_SETTINGSCLOSE" : "There are some unsaved changes that will be lost if you click OK.<br>Do you want to proceed?", //NEW
     "OTHER_ERROR_EVENDISCONN" : "Nemohu nahrát soubor. Nastavení 'I když je odpojeno' je zakázáno.", 
     "OTHER_ERROR_CANTREADSETTINGS" : "Nemohu načíst nastavení. Je možné, že jste zadali špatné hlavní heslo."
 });

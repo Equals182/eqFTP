@@ -143,7 +143,7 @@ define({
     "ERR_FILE_SERVNOEXIST" : "Server bestaat niet. Misschien een spellingsfout?",
     "ERR_FILE_SERVCANTREACH" : "Kon server niet bereiken. Controleer je  Firewall.",
     "ERR_FILE_FILESIZE0" : "Kan bestand niet downloaden. Bestandsgrootte is 0.",
-    "ERR_FILE_DOWNLOAD" : "Kan bestand niet downloaden."
+    "ERR_FILE_DOWNLOAD" : "Kan bestand niet downloaden.",
     "ERR_FILE_UPLOAD" : "Can't upload file.", //NEW
     "ERR_FILE_DOESNTEXIST" : "Bestand bestaat niet",
     "ERR_FILE_CANTRENAME" : "Can't rename file: ", //NEW
@@ -177,6 +177,7 @@ define({
     "OTHER_CLOSE" : "Sluiten",
     "OTHER_DELETE" : "Verwijderen",
     "OTHER_CONFIRM_DELETE" : "Weet je zeker dat je dit item wilt verwijderen?",
+    "OTHER_CONFIRM_SETTINGSCLOSE" : "There are some unsaved changes that will be lost if you click OK.<br>Do you want to proceed?", //NEW
     "OTHER_ERROR_EVENDISCONN" : "Kan bestand niet uploaden. 'Zelfs als niet verbonden' optie is uitgeschakeld.",
     "OTHER_ERROR_CANTREADSETTINGS" : "Can't read settings file. You probably mistyped your master password." //NEW
 });

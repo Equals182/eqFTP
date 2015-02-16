@@ -177,6 +177,7 @@ define({
     "OTHER_CLOSE" : "Bezárás",
     "OTHER_DELETE" : "Törlés",
     "OTHER_CONFIRM_DELETE" : "Biztosan törölni szeretnéd?",
+    "OTHER_CONFIRM_SETTINGSCLOSE" : "There are some unsaved changes that will be lost if you click OK.<br>Do you want to proceed?", //NEW
     "OTHER_ERROR_EVENDISCONN" : "Nem tudom feltölteni a fájlt. A 'Bontott kapcsolat esetén is' beállítás ki van kapcsolva.",
     "OTHER_ERROR_CANTREADSETTINGS" : "Can't read settings file. You probably mistyped your master password." //NEW
 });

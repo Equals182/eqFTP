@@ -177,6 +177,7 @@ define({
     "OTHER_CLOSE" : "Закрити",
     "OTHER_DELETE" : "Видалити",
     "OTHER_CONFIRM_DELETE" : "Ви дійсно хочете вилучити цей елемент?",
+    "OTHER_CONFIRM_SETTINGSCLOSE" : "There are some unsaved changes that will be lost if you click OK.<br>Do you want to proceed?", //NEW
     "OTHER_ERROR_EVENDISCONN" : "Неможливо відвантажити файл. Параметр 'Навіть якщо відключено' не увімкнено",
     "OTHER_ERROR_CANTREADSETTINGS" : "Can't read settings file. You probably mistyped your master password." //NEW
 });

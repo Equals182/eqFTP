@@ -176,7 +176,8 @@ define({
     "OTHER_SAVE" : "Save", //NEW
     "OTHER_CLOSE" : "Schließen",
     "OTHER_DELETE" : "Entfernen",
-    "OTHER_CONFIRM_DELETE" : "Bist du sicher, dass du diesen Einträg löschen möchtest?", 
+    "OTHER_CONFIRM_DELETE" : "Bist du sicher, dass du diesen Einträg löschen möchtest?",
+    "OTHER_CONFIRM_SETTINGSCLOSE" : "There are some unsaved changes that will be lost if you click OK.<br>Do you want to proceed?", //NEW
     "OTHER_ERROR_EVENDISCONN" : "Datei Upload fehlgeschlagen. Die Option 'Auch wenn die Verbindung getrennt ist' ist ausgeschaltet.",
     "OTHER_ERROR_CANTREADSETTINGS" : "Can't read settings file. You probably mistyped your master password." //NEW
 });

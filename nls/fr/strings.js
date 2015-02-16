@@ -177,6 +177,7 @@ define({
 	"OTHER_CLOSE" : "Fermer",
 	"OTHER_DELETE" : "Supprimer",
 	"OTHER_CONFIRM_DELETE" : "Are you sure you want to delete this item?", //NEW
+    "OTHER_CONFIRM_SETTINGSCLOSE" : "There are some unsaved changes that will be lost if you click OK.<br>Do you want to proceed?", //NEW
 	"OTHER_ERROR_EVENDISCONN" : "Can't upload file. 'Even If Disconnected' option is off.", //NEW
     "OTHER_ERROR_CANTREADSETTINGS" : "Can't read settings file. You probably mistyped your master password." //NEW
 });
