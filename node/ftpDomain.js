@@ -143,6 +143,14 @@ maxerr: 50, node: true */
                         eqFTPconnections[index].remoteRoot = false;
                     }
                 } else {
+                    if (eqFTPconnections[index].ftpDomain.client) {
+                        _commands.service.destroy({
+                            connectionID: index,
+                            callback: function() {
+                                _domainManager.emitEvent("eqFTP", "events", {event: "server_disconnect", connectionID: index, clearQueue: true});
+                            }
+                        });
+                    }
                     eqFTPconnections[index].ftpDomain = {};
                     eqFTPconnections[index].remoteRoot = false;
                 }
@@ -460,7 +468,7 @@ maxerr: 50, node: true */
                     }
                 } else {
                     if (debug)
-                        throwError("[c.d] There's no connection with this ID: " + params.connectionID + ". " + JSON.stringify(eqFTPconnections));
+                        throwError("[c.d] There's no connection with this ID: " + params.connectionID + ". " + JSON.stringify(eqFTPconnections[params.connectionID].ftpDomain.disconnecting));
                     if (params.callback)
                         params.callback(false);
                     else
@@ -2203,9 +2211,8 @@ maxerr: 50, node: true */
                 if (params.connectionID > -1 && eqFTPconnections[params.connectionID] !== undefined) {
                     var e = eqFTPconnections[params.connectionID].ftpDomain.currentElement,
                         aRemotePath = normalizePath(eqFTPconnections[params.connectionID].remoteRoot + "/" + e.remotePath),
-                        dir = normalizePath(eqFTPconnections[params.connectionID].remoteRoot + "/" + e.remotePath.substr(0, e.remotePath.lastIndexOf("/")));
+                        dir = normalizePath(e.remotePath.substr(0, e.remotePath.lastIndexOf("/")));
                         //dir = normalizePath(aRemotePath.substr(0, aRemotePath.lastIndexOf("/")));
-
                     eqFTPconnections[params.connectionID].ftpDomain.currentElement.aRemotePath = aRemotePath;
                     eqFTPconnections[params.connectionID].ftpDomain.currentElement.remotePath = e.remotePath;
                     if (debug)
