@@ -2,7 +2,7 @@
 	"name": "equals182.eqftp",
 	"title": "eqFTP",
 	"version": "0.7.0",
-	"description": "FTP client for Brackets. Please restart Brackets manually after update.",
+	"description": "FTP client for Brackets. Please restart Brackets manually after update. Click More info to see list of changes!",
 	"homepage": "https://github.com/Equals182/eqFTP",
 	"author": "Alexander <equals182@gmail.com>",
 	"license": "MIT",
@@ -12,14 +12,14 @@
 		"brackets": ">=1.1.0"
 	},
     "i18n": [
-        "de", "en", "es", "fr", "it", "nl", "pt-br", "ru", "tr", "hu"
+        "cs", "de", "en", "es", "fr", "hu", "it", "nl", "pt-br", "ru", "tr", "uk"
     ],
     "package-i18n": {
         "en": {
-            "description": "FTP client for Brackets. Please restart Brackets manually after update."
+            "description": "FTP client for Brackets. Please restart Brackets manually after update. Click More info to see list of changes!"
         },
         "ru": {
-            "description": "FTP клиент для Brackets. Пожалуйста, перезагрузите Brackets вручную после обновления."
+            "description": "FTP клиент для Brackets. Пожалуйста, перезагрузите Brackets вручную после обновления. Нажмите Подробнее чтобы посмотреть список изменений!"
         }
     }
 }
