@@ -10,8 +10,6 @@ eqFTP
 
 FTP client for Brackets code editor.
 
-![](http://equals182.com/eqFTP-1.gif)
-
 It's really basic and I hope you'll enjoy this extension. [Click here for more information](https://github.com/Equals182/eqFTP/wiki)
 
 ## Please Note
@@ -40,18 +38,23 @@ There's [ToDo list](https://github.com/Equals182/eqFTP/issues/73)
 
 >If I fix something critical I throw update on registry and for that I need to increase version number (I'm trying to follow [Semantic Versioning](http://semver.org/)). If update is too minor and it's not critical enough for extension work, I'll just wait till it get bigger or till weekends.
 
-* version 0.6.2
- * Updated node events stuff for Brackets 1.1
+* version 0.7.0
+ * Updated Dutch translation.
+ * SFTP SUPPORT!
+ * ACTUAL SYNC!
+ * Added columns' sorting in FileTree Window!
+ * FileTree Window now saves dimensions and column widths after Brackets restart!
+ * Added Font Awesome for icons instead of svg and png images.
+ * Improved dark theme compatibility.
+ * Changed behavior of Connection Manager window.
+ * Fully rewritten main.js file (should work faster now).
  * Updated Once module and added SCP2 module for SFTP support.
  * Redesigned ftpDomain.js's structure for SFTP support.
- * Improved Brazilian Portuguese translation
- * Added Ukrainian translation
-* version 0.6.1
- * Fixed right click for Apple One Button Mouse
- * Removed dependences on deprecated modules
- * Finally fixed Brazilian Portuguese language! Woo-hoo!
- * File opening tries decreased from 3 to 1
- * Updated Parse-Listing module and removed it's dependace on Async module
+ * Improved Brazilian Portuguese translation.
+ * Added Ukrainian translation.
+ * Added Czech translation.
+ * Creating remote files and folders!
+ * And tons of UI improvements
 
 [See full history...](https://github.com/Equals182/eqFTP/wiki/1.7-Version-History)
 
