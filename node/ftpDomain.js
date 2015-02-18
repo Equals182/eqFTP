@@ -121,36 +121,32 @@ maxerr: 50, node: true */
                 eqFTPconnections[index].ftpDomain.ignore = gitignore;
             });
         } else {
-            var tmpSavedConnections = eqFTPconnections;
-            eqFTPconnections = params.connections;
-            eqFTPconnections.forEach(function (element, index, array) {
-                var old = tmpSavedConnections[index];
-                if(old) {
-                    eqFTPconnections[index].listeners = old.listeners;
+            var old = eqFTPconnections;
+            eqFTPconnections = [];
+            params.connections.forEach(function (element, index, array) {
+                if(old[index]) {
                     if (
-                        element.server === old.server &&
-                        element.username === old.username &&
-                        element.password === old.password &&
-                        element.port === old.port &&
-                        element.protocol === old.protocol &&
-                        element.remotepath === old.remotepath
+                        element.server != old[index].server ||
+                        element.username != old[index].username ||
+                        element.password != old[index].password ||
+                        element.port != old[index].port ||
+                        element.protocol != old[index].protocol ||
+                        element.remotepath != old[index].remotepath
                     ) {
-                        eqFTPconnections[index].ftpDomain = old.ftpDomain;
-                        eqFTPconnections[index].queue = old.queue;
-                        eqFTPconnections[index].remoteRoot = old.remoteRoot;
-                    } else {
-                        eqFTPconnections[index].ftpDomain = {};
-                        eqFTPconnections[index].remoteRoot = false;
-                    }
-                } else {
-                    if (eqFTPconnections[index].ftpDomain.client) {
-                        _commands.service.destroy({
+                        eqFTPconnections[index] = old[index];
+                        _commands.connection.disconnect({
                             connectionID: index,
                             callback: function() {
-                                _domainManager.emitEvent("eqFTP", "events", {event: "server_disconnect", connectionID: index, clearQueue: true});
+                                eqFTPconnections[index] = element;
+                                eqFTPconnections[index].ftpDomain = {};
+                                eqFTPconnections[index].remoteRoot = false;
                             }
                         });
+                    } else {
+                        eqFTPconnections[index] = old[index];
                     }
+                } else {
+                    eqFTPconnections[index] = element;
                     eqFTPconnections[index].ftpDomain = {};
                     eqFTPconnections[index].remoteRoot = false;
                 }
