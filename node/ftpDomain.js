@@ -1026,6 +1026,7 @@ maxerr: 50, node: true */
              */
             getPath: function(params) {
                 if (params.connectionID > -1 && eqFTPconnections[params.connectionID] !== undefined && eqFTPconnections[params.connectionID].ftpDomain.client !== undefined && params.path !== undefined) {
+                    params.path = normalizePath(eqFTPconnections[params.connectionID].remoteRoot + "/" + params.path);
                     _commands.connection.connect({
                         connectionID: params.connectionID,
                         callback: function(result) {
@@ -1816,7 +1817,7 @@ maxerr: 50, node: true */
                                                 var path = normalizePath(eqFTPconnections[params.connectionID].remoteRoot + "/" + queuer.path);
                                                 _commands.service.getPath({
                                                     connectionID: params.connectionID,
-                                                    path: path,
+                                                    path: queuer.path,
                                                     callback: function(err, files) {
                                                         eqFTPconnections[params.connectionID].ftpDomain.busy = false;
                                                         if (!err) {
@@ -2450,7 +2451,7 @@ maxerr: 50, node: true */
                                     }
                                     _commands.service.getPath({
                                         connectionID: params.connectionID,
-                                        path: normalizePath(eqFTPconnections[params.connectionID].remoteRoot + "/" + params.remotePath),
+                                        path: params.remotePath,
                                         callback: function (err, contents) {
                                             if (err) {
                                                 _domainManager.emitEvent("eqFTP", "events", {event: "error", connectionID: params.connectionID, pretext: "ERR_FILE_CANTDELETE", text: params.remotePath + "<br>" + JSON.stringify(contents)});
