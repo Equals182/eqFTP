@@ -3,7 +3,7 @@ eqFTP
 
 *Fuck PayPal. I'm trying new thing. Flattr this shit*
 
-[![](http://api.flattr.com/button/flattr-badge-large.png)](https://flattr.com/submit/auto?user_id=Equals182&url=https%3A%2F%2Fgithub.com%2FEquals182%2FeqFTP)
+[![](http://api.flattr.com/button/flattr-badge-large.png)](http://flattr.com/thing/3912923/Equals182eqFTP-on-GitHub)
 
 ### [Help with translations!](https://github.com/Equals182/eqFTP/wiki/1.6-Frequently-Asked-Questions#how-can-i-translate-this-extension-to-language-of-my-people)
 **A lot of translation updates needed**
