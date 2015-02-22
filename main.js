@@ -2334,7 +2334,8 @@ define(function (require, exports, module) {
                     });
                     eqFTP.globals.globalFtpDetails.ftp[id] = {
                         connectionName: $(esh).find("[name='eqFTP-connectionName']").val(),
-                        server: $(esh).find("[name='eqFTP-server']").val(),
+                        //to prevent space at the beginning of server; Not needed for username and shouldn't be used in password
+                        server: $(esh).find("[name='eqFTP-server']").val().trim(), 
                         port: $(esh).find("[name='eqFTP-serverport']").val(),
                         protocol: $(esh).find("[name='eqFTP-protocol']").val(),
                         username: $(esh).find("[name='eqFTP-username']").val(),
@@ -2493,6 +2494,8 @@ define(function (require, exports, module) {
                     }
                 }
             }
+            //if server settings are invalid anda you try to connect to it, it'll still be considered connected, 
+            //preventing it from being deleted. Is that really ok?
             else if (action === "settingsWindow_connection_delete")
             {
                 var id = parseInt($(this).parent().attr('data-eqFTP-openSettings'));
