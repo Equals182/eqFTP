@@ -20,20 +20,21 @@
  * DEALINGS IN THE SOFTWARE.
  *
  * version 0.7.0
- * - Updated Dutch translation.
- * - SFTP SUPPORT!
- * - ACTUAL SYNC!
- * - Added columns' sorting in FileTree Window!
- * - FileTree Window now saves dimensions and column widths after Brackets restart!
- * - Added Font Awesome for icons instead of svg and png images.
- * - Improved dark theme compatibility.
- * - Changed behavior of Connection Manager window.
- * - Fully rewritten main.js file (should work faster now).
- * - Updated Once module and added SCP2 module for SFTP support.
- * - Redesigned ftpDomain.js's structure for SFTP support.
- * - Improved Brazilian Portuguese translation.
- * - Added Ukrainian translation.
- * - Added Czech translation.
+  * Updated Dutch translation.
+  * SFTP SUPPORT!
+  * ACTUAL SYNC!
+  * Added columns' sorting in FileTree Window!
+  * FileTree Window now saves dimensions and column widths after Brackets restart!
+  * Added Font Awesome for icons instead of svg and png images.
+  * Improved dark theme compatibility.
+  * Changed behavior of Connection Manager window.
+  * Fully rewritten main.js file (should work faster now).
+  * Updated Once module and added SCP2 module for SFTP support.
+  * Redesigned ftpDomain.js's structure for SFTP support.
+  * Improved Brazilian Portuguese translation.
+  * Added Ukrainian translation.
+  * Added Czech translation.
+  * Creating remote files and folders!
  */
 
 /*jslint vars: true, plusplus: true, devel: true, nomen: true, indent: 4, maxerr: 50  */
@@ -91,6 +92,7 @@ define(function (require, exports, module) {
         
         syncLockout = [],
         tmp_connectionID = null,
+        cnOffset = 30,
         
         queuePanel = false,
         queuersSelected = [],
@@ -350,6 +352,23 @@ define(function (require, exports, module) {
     function escapeSlashes(string) {
         return string.replace(/\//g, "\\/");
     };
+    function eqFTPdone(mark) {
+        if(!mark || mark == 'ok') {
+            var icon = 'check',
+                color = '#38ea38';
+        } else if (mark == 'error') {
+            var icon = 'times',
+                color = '#d81010';
+        }
+        var t = setInterval(function() {
+            $("#toolbar-eqFTP").html("<i class='fa fa-"+icon+"' style='color: "+color+"'></i>");
+            var t2 = setInterval(function() {
+                $("#toolbar-eqFTP").html("");
+                clearInterval(t2);
+            }, 3000);
+            clearInterval(t);
+        }, 500);
+    }
     
     eqFTPSettingsTemplate = Mustache.render(eqFTPSettingsTemplate, eqFTPstrings);
     eqFTPPasswordTemplate = Mustache.render(eqFTPPasswordTemplate, eqFTPstrings);
@@ -603,22 +622,24 @@ define(function (require, exports, module) {
                     if (!params.connectionName) {
                         params.connectionName = "eqFTP";
                     }
-                    var offset = 30;
+                    /*var offset = 30;
                     $('.eqFTP-customErrorHolder').each(function() {
                         var h = $(this).outerHeight(true);
-                        offset = offset + h + 5;
-                    });
+                    });*/
                     var i = $('.eqFTP-customErrorHolder').length;
                     $("body").append('<div id="eqFTP-customErrorHolder-' + i + '" class="eqFTP-customErrorHolder ' + params.type + '"><div class="text"><strong>' + params.connectionName + ':</strong><br/>' + params.message + '</div><span class="close">&times;</span></div>');
                     var h = $('#eqFTP-customErrorHolder-' + i).outerHeight(true) * -1;
                     $('#eqFTP-customErrorHolder-' + i).css('bottom', h).css('opacity', 0);
-                    $('#eqFTP-customErrorHolder-' + i).animate({'bottom': offset, 'opacity': 1}, 200);
+                    $('#eqFTP-customErrorHolder-' + i).animate({'bottom': cnOffset, 'opacity': 1}, 100);
+                    cnOffset = cnOffset + (-1 * h) + 5;
                     if (isFunction(params.onClick))
                         $("#eqFTP-customErrorHolder-" + i).one("click", params.onClick);
                     var int = setInterval(function() {
                         if ($('#eqFTP-customErrorHolder-' + i).length === 1) {
+                            cnOffset = cnOffset + h - 5;
+                            var mt = $('#eqFTP-customErrorHolder-' + i).position().top;
                             $('.eqFTP-customErrorHolder').each(function(){
-                                if ($(this).not($('#eqFTP-customErrorHolder-' + i))) {
+                                if ($(this).not($('#eqFTP-customErrorHolder-' + i)) && $(this).position().top < mt) {
                                     var bh = $(this).parents("body").first().innerHeight();
                                     var t = $(this).position().top;
                                     var eh = $(this).outerHeight(true);
@@ -627,14 +648,14 @@ define(function (require, exports, module) {
                                     $(this).animate({'bottom': b}, 200);                            
                                 }
                             });
-                            $('#eqFTP-customErrorHolder-' + i).animate({'bottom': h-30, 'opacity': 0}, 200, "swing", function() {
+                            $('#eqFTP-customErrorHolder-' + i).animate({'bottom': h-30, 'opacity': 0}, 50, function() {
                                 $('#eqFTP-customErrorHolder-' + i).remove();
                                 if (isFunction(params.onDestruct))
                                     params.onDestruct();
                             });
                         }
                         clearInterval(int);
-                    }, 5000);
+                    }, params.time || 5000);
                 }
             }
         },
@@ -1724,7 +1745,8 @@ define(function (require, exports, module) {
                                 direction: 'download',
                                 queue: 'a',
                                 type: "file",
-                                connectionID: connectionID
+                                connectionID: connectionID,
+                                after: (eqFTP.globals.connectedServer !== connectionID)?"disconnect":undefined
                             }
                         ]);
                     },
@@ -1747,7 +1769,8 @@ define(function (require, exports, module) {
                 eqFTP.sf.notifications.custom({
                     type: "notification",
                     message: eqFTPstrings.NOT_DIAG_DISCONNECTED,
-                    connectionName: connectionName
+                    connectionName: connectionName,
+                    time: 1000
                 });
                 if (params.clearQueue)
                     $("[eqFTP-queue-connectionID='" + params.connectionID + "']").remove();
@@ -1762,7 +1785,8 @@ define(function (require, exports, module) {
                 eqFTP.sf.notifications.custom({
                     type: "notification",
                     message: eqFTPstrings.NOT_DIAG_CONNECTED,
-                    connectionName: connectionName
+                    connectionName: connectionName,
+                    time: 1000
                 });
                 eqFTP.sf.connections.control({
                     status: true,
@@ -1830,15 +1854,10 @@ define(function (require, exports, module) {
             }
             else if (e === "upload_complete")
             {
+                eqFTPdone();
                 if (params.element.after && params.element.after === "disconnect") {
                     eqFTP.ftp.disconnect({
                         connectionID: params.element.connectionID
-                    });
-                    eqFTP.sf.connections.control({
-                        status: false,
-                        icon: true,
-                        table: true,
-                        serverList: true
                     });
                 } else {
                     if (eqFTP.globals.remoteStructure[params.element.connectionID]) {
@@ -1853,6 +1872,7 @@ define(function (require, exports, module) {
             }
             else if (e === "upload_error")
             {
+                eqFTPdone('error');
                 eqFTP.sf.notifications.custom({
                     type: "error",
                     message: eqFTPstrings.ERR_FILE_UPLOAD,
@@ -1866,6 +1886,7 @@ define(function (require, exports, module) {
             }
             else if (e === "download_complete")
             {
+                eqFTPdone();
                 eqFTP.sf.others.syncLockout.add(params.element.localPath_o || params.element.localPath);
                 if (params.element.openAfter) {
                     var projectRoot = ProjectManager.getProjectRoot(),
@@ -1887,9 +1908,15 @@ define(function (require, exports, module) {
                         eqFTP.sf.files.open(params.element.localPath);
                     }
                 }
+                if (params.element.after && params.element.after === "disconnect") {
+                    eqFTP.ftp.disconnect({
+                        connectionID: params.element.connectionID
+                    });
+                }
             }
             else if (e === "download_error")
             {
+                eqFTPdone('error');
                 eqFTP.sf.notifications.custom({
                     type: "error",
                     message: eqFTPstrings.ERR_FILE_DOWNLOAD,
@@ -2334,8 +2361,7 @@ define(function (require, exports, module) {
                     });
                     eqFTP.globals.globalFtpDetails.ftp[id] = {
                         connectionName: $(esh).find("[name='eqFTP-connectionName']").val(),
-                        //to prevent space at the beginning of server; Not needed for username and shouldn't be used in password
-                        server: $(esh).find("[name='eqFTP-server']").val().trim(), 
+                        server: $(esh).find("[name='eqFTP-server']").val().trim(),
                         port: $(esh).find("[name='eqFTP-serverport']").val(),
                         protocol: $(esh).find("[name='eqFTP-protocol']").val(),
                         username: $(esh).find("[name='eqFTP-username']").val(),
@@ -2494,8 +2520,6 @@ define(function (require, exports, module) {
                     }
                 }
             }
-            //if server settings are invalid anda you try to connect to it, it'll still be considered connected, 
-            //preventing it from being deleted. Is that really ok?
             else if (action === "settingsWindow_connection_delete")
             {
                 var id = parseInt($(this).parent().attr('data-eqFTP-openSettings'));
@@ -3145,7 +3169,8 @@ define(function (require, exports, module) {
                         if (eqFTP.globals.globalFtpDetails.ftp[connectionID].automatization.type === "sync" && eqFTP.globals.globalFtpDetails.ftp[connectionID].automatization.sync.checkdiff) {
                             nodeConnection.domains.eqFTP.eqFTPcheckDiff({
                                 connectionID: connectionID,
-                                remotePath: local2remote(currentFile)
+                                remotePath: local2remote(currentFile),
+                                after: (eqFTP.globals.connectedServer != connectionID)?"disconnect":undefined
                             });
                         }
                     }

@@ -191,7 +191,10 @@ maxerr: 50, node: true */
     };
     function checkDiff(params) {
         if(!checkDiffTimeout) {
-            checkDiffTimeout = true;
+            checkDiffTimeout = setInterval(function() {
+                clearInterval(checkDiffTimeout);
+                checkDiffTimeout = false;
+            }, 10);
             _commands.queue.add({
                 queue: "a",
                 type: "file",
@@ -204,6 +207,7 @@ maxerr: 50, node: true */
                 remotePath: params.remotePath,
                 noTmp: true,
                 callback: function(result) {
+                    clearInterval(checkDiffTimeout);
                     checkDiffTimeout = false;
                     if (result) {
                         var local = remote2local({connectionID: params.connectionID, remotePath: "/" + params.remotePath}),
@@ -211,6 +215,11 @@ maxerr: 50, node: true */
                         if (!cmdCompareFiles(tmp, local)) {
                             _domainManager.emitEvent("eqFTP", "events", {event: 'files_different', connectionID: params.connectionID, localPath: local, remotePath: params.remotePath});
                         }
+                    }
+                    if (params.after && params.after == "disconnect") {
+                        _commands.connection.disconnect({
+                            connectionID: params.connectionID
+                        });
                     }
                 }
             });
@@ -1968,7 +1977,7 @@ maxerr: 50, node: true */
                                     throwError("[q.p] Queue is busy now.", true);
                             }
                         } else {
-                            if (!eqFTPconnections[params.connectionID].keepAlive || eqFTPconnections[params.connectionID].keepAlive < 1) {
+                            if ( !eqFTPconnections[params.connectionID].keepAlive || eqFTPconnections[params.connectionID].keepAlive < 1 ) {
                                 _commands.connection.disconnect({
                                     connectionID: params.connectionID
                                 });
