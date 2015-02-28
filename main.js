@@ -1423,9 +1423,21 @@ define(function (require, exports, module) {
                         clickedTreeElement = 0;
                         eqFTP.globals.connectedServer = params.connectionID;
                         if(params.connectionID !== null) {
+                            if (eqFTP.globals.remoteStructure[params.connectionID]) {
+                                var paths = [],
+                                    from = eqFTP.globals.remoteStructure[eqFTP.globals.connectedServer];
+                                for (var path in from) {
+                                    if (from.hasOwnProperty(path)) {
+                                        paths.push(path);
+                                    }
+                                }
+                            } else {
+                                var paths = [""];
+                            }
                             eqFTP.ftp.changeDirectory({
-                                paths: [""],
-                                state: 'opened'
+                                paths: paths,
+                                state: 'opened',
+                                reload: true
                             });
                             eqFTP.sf.connections.control({
                                 icon: true,
