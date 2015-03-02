@@ -70,9 +70,9 @@ define({
     "SETTINGSWIND_GLOB_USERNAME_FIELD" : "FTP Username",
     "SETTINGSWIND_GLOB_PASSWORD_TITLE" : "Passwort:",
     "SETTINGSWIND_GLOB_PASSWORD_FIELD" : "FTP Passwort",
-    "SETTINGSWIND_GLOB_RSA_TITLE" : "RSA key", //NEW
-    "SETTINGSWIND_GLOB_RSA_FIELD" : "Click to select RSA key", //NEW
-    "SETTINGSWIND_GLOB_FOLDERFORRSA_DIAGTITLE" : "Choose path to RSA key", //NEW
+    "SETTINGSWIND_GLOB_RSA_TITLE" : "RSA Schlüssel", //NEW
+    "SETTINGSWIND_GLOB_RSA_FIELD" : "Klicken um RSA Schlüssel auszuwählen", //NEW
+    "SETTINGSWIND_GLOB_FOLDERFORRSA_DIAGTITLE" : "Wähle Pfad zum RSA Schlüssel", //NEW
     "SETTINGSWIND_GLOB_REMOTEPATH_TITLE" : "Pfad auf dem Server:",
     "SETTINGSWIND_GLOB_REMOTEPATH_FIELD" : "Gib bitte den Serverpfad ein",
     "SETTINGSWIND_GLOB_LOCALPATH_TITLE" : "Lokaler Pfad:",
@@ -94,9 +94,9 @@ define({
     "SETTINGSWIND_GLOB_NOTIFICATIONS" : "Benachrichtigungen", 
     "SETTINGSWIND_GLOB_TIMEOFFSET" : "Zeitversatz:", 
     "SETTINGSWIND_GLOB_TIMEOFFSET_DESC" : "Benutze diese Option um die korrekte Zeit für die modifizierte Spalte zu setzen",
-    "SETTINGSWIND_GLOB_CONNECTIONTAB" : "Connection", //NEW
+    "SETTINGSWIND_GLOB_CONNECTIONTAB" : "Verbindung", //NEW
     "SETTINGSWIND_GLOB_AUTOMATIZATIONTAB" : "Automatization", //NEW
-    "SETTINGSWIND_GLOB_ADVANCEDTAB" : "Advanced", //NEW
+    "SETTINGSWIND_GLOB_ADVANCEDTAB" : "Erweitert", //NEW
     "SETTINGSWIND_GLOB_AUTO_SET_TITLE" : "Set automatization:", //NEW
     "SETTINGSWIND_GLOB_AUTO_SYNC" : "Sync", //NEW
     "SETTINGSWIND_GLOB_AUTO_CLASSIC" : "Classic", //NEW
@@ -144,14 +144,14 @@ define({
     "ERR_FILE_SERVCANTREACH" : "Server nicht erreichbar. Überprüfe die Einstellungen der Firewall.",
     "ERR_FILE_FILESIZE0" : "Datei konnte nicht heruntergeladen werden. Die Datei ist leer.", 
     "ERR_FILE_DOWNLOAD" : "Datei konnte nicht heruntergeladen werden.",
-    "ERR_FILE_UPLOAD" : "Can't upload file.", //NEW
+    "ERR_FILE_UPLOAD" : "Datei konnte nicht hochgeladen werden.", //NEW
     "ERR_FILE_DOESNTEXIST" : "Die Datei existiert nicht",
-    "ERR_FILE_CANTRENAME" : "Can't rename file: ", //NEW
-    "ERR_FILE_CANTDELETE" : "Can't delete file: ", //NEW
-    "ERR_FILE_CANTCREATEDIR" : "Can't create folder: ", //NEW
-    "ERR_FILE_CANTDELETEDIR" : "Can't delete folder: ", //NEW
-    "ERR_FILE_CANTCREATEFILE" : "Can't create file: ", //NEW
-    "ERR_FOLDER_OPEN" : "There's an error opening folder as project", //NEW
+    "ERR_FILE_CANTRENAME" : "Datei kann nicht umbenannt werden: ", //NEW
+    "ERR_FILE_CANTDELETE" : "Datei kann nicht gelöscht werden: ", //NEW
+    "ERR_FILE_CANTCREATEDIR" : "Ordner kann nicht erstellt werden: ", //NEW
+    "ERR_FILE_CANTDELETEDIR" : "Ordner kann nicht gelöscht werden: ", //NEW
+    "ERR_FILE_CANTCREATEFILE" : "Datei kann nicht erstellt werden: ", //NEW
+    "ERR_FOLDER_OPEN" : "Beim Öffnen des Projekts ist ein Fehler aufgetreten", //NEW
 
     "CONTEXTM_DOWNLOAD" : "Download",
     "CONTEXTM_UPLOAD" : "Upload",
@@ -160,8 +160,8 @@ define({
     "CONTEXTM_DELETE" : "Entfernen",
     "CONTEXTM_RENAME" : "Umbenennen",
     "CONTEXTM_REDOWNLOAD" : "Lade vom Server",
-    "CONTEXTM_CREATEFILE" : "Create file", //NEW
-    "CONTEXTM_CREATEFOLDER" : "Create folder", //NEW
+    "CONTEXTM_CREATEFILE" : "Erstelle Datei", //NEW
+    "CONTEXTM_CREATEFOLDER" : "Erstelle Ordner", //NEW
 
     "OTHER_SELECT_SERVER_DROPDOWN" : "Wähle einen Server aus...",
     "OTHER_ERROR" : "Fehler",
