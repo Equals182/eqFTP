@@ -28,28 +28,28 @@ define({
 
     "NOT_DIAG_CONNECTED" : "Mit dem Server verbunden.", 
     "NOT_DIAG_DISCONNECTED" : "Vom Server getrennt.",
-    "NOT_DIAG_FILESDIFFERENT" : "There's a difference between local and remote files. Click here for more actions.", //NEW
+    "NOT_DIAG_FILESDIFFERENT" : "Es gibt Unterschiede zwischen den lokalen und entfernten Dateien. Klicke hier für mehr Infos.", //NEW
 
     "PASSWDWIND_TITLE" : "Bitte gebe dein Passwort ein",
     "PASSWDWIND_CONTENT" : "Dein Passwort für eqFTP:",
 
-    "CHECKDIFF_TITLE" : "There's difference between files", //NEW
-    "CHECKDIFF_CONTENT" : "Remote and local copies of file are different. Please choose an action you would like to do.", //NEW
-    "CHECKDIFF_BUTTON_COMPARE" : "Compare files", //NEW
-    "CHECKDIFF_BUTTON_SHOWCHANGES" : "Show changes", //NEW
-    "CHECKDIFF_BUTTON_KEEPLOCAL" : "Keep local", //NEW
-    "CHECKDIFF_BUTTON_KEEPLOCALALL" : "Keep local copies for current queue", //NEW
-    "CHECKDIFF_BUTTON_GETREMOTE" : "Get remote", //NEW
-    "CHECKDIFF_BUTTON_GETREMOTEALL" : "Get remote copies for current queue", //NEW
+    "CHECKDIFF_TITLE" : "Es gibt Unterschiede zwischen den Dateien", //NEW
+    "CHECKDIFF_CONTENT" : "Entfernte und lokale Dateien sind unterschiedlich. Bitte wähle eine Aktion.", //NEW
+    "CHECKDIFF_BUTTON_COMPARE" : "Dateien vergleichen", //NEW
+    "CHECKDIFF_BUTTON_SHOWCHANGES" : "Zeige Änderungen", //NEW
+    "CHECKDIFF_BUTTON_KEEPLOCAL" : "Lokale Datei/en behalten", //NEW
+    "CHECKDIFF_BUTTON_KEEPLOCALALL" : "Behalte lokale Datei/en für die aktuelle Warteschlange", //NEW
+    "CHECKDIFF_BUTTON_GETREMOTE" : "Lade Datei/en vom Server", //NEW
+    "CHECKDIFF_BUTTON_GETREMOTEALL" : "Lade Datei/en vom Server für die aktuelle Warteschlange", //NEW
 
     "SETTINGSWIND_TITLE" : "eqFTP Verbindungsmanager",
-    "SETTINGSWIND_ERR_BLANKS" : "Oh hier ist irgendwas falsch gelaufen :/. Überprüfe deine Eingaben und probiere es erneut.",
+    "SETTINGSWIND_ERR_BLANKS" : "Oh, hier ist irgendwas falsch gelaufen :/. Überprüfe deine Eingaben und probiere es erneut.",
     "SETTINGSWIND_ERR_CANTWRITE" : "Irgendwas läuft hier gewaltig schief! Es ist nicht möglich die Einstellungen zu speichern!",
     "SETTINGSWIND_ERR_LOCALPATHREPEAT" : "Der eingegebene Pfad wird derzeit von einer anderen Verbindung genutzt", 
     "SETTINGSWIND_NOTIF_DONE" : "Alles gespeichert! :)",
     "SETTINGSWIND_SAVEDCONN" : "Gespeicherte FTP Verbindungen",
     "SETTINGSWIND_DELETECONN_HOVER" : "Lösche diese Verbindung",
-    "SETTINGSWIND_ERROR_DELETE_CURCONNSERV" : "You can't delete connection you're using now", //NEW
+    "SETTINGSWIND_ERROR_DELETE_CURCONNSERV" : "Löschen nicht möglich, da Verbindung gerade genutzt wird.", //NEW
     "SETTINGSWIND_ADDCONN_HOVER" : "Neue Verbindung hinzufügen",
     "SETTINGSWIND_ADDCONN_STRING" : "Neue Verbindungen erstellen...",
     "SETTINGSWIND_DELETECONNCONF_1" : "Bitte bestätige das Löschen",
@@ -61,24 +61,24 @@ define({
     "SETTINGSWIND_GLOB_FOLDERFORSET" : "Einstellungsordner:",
     "SETTINGSWIND_GLOB_FOLDERFORSET_DIAGTITLE" : "Ordner für die Einstellungsdatei",
     "SETTINGSWIND_GLOB_DONTOPENPROJECTS" : "Öffne das Projekt nicht, nachdem es heruntergeladen wurde",
-    "SETTINGSWIND_GLOB_MASTERPASSWORD" : "Master Password", //NEW
+    "SETTINGSWIND_GLOB_MASTERPASSWORD" : "Master Passwort", //NEW
     "SETTINGSWIND_GLOB_CONNECTIONNAME_TITLE" : "Verbindungsname:",
     "SETTINGSWIND_GLOB_CONNECTIONNAME_FIELD" : "Verbindungsname",
     "SETTINGSWIND_GLOB_SERVER_TITLE" : "Server:",
     "SETTINGSWIND_GLOB_PROTOCOL_TITLE" : "Protokoltyp:",
-    "SETTINGSWIND_GLOB_USERNAME_TITLE" : "Username:",
-    "SETTINGSWIND_GLOB_USERNAME_FIELD" : "FTP Username",
+    "SETTINGSWIND_GLOB_USERNAME_TITLE" : "Benutzername:",
+    "SETTINGSWIND_GLOB_USERNAME_FIELD" : "FTP Benutzername",
     "SETTINGSWIND_GLOB_PASSWORD_TITLE" : "Passwort:",
     "SETTINGSWIND_GLOB_PASSWORD_FIELD" : "FTP Passwort",
     "SETTINGSWIND_GLOB_RSA_TITLE" : "RSA Schlüssel", //NEW
     "SETTINGSWIND_GLOB_RSA_FIELD" : "Klicken um RSA Schlüssel auszuwählen", //NEW
     "SETTINGSWIND_GLOB_FOLDERFORRSA_DIAGTITLE" : "Wähle Pfad zum RSA Schlüssel", //NEW
     "SETTINGSWIND_GLOB_REMOTEPATH_TITLE" : "Pfad auf dem Server:",
-    "SETTINGSWIND_GLOB_REMOTEPATH_FIELD" : "Gib bitte den Serverpfad ein",
+    "SETTINGSWIND_GLOB_REMOTEPATH_FIELD" : "Bitte gib den Serverpfad ein",
     "SETTINGSWIND_GLOB_LOCALPATH_TITLE" : "Lokaler Pfad:",
     "SETTINGSWIND_GLOB_LOCALPATH_FIELD" : "Neuer Ordner, wenn leer",
     "SETTINGSWIND_GLOB_UPLOADONSAVE" : "Lade Datei beim Speichern hoch",
-    "SETTINGSWIND_GLOB_UPLOADONSAVEPAUSED" : "Add to paused queue.", //NEW
+    "SETTINGSWIND_GLOB_UPLOADONSAVEPAUSED" : "Zur pausierten Warteschlange hinzufügen.", //NEW
     "SETTINGSWIND_GLOB_EVENDISCONN" : "Auch wenn die Verbindung getrennt ist",
     "SETTINGSWIND_GLOB_EVENDISCONN_EXPLAIN" : "Diese Option ermöglicht es, dass automatische Verbinden mit dem Server, wenn eine Datei die sich in einem Projektordner befindet, der mit eqFTP erstellt wurde, gespeichert wurde. Ich hoffe ich habe es gut erklärt.",
     "SETTINGSWIND_GLOB_LOCALPATH_FILLWPROJECT_TITLE" : "Füge den derzeitiegen Projekt-Pfad ein",
@@ -95,26 +95,26 @@ define({
     "SETTINGSWIND_GLOB_TIMEOFFSET" : "Zeitversatz:", 
     "SETTINGSWIND_GLOB_TIMEOFFSET_DESC" : "Benutze diese Option um die korrekte Zeit für die modifizierte Spalte zu setzen",
     "SETTINGSWIND_GLOB_CONNECTIONTAB" : "Verbindung", //NEW
-    "SETTINGSWIND_GLOB_AUTOMATIZATIONTAB" : "Automatization", //NEW
+    "SETTINGSWIND_GLOB_AUTOMATIZATIONTAB" : "Automatisierung", //NEW
     "SETTINGSWIND_GLOB_ADVANCEDTAB" : "Erweitert", //NEW
-    "SETTINGSWIND_GLOB_AUTO_SET_TITLE" : "Set automatization:", //NEW
-    "SETTINGSWIND_GLOB_AUTO_SYNC" : "Sync", //NEW
-    "SETTINGSWIND_GLOB_AUTO_CLASSIC" : "Classic", //NEW
+    "SETTINGSWIND_GLOB_AUTO_SET_TITLE" : "Automatisierung einstellen:", //NEW
+    "SETTINGSWIND_GLOB_AUTO_SYNC" : "Synchronisieren", //NEW
+    "SETTINGSWIND_GLOB_AUTO_CLASSIC" : "Klassisch", //NEW
     "SETTINGSWIND_GLOB_AUTO_SYNC_SELECT_TITLE" : "Select what to sync", //NEW
     "SETTINGSWIND_GLOB_AUTO_SYNC_FILECREATION" : "File creation", //NEW
     "SETTINGSWIND_GLOB_AUTO_SYNC_FOLDERCREATION" : "Folder creation", //NEW
     "SETTINGSWIND_GLOB_AUTO_SYNC_FILEUPLOAD" : "File update", //NEW
-    "SETTINGSWIND_GLOB_AUTO_SYNC_RENAMING" : "Renaming", //NEW
-    "SETTINGSWIND_GLOB_AUTO_SYNC_MOVING" : "Moving", //NEW
-    "SETTINGSWIND_GLOB_AUTO_SYNC_DELETING" : "Deleting", //NEW
-    "SETTINGSWIND_GLOB_AUTO_SYNC_EXTRASETTINGS_TITLE" : "Extra settings", //NEW
-    "SETTINGSWIND_GLOB_AUTO_SYNC_CHECKDIFF" : "Check for differences", //NEW
+    "SETTINGSWIND_GLOB_AUTO_SYNC_RENAMING" : "Umbenennen", //NEW
+    "SETTINGSWIND_GLOB_AUTO_SYNC_MOVING" : "Verschieben", //NEW
+    "SETTINGSWIND_GLOB_AUTO_SYNC_DELETING" : "Löschen", //NEW
+    "SETTINGSWIND_GLOB_AUTO_SYNC_EXTRASETTINGS_TITLE" : "Erweiterte Einstellungen", //NEW
+    "SETTINGSWIND_GLOB_AUTO_SYNC_CHECKDIFF" : "Nach Unterschiede überprüfen", //NEW
     "SETTINGSWIND_GLOB_AUTO_SYNC_CHECKDIFF_EXPLAIN" : "When you open local or remote file", //NEW
-    "SETTINGSWIND_GLOB_AUTO_SYNC_IGNORELIST_TITLE" : "Ignore list", //NEW
-    "SETTINGSWIND_GLOB_AUTO_SYNC_IGNORELIST_EXPLAIN" : "Same syntax as in .gitignore", //NEW
-    "SETTINGSWIND_GLOB_SYNCLOCPROJWCONN" : "Open related Local project after switching connection and vice versa", //NEW
-    "SETTINGS_NOTIF_RELOADED" : "Settings were successfully reloaded.", //NEW
-    "SETTINGS_ERROR_RELOADED" : "Can't reload settings.", //NEW
+    "SETTINGSWIND_GLOB_AUTO_SYNC_IGNORELIST_TITLE" : "Ingnorier-Liste", //NEW
+    "SETTINGSWIND_GLOB_AUTO_SYNC_IGNORELIST_EXPLAIN" : "Gleiche Syntax wie in .gitignore", //NEW
+    "SETTINGSWIND_GLOB_SYNCLOCPROJWCONN" : "Wenn Verbindung geöffnet wird, wechsel zum passenden Projekt und vice versa", //NEW
+    "SETTINGS_NOTIF_RELOADED" : "Einstellungen erfolgreich erneut geladen.", //NEW
+    "SETTINGS_ERROR_RELOADED" : "Einstellungen konnten nicht erneut geladen werden.", //NEW
 
     "QUEUE_TITLE" : "eqFTP Warteschlange",
     "QUEUE_HEADER_NAME" : "Name",
@@ -123,19 +123,19 @@ define({
     "QUEUE_HEADER_TO" : "Ziel",
     "QUEUE_HEADER_STATUS" : "Status",
     "QUEUE_CLEARQ" : "Warteschlange leeren",
-    "QUEUE_STARTQ" : "Start Queue", //NEW
-    "QUEUE_PAUSEQ" : "Pause Queue", //NEW
-    "QUEUE_RESTARTQ" : "Restart Failed", //NEW
+    "QUEUE_STARTQ" : "Starte Warteschlange", //NEW
+    "QUEUE_PAUSEQ" : "Pausiere Warteschlange", //NEW
+    "QUEUE_RESTARTQ" : "Neustart fehlgeschlangen", //NEW
     "QUEUE_CONTEXTM_STARTT" : "Start", //NEW
     "QUEUE_CONTEXTM_PAUSET" : "Pause", //NEW
-    "QUEUE_CONTEXTM_REMOVET" : "Remove", //NEW
-    "QUEUE_CONTEXTM_RESTARTT" : "Restart", //NEW
-    "QUEUE_TASK_STATUS_WAITING" : "Waiting", //NEW
-    "QUEUE_TASK_STATUS_SUCCESS" : "Done", //NEW
-    "QUEUE_TASK_STATUS_FAIL" : "Failed", //NEW
-    "QUEUE_TASK_STATUS_PAUSE" : "Paused", //NEW
-    "QUEUE_TASK_STATUS_STARTED" : "Started", //NEW
-    "QUEUE_TASK_STATUS_DELETED" : "Deleted", //NEW
+    "QUEUE_CONTEXTM_REMOVET" : "Enfernen", //NEW
+    "QUEUE_CONTEXTM_RESTARTT" : "Erneut starten", //NEW
+    "QUEUE_TASK_STATUS_WAITING" : "Warten", //NEW
+    "QUEUE_TASK_STATUS_SUCCESS" : "Erledigt", //NEW
+    "QUEUE_TASK_STATUS_FAIL" : "Gescheitert", //NEW
+    "QUEUE_TASK_STATUS_PAUSE" : "Pausiert", //NEW
+    "QUEUE_TASK_STATUS_STARTED" : "Gestartet", //NEW
+    "QUEUE_TASK_STATUS_DELETED" : "Gelöscht", //NEW
     "QUEUE_DONT_ADD_COMPLETED" : "Leere fertiggestellte Aufträge",
     
     "ERR_FILE_ACCESSDENIED" : "Zugriff verweigert. Überprüfe die Dateiberechtigungen.",
@@ -173,11 +173,11 @@ define({
     "OTHER_OFF" : "Off", //NEW
     "OTHER_CANCEL" : "Abbruch",
     "OTHER_APPLY" : "Anwenden",
-    "OTHER_SAVE" : "Save", //NEW
+    "OTHER_SAVE" : "Speichern", //NEW
     "OTHER_CLOSE" : "Schließen",
     "OTHER_DELETE" : "Entfernen",
     "OTHER_CONFIRM_DELETE" : "Bist du sicher, dass du diesen Einträg löschen möchtest?",
-    "OTHER_CONFIRM_SETTINGSCLOSE" : "There are some unsaved changes that will be lost if you click OK.<br>Do you want to proceed?", //NEW
+    "OTHER_CONFIRM_SETTINGSCLOSE" : "Nicht gespeicherte Änderungen gehen verloren, wenn du OK klickst. Möchtest du fortfahren?", //NEW
     "OTHER_ERROR_EVENDISCONN" : "Datei Upload fehlgeschlagen. Die Option 'Auch wenn die Verbindung getrennt ist' ist ausgeschaltet.",
-    "OTHER_ERROR_CANTREADSETTINGS" : "Can't read settings file. You probably mistyped your master password." //NEW
+    "OTHER_ERROR_CANTREADSETTINGS" : "Einstellungen nicht geladen. Ist dein Master Passwort korrekt?" //NEW
 });
