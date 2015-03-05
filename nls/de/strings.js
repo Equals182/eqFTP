@@ -100,16 +100,16 @@ define({
     "SETTINGSWIND_GLOB_AUTO_SET_TITLE" : "Automatisierung einstellen:",
     "SETTINGSWIND_GLOB_AUTO_SYNC" : "Synchronisieren",
     "SETTINGSWIND_GLOB_AUTO_CLASSIC" : "Klassisch",
-    "SETTINGSWIND_GLOB_AUTO_SYNC_SELECT_TITLE" : "Select what to sync", //NEW
-    "SETTINGSWIND_GLOB_AUTO_SYNC_FILECREATION" : "File creation", //NEW
-    "SETTINGSWIND_GLOB_AUTO_SYNC_FOLDERCREATION" : "Folder creation", //NEW
-    "SETTINGSWIND_GLOB_AUTO_SYNC_FILEUPLOAD" : "File update", //NEW
+    "SETTINGSWIND_GLOB_AUTO_SYNC_SELECT_TITLE" : "Wähle Synchronisierung", //NEW
+    "SETTINGSWIND_GLOB_AUTO_SYNC_FILECREATION" : "Datei erstellen", //NEW
+    "SETTINGSWIND_GLOB_AUTO_SYNC_FOLDERCREATION" : "Ordner erstellen", //NEW
+    "SETTINGSWIND_GLOB_AUTO_SYNC_FILEUPLOAD" : "Datei updaten", //NEW
     "SETTINGSWIND_GLOB_AUTO_SYNC_RENAMING" : "Umbenennen",
     "SETTINGSWIND_GLOB_AUTO_SYNC_MOVING" : "Verschieben",
     "SETTINGSWIND_GLOB_AUTO_SYNC_DELETING" : "Löschen",
     "SETTINGSWIND_GLOB_AUTO_SYNC_EXTRASETTINGS_TITLE" : "Erweiterte Einstellungen",
-    "SETTINGSWIND_GLOB_AUTO_SYNC_CHECKDIFF" : "Nach Unterschiede überprüfen",
-    "SETTINGSWIND_GLOB_AUTO_SYNC_CHECKDIFF_EXPLAIN" : "When you open local or remote file",
+    "SETTINGSWIND_GLOB_AUTO_SYNC_CHECKDIFF" : "Unterschiede überprüfen",
+    "SETTINGSWIND_GLOB_AUTO_SYNC_CHECKDIFF_EXPLAIN" : "Wenn lokale oder entfernte Datei geöffnet wird.",
     "SETTINGSWIND_GLOB_AUTO_SYNC_IGNORELIST_TITLE" : "Ingnorier-Liste",
     "SETTINGSWIND_GLOB_AUTO_SYNC_IGNORELIST_EXPLAIN" : "Gleiche Syntax wie in .gitignore",
     "SETTINGSWIND_GLOB_SYNCLOCPROJWCONN" : "Wenn Verbindung geöffnet wird, wechsel zum passenden Projekt und vice versa",
@@ -170,7 +170,7 @@ define({
     "OTHER_CANCELLED" : "Abgebrochen",
     "OTHER_WAITING" : "Warten",
     "OTHER_OK" : "Ok",
-    "OTHER_OFF" : "Off", //NEW?
+    "OTHER_OFF" : "Aus", //NEW?
     "OTHER_CANCEL" : "Abbruch",
     "OTHER_APPLY" : "Anwenden",
     "OTHER_SAVE" : "Speichern",
