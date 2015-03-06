@@ -100,10 +100,10 @@ define({
     "SETTINGSWIND_GLOB_AUTO_SET_TITLE" : "Automatisierung einstellen:",
     "SETTINGSWIND_GLOB_AUTO_SYNC" : "Synchronisieren",
     "SETTINGSWIND_GLOB_AUTO_CLASSIC" : "Klassisch",
-    "SETTINGSWIND_GLOB_AUTO_SYNC_SELECT_TITLE" : "Wähle Synchronisierung", //NEW
-    "SETTINGSWIND_GLOB_AUTO_SYNC_FILECREATION" : "Datei erstellen", //NEW
-    "SETTINGSWIND_GLOB_AUTO_SYNC_FOLDERCREATION" : "Ordner erstellen", //NEW
-    "SETTINGSWIND_GLOB_AUTO_SYNC_FILEUPLOAD" : "Datei updaten", //NEW
+    "SETTINGSWIND_GLOB_AUTO_SYNC_SELECT_TITLE" : "Wähle Synchronisierung",
+    "SETTINGSWIND_GLOB_AUTO_SYNC_FILECREATION" : "Datei erstellen",
+    "SETTINGSWIND_GLOB_AUTO_SYNC_FOLDERCREATION" : "Ordner erstellen",
+    "SETTINGSWIND_GLOB_AUTO_SYNC_FILEUPLOAD" : "Datei updaten",
     "SETTINGSWIND_GLOB_AUTO_SYNC_RENAMING" : "Umbenennen",
     "SETTINGSWIND_GLOB_AUTO_SYNC_MOVING" : "Verschieben",
     "SETTINGSWIND_GLOB_AUTO_SYNC_DELETING" : "Löschen",
@@ -137,7 +137,7 @@ define({
     "QUEUE_TASK_STATUS_STARTED" : "Gestartet",
     "QUEUE_TASK_STATUS_DELETED" : "Gelöscht",
     "QUEUE_DONT_ADD_COMPLETED" : "Leere fertiggestellte Aufträge",
-    
+
     "ERR_FILE_ACCESSDENIED" : "Zugriff verweigert. Überprüfe die Dateiberechtigungen.",
     "ERR_FILE_AUTHORIZATION" : "Autorisierungsfehler. Überprüfe deine Anmeldedaten.",
     "ERR_FILE_SERVNOEXIST" : "Server existiert nicht. Möglicherweise hast du dich vertippt.",
@@ -170,7 +170,7 @@ define({
     "OTHER_CANCELLED" : "Abgebrochen",
     "OTHER_WAITING" : "Warten",
     "OTHER_OK" : "Ok",
-    "OTHER_OFF" : "Aus", //NEW?
+    "OTHER_OFF" : "Aus",
     "OTHER_CANCEL" : "Abbruch",
     "OTHER_APPLY" : "Anwenden",
     "OTHER_SAVE" : "Speichern",
