@@ -28,19 +28,19 @@ define({
 
     "NOT_DIAG_CONNECTED" : "Verbonden met de server.",
     "NOT_DIAG_DISCONNECTED" : "Onverbonden met de server.",
-    "NOT_DIAG_FILESDIFFERENT" : "There's a difference between local and remote files. Click here for more actions.", //NEW
+    "NOT_DIAG_FILESDIFFERENT" : "Er is een verschil tussen de lokale en externe bestanden. Klik hier voor meer acties.",
 
     "PASSWDWIND_TITLE" : "Gelieve uw wachtwoord in te voeren",
     "PASSWDWIND_CONTENT" : "Uw wachtwoord voor eqFTP:",
 
-    "CHECKDIFF_TITLE" : "There's difference between files", //NEW
-    "CHECKDIFF_CONTENT" : "Remote and local copies of file are different. Please choose an action you would like to do.", //NEW
-    "CHECKDIFF_BUTTON_COMPARE" : "Compare files", //NEW
-    "CHECKDIFF_BUTTON_SHOWCHANGES" : "Show changes", //NEW
-    "CHECKDIFF_BUTTON_KEEPLOCAL" : "Keep local", //NEW
-    "CHECKDIFF_BUTTON_KEEPLOCALALL" : "Keep local copies for current queue", //NEW
-    "CHECKDIFF_BUTTON_GETREMOTE" : "Get remote", //NEW
-    "CHECKDIFF_BUTTON_GETREMOTEALL" : "Get remote copies for current queue", //NEW
+    "CHECKDIFF_TITLE" : "Er is verschil tussen bestanden",
+    "CHECKDIFF_CONTENT" : "Externe en lokale kopieën van bestand zinn verschillend. Kies een actie die je zou willen ondernemen",
+    "CHECKDIFF_BUTTON_COMPARE" : "Vergelijk bestanden",
+    "CHECKDIFF_BUTTON_SHOWCHANGES" : "Toon veranderingen",
+    "CHECKDIFF_BUTTON_KEEPLOCAL" : "Behoud de lokale",
+    "CHECKDIFF_BUTTON_KEEPLOCALALL" : "Behoud lokale kopieën voor de huidige wachtrij",
+    "CHECKDIFF_BUTTON_GETREMOTE" : "Krijg extern",
+    "CHECKDIFF_BUTTON_GETREMOTEALL" : "Behoud externe kopieën voor de huidige wachtrij",
 
     "SETTINGSWIND_TITLE" : "eqFTP Verbinding Beheer",
     "SETTINGSWIND_ERR_BLANKS" : "Oeps! Het lijkt erop dat iets fout is ingevuld. Kijk alles eens na en probeer opnieuw.",
@@ -49,7 +49,7 @@ define({
     "SETTINGSWIND_NOTIF_DONE" : "Alles is opgeslagen! :)",
     "SETTINGSWIND_SAVEDCONN" : "FTP Verbindingen zijn opgeslagen",
     "SETTINGSWIND_DELETECONN_HOVER" : "Verwijder deze verbinding",
-    "SETTINGSWIND_ERROR_DELETE_CURCONNSERV" : "You can't delete connection you're using now", //NEW
+    "SETTINGSWIND_ERROR_DELETE_CURCONNSERV" : "Je kunt de huidige verbinding niet verwijderen",
     "SETTINGSWIND_ADDCONN_HOVER" : "Voeg nieuwe verbinding toe",
     "SETTINGSWIND_ADDCONN_STRING" : "Maak nieuwe verbinding aan.",
     "SETTINGSWIND_DELETECONNCONF_1" : "Bevestig de verwijdering van ", // Those 2 strings are going like this: SETTINGSWIND_DELETECONNCONF_1 + VAL + SETTINGSWIND_DELETECONNCONF_2
@@ -61,7 +61,7 @@ define({
     "SETTINGSWIND_GLOB_FOLDERFORSET" : "Map voor instellingen:",
     "SETTINGSWIND_GLOB_FOLDERFORSET_DIAGTITLE" : "Map voor instellings-bestand:",
     "SETTINGSWIND_GLOB_DONTOPENPROJECTS" : "Open de projecten NIET na het downloaden",
-    "SETTINGSWIND_GLOB_MASTERPASSWORD" : "Master Password", //NEW
+    "SETTINGSWIND_GLOB_MASTERPASSWORD" : "Hoofdwachtwoord",
     "SETTINGSWIND_GLOB_CONNECTIONNAME_TITLE" : "Verbindingsnaam:",
     "SETTINGSWIND_GLOB_CONNECTIONNAME_FIELD" : "Naam van de verbinding",
     "SETTINGSWIND_GLOB_SERVER_TITLE" : "Server:",
@@ -70,15 +70,15 @@ define({
     "SETTINGSWIND_GLOB_USERNAME_FIELD" : "FTP Gebruikersnaam",
     "SETTINGSWIND_GLOB_PASSWORD_TITLE" : "Wachtwoord:",
     "SETTINGSWIND_GLOB_PASSWORD_FIELD" : "FTP Wachtwoord",
-    "SETTINGSWIND_GLOB_RSA_TITLE" : "RSA key", //NEW
-    "SETTINGSWIND_GLOB_RSA_FIELD" : "Click to select RSA key", //NEW
-    "SETTINGSWIND_GLOB_FOLDERFORRSA_DIAGTITLE" : "Choose path to RSA key", //NEW
+    "SETTINGSWIND_GLOB_RSA_TITLE" : "RSA sleutel",
+    "SETTINGSWIND_GLOB_RSA_FIELD" : "Klik om RSA-sleutel te selecteren",
+    "SETTINGSWIND_GLOB_FOLDERFORRSA_DIAGTITLE" : "Kies pad naar RSA-sleutel",
     "SETTINGSWIND_GLOB_REMOTEPATH_TITLE" : "Server Path:",
     "SETTINGSWIND_GLOB_REMOTEPATH_FIELD" : "Voer hier de path naar uw project (op de server) in.",
     "SETTINGSWIND_GLOB_LOCALPATH_TITLE" : "Lokaal Path:",
     "SETTINGSWIND_GLOB_LOCALPATH_FIELD" : "Maakt een nieuwe map aan op standaardlocatie als geen locatie is gegeven",
     "SETTINGSWIND_GLOB_UPLOADONSAVE" : "Upload bestand direct na het opslaan",
-    "SETTINGSWIND_GLOB_UPLOADONSAVEPAUSED" : "Add to paused queue.", //NEW
+    "SETTINGSWIND_GLOB_UPLOADONSAVEPAUSED" : "Toevoegen aan gepauzeerde wachtrij.",
     "SETTINGSWIND_GLOB_EVENDISCONN" : "Zelfs als niet verbonden",
     "SETTINGSWIND_GLOB_EVENDISCONN_EXPLAIN" : "Deze optie verbind automatisch met de server zodra er een bestand is geopend van de server of een opgeslagen bestand in het momentele project (indien het project aangemaakt is door deze FTP extentie). Zo, Ik hoop dat deze zin duidelijk was :)",
     "SETTINGSWIND_GLOB_LOCALPATH_FILLWPROJECT_TITLE" : "Voer de locatie van uw project in",
@@ -94,27 +94,27 @@ define({
     "SETTINGSWIND_GLOB_NOTIFICATIONS" : "Notificaties",
     "SETTINGSWIND_GLOB_TIMEOFFSET" : "Tijd Offset:",
     "SETTINGSWIND_GLOB_TIMEOFFSET_DESC" : "Gebruik deze optie om de juiste tijd in te stelen voor de aangepaste kolom",
-    "SETTINGSWIND_GLOB_CONNECTIONTAB" : "Connection", //NEW
-    "SETTINGSWIND_GLOB_AUTOMATIZATIONTAB" : "Automatization", //NEW
-    "SETTINGSWIND_GLOB_ADVANCEDTAB" : "Advanced", //NEW
-    "SETTINGSWIND_GLOB_AUTO_SET_TITLE" : "Set automatization:", //NEW
-    "SETTINGSWIND_GLOB_AUTO_SYNC" : "Sync", //NEW
-    "SETTINGSWIND_GLOB_AUTO_CLASSIC" : "Classic", //NEW
-    "SETTINGSWIND_GLOB_AUTO_SYNC_SELECT_TITLE" : "Select what to sync", //NEW
-    "SETTINGSWIND_GLOB_AUTO_SYNC_FILECREATION" : "File creation", //NEW
-    "SETTINGSWIND_GLOB_AUTO_SYNC_FOLDERCREATION" : "Folder creation", //NEW
-    "SETTINGSWIND_GLOB_AUTO_SYNC_FILEUPLOAD" : "File update", //NEW
-    "SETTINGSWIND_GLOB_AUTO_SYNC_RENAMING" : "Renaming", //NEW
-    "SETTINGSWIND_GLOB_AUTO_SYNC_MOVING" : "Moving", //NEW
-    "SETTINGSWIND_GLOB_AUTO_SYNC_DELETING" : "Deleting", //NEW
-    "SETTINGSWIND_GLOB_AUTO_SYNC_EXTRASETTINGS_TITLE" : "Extra settings", //NEW
-    "SETTINGSWIND_GLOB_AUTO_SYNC_CHECKDIFF" : "Check for differences", //NEW
-    "SETTINGSWIND_GLOB_AUTO_SYNC_CHECKDIFF_EXPLAIN" : "When you open local or remote file", //NEW
-    "SETTINGSWIND_GLOB_AUTO_SYNC_IGNORELIST_TITLE" : "Ignore list", //NEW
-    "SETTINGSWIND_GLOB_AUTO_SYNC_IGNORELIST_EXPLAIN" : "Same syntax as in .gitignore", //NEW
-    "SETTINGSWIND_GLOB_SYNCLOCPROJWCONN" : "Open related Local project after switching connection and vice versa", //NEW
-    "SETTINGS_NOTIF_RELOADED" : "Settings were successfully reloaded.", //NEW
-    "SETTINGS_ERROR_RELOADED" : "Can't reload settings.", //NEW
+    "SETTINGSWIND_GLOB_CONNECTIONTAB" : "Verbinding",
+    "SETTINGSWIND_GLOB_AUTOMATIZATIONTAB" : "Automatisering",
+    "SETTINGSWIND_GLOB_ADVANCEDTAB" : "Geavanceerd",
+    "SETTINGSWIND_GLOB_AUTO_SET_TITLE" : "Zet automatisering:",
+    "SETTINGSWIND_GLOB_AUTO_SYNC" : "Synchronisatie",
+    "SETTINGSWIND_GLOB_AUTO_CLASSIC" : "Klassiek",
+    "SETTINGSWIND_GLOB_AUTO_SYNC_SELECT_TITLE" : "Selecteer wat je wil synchroniseren",
+    "SETTINGSWIND_GLOB_AUTO_SYNC_FILECREATION" : "Bestand creatie",
+    "SETTINGSWIND_GLOB_AUTO_SYNC_FOLDERCREATION" : "Map creatie",
+    "SETTINGSWIND_GLOB_AUTO_SYNC_FILEUPLOAD" : "Bestand update",
+    "SETTINGSWIND_GLOB_AUTO_SYNC_RENAMING" : "Hernoemen",
+    "SETTINGSWIND_GLOB_AUTO_SYNC_MOVING" : "Verplaatsen",
+    "SETTINGSWIND_GLOB_AUTO_SYNC_DELETING" : "Verwijdering",
+    "SETTINGSWIND_GLOB_AUTO_SYNC_EXTRASETTINGS_TITLE" : "Extra instellingen",
+    "SETTINGSWIND_GLOB_AUTO_SYNC_CHECKDIFF" : "Controleer voor verschillen",
+    "SETTINGSWIND_GLOB_AUTO_SYNC_CHECKDIFF_EXPLAIN" : "Bij het openen van een lokaal of extern bestand",
+    "SETTINGSWIND_GLOB_AUTO_SYNC_IGNORELIST_TITLE" : "Negeer lijst",
+    "SETTINGSWIND_GLOB_AUTO_SYNC_IGNORELIST_EXPLAIN" : "Dezelfde syntaxis als in .gitignore",
+    "SETTINGSWIND_GLOB_SYNCLOCPROJWCONN" : "Open gerelateerd lokaal project na het inschakelen van verbinding",
+    "SETTINGS_NOTIF_RELOADED" : "Instellingen zijn succesvol herladen.",
+    "SETTINGS_ERROR_RELOADED" : "Kan instellingen niet herladen.",
 
     "QUEUE_TITLE" : "eqFTP Wachtrij",
     "QUEUE_HEADER_NAME" : "Naam",
@@ -123,19 +123,19 @@ define({
     "QUEUE_HEADER_TO" : "Bestemmings Path",
     "QUEUE_HEADER_STATUS" : "Status",
     "QUEUE_CLEARQ" : "Wis Wachtrij",
-    "QUEUE_STARTQ" : "Start Queue", //NEW
-    "QUEUE_PAUSEQ" : "Pause Queue", //NEW
-    "QUEUE_RESTARTQ" : "Restart Failed", //NEW
-    "QUEUE_CONTEXTM_STARTT" : "Start", //NEW
-    "QUEUE_CONTEXTM_PAUSET" : "Pause", //NEW
-    "QUEUE_CONTEXTM_REMOVET" : "Remove", //NEW
-    "QUEUE_CONTEXTM_RESTARTT" : "Restart", //NEW
-    "QUEUE_TASK_STATUS_WAITING" : "Waiting", //NEW
-    "QUEUE_TASK_STATUS_SUCCESS" : "Done", //NEW
-    "QUEUE_TASK_STATUS_FAIL" : "Failed", //NEW
-    "QUEUE_TASK_STATUS_PAUSE" : "Paused", //NEW
-    "QUEUE_TASK_STATUS_STARTED" : "Started", //NEW
-    "QUEUE_TASK_STATUS_DELETED" : "Deleted", //NEW
+    "QUEUE_STARTQ" : "Start wachtrij",
+    "QUEUE_PAUSEQ" : "Pauzeer wachtrij",
+    "QUEUE_RESTARTQ" : "Herstart mislukte",
+    "QUEUE_CONTEXTM_STARTT" : "Start",
+    "QUEUE_CONTEXTM_PAUSET" : "Pauzeer",
+    "QUEUE_CONTEXTM_REMOVET" : "Verwijder", 
+    "QUEUE_CONTEXTM_RESTARTT" : "Herstart",
+    "QUEUE_TASK_STATUS_WAITING" : "wachten",
+    "QUEUE_TASK_STATUS_SUCCESS" : "Klaar",
+    "QUEUE_TASK_STATUS_FAIL" : "Gefaald",
+    "QUEUE_TASK_STATUS_PAUSE" : "Gepauzeerd",
+    "QUEUE_TASK_STATUS_STARTED" : "Gestart",
+    "QUEUE_TASK_STATUS_DELETED" : "Verwijderd",
     "QUEUE_DONT_ADD_COMPLETED" : "Automatisch verwijder voltooide taken",
     
     "ERR_FILE_ACCESSDENIED" : "Toegang geweigerd. Controleer bestandsrechten.",
@@ -144,13 +144,13 @@ define({
     "ERR_FILE_SERVCANTREACH" : "Kon server niet bereiken. Controleer je  Firewall.",
     "ERR_FILE_FILESIZE0" : "Kan bestand niet downloaden. Bestandsgrootte is 0.",
     "ERR_FILE_DOWNLOAD" : "Kan bestand niet downloaden.",
-    "ERR_FILE_UPLOAD" : "Can't upload file.", //NEW
+    "ERR_FILE_UPLOAD" : "Kan bestand niet uploaden.",
     "ERR_FILE_DOESNTEXIST" : "Bestand bestaat niet",
-    "ERR_FILE_CANTRENAME" : "Can't rename file: ", //NEW
-    "ERR_FILE_CANTDELETE" : "Can't delete file: ", //NEW
-    "ERR_FILE_CANTCREATEDIR" : "Can't create folder: ", //NEW
-    "ERR_FILE_CANTDELETEDIR" : "Can't delete folder: ", //NEW
-    "ERR_FILE_CANTCREATEFILE" : "Can't create file: ", //NEW
+    "ERR_FILE_CANTRENAME" : "Kan niet hernoemt worden: ",
+    "ERR_FILE_CANTDELETE" : "Kan bestand niet verwijderen: ", 
+    "ERR_FILE_CANTCREATEDIR" : "Kan map niet maken: ",
+    "ERR_FILE_CANTDELETEDIR" : "Kan map niet verwijderen: ",
+    "ERR_FILE_CANTCREATEFILE" : "Kan bestand niet maken: ",
     "ERR_FOLDER_OPEN" : "Er is en fout opgetreden bij het openen van een folder als een project",
 
     "CONTEXTM_DOWNLOAD" : "Download",
@@ -160,8 +160,8 @@ define({
     "CONTEXTM_DELETE" : "Verwijder",
     "CONTEXTM_RENAME" : "Hernoem",
     "CONTEXTM_REDOWNLOAD" : "Downloaden van server",
-    "CONTEXTM_CREATEFILE" : "Create file", //NEW
-    "CONTEXTM_CREATEFOLDER" : "Create folder", //NEW
+    "CONTEXTM_CREATEFILE" : "Maak bestand",
+    "CONTEXTM_CREATEFOLDER" : "Maak map",
 
     "OTHER_SELECT_SERVER_DROPDOWN" : "Selecteer server om te verbinden...",
     "OTHER_ERROR" : "Error",
@@ -170,14 +170,14 @@ define({
     "OTHER_CANCELLED" : "Gestopt",
     "OTHER_WAITING" : "Wachten...",
     "OTHER_OK" : "Ok",
-    "OTHER_OFF" : "Off", //NEW
+    "OTHER_OFF" : "Uit",
     "OTHER_CANCEL" : "Stoppen",
     "OTHER_APPLY" : "Aanpassen",
-    "OTHER_SAVE" : "Save", //NEW
+    "OTHER_SAVE" : "Opslaan",
     "OTHER_CLOSE" : "Sluiten",
     "OTHER_DELETE" : "Verwijderen",
     "OTHER_CONFIRM_DELETE" : "Weet je zeker dat je dit item wilt verwijderen?",
-    "OTHER_CONFIRM_SETTINGSCLOSE" : "There are some unsaved changes that will be lost if you click OK.<br>Do you want to proceed?", //NEW
+    "OTHER_CONFIRM_SETTINGSCLOSE" : "Er zijn een aantal niet-opgeslagen wijzigingen die verloren zullen gaan als je op OK klikt. <br>Wil je doorgaan?",
     "OTHER_ERROR_EVENDISCONN" : "Kan bestand niet uploaden. 'Zelfs als niet verbonden' optie is uitgeschakeld.",
-    "OTHER_ERROR_CANTREADSETTINGS" : "Can't read settings file. You probably mistyped your master password." //NEW
+    "OTHER_ERROR_CANTREADSETTINGS" : "Kan instellingen niet lezen. Je hebt waarschijnlijk een verkeerd hoofdwachtwoord ingevoert."
 });
