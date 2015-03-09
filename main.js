@@ -582,9 +582,6 @@ define(function (require, exports, module) {
                              '</option><option disabled>------------------------------</option>');
                 var i = 0;
                 if (eqFTP.globals.globalFtpDetails.ftp.length > 0) {
-                    eqFTP.globals.globalFtpDetails.ftp.sort(function(a, b){
-                        return a.order - b.order;
-                    });
                     $.each(eqFTP.globals.globalFtpDetails.ftp, function () {
                         var t = this;
                         $(sc).append('<option value="' + i + '">' + t.connectionName + '</option>');
@@ -669,23 +666,13 @@ define(function (require, exports, module) {
                         settingsDialogObject = Dialogs.showModalDialogUsingTemplate(eqFTPSettingsTemplate, false);
                     }
                     $('#eqFTPAllServerList').html('');
+                    var i = 0;
                     $('#eqFTPAllServerList').append('<li data-eqFTP-addConnection="'+eqFTP.globals.globalFtpDetails.ftp.length+'" eqFTP-action="settingsWindow_connection_add"><i class="fa fa-plus eqFTP-icon" title="'+eqFTPstrings.SETTINGSWIND_ADDCONN_HOVER+'"></i>'+eqFTPstrings.SETTINGSWIND_ADDCONN_STRING+'<i class="eqFTP-arrow fa fa-chevron-right"></i></li>');
                     if (eqFTP.globals.globalFtpDetails.ftp.length > 0) {
-                        $.each(eqFTP.globals.globalFtpDetails.ftp, function(i, v) {
+                        $.each(eqFTP.globals.globalFtpDetails.ftp, function() {
                             var t = this;
-                            if (t.id === undefined) {
-                                eqFTP.globals.globalFtpDetails.ftp[i].id = i;
-                            }
-                            if (t.order === undefined) {
-                                eqFTP.globals.globalFtpDetails.ftp[i].order = i;
-                            }
-                        });
-                        eqFTP.globals.globalFtpDetails.ftp.sort(function(a, b){
-                            return a.order - b.order;
-                        });
-                        $.each(eqFTP.globals.globalFtpDetails.ftp, function(i, v) {
-                            var t = this;
-                            $('#eqFTPAllServerList').append('<li data-eqFTP-openSettings="'+t.id+'" eqFTP-connectionOrder="'+t.order+'" eqFTP-action="settingsWindow_connection_open" draggable="true"><i data-removeConnection="'+t.id+'" class="eqFTP-icon fa fa-times eqFTPdeleteConnection" eqFTP-action="settingsWindow_connection_delete" title="'+eqFTPstrings.SETTINGSWIND_DELETECONN_HOVER+'"></i><span>'+t.connectionName+'</span><i class="eqFTP-arrow fa fa-chevron-right"></li>');
+                            $('#eqFTPAllServerList').append('<li data-eqFTP-openSettings="'+i+'" eqFTP-action="settingsWindow_connection_open"><i data-removeConnection="'+i+'" class="eqFTP-icon fa fa-times eqFTPdeleteConnection" eqFTP-action="settingsWindow_connection_delete" title="'+eqFTPstrings.SETTINGSWIND_DELETECONN_HOVER+'"></i><span>'+t.connectionName+'</span><i class="eqFTP-arrow fa fa-chevron-right"></li>');
+                            i++;
                         });
                     }
                     var id = parseInt($('#eqFTP-connectionID').val());
@@ -2921,57 +2908,6 @@ define(function (require, exports, module) {
                 settingsDialogObject.close();
             }
         });
-        var eqFTPSettingsListDrag = {
-            drag: null,
-            drag_height: 0,
-        };
-        $("body").on("dragstart", "#eqFTPAllServerList li[data-eqftp-opensettings]", function(e) {
-            eqFTPSettingsListDrag.drag = $(this);
-            eqFTPSettingsListDrag.drag_height = $(eqFTPSettingsListDrag.drag).height();
-            var i = setInterval(function() {
-                $(eqFTPSettingsListDrag.drag).hide();
-                clearInterval(i);
-            }, 10);
-        });
-        $("body").on("dragenter", "#eqFTPAllServerList li[data-eqftp-opensettings]", function(e) {
-            if (e.originalEvent.clientY > ($(this).offset().top + (($(this).outerHeight(true) + ($(this).hasClass('eqFTP-dropReadyAbove') || $(this).hasClass('eqFTP-dropReadyBelow'))?eqFTPSettingsListDrag.drag_height:0) / 2)))
-                $(this).css('padding-bottom', eqFTPSettingsListDrag.drag_height).addClass('eqFTP-dropReadyBelow');
-            else
-                $(this).css('padding-top', eqFTPSettingsListDrag.drag_height).addClass('eqFTP-dropReadyAbove');
-        });
-        $("body").on("dragleave", "#eqFTPAllServerList li[data-eqftp-opensettings]", function(e) {
-            $(this).css('padding-top', '').css('padding-bottom', '').removeClass('eqFTP-dropReadyBelow eqFTP-dropReadyAbove');
-        });
-        $("body").on("dragover", "#eqFTPAllServerList li[data-eqftp-opensettings]", function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            $(this).css('padding-top', '').css('padding-bottom', '').removeClass('eqFTP-dropReadyBelow eqFTP-dropReadyAbove');
-            if (e.originalEvent.clientY > ($(this).offset().top + (($(this).outerHeight(true) + ($(this).hasClass('eqFTP-dropReadyAbove') || $(this).hasClass('eqFTP-dropReadyBelow'))?eqFTPSettingsListDrag.drag_height:0) / 2)))
-                $(this).css('padding-bottom', eqFTPSettingsListDrag.drag_height).addClass('eqFTP-dropReadyBelow');
-            else
-                $(this).css('padding-top', eqFTPSettingsListDrag.drag_height).addClass('eqFTP-dropReadyAbove');
-        });
-        $("body").on("drop", "#eqFTPAllServerList li[data-eqftp-opensettings]", function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            $(eqFTPSettingsListDrag.drag).show();
-            if ($(this).hasClass('eqFTP-dropReadyBelow'))
-                $(eqFTPSettingsListDrag.drag).insertAfter($(this));
-            else if ($(this).hasClass('eqFTP-dropReadyAbove'))
-                $(eqFTPSettingsListDrag.drag).insertBefore($(this));
-            $(this).css('padding-top', '').css('padding-bottom', '').removeClass('eqFTP-dropReadyBelow eqFTP-dropReadyAbove');
-            
-            $("#eqFTPAllServerList li[data-eqftp-opensettings]").each(function(i, e){
-                var id = $(this).attr("data-eqftp-opensettings");
-                eqFTP.globals.globalFtpDetails.ftp.forEach(function(o, n) {
-                    if (id == o.id)
-                        eqFTP.globals.globalFtpDetails.ftp[n].order = i;
-                });
-            });
-            if (eqFTP.sf.settings.write()) {
-                eqFTP.sf.serverList.redraw();
-            }
-        });
 
         /**
          * File Tree events
@@ -3095,7 +3031,7 @@ define(function (require, exports, module) {
             }
         });
         
-        DocumentManager.on("documentSaved", function (event, doc) {
+        $(DocumentManager).on("documentSaved", function (event, doc) {
             var document = DocumentManager.getCurrentDocument();
             if (ProjectManager.isWithinProject(document.file.fullPath)) {
                 var projectRoot = ProjectManager.getProjectRoot();
@@ -3126,7 +3062,7 @@ define(function (require, exports, module) {
                 });
             }
         });
-        ProjectManager.on("projectOpen", function(event, proj) {
+        $(ProjectManager).on("projectOpen", function(event, proj) {
             if (eqFTP.globals.globalFtpDetails.main.syncLocalProjectWithConnection) {
                 if (eqFTP.globals.connectedServer > -1 && eqFTP.globals.projectsPaths[eqFTP.globals.connectedServer] !== proj._path) {
                     eqFTP.sf.connections.getByPath(proj._path, function(connectionID) {
@@ -3237,7 +3173,7 @@ define(function (require, exports, module) {
                 }
             });
         });
-        EditorManager.on("activeEditorChange", function(e, gain, loose) {
+        $(EditorManager).on("activeEditorChange", function(e, gain, loose) {
             if (eqFTP.globals.ftpLoaded && gain) {
                 var currentFile = gain.document.file._path;
                 eqFTP.sf.connections.getByPath(currentFile, function(connectionID) {

@@ -113,7 +113,7 @@ maxerr: 50, node: true */
             eqFTPconnections.forEach(function (element, index, array) {
                 eqFTPconnections[index].ftpDomain = {};
                 var gitignore = "";
-                if (eqFTPconnections[index].automatization.type === "sync" && eqFTPconnections[index].automatization.sync.ignore) {
+                if (eqFTPconnections[index].automatization.type === "sync" && params.sync && eqFTPconnections[index].automatization.sync.ignore) {
                     gitignore = eqFTPconnections[index].automatization.sync.ignore + "\n";
                 }
                 gitignore += plusGitignore;
@@ -151,11 +151,10 @@ maxerr: 50, node: true */
                     eqFTPconnections[index].remoteRoot = false;
                 }
                 var gitignore = "";
-                if (eqFTPconnections[index].automatization.type === "sync" && eqFTPconnections[index].automatization.sync.ignore) {
+                if (eqFTPconnections[index].automatization.type === "sync" && params.sync && eqFTPconnections[index].automatization.sync.ignore) {
                     gitignore = eqFTPconnections[index].automatization.sync.ignore + "\n";
                 }
                 gitignore += plusGitignore;
-                console.log(gitignore);
                 gitignore = gi_parser.compile(gitignore);
                 eqFTPconnections[index].ftpDomain.ignore = gitignore;
             });
@@ -466,7 +465,7 @@ maxerr: 50, node: true */
                             eqFTPconnections[params.connectionID].ftpDomain.queue = {a: [], p: [], f: [], s: []};
                         if (debug)
                             throwError("Disonnected. Actually there was no client so nothing to disconnect.", true);
-                        //_domainManager.emitEvent("eqFTP", "events", {event: "server_disconnect", connectionID: params.connectionID, clearQueue: params.clearQueue});
+                        _domainManager.emitEvent("eqFTP", "events", {event: "server_disconnect", connectionID: params.connectionID, clearQueue: params.clearQueue});
                         if (params.callback)
                             params.callback(true);
                         else
