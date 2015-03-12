@@ -137,60 +137,55 @@
     overflow-y: auto;
 }
 
-#eqFTP-project-settings .nav.nav-tabs.nav-stacked li{
+.nav.nav-tabs.nav-stacked li{
     padding: 3px 19px;
     cursor: pointer;
     border-top: 1px solid rgba(0, 0, 0, 0.1);
     vertical-align: middle;
-    background-color: #f5f5f5;
-    color: #aaaaaa;
 }
-.dark #eqFTP-project-settings .nav.nav-tabs.nav-stacked li{
-    background-color: #444444;
-}
-#eqFTP-project-settings .nav.nav-tabs.nav-stacked li .eqFTP-arrow {
+.nav.nav-tabs.nav-stacked li .eqFTP-arrow {
     opacity: 0;
     float: right;
     margin-top: 3px;
 }
-#eqFTP-project-settings .nav.nav-tabs.nav-stacked li:last-child{
+.nav.nav-tabs.nav-stacked li:last-child{
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
-#eqFTP-project-settings .nav.nav-tabs.nav-stacked li:hover .eqFTP-arrow {
+.nav.nav-tabs.nav-stacked li:hover .eqFTP-arrow {
     opacity: 0.9;
 }
-#eqFTP-project-settings .nav.nav-tabs.nav-stacked li.clicked{
+.nav.nav-tabs.nav-stacked li.clicked{
     color:#288edf;
     background-color: #dfe2e2;
     border-top: 1px solid #bfbfbf;
     border-bottom: 1px solid #ffffff;
 }
-.dark #eqFTP-project-settings .nav.nav-tabs.nav-stacked li.clicked{
+.dark .nav.nav-tabs.nav-stacked li.clicked{
     color:#333333;
     background-color: #aaaaaa;
     border-top: 1px solid #888888;
     border-bottom: 1px solid #bbbbbb;
 }
-#eqFTP-project-settings .nav.nav-tabs.nav-stacked li.clicked:hover .eqFTP-arrow {
+.nav.nav-tabs.nav-stacked li.clicked:hover .eqFTP-arrow {
     opacity: 0.9;
 }
 
-#eqFTP-project-settings .nav.nav-tabs.nav-stacked li.clicked+li {
+.nav.nav-tabs.nav-stacked li.clicked+li {
     border-top:none;
 }
 
-#eqFTP-project-settings .field-container2 label, #eqFTP-project-settings .field-container2 input, #eqFTP-project-settings .field-container2 select{
+.field-container2 label, .field-container2 input, .field-container2 select{
     display: inline-block;
     vertical-align: middle;
     margin-bottom: 0;
     margin-right: 5px;
 }
 
-#eqFTP-project-settings .field-container2 {
+.field-container2 {
     margin-bottom: 10px;
 }
 
-#eqFTP-project-settings .field-container2 label{
+.field-container2 label{
     width:140px;
 }
 
@@ -827,17 +822,4 @@ span[data-eqFTPQueueRemove]:hover {
 }
 #eqFTPQueueHolder .progress-bar.active, .progress.active .progress-bar {
     -webkit-animation: progress-bar-stripes 2s linear infinite;
-}
-
-#eqFTP-project-settings .eqFTP-ghost {
-    opacity: 0.7;
-    z-index: 3;
-    position: absolute;
-    background-color: #f5f5f5;
-    color: #aaaaaa;
-    list-style: none;
-    display: block;
-}
-.dark #eqFTP-project-settings .eqFTP-ghost {
-    background-color: #444444;
 }

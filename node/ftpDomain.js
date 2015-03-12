@@ -62,16 +62,12 @@ maxerr: 50, node: true */
         }
     }
     function cmdCompareFiles(file1, file2) {
-        try {
-            var hash1 = crypto.createHash('sha512').update(fs.readFileSync(file1, {encoding: "utf8"})).digest('hex');
-            var hash2 = crypto.createHash('sha512').update(fs.readFileSync(file2, {encoding: "utf8"})).digest('hex');
-            if (hash1 === hash2)
-                return true;
-            else
-                return false;
-        } catch (e) {
-            _domainManager.emitEvent("eqFTP", "events", {event: "error", pretext: "ERR_DIAG_UNIVERSAL_CONTENT", text: JSON.stringify(e)});
-        }
+        var hash1 = crypto.createHash('sha512').update(fs.readFileSync(file1, {encoding: "utf8"})).digest('hex');
+        var hash2 = crypto.createHash('sha512').update(fs.readFileSync(file2, {encoding: "utf8"})).digest('hex');
+        if (hash1 === hash2)
+            return true;
+        else
+            return false;
     }
     var entityMap = {
         "&": "&amp;",
@@ -111,71 +107,67 @@ maxerr: 50, node: true */
             return false;
         }
     }
-    function connectionById(id, connection) {
-        var found = false;
-        eqFTPconnections.some(function(o, i) {
-            if (o.id == id) {
-                found = o;
-                if (connection != undefined) {
-                    eqFTPconnections[i] = connection;
-                }
-                return true;
-            }
-        });
-        if (!found && connection != undefined) {
-            eqFTPconnections.push(connection);
-        }
-        return found;
-    }
     function addConnections(params) {
-        var ncids = [];
-        params.connections.forEach(function(e, i, a) {
-            e.ftpDomain = {};
-            var gitignore = "";
-            if (e.automatization.type === "sync" && e.automatization.sync.ignore)
-                gitignore = e.automatization.sync.ignore + "\n";
-            
-            gitignore += plusGitignore;
-            e.ftpDomain.ignore = gi_parser.compile(gitignore);
-            
-            var ec = connectionById(e.id);
-            if (ec) {
-                if (
-                    ec.server !== e.server ||
-                    ec.username !== e.username ||
-                    ec.password !== e.password ||
-                    ec.port !== e.port ||
-                    ec.protocol !== e.protocol ||
-                    ec.remotepath !== e.remotepath
-                ) {
-                    _commands.connection.disconnect({
-                        connectionID: ec.id,
-                        callback: function() {
-                            e.remoteRoot = false;
-                            eqFTPconnections[e.id] = e;
-                        }
-                    });
+        if (eqFTPconnections.length < 1) {
+            eqFTPconnections = params.connections;
+            eqFTPconnections.forEach(function (element, index, array) {
+                eqFTPconnections[index].ftpDomain = {};
+                var gitignore = "";
+                if (eqFTPconnections[index].automatization.type === "sync" && params.sync && eqFTPconnections[index].automatization.sync.ignore) {
+                    gitignore = eqFTPconnections[index].automatization.sync.ignore + "\n";
                 }
-            } else {
-                //connectionById(e.id, e);
-                eqFTPconnections[e.id] = e;
-            }
-            ncids.push(e.id);
-        });
-        eqFTPconnections.forEach(function(e, i, a) {
-            if (ncids.indexOf(e.id) == -1) {
-                delete eqFTPconnections[e.id];
-            }
-        });
+                gitignore += plusGitignore;
+                gitignore = gi_parser.compile(gitignore);
+                eqFTPconnections[index].ftpDomain.ignore = gitignore;
+            });
+        } else {
+            var old = eqFTPconnections;
+            eqFTPconnections = [];
+            params.connections.forEach(function (element, index, array) {
+                if(old[index]) {
+                    if (
+                        element.server != old[index].server ||
+                        element.username != old[index].username ||
+                        element.password != old[index].password ||
+                        element.port != old[index].port ||
+                        element.protocol != old[index].protocol ||
+                        element.remotepath != old[index].remotepath
+                    ) {
+                        eqFTPconnections[index] = old[index];
+                        _commands.connection.disconnect({
+                            connectionID: index,
+                            callback: function() {
+                                eqFTPconnections[index] = element;
+                                eqFTPconnections[index].ftpDomain = {};
+                                eqFTPconnections[index].remoteRoot = false;
+                            }
+                        });
+                    } else {
+                        eqFTPconnections[index] = old[index];
+                    }
+                } else {
+                    eqFTPconnections[index] = element;
+                    eqFTPconnections[index].ftpDomain = {};
+                    eqFTPconnections[index].remoteRoot = false;
+                }
+                var gitignore = "";
+                if (eqFTPconnections[index].automatization.type === "sync" && params.sync && eqFTPconnections[index].automatization.sync.ignore) {
+                    gitignore = eqFTPconnections[index].automatization.sync.ignore + "\n";
+                }
+                gitignore += plusGitignore;
+                gitignore = gi_parser.compile(gitignore);
+                eqFTPconnections[index].ftpDomain.ignore = gitignore;
+            });
+        }
     }
     function updateSettings(params) {
         if (params.debug === true || params.debug === false) {
             debug = params.debug || false;
-            eqFTPconnections.forEach(function(e, i, a) {
+            for (var i = 0; i < eqFTPconnections.length; i++) {
                 if (eqFTPconnections[i].ftpDomain.client) {
                     eqFTPconnections[i].ftpDomain.client.setDebugMode = debug;
                 }
-            });
+            }
         }
         if (params.defaultLocal)
             defaultLocal = params.defaultLocal;
@@ -330,55 +322,46 @@ maxerr: 50, node: true */
             connect: function(params) {
                 if (debug)
                     throwError("Connecting to this ID: "+params.connectionID, true);
-                if (params.connectionID > -1 && eqFTPconnections[params.connectionID] !== undefined) {
-                    if (!eqFTPconnections[params.connectionID].ftpDomain.disconnecting) {
-                        /*
-                        1. Create Client
-                        2. Add Listeners
-                        3. Authorize
-                        */
-                        if (eqFTPconnections[params.connectionID].ftpDomain.client === undefined) {
-                            _commands.connection.createClient({
-                                connectionID: params.connectionID,
-                                callback: function(result) {
-                                    if (result) {
-                                        _commands.service.auth({
-                                            connectionID: params.connectionID,
-                                            callback: function(result) {
-                                                if (result) {
-                                                    _commands.service.getRemoteRoot({
-                                                        connectionID: params.connectionID,
-                                                        callback: params.callback
-                                                    });
-                                                } else {
-                                                    if (params.callback)
-                                                        params.callback(false);
-                                                    else
-                                                        return false;
-                                                }
+                if (params.connectionID > -1 && eqFTPconnections[params.connectionID] !== undefined && !eqFTPconnections[params.connectionID].ftpDomain.disconnecting) {
+                    /*
+                    1. Create Client
+                    2. Add Listeners
+                    3. Authorize
+                    */
+                    if (eqFTPconnections[params.connectionID].ftpDomain.client === undefined) {
+                        _commands.connection.createClient({
+                            connectionID: params.connectionID,
+                            callback: function(result) {
+                                if (result) {
+                                    _commands.service.auth({
+                                        connectionID: params.connectionID,
+                                        callback: function(result) {
+                                            if (result) {
+                                                _commands.service.getRemoteRoot({
+                                                    connectionID: params.connectionID,
+                                                    callback: params.callback
+                                                });
+                                            } else {
+                                                if (params.callback)
+                                                    params.callback(false);
+                                                else
+                                                    return false;
                                             }
-                                        });
-                                    } else {
-                                        if (params.callback)
-                                            params.callback(false);
-                                        else
-                                            return false;
-                                    }
+                                        }
+                                    });
+                                } else {
+                                    if (params.callback)
+                                        params.callback(false);
+                                    else
+                                        return false;
                                 }
-                            });
-                        } else {
-                            if (debug)
-                                throwError("[c.c] Connection already exists for this ID: "+params.connectionID, true);
-                            if (params.callback)
-                                params.callback(true);
-                            else
-                                return false;
-                        }
+                            }
+                        });
                     } else {
                         if (debug)
-                            throwError("[c.c] ftpDomain currently disconnecting from: "+params.connectionID, true);
+                            throwError("[c.c] Connection already exists for this ID: "+params.connectionID, true);
                         if (params.callback)
-                            params.callback(false);
+                            params.callback(true);
                         else
                             return false;
                     }
@@ -397,110 +380,100 @@ maxerr: 50, node: true */
              * @returns {Boolean} returns bool or runs callback
              */
             disconnect: function(params) {
-                if (params.connectionID > -1 && eqFTPconnections[params.connectionID] !== undefined) {
-                    if (!eqFTPconnections[params.connectionID].ftpDomain.disconnecting) {
-                        if (debug)
-                            throwError("Disconnecting...", true);
-                        eqFTPconnections[params.connectionID].ftpDomain.disconnecting = true;
-                        eqFTPconnections[params.connectionID].ftpDomain.processQueuePaused = true;
-                        if (eqFTPconnections[params.connectionID].ftpDomain.client) {
-                            console.log("[TEST-ECONNRESET] Have client");
-                            _commands.service.clearKeepAlive({connectionID: params.connectionID});
-                            _commands.service.listeners({
-                                connectionID: params.connectionID,
-                                action: "remove",
-                                callback: function(result) {
-                                    console.log("[TEST-ECONNRESET] Removing listeners");
-                                    if (result) {
-                                        console.log("[TEST-ECONNRESET] Listeners removed");
-                                        var disconnected = false;
+                if (params.connectionID > -1 && eqFTPconnections[params.connectionID] !== undefined && !eqFTPconnections[params.connectionID].ftpDomain.disconnecting) {
+                    if (debug)
+                        throwError("Disconnecting...", true);
+                    eqFTPconnections[params.connectionID].ftpDomain.disconnecting = true;
+                    eqFTPconnections[params.connectionID].ftpDomain.processQueuePaused = true;
+                    if (eqFTPconnections[params.connectionID].ftpDomain.client) {
+                        console.log("[TEST-ECONNRESET] Have client");
+                        _commands.service.clearKeepAlive({connectionID: params.connectionID});
+                        _commands.service.listeners({
+                            connectionID: params.connectionID,
+                            action: "remove",
+                            callback: function(result) {
+                                console.log("[TEST-ECONNRESET] Removing listeners");
+                                if (result) {
+                                    console.log("[TEST-ECONNRESET] Listeners removed");
+                                    var disconnected = false;
+                                    if (!disconnected) {
+                                        _commands.raw.abort({
+                                            connectionID: params.connectionID,
+                                            callback: function() {
+                                                console.log("[TEST-ECONNRESET] Abort performed");
+                                                if (!disconnected) {
+                                                    _commands.raw.quit({
+                                                        connectionID: params.connectionID,
+                                                        callback: function() {
+                                                            console.log("[TEST-ECONNRESET] Quit performed");
+                                                            if (!disconnected) {
+                                                                _commands.service.destroy({
+                                                                    connectionID: params.connectionID,
+                                                                    callback: function() {
+                                                                        eqFTPconnections[params.connectionID].ftpDomain.client = undefined;
+                                                                        disconnected = true;
+                                                                        if (params.clearQueue)
+                                                                            eqFTPconnections[params.connectionID].ftpDomain.queue = {a: [], p: [], f: [], s: []};
+                                                                        if (debug)
+                                                                            throwError("Disonnected.", true);
+                                                                        eqFTPconnections[params.connectionID].ftpDomain.disconnecting = false;
+                                                                        _domainManager.emitEvent("eqFTP", "events", {event: "server_disconnect", connectionID: params.connectionID, clearQueue: params.clearQueue});
+                                                                        eqFTPconnections[params.connectionID].ftpDomain.processQueuePaused = false;
+                                                                        if (params.callback)
+                                                                            params.callback(true);
+                                                                        else
+                                                                            return true;
+                                                                    }
+                                                                });
+                                                            }
+                                                        }
+                                                    });
+                                                }
+                                            }
+                                        });
+                                    }
+                                    var int = setInterval(function() {
                                         if (!disconnected) {
-                                            _commands.raw.abort({
+                                            _commands.service.destroy({
                                                 connectionID: params.connectionID,
                                                 callback: function() {
-                                                    console.log("[TEST-ECONNRESET] Abort performed");
-                                                    if (!disconnected) {
-                                                        _commands.raw.quit({
-                                                            connectionID: params.connectionID,
-                                                            callback: function() {
-                                                                console.log("[TEST-ECONNRESET] Quit performed");
-                                                                if (!disconnected) {
-                                                                    _commands.service.destroy({
-                                                                        connectionID: params.connectionID,
-                                                                        callback: function() {
-                                                                            eqFTPconnections[params.connectionID].ftpDomain.client = undefined;
-                                                                            disconnected = true;
-                                                                            if (params.clearQueue)
-                                                                                eqFTPconnections[params.connectionID].ftpDomain.queue = {a: [], p: [], f: [], s: []};
-                                                                            if (debug)
-                                                                                throwError("Disonnected.", true);
-                                                                            eqFTPconnections[params.connectionID].ftpDomain.disconnecting = false;
-                                                                            _domainManager.emitEvent("eqFTP", "events", {event: "server_disconnect", connectionID: params.connectionID, clearQueue: params.clearQueue});
-                                                                            eqFTPconnections[params.connectionID].ftpDomain.processQueuePaused = false;
-                                                                            if (params.callback)
-                                                                                params.callback(true);
-                                                                            else
-                                                                                return true;
-                                                                        }
-                                                                    });
-                                                                }
-                                                            }
-                                                        });
-                                                    }
+                                                    eqFTPconnections[params.connectionID].ftpDomain.client = undefined;
+                                                    disconnected = true;
+                                                    if (params.clearQueue)
+                                                        eqFTPconnections[params.connectionID].ftpDomain.queue = {a: [], p: [], f: [], s: []};
+                                                    if (debug)
+                                                        throwError("Disonnected..", true);
+                                                    eqFTPconnections[params.connectionID].ftpDomain.disconnecting = false;
+                                                    _domainManager.emitEvent("eqFTP", "events", {event: "server_disconnect", connectionID: params.connectionID, clearQueue: params.clearQueue});
+                                                    eqFTPconnections[params.connectionID].ftpDomain.processQueuePaused = false;
+                                                    if (params.callback)
+                                                        params.callback(true);
+                                                    else
+                                                        return true;
                                                 }
                                             });
                                         }
-                                        var int = setInterval(function() {
-                                            if (!disconnected) {
-                                                _commands.service.destroy({
-                                                    connectionID: params.connectionID,
-                                                    callback: function() {
-                                                        eqFTPconnections[params.connectionID].ftpDomain.client = undefined;
-                                                        disconnected = true;
-                                                        if (params.clearQueue)
-                                                            eqFTPconnections[params.connectionID].ftpDomain.queue = {a: [], p: [], f: [], s: []};
-                                                        if (debug)
-                                                            throwError("Disonnected..", true);
-                                                        eqFTPconnections[params.connectionID].ftpDomain.disconnecting = false;
-                                                        _domainManager.emitEvent("eqFTP", "events", {event: "server_disconnect", connectionID: params.connectionID, clearQueue: params.clearQueue});
-                                                        eqFTPconnections[params.connectionID].ftpDomain.processQueuePaused = false;
-                                                        if (params.callback)
-                                                            params.callback(true);
-                                                        else
-                                                            return true;
-                                                    }
-                                                });
-                                            }
-                                            clearInterval(int);
-                                        }, 2000);
-                                    }
+                                        clearInterval(int);
+                                    }, 2000);
                                 }
-                            });
-                        } else {
-                            eqFTPconnections[params.connectionID].ftpDomain.processQueuePaused = false;
-                            eqFTPconnections[params.connectionID].ftpDomain.client = undefined;
-                            if (params.clearQueue)
-                                eqFTPconnections[params.connectionID].ftpDomain.queue = {a: [], p: [], f: [], s: []};
-                            if (debug)
-                                throwError("Disonnected. Actually there was no client so nothing to disconnect.", true);
-                            //_domainManager.emitEvent("eqFTP", "events", {event: "server_disconnect", connectionID: params.connectionID, clearQueue: params.clearQueue});
-                            if (params.callback)
-                                params.callback(true);
-                            else
-                                return true;
-                        }
-                        
+                            }
+                        });
                     } else {
+                        eqFTPconnections[params.connectionID].ftpDomain.processQueuePaused = false;
+                        eqFTPconnections[params.connectionID].ftpDomain.client = undefined;
+                        if (params.clearQueue)
+                            eqFTPconnections[params.connectionID].ftpDomain.queue = {a: [], p: [], f: [], s: []};
                         if (debug)
-                            throwError("[c.d] Currently disconnecting from: " + params.connectionID, true);
+                            throwError("Disonnected. Actually there was no client so nothing to disconnect.", true);
+                        _domainManager.emitEvent("eqFTP", "events", {event: "server_disconnect", connectionID: params.connectionID, clearQueue: params.clearQueue});
                         if (params.callback)
-                            params.callback(false);
+                            params.callback(true);
                         else
-                            return false;
+                            return true;
                     }
                 } else {
                     if (debug)
-                        throwError("[c.d] There's no connection with this ID: " + params.connectionID);
+                        throwError("[c.d] There's no connection with this ID: " + params.connectionID + ". " + JSON.stringify(eqFTPconnections[params.connectionID].ftpDomain.disconnecting));
                     if (params.callback)
                         params.callback(false);
                     else
@@ -1132,7 +1105,7 @@ maxerr: 50, node: true */
                                 }
                             } else {
                                 if (debug)
-                                    throwError("[s.d.c] Files are similar. Renaming: " + remote2local({connectionID: params.connectionID, remotePath:tmpFilename}) + " !TO! " + eqFTPconnections[params.connectionID].ftpDomain.currentElement.localPath_o, true);
+                                    throwError("[s.d.c] Files are similar.", true);
                                 fs.renameSync(remote2local({connectionID: params.connectionID, remotePath:tmpFilename}),eqFTPconnections[params.connectionID].ftpDomain.currentElement.localPath_o);
                                 if (params.callback)
                                     params.callback(true);
