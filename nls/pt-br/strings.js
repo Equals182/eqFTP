@@ -34,13 +34,13 @@ define({
     "PASSWDWIND_CONTENT" : "Sua senha para o eqFTP:",
 
     "CHECKDIFF_TITLE" : "Existem diferenças entre os arquivos",
-    "CHECKDIFF_CONTENT" : "As cópias local e remota do arquivo são diferentes. Por favor escolha uma ação.",
+    "CHECKDIFF_CONTENT" : "As versões local e remota do arquivo são diferentes. Por favor escolha uma ação.",
     "CHECKDIFF_BUTTON_COMPARE" : "Comparar arquivos",
     "CHECKDIFF_BUTTON_SHOWCHANGES" : "Mostrar alterações",
     "CHECKDIFF_BUTTON_KEEPLOCAL" : "Manter local", 
-    "CHECKDIFF_BUTTON_KEEPLOCALALL" : "Manter cópias locais da fila atual",
+    "CHECKDIFF_BUTTON_KEEPLOCALALL" : "Manter versões locais da fila atual",
     "CHECKDIFF_BUTTON_GETREMOTE" : "Baixar remoto",
-    "CHECKDIFF_BUTTON_GETREMOTEALL" : "Fazer cópias remotas da fila atual",
+    "CHECKDIFF_BUTTON_GETREMOTEALL" : "Criar versões remotas da fila atual",
 
     "SETTINGSWIND_TITLE" : "Gerenciador de Conexões do eqFTP",
     "SETTINGSWIND_ERR_BLANKS" : "Nossa! Parece que aconteceu alguma coisa errada. Verifique os campos de entrada e tente novamente.",
@@ -178,6 +178,6 @@ define({
     "OTHER_DELETE" : "Excluir",
     "OTHER_CONFIRM_DELETE" : "Tem certeza que quer remover este item?",
     "OTHER_CONFIRM_SETTINGSCLOSE" : "Existem mudanças não gravadas que serão perdidas se você clicar em OK.<br>Quer continuar?",
-    "OTHER_ERROR_EVENDISCONN" : "Não consigo enviar o arquivo. A opção 'Mesmo se desconectado' está desligada.",
+    "OTHER_ERROR_EVENDISCONN" : "Não consigo enviar o arquivo. A opção 'Mesmo se desconectado' está desativada.",
     "OTHER_ERROR_CANTREADSETTINGS" : "Não consigo ler as preferências. Provavelmente digitou uma senha mestra errada."
 });
