@@ -72,7 +72,7 @@ define({
     "SETTINGSWIND_GLOB_PASSWORD_FIELD" : "Senha do FTP",
     "SETTINGSWIND_GLOB_RSA_TITLE" : "Chave RSA",
     "SETTINGSWIND_GLOB_RSA_FIELD" : "Clique para selecionar a chave RSA",
-    "SETTINGSWIND_GLOB_FOLDERFORRSA_DIAGTITLE" : "Escolha o a caminho para a chave RSA",
+    "SETTINGSWIND_GLOB_FOLDERFORRSA_DIAGTITLE" : "Escolha o caminho para a chave RSA",
     "SETTINGSWIND_GLOB_REMOTEPATH_TITLE" : "Caminho remoto:",
     "SETTINGSWIND_GLOB_REMOTEPATH_FIELD" : "Digite o caminho remoto para a pasta raiz do projeto",
     "SETTINGSWIND_GLOB_LOCALPATH_TITLE" : "Caminho local:",
