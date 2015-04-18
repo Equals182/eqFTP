@@ -20,6 +20,9 @@
         },
         "ru": {
             "description": "FTP/SFTP клиент для Brackets. Пожалуйста, перезагрузите Brackets вручную после обновления."
+        },
+        "ja": {
+            "description": "Brackets 用 FTP クライアント。更新後は Brackets の再起動が必要です。"
         }
     }
 }
