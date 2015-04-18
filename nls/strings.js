@@ -21,6 +21,7 @@ define(function (require, exports, module) {
         "es":     true,
         "nl":     true,
         "hu":     true,
-        "cs":     true
+        "cs":     true,
+        "ja":     true
     };
 });
