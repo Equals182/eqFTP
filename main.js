@@ -1665,7 +1665,7 @@ define(function (require, exports, module) {
                                     type: "short"
                                 });
                                 var fileObject = {
-                                    name: value.name,
+                                    name: value.name.replace(/\n/, ''),
                                     lastupdatedShort: value.time,
                                     lastupdated: value.time,
                                     sizeShort : sizeShort,
@@ -1676,7 +1676,7 @@ define(function (require, exports, module) {
                                 sanitizedFiles.push(fileObject);
                             } else if (value.type === 1) {  
                                 var fileObject = {
-                                    name: value.name,
+                                    name: value.name.replace(/\n/, ''),
                                     lastupdatedShort: value.time,
                                     lastupdated: value.time,
                                     size: "",
