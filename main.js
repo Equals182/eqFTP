@@ -1573,6 +1573,7 @@ define(function (require, exports, module) {
                     });
                     if (o.type === "file")
                         queuersAll.push(o);
+                    o.path = o.path.replace(/\n/, '');
                     nodeConnection.domains.eqFTP.addToQueue(o);
                 });
             }
