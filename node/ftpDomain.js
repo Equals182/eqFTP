@@ -281,14 +281,29 @@ console.log("[eqFTP-test] Updating settings. Expecting debug on", params);
                             };
                             if (eqFTPconnections[params.connectionID].RSA) {
                                 if(fs.existsSync(eqFTPconnections[params.connectionID].RSA)){
-                                    sftp_params.privateKey = fs.readFileSync(eqFTPconnections[params.connectionID].RSA).replace('\\n', '\n');
+                                    sftp_params.privateKey = fs.readFileSync(eqFTPconnections[params.connectionID].RSA, {encoding: "utf8"});
+                                    sftp_params.privateKey = sftp_params.privateKey.replace('\\n', '\n');
                                     sftp_params.passphrase = eqFTPconnections[params.connectionID].password.toString('utf8');
+                                } else {
+                                    _domainManager.emitEvent("eqFTP", "events", {event: "error", pretext: "ERR_DIAG_NORSAKEYFOUND", text: eqFTPconnections[params.connectionID].RSA});
+                                    if (debug)
+                                        throwError("[c.cC] There's no such file: " + eqFTPconnections[params.connectionID].RSA);
+                                    if (params.callback)
+                                        params.callback(false);
+                                    else
+                                        return false;
                                 }
                             } else if (eqFTPconnections[params.connectionID].password) {
                                 sftp_params.password = eqFTPconnections[params.connectionID].password;
                             }
+                            if (debug) {
+                                sftp_params.debug = function(str) {
+                                    console.log("SFTP DEBUG", str);
+                                }
+                            }
                             
                             try {
+                                console.log('sftp?');
                                 eqFTPconnections[params.connectionID].ftpDomain.client = new SFTPClient.Client(sftp_params);
                                 _commands.service.listeners({
                                     connectionID: params.connectionID,

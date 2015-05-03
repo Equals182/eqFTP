@@ -25,6 +25,7 @@ define({
     "ERR_DIAG_ECONNABORTED_CONTENT" : "Connection aborted. Trying to reconnect...",
     "ERR_DIAG_UNIVERSAL_TITLE" : "There's an error",
     "ERR_DIAG_UNIVERSAL_CONTENT" : "Look at this error! How could it happen?",
+    "ERR_DIAG_NORSAKEYFOUND" : "There's no RSA key found in: ", //NEW A path to RSA file will be appended after colon.
 
     "NOT_DIAG_CONNECTED" : "Connected to server.",
     "NOT_DIAG_DISCONNECTED" : "Disconnected from server.",
