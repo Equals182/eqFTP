@@ -82,7 +82,9 @@ define({
     "SETTINGSWIND_GLOB_EVENDISCONN" : "Even If Disconnected",
     "SETTINGSWIND_GLOB_EVENDISCONN_EXPLAIN" : "This option automatically connects to a server when a saved file is opened from the server or a saved file is within the current project and this project was created by this ftp extension. Oh, I really hope I explained it well...",
     "SETTINGSWIND_GLOB_LOCALPATH_FILLWPROJECT_TITLE" : "Insert current project's path",
-    "SETTINGSWIND_GLOB_USELIST" : "Alternative folder retrieving",
+    "SETTINGSWIND_GLOB_FRM_TITLE" : "Choose folder retrieving method:", //NEW
+    "SETTINGSWIND_GLOB_FRM_LIST" : "Use LIST command", //NEW
+    "SETTINGSWIND_GLOB_FRM_MLSD" : "Use MLSD command", //NEW
     "SETTINGSWIND_GLOB_KEEPALIVE" : "Keep alive interval:", // Keep Alive is feature when client sends empty packages to server to prevet disconnection.
     "SETTINGSWIND_GLOB_KEEPALIVE_DESC" : "Value in seconds. Recommended value is 10. Use zero to forbid keep alive commands and disconnect from server every time command is done.",
     "SETTINGSWIND_GLOB_DEBUG" : "Debug:",
