@@ -340,7 +340,10 @@ define(function (require, exports, module) {
         }
     };
     function stringToLower(input) {
-        return input.toLowerCase();
+        if (input)
+            return input.toLowerCase();
+        else
+            return input;
     };
     function typeToInt(input) {
         return (input == "folder" ? 0 : 1);
@@ -1573,7 +1576,6 @@ define(function (require, exports, module) {
                     });
                     if (o.type === "file")
                         queuersAll.push(o);
-                    o.path = o.path.replace(/\n/, '');
                     nodeConnection.domains.eqFTP.addToQueue(o);
                 });
             }
@@ -1666,7 +1668,7 @@ define(function (require, exports, module) {
                                     type: "short"
                                 });
                                 var fileObject = {
-                                    name: value.name.replace(/\n/, ''),
+                                    name: value.name,
                                     lastupdatedShort: value.time,
                                     lastupdated: value.time,
                                     sizeShort : sizeShort,
@@ -1677,7 +1679,7 @@ define(function (require, exports, module) {
                                 sanitizedFiles.push(fileObject);
                             } else if (value.type === 1) {  
                                 var fileObject = {
-                                    name: value.name.replace(/\n/, ''),
+                                    name: value.name,
                                     lastupdatedShort: value.time,
                                     lastupdated: value.time,
                                     size: "",
@@ -2462,7 +2464,7 @@ define(function (require, exports, module) {
                         password: $(esh).find("[name='eqFTP-password']").val(),
                         localpath: $(esh).find("[name='eqFTP-localroot']").val(),
                         remotepath: $(esh).find("[name='eqFTP-remoteroot']").val(),
-                        useList: $(esh).find("[name='eqFTP-useList']").is(':checked'),
+                        foldreRetrievingMethod: $(esh).find("[name='eqFTP-foldreRetrievingMethod']:checked").val(),
                         keepAlive: $(esh).find("[name='eqFTP-keepAlive']").val(),
                         timeOffset: $(esh).find("[name='eqFTP-timeOffset']").val(),
                         RSA: $(esh).find("[name='eqFTP-RSA']").val(),
@@ -2567,7 +2569,10 @@ define(function (require, exports, module) {
                         $("#eqFTPSettingsHolder-"+id+" [name='eqFTP-uploadonsave']").prop("checked", setting.automatization.classic.uploadOnSave).attr("data-eqFTPdefaultValue", setting.automatization.classic.uploadOnSave);
                         $("#eqFTPSettingsHolder-"+id+" [name='eqFTP-uploadonsavePaused']").prop("checked", setting.automatization.classic.uploadOnSavePaused).attr("data-eqFTPdefaultValue", setting.automatization.classic.uploadOnSavePaused);
                         $("#eqFTPSettingsHolder-"+id+" [name='eqFTP-autoConnect']").prop("checked", setting.automatization.classic.autoConnect).attr("data-eqFTPdefaultValue", setting.automatization.classic.autoConnect);
-                        $("#eqFTPSettingsHolder-"+id+" [name='eqFTP-useList']").prop("checked", setting.useList).attr("data-eqFTPdefaultValue", setting.useList);
+                        if (setting.foldreRetrievingMethod)
+                            $("#eqFTPSettingsHolder-"+id+" [name='eqFTP-foldreRetrievingMethod'][value='"+setting.foldreRetrievingMethod+"']").prop("checked", true).attr("data-eqFTPdefaultValue", setting.foldreRetrievingMethod);
+                        else
+                            $("#eqFTPSettingsHolder-"+id+" [name='eqFTP-foldreRetrievingMethod'][value='LIST']").prop("checked", true).attr("data-eqFTPdefaultValue", "LIST");
                     } else {
                         $("#eqFTPSettingsHolder-"+id).show();
                     }
@@ -2608,7 +2613,7 @@ define(function (require, exports, module) {
                         $("#eqFTPSettingsHolder-"+id+" [name='eqFTP-protocol'] option").prop('selected', false);
                         $("#eqFTPSettingsHolder-"+id+" [name='eqFTP-protocol'] option[value=FTP]").prop("selected", true);
                         $("#eqFTPSettingsHolder-"+id+" [name='eqFTP-uploadonsave']").prop("checked", false);
-                        $("#eqFTPSettingsHolder-"+id+" [name='eqFTP-useList']").prop("checked", false);
+                        $("#eqFTPSettingsHolder-"+id+" [name='eqFTP-foldreRetrievingMethod'][value='LIST']").prop("checked", true);
                     } else {
                         $("#eqFTPSettingsHolder-"+id).show();
                     }
