@@ -21,26 +21,26 @@ define({
     "ERR_DIAG_NOSERVERFOUND_CONTENT" : "Non hai specificato nessuna connessione in eqFTP che associ il tuo progetto corrente ad un server remoto.<br>Specifica un server remoto per la connessione oppure utilizza l'attuale cartella del progetto come percorso locale nelle impostazioni.",
     "ERR_DIAG_ECONNRESET_TITLE" : "Server sta rifiutando le connessioni",
     "ERR_DIAG_ECONNRESET_CONTENT" : "Non riesco a connettermi al server, non mi é permesso.<br>Prova a riavviare Brackets.",
-    "ERR_DIAG_ECONNABORTED_TITLE" : "You've been disconnected from server", //NEW
-    "ERR_DIAG_ECONNABORTED_CONTENT" : "Connection aborted. Trying to reconnect...", //NEW
+    "ERR_DIAG_ECONNABORTED_TITLE" : "Sei stato disconnesso dal server", //NEW
+    "ERR_DIAG_ECONNABORTED_CONTENT" : "Connessione interrotta. Provo a riconnettermi...", //NEW
     "ERR_DIAG_UNIVERSAL_TITLE" : "C'é un errore",
     "ERR_DIAG_UNIVERSAL_CONTENT" : "Guarda questo errore! Come è potuto accadere?",
 
-    "NOT_DIAG_CONNECTED" : "Connected to server.", //NEW
-    "NOT_DIAG_DISCONNECTED" : "Disconnected from server.", //NEW
-    "NOT_DIAG_FILESDIFFERENT" : "There's a difference between local and remote files. Click here for more actions.", //NEW
+    "NOT_DIAG_CONNECTED" : "Connesso al server.", //NEW
+    "NOT_DIAG_DISCONNECTED" : "Disconnesso dal server.", //NEW
+    "NOT_DIAG_FILESDIFFERENT" : "C'è una differenza tra i file locali e remoti. Clicca qui per ulteriori azioni.", //NEW
 
     "PASSWDWIND_TITLE" : "Inserisci La Master Password",
     "PASSWDWIND_CONTENT" : "La tua Master Password per eqFTP:",
 
-    "CHECKDIFF_TITLE" : "There's difference between files", //NEW
-    "CHECKDIFF_CONTENT" : "Remote and local copies of file are different. Please choose an action you would like to do.", //NEW
-    "CHECKDIFF_BUTTON_COMPARE" : "Compare files", //NEW
-    "CHECKDIFF_BUTTON_SHOWCHANGES" : "Show changes", //NEW
-    "CHECKDIFF_BUTTON_KEEPLOCAL" : "Keep local", //NEW
-    "CHECKDIFF_BUTTON_KEEPLOCALALL" : "Keep local copies for current queue", //NEW
-    "CHECKDIFF_BUTTON_GETREMOTE" : "Get remote", //NEW
-    "CHECKDIFF_BUTTON_GETREMOTEALL" : "Get remote copies for current queue", //NEW
+    "CHECKDIFF_TITLE" : "C'è una differenza tra i file", //NEW
+    "CHECKDIFF_CONTENT" : "Le copie remote e locali dei file sono diverse. Scegli un azione da compiere.", //NEW
+    "CHECKDIFF_BUTTON_COMPARE" : "Compara file", //NEW
+    "CHECKDIFF_BUTTON_SHOWCHANGES" : "Mostra cambiamenti", //NEW
+    "CHECKDIFF_BUTTON_KEEPLOCAL" : "Mantieni file locale", //NEW
+    "CHECKDIFF_BUTTON_KEEPLOCALALL" : "Mantieni file locale per la coda corrente", //NEW
+    "CHECKDIFF_BUTTON_GETREMOTE" : "Scarica file remoti", //NEW
+    "CHECKDIFF_BUTTON_GETREMOTEALL" : "Scarica file remoti per la coda corrente", //NEW
 
     "SETTINGSWIND_TITLE" : "eqFTP Gestore Connessione",
     "SETTINGSWIND_ERR_BLANKS" : "Oh! Qualcosa è andato storto... controlla il contenuto dei campi e riprova.",
@@ -70,51 +70,51 @@ define({
     "SETTINGSWIND_GLOB_USERNAME_FIELD" : "Utente FTP",
     "SETTINGSWIND_GLOB_PASSWORD_TITLE" : "Password:",
     "SETTINGSWIND_GLOB_PASSWORD_FIELD" : "Password FTP",
-    "SETTINGSWIND_GLOB_RSA_TITLE" : "RSA key", //NEW
-    "SETTINGSWIND_GLOB_RSA_FIELD" : "Click to select RSA key", //NEW
-    "SETTINGSWIND_GLOB_FOLDERFORRSA_DIAGTITLE" : "Choose path to RSA key", //NEW
+    "SETTINGSWIND_GLOB_RSA_TITLE" : "Chiave RSA", //NEW
+    "SETTINGSWIND_GLOB_RSA_FIELD" : "Clicca per selezionare la chiave RSA", //NEW
+    "SETTINGSWIND_GLOB_FOLDERFORRSA_DIAGTITLE" : "Scegli percorso per la chiave RSA", //NEW
     "SETTINGSWIND_GLOB_REMOTEPATH_TITLE" : "Percorso Remoto:",
     "SETTINGSWIND_GLOB_REMOTEPATH_FIELD" : "Inserisci il percorso remoto alla cartella radice del progetto",
     "SETTINGSWIND_GLOB_LOCALPATH_TITLE" : "Percorso Locale:",
     "SETTINGSWIND_GLOB_LOCALPATH_FIELD" : "Crea una nuova cartella nella posizione di default se vuoto",
     "SETTINGSWIND_GLOB_UPLOADONSAVE" : "Esegui Upload Dei Files Durante Il Salvataggio",
-    "SETTINGSWIND_GLOB_UPLOADONSAVEPAUSED" : "Add to paused queue.", //NEW
+    "SETTINGSWIND_GLOB_UPLOADONSAVEPAUSED" : "Aggiungi alla coda in pausa.", //NEW
     "SETTINGSWIND_GLOB_EVENDISCONN" : "Anche Quando Disconnesso",
     "SETTINGSWIND_GLOB_EVENDISCONN_EXPLAIN" : "Questa opzione permette di collegarsi automaticamente ad un server quando un file salvato viene aperto dal server oppure quando si trova dentro il progetto corrente ed il progetto è stato creato da questa estensione FTP. Beh, spero che tu mi abbia capito..",
     "SETTINGSWIND_GLOB_LOCALPATH_FILLWPROJECT_TITLE" : "Aggiungi il percorso al progetto corrente",
-    "SETTINGSWIND_GLOB_USELIST" : "Alternative folder retrieving", //NEW
-    "SETTINGSWIND_GLOB_KEEPALIVE" : "Keep alive interval:", //NEW
-    "SETTINGSWIND_GLOB_KEEPALIVE_DESC" : "Value in seconds. Recommended value is 10. Use zero to forbid keep alive commands and disconnect from server every time command is done.", //NEW
+    "SETTINGSWIND_GLOB_USELIST" : "Recupero cartella alternativa", //NEW
+    "SETTINGSWIND_GLOB_KEEPALIVE" : "Intervallo keep alive:", //NEW
+    "SETTINGSWIND_GLOB_KEEPALIVE_DESC" : "Valore espresso in secondi. Il valore consigliato è 10. Utilizzare zero per vietare il keep alive dei comandi e disconnettersi dal server ogni volta il comando è eseguito.", //NEW
     "SETTINGSWIND_GLOB_DEBUG" : "Debug:", //NEW
     "SETTINGSWIND_GLOB_TIMEFORMAT" : "Formato data:",
     "SETTINGSWIND_GLOB_TIMEFORMAT_US" : "US",
     "SETTINGSWIND_GLOB_TIMEFORMAT_EU" : "Europeo",
-    "SETTINGSWIND_GLOB_TIMEFORMAT_ASIAN" : "Asian", //NEW
-    "SETTINGSWIND_GLOB_AUTOCLEAR" : "Auto-clear Queue", //NEW
-    "SETTINGSWIND_GLOB_NOTIFICATIONS" : "Notifications", //NEW
-    "SETTINGSWIND_GLOB_TIMEOFFSET" : "Time Offset:", //NEW
-    "SETTINGSWIND_GLOB_TIMEOFFSET_DESC" : "Use this option to set correct time for Modified column", //NEW
-    "SETTINGSWIND_GLOB_CONNECTIONTAB" : "Connection", //NEW
-    "SETTINGSWIND_GLOB_AUTOMATIZATIONTAB" : "Automatization", //NEW
-    "SETTINGSWIND_GLOB_ADVANCEDTAB" : "Advanced", //NEW
-    "SETTINGSWIND_GLOB_AUTO_SET_TITLE" : "Set automatization:", //NEW
-    "SETTINGSWIND_GLOB_AUTO_SYNC" : "Sync", //NEW
-    "SETTINGSWIND_GLOB_AUTO_CLASSIC" : "Classic", //NEW
-    "SETTINGSWIND_GLOB_AUTO_SYNC_SELECT_TITLE" : "Select what to sync", //NEW
-    "SETTINGSWIND_GLOB_AUTO_SYNC_FILECREATION" : "File creation", //NEW
-    "SETTINGSWIND_GLOB_AUTO_SYNC_FOLDERCREATION" : "Folder creation", //NEW
-    "SETTINGSWIND_GLOB_AUTO_SYNC_FILEUPLOAD" : "File update", //NEW
-    "SETTINGSWIND_GLOB_AUTO_SYNC_RENAMING" : "Renaming", //NEW
-    "SETTINGSWIND_GLOB_AUTO_SYNC_MOVING" : "Moving", //NEW
-    "SETTINGSWIND_GLOB_AUTO_SYNC_DELETING" : "Deleting", //NEW
-    "SETTINGSWIND_GLOB_AUTO_SYNC_EXTRASETTINGS_TITLE" : "Extra settings", //NEW
-    "SETTINGSWIND_GLOB_AUTO_SYNC_CHECKDIFF" : "Check for differences", //NEW
-    "SETTINGSWIND_GLOB_AUTO_SYNC_CHECKDIFF_EXPLAIN" : "When you open local or remote file", //NEW
-    "SETTINGSWIND_GLOB_AUTO_SYNC_IGNORELIST_TITLE" : "Ignore list", //NEW
-    "SETTINGSWIND_GLOB_AUTO_SYNC_IGNORELIST_EXPLAIN" : "Same syntax as in .gitignore", //NEW
-    "SETTINGSWIND_GLOB_SYNCLOCPROJWCONN" : "Open related Local project after switching connection and vice versa", //NEW
-    "SETTINGS_NOTIF_RELOADED" : "Settings were successfully reloaded.", //NEW
-    "SETTINGS_ERROR_RELOADED" : "Can't reload settings.", //NEW
+    "SETTINGSWIND_GLOB_TIMEFORMAT_ASIAN" : "Asiatico", //NEW
+    "SETTINGSWIND_GLOB_AUTOCLEAR" : "Eliminazione automatica cosa", //NEW
+    "SETTINGSWIND_GLOB_NOTIFICATIONS" : "Notifiche", //NEW
+    "SETTINGSWIND_GLOB_TIMEOFFSET" : "Offset tempo:", //NEW
+    "SETTINGSWIND_GLOB_TIMEOFFSET_DESC" : "Utilizzare questa opzione per impostare il tempo corretto per la colonna modificata", //NEW
+    "SETTINGSWIND_GLOB_CONNECTIONTAB" : "Connessione", //NEW
+    "SETTINGSWIND_GLOB_AUTOMATIZATIONTAB" : "Automatizzazione", //NEW
+    "SETTINGSWIND_GLOB_ADVANCEDTAB" : "Avanzate", //NEW
+    "SETTINGSWIND_GLOB_AUTO_SET_TITLE" : "Imposta automatizzazione:", //NEW
+    "SETTINGSWIND_GLOB_AUTO_SYNC" : "Sincronizzazione", //NEW
+    "SETTINGSWIND_GLOB_AUTO_CLASSIC" : "Classico", //NEW
+    "SETTINGSWIND_GLOB_AUTO_SYNC_SELECT_TITLE" : "Seleziona cosa sincronizzare", //NEW
+    "SETTINGSWIND_GLOB_AUTO_SYNC_FILECREATION" : "Creazione file", //NEW
+    "SETTINGSWIND_GLOB_AUTO_SYNC_FOLDERCREATION" : "Creazione cartella", //NEW
+    "SETTINGSWIND_GLOB_AUTO_SYNC_FILEUPLOAD" : "Aggiornamento file", //NEW
+    "SETTINGSWIND_GLOB_AUTO_SYNC_RENAMING" : "Rinomina", //NEW
+    "SETTINGSWIND_GLOB_AUTO_SYNC_MOVING" : "Spostamento", //NEW
+    "SETTINGSWIND_GLOB_AUTO_SYNC_DELETING" : "Eliminazione", //NEW
+    "SETTINGSWIND_GLOB_AUTO_SYNC_EXTRASETTINGS_TITLE" : "Impostazioni extra", //NEW
+    "SETTINGSWIND_GLOB_AUTO_SYNC_CHECKDIFF" : "Verifica la presenza di differenze", //NEW
+    "SETTINGSWIND_GLOB_AUTO_SYNC_CHECKDIFF_EXPLAIN" : "Quando apri il file locale o remoto", //NEW
+    "SETTINGSWIND_GLOB_AUTO_SYNC_IGNORELIST_TITLE" : "Lista ignoramenti", //NEW
+    "SETTINGSWIND_GLOB_AUTO_SYNC_IGNORELIST_EXPLAIN" : "Stessa sintassi di .gitignore", //NEW
+    "SETTINGSWIND_GLOB_SYNCLOCPROJWCONN" : "Apri i relativi progetti locali dopo lo switching della connessione e viceversa", //NEW
+    "SETTINGS_NOTIF_RELOADED" : "Impostazioni ricaricate correttamente.", //NEW
+    "SETTINGS_ERROR_RELOADED" : "Impossibile caricare le impostazioni.", //NEW
 
     "QUEUE_TITLE" : "Coda di eqFTP",
     "QUEUE_HEADER_NAME" : "Nome",
@@ -123,35 +123,35 @@ define({
     "QUEUE_HEADER_TO" : "Percorso destinazione",
     "QUEUE_HEADER_STATUS" : "Stato",
     "QUEUE_CLEARQ" : "Ripulisci La Coda",
-    "QUEUE_STARTQ" : "Start Queue", //NEW
-    "QUEUE_PAUSEQ" : "Pause Queue", //NEW
-    "QUEUE_RESTARTQ" : "Restart Failed", //NEW
+    "QUEUE_STARTQ" : "Inizia coda", //NEW
+    "QUEUE_PAUSEQ" : "Pausa coda", //NEW
+    "QUEUE_RESTARTQ" : "Restart fallito", //NEW
     "QUEUE_CONTEXTM_STARTT" : "Start", //NEW
-    "QUEUE_CONTEXTM_PAUSET" : "Pause", //NEW
-    "QUEUE_CONTEXTM_REMOVET" : "Remove", //NEW
+    "QUEUE_CONTEXTM_PAUSET" : "Pausa", //NEW
+    "QUEUE_CONTEXTM_REMOVET" : "Rimuovi", //NEW
     "QUEUE_CONTEXTM_RESTARTT" : "Restart", //NEW
-    "QUEUE_TASK_STATUS_WAITING" : "Waiting", //NEW
-    "QUEUE_TASK_STATUS_SUCCESS" : "Done", //NEW
-    "QUEUE_TASK_STATUS_FAIL" : "Failed", //NEW
-    "QUEUE_TASK_STATUS_PAUSE" : "Paused", //NEW
-    "QUEUE_TASK_STATUS_STARTED" : "Started", //NEW
-    "QUEUE_TASK_STATUS_DELETED" : "Deleted", //NEW
-    "QUEUE_DONT_ADD_COMPLETED" : "Auto-clear Completed tasks", //NEW
+    "QUEUE_TASK_STATUS_WAITING" : "Aspettando", //NEW
+    "QUEUE_TASK_STATUS_SUCCESS" : "Fatto", //NEW
+    "QUEUE_TASK_STATUS_FAIL" : "Fallito", //NEW
+    "QUEUE_TASK_STATUS_PAUSE" : "In pausa", //NEW
+    "QUEUE_TASK_STATUS_STARTED" : "Iniziato", //NEW
+    "QUEUE_TASK_STATUS_DELETED" : "Cancellato", //NEW
+    "QUEUE_DONT_ADD_COMPLETED" : "Elimina automaticamente task completati", //NEW
     
     "ERR_FILE_ACCESSDENIED" : "Accesso Negato. Controlla i permessi del file.",
     "ERR_FILE_AUTHORIZATION" : "Autorizzazione fallita. Controlla la tua login e la tua password.",
     "ERR_FILE_SERVNOEXIST" : "Il Server Non Esiste. Forse hai sbagliato a trascriverlo.",
     "ERR_FILE_SERVCANTREACH" : "Non Posso Collegarmi Al Server. Controlla il Firewall.",
-    "ERR_FILE_FILESIZE0" : "Can't download file. Filesize is 0.", //NEW
-    "ERR_FILE_DOWNLOAD" : "Can't download file.", //NEW
-    "ERR_FILE_UPLOAD" : "Can't upload file.", //NEW
-    "ERR_FILE_DOESNTEXIST" : "File doesn't exist", //NEW
-    "ERR_FILE_CANTRENAME" : "Can't rename file: ", //NEW
-    "ERR_FILE_CANTDELETE" : "Can't delete file: ", //NEW
-    "ERR_FILE_CANTCREATEDIR" : "Can't create folder: ", //NEW
-    "ERR_FILE_CANTDELETEDIR" : "Can't delete folder: ", //NEW
-    "ERR_FILE_CANTCREATEFILE" : "Can't create file: ", //NEW
-    "ERR_FOLDER_OPEN" : "There's an error opening folder as project", //NEW
+    "ERR_FILE_FILESIZE0" : "Impossibile scaricare il file. La grandezza è 0.", //NEW
+    "ERR_FILE_DOWNLOAD" : "Impossibile scaricare il file.", //NEW
+    "ERR_FILE_UPLOAD" : "Impossibile caricare il file.", //NEW
+    "ERR_FILE_DOESNTEXIST" : "Il file non esiste", //NEW
+    "ERR_FILE_CANTRENAME" : "Impossibile rinominare il file: ", //NEW
+    "ERR_FILE_CANTDELETE" : "Impossibile eliminare il file: ", //NEW
+    "ERR_FILE_CANTCREATEDIR" : "Impossibile creare la cartella: ", //NEW
+    "ERR_FILE_CANTDELETEDIR" : "Impossibile eliminare la cartella: ", //NEW
+    "ERR_FILE_CANTCREATEFILE" : "Impossibile creare il file: ", //NEW
+    "ERR_FOLDER_OPEN" : "C'è un errore nell'apertura della cartella come progetto", //NEW
 
     "CONTEXTM_DOWNLOAD" : "Download",
     "CONTEXTM_UPLOAD" : "Upload",
@@ -159,9 +159,9 @@ define({
     "CONTEXTM_OPEN" : "Apri",
     "CONTEXTM_DELETE" : "Cancella",
     "CONTEXTM_RENAME" : "Rinnomina",
-    "CONTEXTM_REDOWNLOAD" : "Download from server", //NEW
-    "CONTEXTM_CREATEFILE" : "Create file", //NEW
-    "CONTEXTM_CREATEFOLDER" : "Create folder", //NEW
+    "CONTEXTM_REDOWNLOAD" : "Scarica dal server", //NEW
+    "CONTEXTM_CREATEFILE" : "Crea file", //NEW
+    "CONTEXTM_CREATEFOLDER" : "Crea cartella", //NEW
 
     "OTHER_SELECT_SERVER_DROPDOWN" : "Seleziona un server remoto...",
     "OTHER_ERROR" : "Errore",
@@ -173,11 +173,11 @@ define({
     "OTHER_OFF" : "Off", //NEW
     "OTHER_CANCEL" : "Annulla",
     "OTHER_APPLY" : "Applica",
-    "OTHER_SAVE" : "Save", //NEW
+    "OTHER_SAVE" : "Salva", //NEW
     "OTHER_CLOSE" : "Chiudi",
     "OTHER_DELETE" : "Elimina",
-    "OTHER_CONFIRM_DELETE" : "Are you sure you want to delete this item?", //NEW
-    "OTHER_CONFIRM_SETTINGSCLOSE" : "There are some unsaved changes that will be lost if you click OK.<br>Do you want to proceed?", //NEW
-    "OTHER_ERROR_EVENDISCONN" : "Can't upload file. 'Even If Disconnected' option is off.", //NEW
-    "OTHER_ERROR_CANTREADSETTINGS" : "Can't read settings file. You probably mistyped your master password." //NEW
+    "OTHER_CONFIRM_DELETE" : "Sei sicuro di voler eliminare questo elemento?", //NEW
+    "OTHER_CONFIRM_SETTINGSCLOSE" : "Ci sono delle modifiche non salvate che verranno eliminate se clicchi OK.<br>Vuoi procedere?", //NEW
+    "OTHER_ERROR_EVENDISCONN" : "Impossibile caricare il file. L'opzione 'Anche se disconnesso' è disabilitata.", //NEW
+    "OTHER_ERROR_CANTREADSETTINGS" : "Impossibile leggere il file di configurazione. Probabilmente hai sbagliato la tua Master Password." //NEW
 });
