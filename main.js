@@ -102,6 +102,11 @@ define(function (require, exports, module) {
         
         diffChecked = [],
         
+        pwdDialog = {
+            dial: false,
+            callback: function() {}
+        },
+        
         eqftpVersion = "0.7.0";
     
     function isFunction(functionToCheck) {
@@ -709,22 +714,11 @@ define(function (require, exports, module) {
             },
             password: {
                 get: function(callback) {
+                    pwdDialog.callback = callback;
                     if (eqFTP.globals.masterPassword !== null) {
-                        return eqFTP.globals.masterPassword;
+                        callback(eqFTP.globals.masterPassword);
                     } else {
-                        var dialog = Dialogs.showModalDialogUsingTemplate(eqFTPPasswordTemplate, true);
-                        dialog.done(function (id) {
-                            if (id === 'ok') {
-                                var pass = dialog._$dlg[0].children[1].children[0].children[1].value;
-                                eqFTP.globals.masterPassword = pass;
-                                callback(pass);
-                                return true;
-                            } else if (id === 'close') {
-                                callback(false);
-                                return false;
-                            }
-                        });
-                        return false;
+                        pwdDialog.dial = Dialogs.showModalDialogUsingTemplate(eqFTPPasswordTemplate, false);
                     }
                 }
             },
@@ -966,7 +960,7 @@ define(function (require, exports, module) {
                         });
                     }
                     if(eqFTP.globals.masterPassword == null) {
-                        var passResult = eqFTP.sf.windows.password.get(function(pass) {
+                        eqFTP.sf.windows.password.get(function(pass) {
                             if(pass) {
                                 params.pass = pass;
                                 return doThis(params);
@@ -2391,43 +2385,54 @@ define(function (require, exports, module) {
             }
             else if (action === "settingsWindow_globalSettings_save")
             {
-                eqFTP.globals.prefs.set('defaultSettingsPathPref',$('#eqFTP-SettingsFolder').val() || defaultProjectsDir);
+                var doThis = function(useEncryption) {
+                    useEncryption = !!useEncryption;
+                    eqFTP.globals.prefs.set('defaultSettingsPathPref',$('#eqFTP-SettingsFolder').val() || defaultProjectsDir);
+                    eqFTP.globals.prefs.set('useEncryption',useEncryption);
+                    eqFTP.globals.prefs.set('notifications',$("#eqFTP-notifications").is(':checked'));
+                    eqFTP.globals.prefs.save();
+                    eqFTP.sf.others.saveProjectsPaths();
+
+                    eqFTP.globals.globalFtpDetails.main.debug = $("#eqFTP-debug").is(':checked');
+
+                    eqFTP.globals.globalFtpDetails.main.timeFormat = $("#eqFTP-timeFormat option:selected").val();
+                    eqFTP.globals.globalFtpDetails.main.folderToProjects = $("#eqFTP-ProjectsFolder").val();
+                    eqFTP.globals.globalFtpDetails.main.noProjectOnDownload = $("#eqFTP-noProjectOnDownload").is(':checked');
+                    eqFTP.globals.globalFtpDetails.main.syncLocalProjectWithConnection = $("#eqFTP-syncLocalProjectWithConnection").is(':checked');
+
+                    if(eqFTP.sf.settings.write()) {
+                        eqFTP.sf.notifications.settings({
+                            type: "notification",
+                            state: true,
+                            text: eqFTPstrings.SETTINGSWIND_NOTIF_DONE
+                        });
+                        eqFTP.sf.serverList.redraw();
+                    } else {
+                        eqFTP.sf.notifications.settings({
+                            type: "error",
+                            state: true,
+                            text: eqFTPstrings.SETTINGSWIND_ERR_CANTWRITE
+                        });
+                    }
+                    nodeConnection.domains.eqFTP.updateSettings({
+                        debug: eqFTP.globals.globalFtpDetails.main.debug,
+                        defaultLocal: eqFTP.globals.globalFtpDetails.main.folderToProjects
+                    });
+                    eqFTP.sf.remoteStructure.redraw({connectionID: eqFTP.globals.connectedServer});
+                }
                 if ($('#eqFTP-useEncryption').is(':checked')) {
-                    eqFTP.globals.prefs.set('useEncryption',true);
+                    eqFTP.sf.windows.password.get(function(result) {
+                        if (result) {
+                            doThis(result);
+                        } else {
+                            $('#eqFTP-useEncryption').prop('checked', false);
+                            doThis();
+                        }
+                    });
                 } else {
                     eqFTP.globals.masterPassword = null;
-                    eqFTP.globals.prefs.set('useEncryption',false);
+                    doThis();
                 }
-                eqFTP.globals.prefs.set('notifications',$("#eqFTP-notifications").is(':checked'));
-                eqFTP.globals.prefs.save();
-                eqFTP.sf.others.saveProjectsPaths();
-
-                eqFTP.globals.globalFtpDetails.main.debug = $("#eqFTP-debug").is(':checked');
-
-                eqFTP.globals.globalFtpDetails.main.timeFormat = $("#eqFTP-timeFormat option:selected").val();
-                eqFTP.globals.globalFtpDetails.main.folderToProjects = $("#eqFTP-ProjectsFolder").val();
-                eqFTP.globals.globalFtpDetails.main.noProjectOnDownload = $("#eqFTP-noProjectOnDownload").is(':checked');
-                eqFTP.globals.globalFtpDetails.main.syncLocalProjectWithConnection = $("#eqFTP-syncLocalProjectWithConnection").is(':checked');
-
-                if(eqFTP.sf.settings.write()) {
-                    eqFTP.sf.notifications.settings({
-                        type: "notification",
-                        state: true,
-                        text: eqFTPstrings.SETTINGSWIND_NOTIF_DONE
-                    });
-                    eqFTP.sf.serverList.redraw();
-                } else {
-                    eqFTP.sf.notifications.settings({
-                        type: "error",
-                        state: true,
-                        text: eqFTPstrings.SETTINGSWIND_ERR_CANTWRITE
-                    });
-                }
-                nodeConnection.domains.eqFTP.updateSettings({
-                    debug: eqFTP.globals.globalFtpDetails.main.debug,
-                    defaultLocal: eqFTP.globals.globalFtpDetails.main.folderToProjects
-                });
-                eqFTP.sf.remoteStructure.redraw({connectionID: eqFTP.globals.connectedServer});
             }
             else if (action === "settingsWindow_connection_save")
             {
@@ -3060,6 +3065,30 @@ define(function (require, exports, module) {
             });
             if (eqFTP.sf.settings.write()) {
                 eqFTP.sf.serverList.redraw();
+            }
+        });
+        
+        $("body").on("click", "#eqFTP-passwordEntering [data-button-id]", function(e) {
+            e.preventDefault();
+            var id = $(this).attr("data-button-id");
+            if (pwdDialog.dial) {
+                if (id === 'ok') {
+                    var pass = pwdDialog.dial._$dlg[0].children[1].children[0].children[1].value;
+                    if (pass) {
+                        eqFTP.globals.masterPassword = pass;
+                        pwdDialog.dial.close();
+                        pwdDialog.dial = false;
+                        pwdDialog.callback(pass);
+                        return true;
+                    } else {
+                        $("#eqFTP-password").css('box-shadow', '0 0 5px #CC2222');
+                    }
+                } else if (id === 'close') {
+                    pwdDialog.dial.close();
+                    pwdDialog.dial = false;
+                    pwdDialog.callback(false);
+                    return false;
+                }
             }
         });
 
