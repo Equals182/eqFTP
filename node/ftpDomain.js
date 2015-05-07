@@ -165,6 +165,8 @@ maxerr: 50, node: true */
                             eqFTPconnections[e.id] = e;
                         }
                     });
+                } else {
+                    eqFTPconnections[e.id] = e;
                 }
             } else {
                 if (debug)
@@ -303,7 +305,6 @@ console.log("[eqFTP-test] Updating settings. Expecting debug on", params);
                             }
                             
                             try {
-                                console.log('sftp?');
                                 eqFTPconnections[params.connectionID].ftpDomain.client = new SFTPClient.Client(sftp_params);
                                 _commands.service.listeners({
                                     connectionID: params.connectionID,
@@ -1799,7 +1800,8 @@ console.log('[eqFTP-queueisbusy][s.sKA 2] Setting busy to false');
                             if (result) {
                                 if(eqFTPconnections[params.connectionID].protocol === "sftp") {
                                     // SFTP | Using cd . instead of NOOP
-                                    console.log("Keep Alive (cd .) SFTP");
+                                    if (debug)
+                                        console.log("Keep Alive (cd .) SFTP");
                                     eqFTPconnections[params.connectionID].ftpDomain.client.raw({
                                         command: "cd",
                                         arguments: ["."],
