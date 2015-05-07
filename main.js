@@ -381,6 +381,10 @@ define(function (require, exports, module) {
             clearInterval(t);
         }, 500);
     }
+    function getTimestamp() {
+        var t = new Date();
+        return t.getHours() + ":" + t.getMinutes() + ":" + t.getSeconds() + "." + t.getMilliseconds();
+    }
     
     eqFTPSettingsTemplate = Mustache.render(eqFTPSettingsTemplate, eqFTPstrings);
     eqFTPPasswordTemplate = Mustache.render(eqFTPPasswordTemplate, eqFTPstrings);
@@ -1570,6 +1574,7 @@ define(function (require, exports, module) {
                     });
                     if (o.type === "file")
                         queuersAll.push(o);
+                    console.log(getTimestamp(), 'Adding to queue', o);
                     nodeConnection.domains.eqFTP.addToQueue(o);
                 });
             }
@@ -1616,7 +1621,7 @@ define(function (require, exports, module) {
         }
         chain(connectNode, loadNodeFtp);
         
-        $(nodeConnection).on("eqFTP:events", function(event, params) {
+        nodeConnection.on("eqFTP:events", function(event, params) {
             if (eqFTP.globals.globalFtpDetails.main.debug)
                 console.log(params);
             var e = params.event,
@@ -1644,6 +1649,7 @@ define(function (require, exports, module) {
             }
             else if (e === "directory_got")
             {
+                console.log(getTimestamp(), 'Directory got');
                 if(params.err) {
                     eqFTP.sf.remoteStructure.redraw({
                         connectionID: eqFTP.globals.connectedServer
@@ -1941,6 +1947,7 @@ define(function (require, exports, module) {
             }
             else if (e === "upload_complete")
             {
+                console.log(getTimestamp(), 'Upload complete');
                 eqFTPdone();
                 if (params.element.after && params.element.after === "disconnect") {
                     eqFTP.ftp.disconnect({
@@ -3215,7 +3222,7 @@ define(function (require, exports, module) {
         });
         
         DocumentManager.on("documentSaved", function (event, doc) {
-console.log('[eqFTP-uploadonsave] documentSaved triggered');
+console.log(getTimestamp(),'[eqFTP-uploadonsave] documentSaved triggered');
             var document = DocumentManager.getCurrentDocument();
 console.log('[eqFTP-uploadonsave] Checking if file is within project', document.file.fullPath);
             if (ProjectManager.isWithinProject(document.file.fullPath)) {
