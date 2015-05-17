@@ -1148,7 +1148,6 @@ console.log('[eqFTP-queueisbusy][c.d no connection] Setting busy to false');
                                 } else {
                                     // FTP
                                     eqFTPconnections[params.connectionID].ftpDomain.client.ls(params.path, function (err, files) {
-                                        //console.log(files);
                                         if (debug)
                                             throwError("[s.gP] Got Directory: " + params.path, true);
                                         if (params.callback)
@@ -1318,7 +1317,15 @@ console.log('[eqFTP-queueisbusy][s.sKA 1] Setting busy to true');
                                     connectionID: params.connectionID,
                                     callback: function(err) {
 console.log('[eqFTP-queueisbusy][s.sKA 2] Setting busy to false');
-                                        eqFTPconnections[params.connectionID].ftpDomain.busy = false;
+                                        if (!eqFTPconnections[params.connectionID].ftpDomain.queueInProcess) {
+                                            eqFTPconnections[params.connectionID].ftpDomain.busy = false;
+                                            if (eqFTPconnections[params.connectionID].ftpDomain.queue.a.length > 0) {
+                                                _commands.queue.process({
+                                                    connectionID: params.connectionID,
+                                                    callback: function() {}
+                                                });
+                                            }
+                                        }
                                         if (err)
                                             _commands.service.clearKeepAlive({connectionID: params.connectionID});
                                     }
@@ -1485,6 +1492,7 @@ console.log('[eqFTP-queueisbusy][s.sKA 2] Setting busy to false');
                                     eqFTPconnections[params.connectionID].ftpDomain.client.raw({
                                         command: "pwd",
                                         callback: function (err, data) {
+                                            console.log(data);
                                             var path = data.text.match(/257\s"(.*?)"/i);
                                             if (!path[1] || path[1] === undefined) {
                                                 path = "/";
@@ -1891,6 +1899,9 @@ console.log('[eqFTP-queueisbusy][s.sKA 2] Setting busy to false');
                     if (!eqFTPconnections[params.connectionID].ftpDomain.processQueuePaused) {
                         if (eqFTPconnections[params.connectionID].ftpDomain.queue.a !== undefined && eqFTPconnections[params.connectionID].ftpDomain.queue.a.length > 0) {
                             if (!eqFTPconnections[params.connectionID].ftpDomain.busy) {
+console.log('[eqFTP-queueisbusy][q.p just started] Setting busy to true');
+                                eqFTPconnections[params.connectionID].ftpDomain.busy = true;
+                                eqFTPconnections[params.connectionID].ftpDomain.queueInProcess = true;
                                 _domainManager.emitEvent("eqFTP", "events", {event: "working", work: true});
                                 var queuer = eqFTPconnections[params.connectionID].ftpDomain.queue.a.shift();
                                 queuer.status = statuses["g"];
@@ -1906,8 +1917,6 @@ console.log('[eqFTP-queueisbusy][s.sKA 2] Setting busy to false');
                                     }
                                 };
                                 eqFTPconnections[params.connectionID].ftpDomain.currentElement = queuer;
-console.log('[eqFTP-queueisbusy][q.p just started] Setting busy to true');
-                                eqFTPconnections[params.connectionID].ftpDomain.busy = true;
                                 _commands.connection.connect({
                                     connectionID: params.connectionID,
                                     callback: function(result) {
@@ -2077,6 +2086,7 @@ console.log('[eqFTP-queueisbusy][q.p not a file or folder] Setting busy to false
                                     connectionID: params.connectionID
                                 });
                             }
+                            eqFTPconnections[params.connectionID].ftpDomain.queueInProcess = false;
                             eqFTPconnections[params.connectionID].ftpDomain.checkDiffAction = false;
                             _domainManager.emitEvent("eqFTP", "events", {event: "working", work: false});
                             if (debug)

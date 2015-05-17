@@ -385,6 +385,9 @@ define(function (require, exports, module) {
         var t = new Date();
         return t.getHours() + ":" + t.getMinutes() + ":" + t.getSeconds() + "." + t.getMilliseconds();
     }
+    function clearName(input) {
+        return input.replace(/[^\w\.\s0-9-_\*\!]/g, '');
+    }
     
     eqFTPSettingsTemplate = Mustache.render(eqFTPSettingsTemplate, eqFTPstrings);
     eqFTPPasswordTemplate = Mustache.render(eqFTPPasswordTemplate, eqFTPstrings);
@@ -1425,7 +1428,7 @@ define(function (require, exports, module) {
                     var n = el.val();
                     var p = el.attr('data-eqFTPRenameFrom');
                     if (o !== n) {
-                        n = n.replace(/[^\w\.\s]/g, '');
+                        n = clearName(n);
                         var or = o.replace(/[\"\*\/\\\?\%\:\|\<\>\.]/g, "\\$&");
                         var re = new RegExp(or+"$");
                         var np = p.replace(re, n);
@@ -2963,7 +2966,7 @@ define(function (require, exports, module) {
         });
         $("body").on("keyup", "#eqFTPnewItem input", function(e) {
             var code = e.keyCode || e.which,
-                val = $(this).val().replace(/[^\w|\.|\s]/g, '');
+                val = clearName($(this).val());
             if (code == 13) {
                 eqFTP.sf.others.createNewFile({
                     connectionID: eqFTP.globals.connectedServer,
