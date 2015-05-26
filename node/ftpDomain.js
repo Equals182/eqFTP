@@ -1310,6 +1310,7 @@ console.log('[eqFTP-queueisbusy][s.d.a keep] Setting busy to false');
             setKeepAlive: function(params) {
                 if (eqFTPconnections[params.connectionID].keepAlive > 0) {
                     console.log('[eqFTP-speciallyForWikunia] check 1', eqFTPconnections[params.connectionID].ftpDomain.keepAlive);
+                    console.log('[eqFTP-speciallyForWikunia] just a check');
                     eqFTPconnections[params.connectionID].ftpDomain.keepAlive = setInterval(function() {
                         console.log('[eqFTP-speciallyForWikunia] check 1.1', eqFTPconnections[params.connectionID].ftpDomain, eqFTPconnections[params.connectionID].ftpDomain.client);
                         /*
