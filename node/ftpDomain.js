@@ -1311,11 +1311,10 @@ console.log('[eqFTP-queueisbusy][s.d.a keep] Setting busy to false');
                 if (eqFTPconnections[params.connectionID].keepAlive > 0) {
                     console.log('[eqFTP-speciallyForWikunia] check 1', eqFTPconnections[params.connectionID].ftpDomain.keepAlive);
                     console.log('[eqFTP-speciallyForWikunia] just a check');
+                    /*
+                    eqFTPconnections[params.connectionID].ftpDomain.keepAlive = null;
                     eqFTPconnections[params.connectionID].ftpDomain.keepAlive = setInterval(function() {
-                        console.log('[eqFTP-speciallyForWikunia] check 1.1', eqFTPconnections[params.connectionID].ftpDomain, eqFTPconnections[params.connectionID].ftpDomain.client);
-                        /*
                         if (eqFTPconnections[params.connectionID].ftpDomain.client) {
-                            console.log('[eqFTP-speciallyForWikunia] check 1.1.1');
                             if (!eqFTPconnections[params.connectionID].ftpDomain.busy) {
 console.log('[eqFTP-queueisbusy][s.sKA 1] Setting busy to true');
                                 eqFTPconnections[params.connectionID].ftpDomain.busy = true;
@@ -1338,11 +1337,10 @@ console.log('[eqFTP-queueisbusy][s.sKA 2] Setting busy to false');
                                 });
                             }
                         } else {
-                            console.log('[eqFTP-speciallyForWikunia] check 1.2');
                             _commands.service.clearKeepAlive({connectionID: params.connectionID});
                         }
-                        */
                     }, eqFTPconnections[params.connectionID].keepAlive * 1000);
+                    */
                 } else {
                     _commands.service.clearKeepAlive({connectionID: params.connectionID});
                 }
