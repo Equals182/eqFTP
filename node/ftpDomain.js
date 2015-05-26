@@ -804,7 +804,6 @@ console.log('[eqFTP-queueisbusy][c.d no connection] Setting busy to false');
                                 user: eqFTPconnections[params.connectionID].username, 
                                 pass: eqFTPconnections[params.connectionID].password,
                                 callback: function (err, res) {
-                                    console.log("[eqFTP-speciallyForWikunia] assuming err is false: ", err, res);
                                     if (err) {
                                         throwError("[s.a] Can't authorize on connectionID: " + params.connectionID);
                                         throwError(err);
@@ -818,44 +817,31 @@ console.log('[eqFTP-queueisbusy][c.d no connection] Setting busy to false');
                                         else
                                             return false;
                                     } else {
-                                        console.log("[eqFTP-speciallyForWikunia] go");
                                         var commandArray = res.text.split("\n");
                                         commandArray.shift();
                                         commandArray.pop();
                                         var commandList = [];
-                                        console.log("[eqFTP-speciallyForWikunia] go 2");
                                         commandArray.forEach(function (element, index, array) {
                                             element = element.replace(/\w+\*.\s?/g, '');
-                                            console.log("[eqFTP-speciallyForWikunia] go 2.1");
                                             var command = element.match(/\s?(\w+)\s?(?!\*)/ig);
-                                            console.log("[eqFTP-speciallyForWikunia] go 2.2", command);
                                             if (command.length > 0) {
-                                                console.log("[eqFTP-speciallyForWikunia] go 2.3");
                                                 command.forEach(function (element, index, array) {
-                                                    console.log("[eqFTP-speciallyForWikunia] go 2.3.1");
                                                     element = element.replace(/(\s?)/g, '');
-                                                    console.log("[eqFTP-speciallyForWikunia] go 2.3.2");
                                                     commandList.push(element);
                                                 });
                                             }
                                         });
-                                        console.log("[eqFTP-speciallyForWikunia] go 3");
                                         eqFTPconnections[params.connectionID].ftpDomain.supportedCommands = commandList;
                                         //var useMLSD = getAvailableCommands({connectionID: params.connectionID, check: "MLSD"});
                                         //if (useMLSD || eqFTPconnections[params.connectionID].useList)
-                                        console.log("[eqFTP-speciallyForWikunia] go 4");
                                         eqFTPconnections[params.connectionID].ftpDomain.client.useCommand(eqFTPconnections[params.connectionID].foldreRetrievingMethod || "LIST");
 
-                                        console.log("[eqFTP-speciallyForWikunia] go 5");
                                         if (eqFTPconnections[params.connectionID].keepAlive && eqFTPconnections[params.connectionID].keepAlive > 0) {
-                                            console.log("[eqFTP-speciallyForWikunia] go 5.1");
                                             _commands.service.setKeepAlive({
                                                 connectionID: params.connectionID
                                             });
                                         }
-                                        console.log("[eqFTP-speciallyForWikunia] go 6");
                                         eqFTPconnections[params.connectionID].auth = true;
-                                        console.log("[eqFTP-speciallyForWikunia] go 7", params.callback);
                                         if (params.callback)
                                             params.callback(true);
                                         else
@@ -1322,9 +1308,13 @@ console.log('[eqFTP-queueisbusy][s.d.a keep] Setting busy to false');
                 }
             },
             setKeepAlive: function(params) {
+                console.log('[eqFTP-speciallyForWikunia] somehow... KEEP ALIVE WUT??', eqFTPconnections[params.connectionID], eqFTPconnections[params.connectionID].keepAlive);
                 if (eqFTPconnections[params.connectionID].keepAlive > 0) {
+                    console.log('[eqFTP-speciallyForWikunia] check 1');
                     eqFTPconnections[params.connectionID].ftpDomain.keepAlive = setInterval(function() {
+                        console.log('[eqFTP-speciallyForWikunia] check 1.1', eqFTPconnections[params.connectionID].ftpDomain, eqFTPconnections[params.connectionID].ftpDomain.client);
                         if (eqFTPconnections[params.connectionID].ftpDomain.client) {
+                            console.log('[eqFTP-speciallyForWikunia] check 1.1.1');
                             if (!eqFTPconnections[params.connectionID].ftpDomain.busy) {
 console.log('[eqFTP-queueisbusy][s.sKA 1] Setting busy to true');
                                 eqFTPconnections[params.connectionID].ftpDomain.busy = true;
@@ -1347,10 +1337,12 @@ console.log('[eqFTP-queueisbusy][s.sKA 2] Setting busy to false');
                                 });
                             }
                         } else {
+                            console.log('[eqFTP-speciallyForWikunia] check 1.2');
                             _commands.service.clearKeepAlive({connectionID: params.connectionID});
                         }
                     }, eqFTPconnections[params.connectionID].keepAlive * 1000);
                 } else {
+                    console.log('[eqFTP-speciallyForWikunia] check 2');
                     _commands.service.clearKeepAlive({connectionID: params.connectionID});
                 }
             },
