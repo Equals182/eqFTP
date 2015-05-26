@@ -1148,6 +1148,7 @@ console.log('[eqFTP-queueisbusy][c.d no connection] Setting busy to false');
                                 } else {
                                     // FTP
                                     eqFTPconnections[params.connectionID].ftpDomain.client.ls(params.path, function (err, files) {
+                                        console.log(files);
                                         if (debug)
                                             throwError("[s.gP] Got Directory: " + params.path, true);
                                         if (params.callback)
