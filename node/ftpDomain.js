@@ -300,7 +300,7 @@ console.log("[eqFTP-test] Updating settings. Expecting debug on", params);
                             }
                             if (debug) {
                                 sftp_params.debug = function(str) {
-                                    console.log("SFTP DEBUG", str);
+                                    //console.log("SFTP DEBUG", str);
                                 }
                             }
                             
@@ -1093,7 +1093,10 @@ console.log('[eqFTP-queueisbusy][c.d no connection] Setting busy to false');
                     params.path = normalizePath(eqFTPconnections[params.connectionID].remoteRoot + "/" + params.path);
                     if (eqFTPconnections[params.connectionID].protocol === "sftp" && eqFTPconnections[params.connectionID].sshCommandsEnabled == 0) {
                         eqFTPconnections[params.connectionID].ftpDomain.sftpClient.lstat(params.path, function(err, stats) {
-                            console.log(err, stats);
+                            if (debug)
+                                throwError("[s.cD] Does directory exists: " + params.path + " : " + JSON.stringify(err) + " : " + JSON.stringify(stats), true);
+                            if (params.callback)
+                                params.callback(!err);
                         });
                     } else {
                         _commands.raw.pwd({
@@ -1182,7 +1185,6 @@ console.log('[eqFTP-queueisbusy][c.d no connection] Setting busy to false');
                                 } else {
                                     // FTP
                                     eqFTPconnections[params.connectionID].ftpDomain.client.ls(params.path, function (err, files) {
-                                        console.log(files);
                                         if (debug)
                                             throwError("[s.gP] Got Directory: " + params.path, true);
                                         if (params.callback)
@@ -1416,7 +1418,6 @@ console.log('[eqFTP-queueisbusy][s.sKA 2] Setting busy to false');
                                 type: "file",
                                 connectionID: params.connectionID,
                                 callback: function(result) {
-                                    console.log("TEST CALLBACK");
                                     if (result)
                                         _domainManager.emitEvent("eqFTP", "events", {event: "file_created", connectionID: params.connectionID, path: params.remotePath});
                                 }
@@ -1506,7 +1507,6 @@ console.log('[eqFTP-queueisbusy][s.sKA 2] Setting busy to false');
                                             command: "pwd",
                                             callback: function (err, data) {
                                                 var path = data.text.replace(/\\n|\\r\\n|\\r|\n/gi, "");
-                                                console.log(err, data, path);
                                                 if (!path) {
                                                     path = "/";
                                                 }
@@ -1528,7 +1528,6 @@ console.log('[eqFTP-queueisbusy][s.sKA 2] Setting busy to false');
                                     eqFTPconnections[params.connectionID].ftpDomain.client.raw({
                                         command: "pwd",
                                         callback: function (err, data) {
-                                            console.log(data);
                                             var path = data.text.match(/257\s"(.*?)"/i);
                                             if (!path[1] || path[1] === undefined) {
                                                 path = "/";
@@ -1845,10 +1844,9 @@ console.log('[eqFTP-queueisbusy][s.sKA 2] Setting busy to false');
                                 if(eqFTPconnections[params.connectionID].protocol === "sftp") {
                                     // SFTP | Using cd . instead of NOOP
                                     if (debug)
-                                        console.log("Keep Alive (cd .) SFTP");
+                                        throwError("Keep Alive (cd .) SFTP", true);
                                     if (eqFTPconnections[params.connectionID].sshCommandsEnabled == 0) {
                                         eqFTPconnections[params.connectionID].ftpDomain.sftpClient.readdir(".", function(err, listing) {
-                                            console.log(listing);
                                             params.callback(err);
                                         });
                                     } else {
@@ -1883,9 +1881,9 @@ console.log('[eqFTP-queueisbusy][s.sKA 2] Setting busy to false');
             add: function(params) {
                 if (params.connectionID > -1 && eqFTPconnections[params.connectionID] !== undefined) {
                     _commands.service.diff.ignore.checkSingle(params, function(params) {
-                        if (debug)
-                            throwError("[q.a] Queuer is NOT ignored, continueing", true);
                         if (params) {
+                            if (debug)
+                                throwError("[q.a] Queuer is NOT ignored, continueing", true);
                             eqFTPconnections[params.connectionID].ftpDomain.processQueuePaused = true;
                             if (!eqFTPconnections[params.connectionID].ftpDomain.queue)
                                 eqFTPconnections[params.connectionID].ftpDomain.queue = {a: [], p: [], f: [], s: []};
@@ -2127,6 +2125,7 @@ console.log('[eqFTP-queueisbusy][q.p not a file or folder] Setting busy to false
                             }
                         } else {
                             if ( !eqFTPconnections[params.connectionID].keepAlive || eqFTPconnections[params.connectionID].keepAlive < 1 ) {
+                                console.log(eqFTPconnections[params.connectionID].keepAlive);
                                 _commands.connection.disconnect({
                                     connectionID: params.connectionID
                                 });
