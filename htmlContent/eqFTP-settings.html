@@ -195,10 +195,16 @@
                                     <input type="text" name="eqFTP-localroot" class="eqFTPUseDirectoryOpener" eqFTP-action="useDirectoryOpener" placeholder="{{SETTINGSWIND_GLOB_LOCALPATH_FIELD}}" data-eqFTP_ODT="{{SETTINGSWIND_GLOB_LOCALPATH_TITLE}}"/><i class="eqFTP-icon" id="eqFTPautolocalpath" title="{{SETTINGSWIND_GLOB_LOCALPATH_FILLWPROJECT_TITLE}}"></i>
                                     <div style="clear:both;"></div>
                                 </div>
-                                <div class="field-container2">
+                                <div class="field-container2 eqFTP_ftpOnly">
                                     <label style="width: 100%;">{{SETTINGSWIND_GLOB_FRM_TITLE}}</label>
                                     <label style="width: 100%;"><input type="radio" name="eqFTP-foldreRetrievingMethod" value="LIST"/>{{SETTINGSWIND_GLOB_FRM_LIST}}</label>
                                     <label style="width: 100%;"><input type="radio" name="eqFTP-foldreRetrievingMethod" value="MLSD"/>{{SETTINGSWIND_GLOB_FRM_MLSD}}</label>
+                                    <div style="clear:both;"></div>
+                                </div>
+                                <div class="field-container2 eqFTP_sftpOnly">
+                                    <label style="width: 100%;">{{SETTINGSWIND_GLOB_SCE_TITLE}}</label>
+                                    <label style="width: 100%;"><input type="radio" name="eqFTP-sshCommandsEnabled" value="1"/>{{OTHER_YES}}</label>
+                                    <label style="width: 100%;"><input type="radio" name="eqFTP-sshCommandsEnabled" value="0"/>{{OTHER_NO}}</label>
                                     <div style="clear:both;"></div>
                                 </div>
                                 <div class="field-container2">

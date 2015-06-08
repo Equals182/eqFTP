@@ -941,39 +941,53 @@ console.log('[eqFTP-queueisbusy][c.d no connection] Setting busy to false');
                                     if (!result) {
                                         if (debug)
                                             throwError("[s.r] Directory doesn't exist: " + tmp + "/", true);
-                                        if (eqFTPconnections[params.connectionID].ftpDomain.client !== null && eqFTPconnections[params.connectionID].ftpDomain.client) {
-                                            _commands.raw.cwd({
-                                                connectionID: params.connectionID,
-                                                path: normalizePath(eqFTPconnections[params.connectionID].remoteRoot + "/" + params.tmpPath + "/"),
-                                                callback: function(result) {
-                                                    if (result) {
-                                                        _commands.raw.mkd({
-                                                            connectionID: params.connectionID,
-                                                            path: normalizePath(eqFTPconnections[params.connectionID].remoteRoot + "/" + tmp),
-                                                            callback: function(result) {
-                                                                if (result) {
-                                                                    params.tmpPath = tmp;
-                                                                    params.i++;
-                                                                    _commands.service.rrdc(params);
-                                                                } else {
-                                                                    if (params.callback)
-                                                                        params.callback(false);
-                                                                    return false;
-                                                                }
-                                                            }
-                                                        });
-                                                    } else {
-                                                        if (params.callback)
-                                                            params.callback(false);
-                                                        return false;
-                                                    }
+                                        if (eqFTPconnections[params.connectionID].protocol === "sftp" && eqFTPconnections[params.connectionID].sshCommandsEnabled == 0) {
+                                            eqFTPconnections[params.connectionID].ftpDomain.sftpClient.mkdir(normalizePath(eqFTPconnections[params.connectionID].remoteRoot + "/" + tmp), function(err){
+                                                if (!err) {
+                                                    params.tmpPath = tmp;
+                                                    params.i++;
+                                                    _commands.service.rrdc(params);
+                                                } else {
+                                                    if (params.callback)
+                                                        params.callback(false);
+                                                    return false;
                                                 }
                                             });
                                         } else {
-                                            throwError("[s.r] client doesn't exist");
-                                            if (params.callback)
-                                                params.callback(false);
-                                            return false;
+                                            if (eqFTPconnections[params.connectionID].ftpDomain.client !== null && eqFTPconnections[params.connectionID].ftpDomain.client) {
+                                                _commands.raw.cwd({
+                                                    connectionID: params.connectionID,
+                                                    path: normalizePath(eqFTPconnections[params.connectionID].remoteRoot + "/" + params.tmpPath + "/"),
+                                                    callback: function(result) {
+                                                        if (result) {
+                                                            _commands.raw.mkd({
+                                                                connectionID: params.connectionID,
+                                                                path: normalizePath(eqFTPconnections[params.connectionID].remoteRoot + "/" + tmp),
+                                                                callback: function(result) {
+                                                                    if (result) {
+                                                                        params.tmpPath = tmp;
+                                                                        params.i++;
+                                                                        _commands.service.rrdc(params);
+                                                                    } else {
+                                                                        if (params.callback)
+                                                                            params.callback(false);
+                                                                        return false;
+                                                                    }
+                                                                }
+                                                            });
+                                                        } else {
+                                                            if (params.callback)
+                                                                params.callback(false);
+                                                            return false;
+                                                        }
+                                                    }
+                                                });
+                                            } else {
+                                                throwError("[s.r] client doesn't exist");
+                                                if (params.callback)
+                                                    params.callback(false);
+                                                return false;
+                                            }
                                         }
                                     } else {
                                         params.tmpPath = tmp;
@@ -1006,44 +1020,58 @@ console.log('[eqFTP-queueisbusy][c.d no connection] Setting busy to false');
                         if (params.path !== "'eqFTP'root'" && params.path !== "") {
                             if (debug)
                                 throwError("[s.gRR] User set Remote Path to: " + params.path, true);
-                            _commands.raw.cwd({
-                                connectionID: params.connectionID,
-                                path: params.path,
-                                callback: function(result) {
-                                    if (result) {
-                                        _commands.raw.pwd({
-                                            connectionID: params.connectionID,
-                                            callback: function(path) {
-                                                eqFTPconnections[params.connectionID].remoteRoot = path;
-                                                if (debug)
-                                                    throwError("[s.gRR] Remote root for this ID: " + params.connectionID + " is " + path, true);
-                                                if (params.callback)
-                                                    params.callback(path);
-                                                else
-                                                    return path;
-                                            }
-                                        });
-                                    } else {
-                                        if (params.callback)
-                                            params.callback(false);
-                                        else
-                                            return false;
+                            if (eqFTPconnections[params.connectionID].protocol === "sftp" && eqFTPconnections[params.connectionID].sshCommandsEnabled == 0) {
+                                eqFTPconnections[params.connectionID].remoteRoot = params.path;
+                                if (debug)
+                                    throwError("[s.gRR] Remote root for this ID: " + params.connectionID + " is " + params.path, true);
+                                if (params.callback)
+                                    params.callback(params.path);
+                                else
+                                    return params.path;
+                            } else {
+                                _commands.raw.cwd({
+                                    connectionID: params.connectionID,
+                                    path: params.path,
+                                    callback: function(result) {
+                                        if (result) {
+                                            _commands.raw.pwd({
+                                                connectionID: params.connectionID,
+                                                callback: function(path) {
+                                                    eqFTPconnections[params.connectionID].remoteRoot = path;
+                                                    if (debug)
+                                                        throwError("[s.gRR] Remote root for this ID: " + params.connectionID + " is " + path, true);
+                                                    if (params.callback)
+                                                        params.callback(path);
+                                                    else
+                                                        return path;
+                                                }
+                                            });
+                                        } else {
+                                            if (params.callback)
+                                                params.callback(false);
+                                            else
+                                                return false;
+                                        }
                                     }
-                                }
-                            });
+                                });
+                            }
                         } else {
-                            _commands.raw.pwd({
-                                connectionID: params.connectionID,
-                                callback: function(path) {
-                                    eqFTPconnections[params.connectionID].remoteRoot = path;
-                                    if (debug)
-                                        throwError("[s.gRR] Remote root for this ID: " + params.connectionID + " is " + path, true);
-                                    if (params.callback)
-                                        params.callback(path);
-                                    else
-                                        return path;
-                                }
-                            });
+                            if (eqFTPconnections[params.connectionID].protocol === "sftp" && eqFTPconnections[params.connectionID].sshCommandsEnabled == 0) {
+                                return "./";
+                            } else {
+                                _commands.raw.pwd({
+                                    connectionID: params.connectionID,
+                                    callback: function(path) {
+                                        eqFTPconnections[params.connectionID].remoteRoot = path;
+                                        if (debug)
+                                            throwError("[s.gRR] Remote root for this ID: " + params.connectionID + " is " + path, true);
+                                        if (params.callback)
+                                            params.callback(path);
+                                        else
+                                            return path;
+                                    }
+                                });
+                            }
                         }
                     } else {
                         if (params.callback)
@@ -1063,44 +1091,50 @@ console.log('[eqFTP-queueisbusy][c.d no connection] Setting busy to false');
             checkDir: function(params) {
                 if (params.connectionID > -1 && eqFTPconnections[params.connectionID] !== undefined && eqFTPconnections[params.connectionID].ftpDomain.client !== undefined && params.path !== undefined) {
                     params.path = normalizePath(eqFTPconnections[params.connectionID].remoteRoot + "/" + params.path);
-                    _commands.raw.pwd({
-                        connectionID: params.connectionID,
-                        callback: function(pwd) {
-                            _commands.raw.cwd({
-                                connectionID: params.connectionID,
-                                path: params.path,
-                                callback: function(result) {
-                                    if (result) {
-                                        _commands.raw.pwd({
-                                            connectionID: params.connectionID,
-                                            callback: function(result) {
-                                                var r = false;
-                                                if (normalizePath(result + "/") === normalizePath(params.path + "/"))
-                                                    r = true;
-                                                _commands.raw.cwd({
-                                                    connectionID: params.connectionID,
-                                                    path: pwd,
-                                                    callback: function() {
-                                                        if (params.callback)
-                                                            params.callback(r);
-                                                    }
-                                                });
-                                            }
-                                        });
-                                    } else {
-                                        _commands.raw.cwd({
-                                            connectionID: params.connectionID,
-                                            path: pwd,
-                                            callback: function() {
-                                                if (params.callback)
-                                                    params.callback(false);
-                                            }
-                                        });
+                    if (eqFTPconnections[params.connectionID].protocol === "sftp" && eqFTPconnections[params.connectionID].sshCommandsEnabled == 0) {
+                        eqFTPconnections[params.connectionID].ftpDomain.sftpClient.lstat(params.path, function(err, stats) {
+                            console.log(err, stats);
+                        });
+                    } else {
+                        _commands.raw.pwd({
+                            connectionID: params.connectionID,
+                            callback: function(pwd) {
+                                _commands.raw.cwd({
+                                    connectionID: params.connectionID,
+                                    path: params.path,
+                                    callback: function(result) {
+                                        if (result) {
+                                            _commands.raw.pwd({
+                                                connectionID: params.connectionID,
+                                                callback: function(result) {
+                                                    var r = false;
+                                                    if (normalizePath(result + "/") === normalizePath(params.path + "/"))
+                                                        r = true;
+                                                    _commands.raw.cwd({
+                                                        connectionID: params.connectionID,
+                                                        path: pwd,
+                                                        callback: function() {
+                                                            if (params.callback)
+                                                                params.callback(r);
+                                                        }
+                                                    });
+                                                }
+                                            });
+                                        } else {
+                                            _commands.raw.cwd({
+                                                connectionID: params.connectionID,
+                                                path: pwd,
+                                                callback: function() {
+                                                    if (params.callback)
+                                                        params.callback(false);
+                                                }
+                                            });
+                                        }
                                     }
-                                }
-                            });
-                        }
-                    });
+                                });
+                            }
+                        });
+                    }
                 } else {
                     if (debug)
                         throwError("[s.cD] There's no connection with this ID: " + params.connectionID + ". " + JSON.stringify(eqFTPconnections));
@@ -1812,11 +1846,18 @@ console.log('[eqFTP-queueisbusy][s.sKA 2] Setting busy to false');
                                     // SFTP | Using cd . instead of NOOP
                                     if (debug)
                                         console.log("Keep Alive (cd .) SFTP");
-                                    eqFTPconnections[params.connectionID].ftpDomain.client.raw({
-                                        command: "cd",
-                                        arguments: ["."],
-                                        callback: params.callback
-                                    });
+                                    if (eqFTPconnections[params.connectionID].sshCommandsEnabled == 0) {
+                                        eqFTPconnections[params.connectionID].ftpDomain.sftpClient.readdir(".", function(err, listing) {
+                                            console.log(listing);
+                                            params.callback(err);
+                                        });
+                                    } else {
+                                        eqFTPconnections[params.connectionID].ftpDomain.client.raw({
+                                            command: "cd",
+                                            arguments: ["."],
+                                            callback: params.callback
+                                        });
+                                    }
                                 } else {
                                     // FTP
                                     eqFTPconnections[params.connectionID].ftpDomain.client.raw({command: "NOOP", callback: params.callback});
@@ -1842,6 +1883,8 @@ console.log('[eqFTP-queueisbusy][s.sKA 2] Setting busy to false');
             add: function(params) {
                 if (params.connectionID > -1 && eqFTPconnections[params.connectionID] !== undefined) {
                     _commands.service.diff.ignore.checkSingle(params, function(params) {
+                        if (debug)
+                            throwError("[q.a] Queuer is NOT ignored, continueing", true);
                         if (params) {
                             eqFTPconnections[params.connectionID].ftpDomain.processQueuePaused = true;
                             if (!eqFTPconnections[params.connectionID].ftpDomain.queue)

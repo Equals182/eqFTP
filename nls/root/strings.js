@@ -50,6 +50,7 @@ define({
     "SETTINGSWIND_NOTIF_DONE" : "Everything's saved! :)",
     "SETTINGSWIND_SAVEDCONN" : "Saved FTP Connections",
     "SETTINGSWIND_DELETECONN_HOVER" : "Delete This Connection",
+    "SETTINGSWIND_COPYCONN_HOVER" : "Copy This Connection", //NEW
     "SETTINGSWIND_ERROR_DELETE_CURCONNSERV" : "You can't delete connection you're using now",
     "SETTINGSWIND_ADDCONN_HOVER" : "Add New Connection",
     "SETTINGSWIND_ADDCONN_STRING" : "Create New Connection...",
@@ -118,6 +119,7 @@ define({
     "SETTINGSWIND_GLOB_SYNCLOCPROJWCONN" : "Open related Local project after switching connection and vice versa", //NEW
     "SETTINGS_NOTIF_RELOADED" : "Settings were successfully reloaded.", //NEW
     "SETTINGS_ERROR_RELOADED" : "Can't reload settings.", //NEW
+    "SETTINGSWIND_GLOB_SCE_TITLE" : "Use SSH commands with SFTP", //NEW
 
     "QUEUE_TITLE" : "eqFTP Queue",
     "QUEUE_HEADER_NAME" : "Name",
@@ -172,6 +174,8 @@ define({
     "OTHER_COMPLETED" : "Completed",
     "OTHER_CANCELLED" : "Cancelled",
     "OTHER_WAITING" : "Waiting",
+    "OTHER_YES" : "Yes", //NEW
+    "OTHER_NO" : "No", //NEW
     "OTHER_OK" : "Ok",
     "OTHER_OFF" : "Off",
     "OTHER_CANCEL" : "Cancel",

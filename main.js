@@ -694,7 +694,7 @@ define(function (require, exports, module) {
                         });
                         $.each(eqFTP.globals.globalFtpDetails.ftp, function(i, v) {
                             var t = this;
-                            $('#eqFTPAllServerList').append('<li data-eqFTP-openSettings="'+t.id+'" eqFTP-connectionOrder="'+t.order+'" eqFTP-action="settingsWindow_connection_open" draggable="true"><i data-removeConnection="'+t.id+'" class="eqFTP-icon fa fa-times eqFTPdeleteConnection" eqFTP-action="settingsWindow_connection_delete" title="'+eqFTPstrings.SETTINGSWIND_DELETECONN_HOVER+'"></i><span>'+t.connectionName+'</span><i class="eqFTP-arrow fa fa-chevron-right"></li>');
+                            $('#eqFTPAllServerList').append('<li data-eqFTP-openSettings="'+t.id+'" eqFTP-connectionOrder="'+t.order+'" eqFTP-action="settingsWindow_connection_open" draggable="true"><i class="eqFTP-icon fa fa-times eqFTPdeleteConnection" eqFTP-action="settingsWindow_connection_delete" title="'+eqFTPstrings.SETTINGSWIND_DELETECONN_HOVER+'"></i><i class="eqFTP-icon fa fa-files-o" eqFTP-action="settingsWindow_connection_copy" title="'+eqFTPstrings.SETTINGSWIND_COPYCONN_HOVER+'"></i><span>'+t.connectionName+'</span><i class="eqFTP-arrow fa fa-chevron-right"></li>');
                         });
                     }
                     var id = parseInt($('#eqFTP-connectionID').val());
@@ -2480,6 +2480,7 @@ define(function (require, exports, module) {
                         localpath: $(esh).find("[name='eqFTP-localroot']").val(),
                         remotepath: $(esh).find("[name='eqFTP-remoteroot']").val(),
                         foldreRetrievingMethod: $(esh).find("[name='eqFTP-foldreRetrievingMethod']:checked").val(),
+                        sshCommandsEnabled: $(esh).find("[name='eqFTP-sshCommandsEnabled']:checked").val(),
                         keepAlive: $(esh).find("[name='eqFTP-keepAlive']").val(),
                         timeOffset: $(esh).find("[name='eqFTP-timeOffset']").val(),
                         RSA: $(esh).find("[name='eqFTP-RSA']").val(),
@@ -2526,7 +2527,7 @@ define(function (require, exports, module) {
             }
             else if (action === "settingsWindow_connection_open")
             {
-                if(!$(this).hasClass('clicked') && $(e.target).attr('eqftp-action') != "settingsWindow_connection_delete"){
+                if(!$(this).hasClass('clicked') && $(e.target).attr('eqftp-action') != "settingsWindow_connection_delete" && $(e.target).attr('eqftp-action') != "settingsWindow_connection_copy"){
                     $('*[data-eqFTP-openSettings]').removeClass('clicked');
                     $('*[data-eqFTP-addConnection]').removeClass('clicked');
 
@@ -2548,8 +2549,11 @@ define(function (require, exports, module) {
                         }
                         
                         $("#eqFTPSettingsHolder-"+id+" .eqFTP_sftpOnly").hide();
-                        if (setting.protocol === "sftp")
+                        $("#eqFTPSettingsHolder-"+id+" .eqFTP_ftpOnly").show();
+                        if (setting.protocol === "sftp") {
                             $("#eqFTPSettingsHolder-"+id+" .eqFTP_sftpOnly").show();
+                            $("#eqFTPSettingsHolder-"+id+" .eqFTP_ftpOnly").hide();
+                        }
 
                         $("#eqFTPSettingsHolder-"+id+" [name='eqFTP-connectionID']").val(setting.id);
                         $("#eqFTPSettingsHolder-"+id+" [name='eqFTP-connectionName']").val(setting.connectionName).attr("data-eqFTPdefaultValue", setting.connectionName);
@@ -2588,6 +2592,11 @@ define(function (require, exports, module) {
                             $("#eqFTPSettingsHolder-"+id+" [name='eqFTP-foldreRetrievingMethod'][value='"+setting.foldreRetrievingMethod+"']").prop("checked", true).attr("data-eqFTPdefaultValue", setting.foldreRetrievingMethod);
                         else
                             $("#eqFTPSettingsHolder-"+id+" [name='eqFTP-foldreRetrievingMethod'][value='LIST']").prop("checked", true).attr("data-eqFTPdefaultValue", "LIST");
+                        if (setting.sshCommandsEnabled)
+                            $("#eqFTPSettingsHolder-"+id+" [name='eqFTP-sshCommandsEnabled'][value='"+setting.sshCommandsEnabled+"']").prop("checked", true).attr("data-eqFTPdefaultValue", setting.sshCommandsEnabled);
+                        else
+                            $("#eqFTPSettingsHolder-"+id+" [name='eqFTP-sshCommandsEnabled'][value='1']").prop("checked", true).attr("data-eqFTPdefaultValue", "1");
+                        
                     } else {
                         $("#eqFTPSettingsHolder-"+id).show();
                     }
@@ -2629,6 +2638,7 @@ define(function (require, exports, module) {
                         $("#eqFTPSettingsHolder-"+id+" [name='eqFTP-protocol'] option[value=FTP]").prop("selected", true);
                         $("#eqFTPSettingsHolder-"+id+" [name='eqFTP-uploadonsave']").prop("checked", false);
                         $("#eqFTPSettingsHolder-"+id+" [name='eqFTP-foldreRetrievingMethod'][value='LIST']").prop("checked", true);
+                        $("#eqFTPSettingsHolder-"+id+" [name='eqFTP-sshCommandsEnabled'][value='1']").prop("checked", true);
                     } else {
                         $("#eqFTPSettingsHolder-"+id).show();
                     }
@@ -2668,6 +2678,28 @@ define(function (require, exports, module) {
                             text: eqFTPstrings.SETTINGSWIND_ERROR_DELETE_CURCONNSERV
                         });
                     }
+                }
+            }
+            else if (action === "settingsWindow_connection_copy") {
+                var id = parseInt($(this).parent().attr('data-eqFTP-openSettings')),
+                    donor = $.extend({}, eqFTP.sf.connections.byId(id));
+                if (!isNaN(id) && donor) {
+                    var l = parseInt(donor.connectionName.match(/(\d+)$/)),
+                        i = (!isNaN(l)) ? l + 1 : 2,
+                        n_name = (!isNaN(l)) ? donor.connectionName.replace(/(\d+)$/, i) : donor.connectionName + " " + i,
+                        tmp_name = donor.connectionName.replace(/(\s+\d+)$/, "");
+                    while ($("#eqFTPAllServerList li span:contains('"+n_name+"')").length > 0) {
+                        i++;
+                        n_name = tmp_name + " " + i;
+                    }
+                    donor.connectionName = n_name;
+                    donor.id = eqFTP.sf.connections.generateUniqueId();
+                    donor.localpath = "";
+                    donor.remotepath = "";
+                    eqFTP.globals.globalFtpDetails.ftp.push(donor);
+                    eqFTP.sf.windows.settings.open();
+                    eqFTP.sf.windows.settings.toMain();
+                    eqFTP.sf.serverList.redraw();
                 }
             }
             else if (action === "useDirectoryOpener")
