@@ -25,6 +25,7 @@ define({
     "ERR_DIAG_ECONNABORTED_CONTENT" : "Kapcsolódás megszakítva. Újrapróbálkozás...",
     "ERR_DIAG_UNIVERSAL_TITLE" : "HIBA!",
     "ERR_DIAG_UNIVERSAL_CONTENT" : "Sajnos általános hiba történt. :(",
+    "ERR_DIAG_NORSAKEYFOUND" : "There's no RSA key found in: ", //NEW A path to RSA file will be appended after colon.
 
     "NOT_DIAG_CONNECTED" : "Kapcsolódva.",
     "NOT_DIAG_DISCONNECTED" : "Kapcsolat bontva.",
@@ -49,6 +50,7 @@ define({
     "SETTINGSWIND_NOTIF_DONE" : "Grat! Minden mentve! :)",
     "SETTINGSWIND_SAVEDCONN" : "Mentett kapcsolatok",
     "SETTINGSWIND_DELETECONN_HOVER" : "Kapcsolat törlése",
+    "SETTINGSWIND_COPYCONN_HOVER" : "Copy This Connection", //NEW
     "SETTINGSWIND_ERROR_DELETE_CURCONNSERV" : "You can't delete connection you're using now", //NEW
     "SETTINGSWIND_ADDCONN_HOVER" : "Új kapcsolat",
     "SETTINGSWIND_ADDCONN_STRING" : "Új kapcsolat létrehozása...",
@@ -82,7 +84,9 @@ define({
     "SETTINGSWIND_GLOB_EVENDISCONN" : "Bontott kapcsolat esetén is",
     "SETTINGSWIND_GLOB_EVENDISCONN_EXPLAIN" : "This option automatically connects to a server when a saved file is opened from the server or a saved file is within the current project and this project was created by this ftp extension. Oh, I really hope I explained it well...",
     "SETTINGSWIND_GLOB_LOCALPATH_FILLWPROJECT_TITLE" : "Jelenlegi projekt útvonal beszúrása",
-    "SETTINGSWIND_GLOB_USELIST" : "Alternative folder retrieving", //NEW
+    "SETTINGSWIND_GLOB_FRM_TITLE" : "Choose folder retrieving method:", //NEW
+    "SETTINGSWIND_GLOB_FRM_LIST" : "Use LIST command", //NEW
+    "SETTINGSWIND_GLOB_FRM_MLSD" : "Use MLSD command", //NEW
     "SETTINGSWIND_GLOB_KEEPALIVE" : "Keep alive:", // Keep Alive is feature when client sends empty packages to server to prevet disconnection.
     "SETTINGSWIND_GLOB_KEEPALIVE_DESC" : "Az érték másodpercben. Ajánlott érték: 10. 0 esetén kikapcsolva.",
     "SETTINGSWIND_GLOB_DEBUG" : "Debug:",
@@ -115,6 +119,7 @@ define({
     "SETTINGSWIND_GLOB_SYNCLOCPROJWCONN" : "Open related Local project after switching connection and vice versa", //NEW
     "SETTINGS_NOTIF_RELOADED" : "Settings were successfully reloaded.", //NEW
     "SETTINGS_ERROR_RELOADED" : "Can't reload settings.", //NEW
+    "SETTINGSWIND_GLOB_SCE_TITLE" : "Use SSH commands with SFTP", //NEW
 
     "QUEUE_TITLE" : "eqFTP városor",
     "QUEUE_HEADER_NAME" : "Név",
@@ -169,6 +174,8 @@ define({
     "OTHER_COMPLETED" : "Elkészült",
     "OTHER_CANCELLED" : "Megszakítva",
     "OTHER_WAITING" : "Várakozik...",
+    "OTHER_YES" : "Yes", //NEW
+    "OTHER_NO" : "No", //NEW
     "OTHER_OK" : "Ok",
     "OTHER_OFF" : "Off", //NEW
     "OTHER_CANCEL" : "Mégsem",

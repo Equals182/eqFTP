@@ -25,6 +25,7 @@ define({
     "ERR_DIAG_ECONNABORTED_CONTENT" : "Підключення перервано. Повторна спроба...",
     "ERR_DIAG_UNIVERSAL_TITLE" : "Виникла помилка",
     "ERR_DIAG_UNIVERSAL_CONTENT" : "Гляньте на цю помилку? Як таке могло трапитись?",
+    "ERR_DIAG_NORSAKEYFOUND" : "There's no RSA key found in: ", //NEW A path to RSA file will be appended after colon.
 
     "NOT_DIAG_CONNECTED" : "Підключено до сервера.",
     "NOT_DIAG_DISCONNECTED" : "Відключено від сервера.",
@@ -49,6 +50,7 @@ define({
     "SETTINGSWIND_NOTIF_DONE" : "Ніщо не збережено! :)",
     "SETTINGSWIND_SAVEDCONN" : "Збережені FTP підключення",
     "SETTINGSWIND_DELETECONN_HOVER" : "Вилучити це підключення",
+    "SETTINGSWIND_COPYCONN_HOVER" : "Copy This Connection", //NEW
     "SETTINGSWIND_ERROR_DELETE_CURCONNSERV" : "You can't delete connection you're using now", //NEW
     "SETTINGSWIND_ADDCONN_HOVER" : "Додати нове підключення",
     "SETTINGSWIND_ADDCONN_STRING" : "Створити нове підключення...",
@@ -82,7 +84,9 @@ define({
     "SETTINGSWIND_GLOB_EVENDISCONN" : "Навіть якщо відключено",
     "SETTINGSWIND_GLOB_EVENDISCONN_EXPLAIN" : "Ця опція автоматично під’єднується до сервера коли збережений файл відкритий сервером або збережений файл в середині поточного проекту і цей файл створений цим FTP-розширенням. Хух. Здається добре пояснив...",
     "SETTINGSWIND_GLOB_LOCALPATH_FILLWPROJECT_TITLE" : "Вставити поточний шлях проекту",
-    "SETTINGSWIND_GLOB_USELIST" : "Альтернативне отримання тек",
+    "SETTINGSWIND_GLOB_FRM_TITLE" : "Choose folder retrieving method:", //NEW
+    "SETTINGSWIND_GLOB_FRM_LIST" : "Use LIST command", //NEW
+    "SETTINGSWIND_GLOB_FRM_MLSD" : "Use MLSD command", //NEW
     "SETTINGSWIND_GLOB_KEEPALIVE" : "Інтервал підтримки з’єднання:", // Keep Alive is feature when client sends empty packages to server to prevet disconnection.
     "SETTINGSWIND_GLOB_KEEPALIVE_DESC" : "Значення у секундах. Рекомендовано – 10. Вкажіть нуль, аби заборонити команди підтримки з’єднання і від’єднуватись кожного разу як команда завершилась",
     "SETTINGSWIND_GLOB_DEBUG" : "Відлагодження:",
@@ -115,6 +119,7 @@ define({
     "SETTINGSWIND_GLOB_SYNCLOCPROJWCONN" : "Open related Local project after switching connection and vice versa", //NEW
     "SETTINGS_NOTIF_RELOADED" : "Settings were successfully reloaded.", //NEW
     "SETTINGS_ERROR_RELOADED" : "Can't reload settings.", //NEW
+    "SETTINGSWIND_GLOB_SCE_TITLE" : "Use SSH commands with SFTP", //NEW
 
     "QUEUE_TITLE" : "Черга eqFTP",
     "QUEUE_HEADER_NAME" : "Назва",
@@ -169,6 +174,8 @@ define({
     "OTHER_COMPLETED" : "Завершено",
     "OTHER_CANCELLED" : "Скасовано",
     "OTHER_WAITING" : "Очікування",
+    "OTHER_YES" : "Yes", //NEW
+    "OTHER_NO" : "No", //NEW
     "OTHER_OK" : "Ок",
     "OTHER_OFF" : "Off", //NEW
     "OTHER_CANCEL" : "Скасувати",

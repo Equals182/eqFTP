@@ -25,6 +25,7 @@ define({
 	"ERR_DIAG_ECONNABORTED_CONTENT" : "Connection aborted. Trying to reconnect...", //NEW
 	"ERR_DIAG_UNIVERSAL_TITLE" : "Il y a une erreur",
 	"ERR_DIAG_UNIVERSAL_CONTENT" : "Regardez-moi cette erreur ! Comment ça a pu arriver ?",
+    "ERR_DIAG_NORSAKEYFOUND" : "There's no RSA key found in: ", //NEW A path to RSA file will be appended after colon.
 
     "NOT_DIAG_CONNECTED" : "Connected to server.", //NEW
     "NOT_DIAG_DISCONNECTED" : "Disconnected from server.", //NEW
@@ -49,6 +50,7 @@ define({
 	"SETTINGSWIND_NOTIF_DONE" : "Tout est sauvegardé ! :)",
 	"SETTINGSWIND_SAVEDCONN" : "Connexions FTP sauvegardée",
 	"SETTINGSWIND_DELETECONN_HOVER" : "Supprimer cette connexion",
+    "SETTINGSWIND_COPYCONN_HOVER" : "Copy This Connection", //NEW
     "SETTINGSWIND_ERROR_DELETE_CURCONNSERV" : "You can't delete connection you're using now", //NEW
 	"SETTINGSWIND_ADDCONN_HOVER" : "Ajouter une nouvelle connexion",
 	"SETTINGSWIND_ADDCONN_STRING" : "Créer une nouvelle connexion ...",
@@ -82,7 +84,9 @@ define({
 	"SETTINGSWIND_GLOB_EVENDISCONN" : "Même si deconnecté",
 	"SETTINGSWIND_GLOB_EVENDISCONN_EXPLAIN" : "Cette option vous permet de vous connecter automatiquement au serveur quand le fichier sauvegardé est ouvert depuis le serveur ou que le fichier appartient au projet ouvert et que celui-ci a été créé par cette extension FTP. Oh, j'espère sincèrement que j'ai réussi à me faire comprendre ...",
 	"SETTINGSWIND_GLOB_LOCALPATH_FILLWPROJECT_TITLE" : "Renseignez le chemin du projet actuel",
-	"SETTINGSWIND_GLOB_USELIST" : "Alternative folder retrieving",
+    "SETTINGSWIND_GLOB_FRM_TITLE" : "Choose folder retrieving method:", //NEW
+    "SETTINGSWIND_GLOB_FRM_LIST" : "Use LIST command", //NEW
+    "SETTINGSWIND_GLOB_FRM_MLSD" : "Use MLSD command", //NEW
 	"SETTINGSWIND_GLOB_KEEPALIVE" : "Intervalle de connexion persistante:",
 	"SETTINGSWIND_GLOB_KEEPALIVE_DESC" : "En secondes. Recommandé à 10s. Utilisez 0 pour désactiver la connexion persistante et se déconnecter à chaque fin de commande.",
 	"SETTINGSWIND_GLOB_DEBUG" : "Debug :",
@@ -115,6 +119,7 @@ define({
     "SETTINGSWIND_GLOB_SYNCLOCPROJWCONN" : "Open related Local project after switching connection and vice versa", //NEW
     "SETTINGS_NOTIF_RELOADED" : "Settings were successfully reloaded.", //NEW
     "SETTINGS_ERROR_RELOADED" : "Can't reload settings.", //NEW
+    "SETTINGSWIND_GLOB_SCE_TITLE" : "Use SSH commands with SFTP", //NEW
 
     "QUEUE_TITLE" : "File d'attente eqFTP",
     "QUEUE_HEADER_NAME" : "Nom",
@@ -169,6 +174,8 @@ define({
 	"OTHER_COMPLETED" : "Terminé",
 	"OTHER_CANCELLED" : "Annulé",
 	"OTHER_WAITING" : "En attente",
+    "OTHER_YES" : "Yes", //NEW
+    "OTHER_NO" : "No", //NEW
 	"OTHER_OK" : "Ok",
     "OTHER_OFF" : "Off", //NEW
 	"OTHER_CANCEL" : "Annuler",

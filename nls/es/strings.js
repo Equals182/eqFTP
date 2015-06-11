@@ -25,10 +25,11 @@ define({
     "ERR_DIAG_ECONNABORTED_CONTENT" : "Conexión abortada. Intente reconectarse.",
     "ERR_DIAG_UNIVERSAL_TITLE" : "Aquí hay un error",
     "ERR_DIAG_UNIVERSAL_CONTENT" : "Mira este error! Como pudo pasar esto?",
+    "ERR_DIAG_NORSAKEYFOUND" : "No se encontró la clave RSA en: ",
 
     "NOT_DIAG_CONNECTED" : "Conectado al servidor.",
     "NOT_DIAG_DISCONNECTED" : "Desconectado del servidor",
-    "NOT_DIAG_FILESDIFFERENT" : "Hay diferencias entre archivos locales y remotos. Haga click aquí para más acciones.",
+    "NOT_DIAG_FILESDIFFERENT" : "Hay diferencias entre los archivos remotos y locales. Clickee aqui para más acciones.",
 
     "PASSWDWIND_TITLE" : "Por favor ingrese su contraseña",
     "PASSWDWIND_CONTENT" : "Su contraseña para eqFTP:",
@@ -49,7 +50,8 @@ define({
     "SETTINGSWIND_NOTIF_DONE" : "Todo se guardo! :)",
     "SETTINGSWIND_SAVEDCONN" : "Conexiones FTP guardas",
     "SETTINGSWIND_DELETECONN_HOVER" : "Borrar esta conexión",
-    "SETTINGSWIND_ERROR_DELETE_CURCONNSERV" : "Usted no puede borrar la conexión que está usando en este momento.", //NEW
+    "SETTINGSWIND_COPYCONN_HOVER" : "Copiar esta conexión",
+    "SETTINGSWIND_ERROR_DELETE_CURCONNSERV" : "Usted no puede borrar la conexión que está usando en este momento.",
     "SETTINGSWIND_ADDCONN_HOVER" : "Agregar nueva conexión",
     "SETTINGSWIND_ADDCONN_STRING" : "Crear nueva conexión...",
     "SETTINGSWIND_DELETECONNCONF_1" : "Por favor confirme el borrado de la conexión ", // Those 2 strings are going like this: SETTINGSWIND_DELETECONNCONF_1 + VAL + SETTINGSWIND_DELETECONNCONF_2
@@ -82,7 +84,9 @@ define({
     "SETTINGSWIND_GLOB_EVENDISCONN" : "Aún si esta desconectado",
     "SETTINGSWIND_GLOB_EVENDISCONN_EXPLAIN" : "Esta opción automáticamente se conecta al servidor cuando un archivo guardado es abierto del servidor o el archivo y el proyecto fueron creados por esta extensión.",
     "SETTINGSWIND_GLOB_LOCALPATH_FILLWPROJECT_TITLE" : "Inserte la ubicación del proyecto actual",
-    "SETTINGSWIND_GLOB_USELIST" : "Recuperación de carpeta alternativa",
+    "SETTINGSWIND_GLOB_FRM_TITLE" : "Escoger método de obtención de carpetas:",
+    "SETTINGSWIND_GLOB_FRM_LIST" : "Usar comando LIST",
+    "SETTINGSWIND_GLOB_FRM_MLSD" : "Usar comando MLSD",
     "SETTINGSWIND_GLOB_KEEPALIVE" : "Intervalo de comandos para mantener activo:", // Keep Alive is feature when client sends empty packages to server to prevet disconnection.
     "SETTINGSWIND_GLOB_KEEPALIVE_DESC" : "Valor en segundos. Valor recomendado 10. Use cero para prohibir  los comandos para mantener activo y desconectar del servidor  cada vez que el comando es ejecutado.",
     "SETTINGSWIND_GLOB_DEBUG" : "Depurar:",
@@ -115,6 +119,7 @@ define({
     "SETTINGSWIND_GLOB_SYNCLOCPROJWCONN" : "Conmutación: Abrir el proyecto local después de realizada la conexión y viceversa",
     "SETTINGS_NOTIF_RELOADED" : "La configuración se a recargado satisfactoriamente..",
     "SETTINGS_ERROR_RELOADED" : "No se ha podido recargar la configuración.",
+    "SETTINGSWIND_GLOB_SCE_TITLE" : "Usar comandos SSH con SFTP",
 
     "QUEUE_TITLE" : "Cola de eqFTP",
     "QUEUE_HEADER_NAME" : "Nombre",
@@ -169,6 +174,8 @@ define({
     "OTHER_COMPLETED" : "Completado",
     "OTHER_CANCELLED" : "Cancelado",
     "OTHER_WAITING" : "Esperando",
+    "OTHER_YES" : "Si",
+    "OTHER_NO" : "No",
     "OTHER_OK" : "Aceptar",
     "OTHER_OFF" : "Detener",
     "OTHER_CANCEL" : "Cancelar",

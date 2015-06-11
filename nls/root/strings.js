@@ -25,11 +25,11 @@ define({
     "ERR_DIAG_ECONNABORTED_CONTENT" : "Connection aborted. Trying to reconnect...",
     "ERR_DIAG_UNIVERSAL_TITLE" : "There's an error",
     "ERR_DIAG_UNIVERSAL_CONTENT" : "Look at this error! How could it happen?",
-    "ERR_DIAG_NORSAKEYFOUND" : "There's no RSA key found in: ", //NEW A path to RSA file will be appended after colon.
+    "ERR_DIAG_NORSAKEYFOUND" : "There's no RSA key found in: ",
 
     "NOT_DIAG_CONNECTED" : "Connected to server.",
     "NOT_DIAG_DISCONNECTED" : "Disconnected from server.",
-    "NOT_DIAG_FILESDIFFERENT" : "There's a difference between local and remote files. Click here for more actions.", //NEW
+    "NOT_DIAG_FILESDIFFERENT" : "There's a difference between local and remote files. Click here for more actions.",
 
     "PASSWDWIND_TITLE" : "Please Enter Your Password",
     "PASSWDWIND_CONTENT" : "Your Password for eqFTP:",
@@ -50,7 +50,7 @@ define({
     "SETTINGSWIND_NOTIF_DONE" : "Everything's saved! :)",
     "SETTINGSWIND_SAVEDCONN" : "Saved FTP Connections",
     "SETTINGSWIND_DELETECONN_HOVER" : "Delete This Connection",
-    "SETTINGSWIND_COPYCONN_HOVER" : "Copy This Connection", //NEW
+    "SETTINGSWIND_COPYCONN_HOVER" : "Copy This Connection",
     "SETTINGSWIND_ERROR_DELETE_CURCONNSERV" : "You can't delete connection you're using now",
     "SETTINGSWIND_ADDCONN_HOVER" : "Add New Connection",
     "SETTINGSWIND_ADDCONN_STRING" : "Create New Connection...",
@@ -72,21 +72,21 @@ define({
     "SETTINGSWIND_GLOB_USERNAME_FIELD" : "FTP username",
     "SETTINGSWIND_GLOB_PASSWORD_TITLE" : "Password:",
     "SETTINGSWIND_GLOB_PASSWORD_FIELD" : "FTP password",
-    "SETTINGSWIND_GLOB_RSA_TITLE" : "RSA key", //NEW
-    "SETTINGSWIND_GLOB_RSA_FIELD" : "Click to select RSA key", //NEW
-    "SETTINGSWIND_GLOB_FOLDERFORRSA_DIAGTITLE" : "Choose path to RSA key", //NEW
+    "SETTINGSWIND_GLOB_RSA_TITLE" : "RSA key",
+    "SETTINGSWIND_GLOB_RSA_FIELD" : "Click to select RSA key",
+    "SETTINGSWIND_GLOB_FOLDERFORRSA_DIAGTITLE" : "Choose path to RSA key",
     "SETTINGSWIND_GLOB_REMOTEPATH_TITLE" : "Remote Path:",
     "SETTINGSWIND_GLOB_REMOTEPATH_FIELD" : "Type in the remote path to the project root folder",
     "SETTINGSWIND_GLOB_LOCALPATH_TITLE" : "Local Path:",
     "SETTINGSWIND_GLOB_LOCALPATH_FIELD" : "Creates new folder in default location if blank",
     "SETTINGSWIND_GLOB_UPLOADONSAVE" : "Upload File on Save",
-    "SETTINGSWIND_GLOB_UPLOADONSAVEPAUSED" : "Add to paused queue.", //NEW
+    "SETTINGSWIND_GLOB_UPLOADONSAVEPAUSED" : "Add to paused queue.",
     "SETTINGSWIND_GLOB_EVENDISCONN" : "Even If Disconnected",
     "SETTINGSWIND_GLOB_EVENDISCONN_EXPLAIN" : "This option automatically connects to a server when a saved file is opened from the server or a saved file is within the current project and this project was created by this ftp extension. Oh, I really hope I explained it well...",
     "SETTINGSWIND_GLOB_LOCALPATH_FILLWPROJECT_TITLE" : "Insert current project's path",
-    "SETTINGSWIND_GLOB_FRM_TITLE" : "Choose folder retrieving method:", //NEW
-    "SETTINGSWIND_GLOB_FRM_LIST" : "Use LIST command", //NEW
-    "SETTINGSWIND_GLOB_FRM_MLSD" : "Use MLSD command", //NEW
+    "SETTINGSWIND_GLOB_FRM_TITLE" : "Choose folder retrieving method:",
+    "SETTINGSWIND_GLOB_FRM_LIST" : "Use LIST command",
+    "SETTINGSWIND_GLOB_FRM_MLSD" : "Use MLSD command",
     "SETTINGSWIND_GLOB_KEEPALIVE" : "Keep alive interval:", // Keep Alive is feature when client sends empty packages to server to prevet disconnection.
     "SETTINGSWIND_GLOB_KEEPALIVE_DESC" : "Value in seconds. Recommended value is 10. Use zero to forbid keep alive commands and disconnect from server every time command is done.",
     "SETTINGSWIND_GLOB_DEBUG" : "Debug:",
@@ -116,10 +116,10 @@ define({
     "SETTINGSWIND_GLOB_AUTO_SYNC_CHECKDIFF_EXPLAIN" : "When you open local or remote file",
     "SETTINGSWIND_GLOB_AUTO_SYNC_IGNORELIST_TITLE" : "Ignore list",
     "SETTINGSWIND_GLOB_AUTO_SYNC_IGNORELIST_EXPLAIN" : "Same syntax as in .gitignore",
-    "SETTINGSWIND_GLOB_SYNCLOCPROJWCONN" : "Open related Local project after switching connection and vice versa", //NEW
-    "SETTINGS_NOTIF_RELOADED" : "Settings were successfully reloaded.", //NEW
-    "SETTINGS_ERROR_RELOADED" : "Can't reload settings.", //NEW
-    "SETTINGSWIND_GLOB_SCE_TITLE" : "Use SSH commands with SFTP", //NEW
+    "SETTINGSWIND_GLOB_SYNCLOCPROJWCONN" : "Open related Local project after switching connection and vice versa",
+    "SETTINGS_NOTIF_RELOADED" : "Settings were successfully reloaded.",
+    "SETTINGS_ERROR_RELOADED" : "Can't reload settings.",
+    "SETTINGSWIND_GLOB_SCE_TITLE" : "Use SSH commands with SFTP",
 
     "QUEUE_TITLE" : "eqFTP Queue",
     "QUEUE_HEADER_NAME" : "Name",
@@ -155,7 +155,7 @@ define({
     "ERR_FILE_CANTDELETE" : "Can't delete file: ",
     "ERR_FILE_CANTCREATEDIR" : "Can't create folder: ",
     "ERR_FILE_CANTDELETEDIR" : "Can't delete folder: ",
-    "ERR_FILE_CANTCREATEFILE" : "Can't create file: ", //NEW
+    "ERR_FILE_CANTCREATEFILE" : "Can't create file: ",
     "ERR_FOLDER_OPEN" : "There's an error opening folder as project",
 
     "CONTEXTM_DOWNLOAD" : "Download",
@@ -165,8 +165,8 @@ define({
     "CONTEXTM_DELETE" : "Delete",
     "CONTEXTM_RENAME" : "Rename",
     "CONTEXTM_REDOWNLOAD" : "Download from server",
-    "CONTEXTM_CREATEFILE" : "Create file", //NEW
-    "CONTEXTM_CREATEFOLDER" : "Create folder", //NEW
+    "CONTEXTM_CREATEFILE" : "Create file",
+    "CONTEXTM_CREATEFOLDER" : "Create folder",
 
     "OTHER_SELECT_SERVER_DROPDOWN" : "Select Remote Server to Connect...",
     "OTHER_ERROR" : "Error",
@@ -174,8 +174,8 @@ define({
     "OTHER_COMPLETED" : "Completed",
     "OTHER_CANCELLED" : "Cancelled",
     "OTHER_WAITING" : "Waiting",
-    "OTHER_YES" : "Yes", //NEW
-    "OTHER_NO" : "No", //NEW
+    "OTHER_YES" : "Yes",
+    "OTHER_NO" : "No",
     "OTHER_OK" : "Ok",
     "OTHER_OFF" : "Off",
     "OTHER_CANCEL" : "Cancel",

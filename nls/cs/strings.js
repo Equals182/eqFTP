@@ -25,10 +25,11 @@ define({
     "ERR_DIAG_ECONNABORTED_CONTENT" : "Připojení zrušeno. Zkouším se připojit znovu...", 
     "ERR_DIAG_UNIVERSAL_TITLE" : "Nastala chyba",
     "ERR_DIAG_UNIVERSAL_CONTENT" : "Podívejte se na tuto chybu! Jak se to mohlo stát?",
+    "ERR_DIAG_NORSAKEYFOUND" : "There's no RSA key found in: ", //NEW A path to RSA file will be appended after colon.
 
     "NOT_DIAG_CONNECTED" : "Připojen k serveru.",
     "NOT_DIAG_DISCONNECTED" : "Odpojen od serveru.",
-    "NOT_DIAG_FILESDIFFERENT" : "Nalezen rozdíl mezi místním a vzdáleným souborem. Klikněte zde pro více možností.", //TRANSLATED
+    "NOT_DIAG_FILESDIFFERENT" : "Nalezen rozdíl mezi místním a vzdáleným souborem. Klikněte zde pro více možností.",
 
     "PASSWDWIND_TITLE" : "Prosím vložte své heslo",
     "PASSWDWIND_CONTENT" : "Vaše heslo pro eqFTP:",
@@ -49,11 +50,12 @@ define({
     "SETTINGSWIND_NOTIF_DONE" : "Vše je uloženo! :)",
     "SETTINGSWIND_SAVEDCONN" : "FTP Připojení uloženo",
     "SETTINGSWIND_DELETECONN_HOVER" : "Smazat toto připojení",
+    "SETTINGSWIND_COPYCONN_HOVER" : "Copy This Connection", //NEW
     "SETTINGSWIND_ERROR_DELETE_CURCONNSERV" : "Nemůžete smazat připojení které právě používáte",
     "SETTINGSWIND_ADDCONN_HOVER" : "Přidat nové připojení",
     "SETTINGSWIND_ADDCONN_STRING" : "Vytvořit nové připojení...",
-    "SETTINGSWIND_DELETECONNCONF_1" : "Prosím potvrďte, že chcete smazet připojení: ", //UPDATED
-    "SETTINGSWIND_DELETECONNCONF_2" : "", //NO NEED FOR THIS
+    "SETTINGSWIND_DELETECONNCONF_1" : "Prosím potvrďte, že chcete smazet připojení: ",
+    "SETTINGSWIND_DELETECONNCONF_2" : "",
     "SETTINGSWIND_OPENGLOBSET" : "Otevřít globální nastavení FTP...",
     "SETTINGSWIND_NOTHINGYETMSG" : "Vyberte připojení, které chcete upravit v postraním panelu, nebo vytvořte nové.",
     "SETTINGSWIND_GLOB_FOLDERFORPROJ" : "Složka pro projekty:",
@@ -70,20 +72,22 @@ define({
     "SETTINGSWIND_GLOB_USERNAME_FIELD" : "FTP Uživatelské jméno",
     "SETTINGSWIND_GLOB_PASSWORD_TITLE" : "Heslo:",
     "SETTINGSWIND_GLOB_PASSWORD_FIELD" : "FTP heslo",
-    "SETTINGSWIND_GLOB_RSA_TITLE" : "RSA klíč", //TRANSLATED
-    "SETTINGSWIND_GLOB_RSA_FIELD" : "Klikněte pro výběr RSA klíče", //TRANSLATED
-    "SETTINGSWIND_GLOB_FOLDERFORRSA_DIAGTITLE" : "Vyberte cestu k RSA klíči", //TRANSLATED
+    "SETTINGSWIND_GLOB_RSA_TITLE" : "RSA klíč",
+    "SETTINGSWIND_GLOB_RSA_FIELD" : "Klikněte pro výběr RSA klíče",
+    "SETTINGSWIND_GLOB_FOLDERFORRSA_DIAGTITLE" : "Vyberte cestu k RSA klíči",
     "SETTINGSWIND_GLOB_REMOTEPATH_TITLE" : "Vzdálená cesta:",
     "SETTINGSWIND_GLOB_REMOTEPATH_FIELD" : "Vložte vzdálenou cestu do kořenové složky projektu",
     "SETTINGSWIND_GLOB_LOCALPATH_TITLE" : "Místní cesta:",
     "SETTINGSWIND_GLOB_LOCALPATH_FIELD" : "Pokud je ponecháno prázdné, vytvoří novou složku ve výchozím umístění",
     "SETTINGSWIND_GLOB_UPLOADONSAVE" : "Nahrát soubor při uložení",
-    "SETTINGSWIND_GLOB_UPLOADONSAVEPAUSED" : "Přidat do pozastavené fronty.", //TRANSLATED
+    "SETTINGSWIND_GLOB_UPLOADONSAVEPAUSED" : "Přidat do pozastavené fronty.",
     "SETTINGSWIND_GLOB_EVENDISCONN" : "I když je odpojeno",
     "SETTINGSWIND_GLOB_EVENDISCONN_EXPLAIN" : "Automatické připojení k serveru pokud je uložený soubor otevřen ze serveru nebo je uvnitř současného projektu který byl vytvořený tímto FTP rozšířením. Uf, vážně doufám že jsem to vysvětlil dobře...",
     "SETTINGSWIND_GLOB_LOCALPATH_FILLWPROJECT_TITLE" : "Vložit cestu současného projektu",
-    "SETTINGSWIND_GLOB_USELIST" : "Získání alternativních složek",
-    "SETTINGSWIND_GLOB_KEEPALIVE" : "Interval udržování připojení:", //UPDATED Keep Alive is feature when client sends empty packages to server to prevet disconnection.
+    "SETTINGSWIND_GLOB_FRM_TITLE" : "Choose folder retrieving method:", //NEW
+    "SETTINGSWIND_GLOB_FRM_LIST" : "Use LIST command", //NEW
+    "SETTINGSWIND_GLOB_FRM_MLSD" : "Use MLSD command", //NEW
+    "SETTINGSWIND_GLOB_KEEPALIVE" : "Interval udržování připojení:", //Keep Alive is feature when client sends empty packages to server to prevet disconnection.
     "SETTINGSWIND_GLOB_KEEPALIVE_DESC" : "Hodnota v sekundách. Doporučená hodnota je 10. Při použití nuly nebude připojení udržováno a bude uzavřeno po každém provedení příkazu.",
     "SETTINGSWIND_GLOB_DEBUG" : "Ladění:",
     "SETTINGSWIND_GLOB_TIMEFORMAT" : "Formát data:",
@@ -112,9 +116,10 @@ define({
     "SETTINGSWIND_GLOB_AUTO_SYNC_CHECKDIFF_EXPLAIN" : "Když otevřete lokální nebo vzdálený soubor",
     "SETTINGSWIND_GLOB_AUTO_SYNC_IGNORELIST_TITLE" : "Ignorovat seznam",
     "SETTINGSWIND_GLOB_AUTO_SYNC_IGNORELIST_EXPLAIN" : "Stejná syntaxe jako v .gitignore",
-    "SETTINGSWIND_GLOB_SYNCLOCPROJWCONN" : "Otevřít příslušný lokální projekt po přepnutí připojení a naopak", //TRANSLATED
-    "SETTINGS_NOTIF_RELOADED" : "Nastavení bylo úspěšně znovu načteno.", //TRANSLATED
-    "SETTINGS_ERROR_RELOADED" : "Nemohu znovu načíst nastavení.", //TRANSLATED
+    "SETTINGSWIND_GLOB_SYNCLOCPROJWCONN" : "Otevřít příslušný lokální projekt po přepnutí připojení a naopak",
+    "SETTINGS_NOTIF_RELOADED" : "Nastavení bylo úspěšně znovu načteno.",
+    "SETTINGS_ERROR_RELOADED" : "Nemohu znovu načíst nastavení.",
+    "SETTINGSWIND_GLOB_SCE_TITLE" : "Use SSH commands with SFTP", //NEW
 
     "QUEUE_TITLE" : "eqFTP fronta",
     "QUEUE_HEADER_NAME" : "Jméno",
@@ -122,19 +127,20 @@ define({
     "QUEUE_HEADER_FROM" : "Zdrojová cesta",
     "QUEUE_HEADER_TO" : "Cílová cesta",
     "QUEUE_HEADER_STATUS" : "Status",
-    "QUEUE_CLEARQ" : "Zpracuj frontu", //TRANSLATED
-    "QUEUE_PAUSEQ" : "Pozastavit frontu", //TRANSLATED
-    "QUEUE_RESTARTQ" : "Opakování selhalo", //TRANSLATED
-    "QUEUE_CONTEXTM_STARTT" : "Zpracovat", //TRANSLATED
-    "QUEUE_CONTEXTM_PAUSET" : "Pozastavit", //TRANSLATED
-    "QUEUE_CONTEXTM_REMOVET" : "Odstranit", //TRANSLATED
-    "QUEUE_CONTEXTM_RESTARTT" : "Opakovat", //TRANSLATED
-    "QUEUE_TASK_STATUS_WAITING" : "Čekání", //TRANSLATED
-    "QUEUE_TASK_STATUS_SUCCESS" : "Hotovo", //TRANSLATED
-    "QUEUE_TASK_STATUS_FAIL" : "Selhalo", //TRANSLATED
-    "QUEUE_TASK_STATUS_PAUSE" : "Pozastaveno", //TRANSLATED
-    "QUEUE_TASK_STATUS_STARTED" : "Začalo", //TRANSLATED
-    "QUEUE_TASK_STATUS_DELETED" : "Smazáno", //TRANSLATED
+    "QUEUE_CLEARQ" : "Zpracuj frontu",
+    "QUEUE_STARTQ" : "Start Queue", //NEW
+    "QUEUE_PAUSEQ" : "Pozastavit frontu",
+    "QUEUE_RESTARTQ" : "Opakování selhalo",
+    "QUEUE_CONTEXTM_STARTT" : "Zpracovat",
+    "QUEUE_CONTEXTM_PAUSET" : "Pozastavit",
+    "QUEUE_CONTEXTM_REMOVET" : "Odstranit",
+    "QUEUE_CONTEXTM_RESTARTT" : "Opakovat",
+    "QUEUE_TASK_STATUS_WAITING" : "Čekání",
+    "QUEUE_TASK_STATUS_SUCCESS" : "Hotovo",
+    "QUEUE_TASK_STATUS_FAIL" : "Selhalo",
+    "QUEUE_TASK_STATUS_PAUSE" : "Pozastaveno",
+    "QUEUE_TASK_STATUS_STARTED" : "Začalo",
+    "QUEUE_TASK_STATUS_DELETED" : "Smazáno",
     "QUEUE_DONT_ADD_COMPLETED" : "Automaticky vyčistit dokončené úlohy", 
     
     "ERR_FILE_ACCESSDENIED" : "Přístup odepřen. Zkontrolujte oprávnění souboru.",
@@ -143,13 +149,13 @@ define({
     "ERR_FILE_SERVCANTREACH" : "Nemohu se připojit na server. Zkontrolujte Firewall.",
     "ERR_FILE_FILESIZE0" : "Nemohu stáhnout soubor. Velikost je 0.", 
     "ERR_FILE_DOWNLOAD" : "Nemohu stáhnout soubor.", 
-    "ERR_FILE_UPLOAD" : "Nemohu nahrát soubor.", //TRANSLATED
+    "ERR_FILE_UPLOAD" : "Nemohu nahrát soubor.",
     "ERR_FILE_DOESNTEXIST" : "Soubor neexistuje.",
     "ERR_FILE_CANTRENAME" : "Nemohu přejmenovat soubor: ",
-    "ERR_FILE_CANTDELETE" : "Nemohu smazat soubor: ", //TRANSLATED
-    "ERR_FILE_CANTCREATEDIR" : "Nemohu vytvořit složku: ", //TRANSLATED
-    "ERR_FILE_CANTDELETEDIR" : "Nemohu smazat složku: ", //TRANSLATED
-    "ERR_FILE_CANTCREATEFILE" : "Nemohu vytvořit soubor: ", //TRANSLATED
+    "ERR_FILE_CANTDELETE" : "Nemohu smazat soubor: ",
+    "ERR_FILE_CANTCREATEDIR" : "Nemohu vytvořit složku: ",
+    "ERR_FILE_CANTDELETEDIR" : "Nemohu smazat složku: ",
+    "ERR_FILE_CANTCREATEFILE" : "Nemohu vytvořit soubor: ",
     "ERR_FOLDER_OPEN" : "Vznikla chyba při otevírání složky jako projekt.", 
 
     "CONTEXTM_DOWNLOAD" : "Stáhnout",
@@ -159,8 +165,8 @@ define({
     "CONTEXTM_DELETE" : "Smazat",
     "CONTEXTM_RENAME" : "Přejmenovat",
     "CONTEXTM_REDOWNLOAD" : "Stáhnout ze serveru",
-    "CONTEXTM_CREATEFILE" : "Vytvořit soubor", //TRANSLATED
-    "CONTEXTM_CREATEFOLDER" : "Vytvořit složku", //TRANSLATED
+    "CONTEXTM_CREATEFILE" : "Vytvořit soubor",
+    "CONTEXTM_CREATEFOLDER" : "Vytvořit složku",
 
     "OTHER_SELECT_SERVER_DROPDOWN" : "Vyberte připojení na vzdálený server...",
     "OTHER_ERROR" : "Chyba",
@@ -168,6 +174,8 @@ define({
     "OTHER_COMPLETED" : "Dokončeno",
     "OTHER_CANCELLED" : "Zrušeno",
     "OTHER_WAITING" : "Čekání",
+    "OTHER_YES" : "Yes", //NEW
+    "OTHER_NO" : "No", //NEW
     "OTHER_OK" : "Ok",
     "OTHER_OFF" : "Vyp.",
     "OTHER_CANCEL" : "Zrušit",

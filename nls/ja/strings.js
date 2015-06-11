@@ -21,14 +21,15 @@ define({
     "ERR_DIAG_NOSERVERFOUND_CONTENT" : "eqFTP サーバーが見つかりません。<br>プロジェクトフォルダの接続設定を確認してください。",
     "ERR_DIAG_ECONNRESET_TITLE" : "サーバーが接続を拒否しました",
     "ERR_DIAG_ECONNRESET_CONTENT" : "サーバーに接続できませんでした。Brackets を再起動してみてください。",
-    "ERR_DIAG_ECONNABORTED_TITLE" : "サーバーから切断されました", //NEW
-    "ERR_DIAG_ECONNABORTED_CONTENT" : "接続が中断されました。再試行中です。", //NEW
+    "ERR_DIAG_ECONNABORTED_TITLE" : "サーバーから切断されました",
+    "ERR_DIAG_ECONNABORTED_CONTENT" : "接続が中断されました。再試行中です。",
     "ERR_DIAG_UNIVERSAL_TITLE" : "不明なエラー",
     "ERR_DIAG_UNIVERSAL_CONTENT" : "不明なエラーが発生しました。",
+    "ERR_DIAG_NORSAKEYFOUND" : "There's no RSA key found in: ", //NEW A path to RSA file will be appended after colon.
 
     "NOT_DIAG_CONNECTED" : "接続完了です。",
     "NOT_DIAG_DISCONNECTED" : "接続解除されました。",
-    "NOT_DIAG_FILESDIFFERENT" : "ローカルとリモートファイルの差分です。詳細はクリックしてください。", //NEW
+    "NOT_DIAG_FILESDIFFERENT" : "ローカルとリモートファイルの差分です。詳細はクリックしてください。",
 
     "PASSWDWIND_TITLE" : "パスワードを入力してください",
     "PASSWDWIND_CONTENT" : "パスワード:",
@@ -49,6 +50,7 @@ define({
     "SETTINGSWIND_NOTIF_DONE" : "保存しました。",
     "SETTINGSWIND_SAVEDCONN" : "FTP 設定を保存しました。",
     "SETTINGSWIND_DELETECONN_HOVER" : "接続を削除しました。",
+    "SETTINGSWIND_COPYCONN_HOVER" : "Copy This Connection", //NEW
     "SETTINGSWIND_ERROR_DELETE_CURCONNSERV" : "使用中の接続は削除できません。",
     "SETTINGSWIND_ADDCONN_HOVER" : "新しい接続",
     "SETTINGSWIND_ADDCONN_STRING" : "新しい接続",
@@ -82,7 +84,9 @@ define({
     "SETTINGSWIND_GLOB_EVENDISCONN" : "オフラインフォルダ",
     "SETTINGSWIND_GLOB_EVENDISCONN_EXPLAIN" : "サーバーへのダウンロードや編集時に一時的に保存されるプロジェクトフォルダです。うまく説明できたかな？",
     "SETTINGSWIND_GLOB_LOCALPATH_FILLWPROJECT_TITLE" : "現在のプロジェクトのタイトル",
-    "SETTINGSWIND_GLOB_USELIST" : "代替フォルダ",
+    "SETTINGSWIND_GLOB_FRM_TITLE" : "Choose folder retrieving method:", //NEW
+    "SETTINGSWIND_GLOB_FRM_LIST" : "Use LIST command", //NEW
+    "SETTINGSWIND_GLOB_FRM_MLSD" : "Use MLSD command", //NEW
     "SETTINGSWIND_GLOB_KEEPALIVE" : "キープアライブの間隔", // Keep Alive is feature when client sends empty packages to server to prevet disconnection.
     "SETTINGSWIND_GLOB_KEEPALIVE_DESC" : "秒単位で指定します。おすすめは10病です。0 を指定するとコマンド実行後にすぐ接続解除します。.",
     "SETTINGSWIND_GLOB_DEBUG" : "デバッグ:",
@@ -112,9 +116,10 @@ define({
     "SETTINGSWIND_GLOB_AUTO_SYNC_CHECKDIFF_EXPLAIN" : "ローカルまたはリモートのファイルを開いた時に相違チェックします。",
     "SETTINGSWIND_GLOB_AUTO_SYNC_IGNORELIST_TITLE" : ".gitignore を無視",
     "SETTINGSWIND_GLOB_AUTO_SYNC_IGNORELIST_EXPLAIN" : ".gitignore ファイルを無視します。",
-    "SETTINGSWIND_GLOB_SYNCLOCPROJWCONN" : "接続を切り替えた時にプロジェクトを自動的に開きます。", //NEW
-    "SETTINGS_NOTIF_RELOADED" : "設定は正常にリロードされました。", //NEW
-    "SETTINGS_ERROR_RELOADED" : "設定をリロードできませんでした。", //NEW
+    "SETTINGSWIND_GLOB_SYNCLOCPROJWCONN" : "接続を切り替えた時にプロジェクトを自動的に開きます。",
+    "SETTINGS_NOTIF_RELOADED" : "設定は正常にリロードされました。",
+    "SETTINGS_ERROR_RELOADED" : "設定をリロードできませんでした。",
+    "SETTINGSWIND_GLOB_SCE_TITLE" : "Use SSH commands with SFTP", //NEW
 
     "QUEUE_TITLE" : "eqFTP キュー",
     "QUEUE_HEADER_NAME" : "名前",
@@ -142,16 +147,16 @@ define({
     "ERR_FILE_AUTHORIZATION" : "認証失敗。アカウントを確認してください。",
     "ERR_FILE_SERVNOEXIST" : "サーバーが見つかりません。サーバー名を確認してください。",
     "ERR_FILE_SERVCANTREACH" : "サーバーに到達できません。ファイアウォールの設定を確認してください。",
-    "ERR_FILE_FILESIZE0" : "ファイルが空のためダウンロードできません。", //NEW
-    "ERR_FILE_DOWNLOAD" : "ダウンロードできません。", //NEW
+    "ERR_FILE_FILESIZE0" : "ファイルが空のためダウンロードできません。",
+    "ERR_FILE_DOWNLOAD" : "ダウンロードできません。",
     "ERR_FILE_UPLOAD" : "ファイルをアップロードできません。",
-    "ERR_FILE_DOESNTEXIST" : "ファイルが存在しません。", //NEW
+    "ERR_FILE_DOESNTEXIST" : "ファイルが存在しません。",
     "ERR_FILE_CANTRENAME" : "リネームできません。: ",
     "ERR_FILE_CANTDELETE" : "削除できません。: ",
     "ERR_FILE_CANTCREATEDIR" : "フォルダを作成できません。: ",
     "ERR_FILE_CANTDELETEDIR" : "フォルダを削除できません。: ",
-    "ERR_FILE_CANTCREATEFILE" : "ファイルを作成できません。: ", //NEW
-    "ERR_FOLDER_OPEN" : "プロジェクトフォルダを開けません。", //NEW
+    "ERR_FILE_CANTCREATEFILE" : "ファイルを作成できません。: ",
+    "ERR_FOLDER_OPEN" : "プロジェクトフォルダを開けません。",
 
     "CONTEXTM_DOWNLOAD" : "ダウンロード",
     "CONTEXTM_UPLOAD" : "アップロード",
@@ -160,8 +165,8 @@ define({
     "CONTEXTM_DELETE" : "削除",
     "CONTEXTM_RENAME" : "リネーム",
     "CONTEXTM_REDOWNLOAD" : "サーバーからダウンロード",
-    "CONTEXTM_CREATEFILE" : "ファイル作成", //NEW
-    "CONTEXTM_CREATEFOLDER" : "フォルダ作成", //NEW
+    "CONTEXTM_CREATEFILE" : "ファイル作成",
+    "CONTEXTM_CREATEFOLDER" : "フォルダ作成",
 
     "OTHER_SELECT_SERVER_DROPDOWN" : "接続先を選択...",
     "OTHER_ERROR" : "エラー",
@@ -169,6 +174,8 @@ define({
     "OTHER_COMPLETED" : "完了",
     "OTHER_CANCELLED" : "取消",
     "OTHER_WAITING" : "待機中",
+    "OTHER_YES" : "Yes", //NEW
+    "OTHER_NO" : "No", //NEW
     "OTHER_OK" : "OK",
     "OTHER_OFF" : "OFF",
     "OTHER_CANCEL" : "キャンセル",

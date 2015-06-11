@@ -25,6 +25,7 @@ define({
     "ERR_DIAG_ECONNABORTED_CONTENT" : "Conexão caiu. Tentando reconectar...",
     "ERR_DIAG_UNIVERSAL_TITLE" : "Houve um erro",
     "ERR_DIAG_UNIVERSAL_CONTENT" : "Veja esse erro! Como isso pôde acontecer?",
+    "ERR_DIAG_NORSAKEYFOUND" : "There's no RSA key found in: ", //NEW A path to RSA file will be appended after colon.
 
     "NOT_DIAG_CONNECTED" : "Conectado no servidor.",
     "NOT_DIAG_DISCONNECTED" : "Desconectado do servidor.",
@@ -49,6 +50,7 @@ define({
     "SETTINGSWIND_NOTIF_DONE" : "Tudo foi gravado! :)",
     "SETTINGSWIND_SAVEDCONN" : "Conexões FTP gravadas",
     "SETTINGSWIND_DELETECONN_HOVER" : "Remover esta conexão",
+    "SETTINGSWIND_COPYCONN_HOVER" : "Copy This Connection", //NEW
     "SETTINGSWIND_ERROR_DELETE_CURCONNSERV" : "Você não pode apagar a conexão que está usando",
     "SETTINGSWIND_ADDCONN_HOVER" : "Adicionar nova conexão",
     "SETTINGSWIND_ADDCONN_STRING" : "Criar nova conexão...",
@@ -82,7 +84,9 @@ define({
     "SETTINGSWIND_GLOB_EVENDISCONN" : "Mesmo se desconectado",
     "SETTINGSWIND_GLOB_EVENDISCONN_EXPLAIN" : "Essa opção permite conectar automaticamente ao servidor quando o arquivo sendo gravado tiver sido aberto daquele servidor, ou quando o arquivo sendo gravado estiver dentro do projeto atual e este projeto tiver sido criado por esta extensão ftp. Nossa, espero ter conseguido explicar isso direito...",
     "SETTINGSWIND_GLOB_LOCALPATH_FILLWPROJECT_TITLE" : "Insira o caminho do projeto atual",
-    "SETTINGSWIND_GLOB_USELIST" : "Usar método alternativo para listagem das pastas",
+    "SETTINGSWIND_GLOB_FRM_TITLE" : "Choose folder retrieving method:", //NEW
+    "SETTINGSWIND_GLOB_FRM_LIST" : "Use LIST command", //NEW
+    "SETTINGSWIND_GLOB_FRM_MLSD" : "Use MLSD command", //NEW
     "SETTINGSWIND_GLOB_KEEPALIVE" : "Intervalo de Keep Alive:",
     "SETTINGSWIND_GLOB_KEEPALIVE_DESC" : "Valor em segundos. O valor recomendado é 10. Use zero para desativar o keep alive e desconectar do servidor a cada comando executado.",
     "SETTINGSWIND_GLOB_DEBUG" : "Debug:",
@@ -115,6 +119,7 @@ define({
     "SETTINGSWIND_GLOB_SYNCLOCPROJWCONN" : "Abre projeto Local relacionado depois de mudar a conexão e vice-versa",
     "SETTINGS_NOTIF_RELOADED" : "Configurações recarregadas com sucesso.",
     "SETTINGS_ERROR_RELOADED" : "Não foi possível recarregar as configurações.",
+    "SETTINGSWIND_GLOB_SCE_TITLE" : "Use SSH commands with SFTP", //NEW
 
     "QUEUE_TITLE" : "Fila eqFTP",
     "QUEUE_HEADER_NAME" : "Nome",
@@ -169,6 +174,8 @@ define({
     "OTHER_COMPLETED" : "Completo",
     "OTHER_CANCELLED" : "Cancelado",
     "OTHER_WAITING" : "Aguardando",
+    "OTHER_YES" : "Yes", //NEW
+    "OTHER_NO" : "No", //NEW
     "OTHER_OK" : "Ok",
     "OTHER_OFF" : "Desligar",
     "OTHER_CANCEL" : "Cancelar",

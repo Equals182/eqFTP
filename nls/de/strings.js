@@ -25,6 +25,7 @@ define({
     "ERR_DIAG_ECONNABORTED_CONTENT" : "Verbindung abgebrochen. Versuche Verbindung wiederherzustellen...", 
     "ERR_DIAG_UNIVERSAL_TITLE" : "Es gab einen Fehler.",
     "ERR_DIAG_UNIVERSAL_CONTENT" : "Schau dir diesen Fehler an. Wie konnte dies passieren?",
+    "ERR_DIAG_NORSAKEYFOUND" : "There's no RSA key found in: ", //NEW A path to RSA file will be appended after colon.
 
     "NOT_DIAG_CONNECTED" : "Mit dem Server verbunden.", 
     "NOT_DIAG_DISCONNECTED" : "Vom Server getrennt.",
@@ -49,6 +50,7 @@ define({
     "SETTINGSWIND_NOTIF_DONE" : "Alles gespeichert! :)",
     "SETTINGSWIND_SAVEDCONN" : "Gespeicherte FTP Verbindungen",
     "SETTINGSWIND_DELETECONN_HOVER" : "Lösche diese Verbindung",
+    "SETTINGSWIND_COPYCONN_HOVER" : "Copy This Connection", //NEW
     "SETTINGSWIND_ERROR_DELETE_CURCONNSERV" : "Löschen nicht möglich, da Verbindung gerade genutzt wird.",
     "SETTINGSWIND_ADDCONN_HOVER" : "Neue Verbindung hinzufügen",
     "SETTINGSWIND_ADDCONN_STRING" : "Neue Verbindungen erstellen...",
@@ -82,7 +84,9 @@ define({
     "SETTINGSWIND_GLOB_EVENDISCONN" : "Auch wenn die Verbindung getrennt ist",
     "SETTINGSWIND_GLOB_EVENDISCONN_EXPLAIN" : "Diese Option ermöglicht es, dass automatische Verbinden mit dem Server, wenn eine Datei die sich in einem Projektordner befindet, der mit eqFTP erstellt wurde, gespeichert wurde. Ich hoffe ich habe es gut erklärt.",
     "SETTINGSWIND_GLOB_LOCALPATH_FILLWPROJECT_TITLE" : "Füge den derzeitiegen Projekt-Pfad ein",
-    "SETTINGSWIND_GLOB_USELIST" : "Empfange alternativen Ordner",
+    "SETTINGSWIND_GLOB_FRM_TITLE" : "Choose folder retrieving method:", //NEW
+    "SETTINGSWIND_GLOB_FRM_LIST" : "Use LIST command", //NEW
+    "SETTINGSWIND_GLOB_FRM_MLSD" : "Use MLSD command", //NEW
     "SETTINGSWIND_GLOB_KEEPALIVE" : "Keep-Alive Intervall:",
     "SETTINGSWIND_GLOB_KEEPALIVE_DESC" : "Wert in Sekunden. Empfohlen ist 10. Benutze null, um Keep-Alive nicht mehr bei jedem Kommando zu senden und automatisch die Verbindung zu beenden.",
     "SETTINGSWIND_GLOB_DEBUG" : "Debug:",
@@ -115,6 +119,7 @@ define({
     "SETTINGSWIND_GLOB_SYNCLOCPROJWCONN" : "Wenn Verbindung geöffnet wird, wechsel zum passenden Projekt und vice versa",
     "SETTINGS_NOTIF_RELOADED" : "Einstellungen erfolgreich erneut geladen.",
     "SETTINGS_ERROR_RELOADED" : "Einstellungen konnten nicht erneut geladen werden.",
+    "SETTINGSWIND_GLOB_SCE_TITLE" : "Use SSH commands with SFTP", //NEW
 
     "QUEUE_TITLE" : "eqFTP Warteschlange",
     "QUEUE_HEADER_NAME" : "Name",
@@ -169,6 +174,8 @@ define({
     "OTHER_COMPLETED" : "Fertig gestellt",
     "OTHER_CANCELLED" : "Abgebrochen",
     "OTHER_WAITING" : "Warten",
+    "OTHER_YES" : "Yes", //NEW
+    "OTHER_NO" : "No", //NEW
     "OTHER_OK" : "Ok",
     "OTHER_OFF" : "Aus",
     "OTHER_CANCEL" : "Abbruch",
