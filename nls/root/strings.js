@@ -156,6 +156,7 @@ define({
     "ERR_FILE_CANTCREATEDIR" : "Can't create folder: ",
     "ERR_FILE_CANTDELETEDIR" : "Can't delete folder: ",
     "ERR_FILE_CANTCREATEFILE" : "Can't create file: ",
+    "ERR_FILE_CANTGETINDIRECTORY" : "Can't get in directory. Check your Remote Path setting, existence of directory on server and rights to read it.<br>The directory is:", //NEW
     "ERR_FOLDER_OPEN" : "There's an error opening folder as project",
 
     "CONTEXTM_DOWNLOAD" : "Download",
@@ -183,6 +184,7 @@ define({
     "OTHER_SAVE" : "Save",
     "OTHER_CLOSE" : "Close",
     "OTHER_DELETE" : "Delete",
+    "OTHER_COPY" : "Copy", //NEW
     "OTHER_CONFIRM_DELETE" : "Are you sure you want to delete this item?",
     "OTHER_CONFIRM_SETTINGSCLOSE" : "There are some unsaved changes that will be lost if you click OK.<br>Do you want to proceed?",
     "OTHER_ERROR_EVENDISCONN" : "Can't upload file. 'Even If Disconnected' option is off.",

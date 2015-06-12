@@ -365,20 +365,26 @@ define(function (require, exports, module) {
         return string.replace(/\//g, "\\/");
     };
     function eqFTPdone(mark) {
-        if(!mark || mark == 'ok') {
+        if(mark === undefined || mark == 'ok') {
             var icon = 'check',
                 color = '#38ea38';
         } else if (mark == 'error') {
             var icon = 'times',
                 color = '#d81010';
+        } else if (mark === false) {
+            var icon = false;
         }
         var t = setInterval(function() {
-            $("#toolbar-eqFTP").html("<i class='fa fa-"+icon+"' style='color: "+color+"'></i>");
-            var t2 = setInterval(function() {
+            if (icon) {
+                $("#toolbar-eqFTP").html("<i class='fa fa-"+icon+"' style='color: "+color+"'></i>");
+                var t2 = setInterval(function() {
+                    $("#toolbar-eqFTP").html("");
+                    clearInterval(t2);
+                }, 3000);
+                clearInterval(t);
+            } else {
                 $("#toolbar-eqFTP").html("");
-                clearInterval(t2);
-            }, 3000);
-            clearInterval(t);
+            }
         }, 500);
     }
     function getTimestamp() {
@@ -683,6 +689,7 @@ define(function (require, exports, module) {
         windows: {
             settings: {
                 open: function(params) {
+                    $('[eqFTP-action="modal_hide"]').click();
                     if (params != undefined && params.castWindow) {
                         settingsDialogObject = Dialogs.showModalDialogUsingTemplate(eqFTPSettingsTemplate, false);
                     }
@@ -1368,6 +1375,14 @@ define(function (require, exports, module) {
                 working_contextMenu.addMenuItem("eqftp.addToAutomaticQueue-u");
                 working_contextMenu.addMenuItem("eqftp.addToPausedQueue-u");
                 working_contextMenu.addMenuItem("eqftp.redownloadFile");
+                
+                var eqFTP_connectionManager_Connection = Menus.registerContextMenu('equals182-eqftp-connectionManager_Connection');
+                eqFTP_connectionManager_Connection.addMenuItem("eqftp.deleteConnection");
+                eqFTP_connectionManager_Connection.addMenuItem("eqftp.copyConnection");
+                $("body").on('contextmenu', "#eqFTPAllServerList [data-eqftp-opensettings]", function (e) {
+                    tmp_modalClickedItem = $(e.target).is('[data-eqftp-opensettings]')?$(e.target):$(e.target).closest('[data-eqftp-opensettings]');
+                    eqFTP_connectionManager_Connection.open(e);
+                });
             },
             addLocalToQueue: function(params) {
                 var fileEntry = ProjectManager.getSelectedItem(),
@@ -1657,6 +1672,7 @@ define(function (require, exports, module) {
                     eqFTP.sf.remoteStructure.redraw({
                         connectionID: eqFTP.globals.connectedServer
                     });
+                    eqFTPdone('error');
                     $('#eqFTPLoading').hide();
                 }else{
                     var sanitizedFolders = [],
@@ -1842,12 +1858,18 @@ define(function (require, exports, module) {
                 eqFTP.globals.connectedServer = false;
                 console.log("[eqFTP] Disconnected from server");
                 $("#eqFTPConnectionControl").removeClass('disabled');
+                var serverList = true,
+                    table = true;
+                if (eqFTP.sf.connections.byId(connectionID).keepAlive == 0) {
+                    serverList = false;
+                    table = false;
+                }
                 eqFTP.sf.connections.control({
                     status: false,
                     icon: true,
                     connectedServer: true,
-                    serverList: true,
-                    table: true
+                    serverList: serverList,
+                    table: table
                 });
                 eqFTP.sf.notifications.custom({
                     type: "notification",
@@ -1861,6 +1883,7 @@ define(function (require, exports, module) {
                     eventAfterDisconnect();
                     eventAfterDisconnect = false;
                 }
+                eqFTPdone(false);
                 $("#eqFTPLoading").hide();
             }
             else if (e === "server_connect")
@@ -2354,6 +2377,12 @@ define(function (require, exports, module) {
         CommandManager.register(eqFTPstrings.CONTEXTM_CREATEFOLDER, "eqftp.createRemoteFolderRoot", function() {
             createNewElement("directory", true);
         });
+        CommandManager.register(eqFTPstrings.OTHER_DELETE, "eqftp.deleteConnection", function() {
+            alert('delete?');
+        });
+        CommandManager.register(eqFTPstrings.OTHER_COPY, "eqftp.copyConnection", function() {
+            alert('copy?');
+        });
         
         eqFTP.sf.others.createContextMenus();
 
@@ -2680,7 +2709,8 @@ define(function (require, exports, module) {
                     }
                 }
             }
-            else if (action === "settingsWindow_connection_copy") {
+            else if (action === "settingsWindow_connection_copy")
+            {
                 var id = parseInt($(this).parent().attr('data-eqFTP-openSettings')),
                     donor = $.extend({}, eqFTP.sf.connections.byId(id));
                 if (!isNaN(id) && donor) {
@@ -2701,6 +2731,11 @@ define(function (require, exports, module) {
                     eqFTP.sf.windows.settings.toMain();
                     eqFTP.sf.serverList.redraw();
                 }
+            }
+            else if (action === "settingsWindow_autofillLocalPath")
+            {
+                var projectRoot = ProjectManager.getProjectRoot();
+                $(this).parent().find('input').val(projectRoot._path).change();
             }
             else if (action === "useDirectoryOpener")
             {

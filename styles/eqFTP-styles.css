@@ -194,6 +194,13 @@
     width:140px;
 }
 
+#eqFTP-project-settings .field-container2 .eqFTP-icon {
+    font-size: 16px;
+    height: 15px;
+    width: 15px;
+    margin: 0;
+}
+
 .eqFTP-icon {
     cursor: pointer;
     opacity: 0.2;

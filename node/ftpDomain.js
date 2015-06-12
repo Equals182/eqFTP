@@ -1047,6 +1047,7 @@ console.log('[eqFTP-queueisbusy][c.d no connection] Setting busy to false');
                                                 }
                                             });
                                         } else {
+                                            _domainManager.emitEvent("eqFTP", "events", {event: "error", pretext: "ERR_FILE_CANTGETINDIRECTORY", text: params.path});
                                             if (params.callback)
                                                 params.callback(false);
                                             else
@@ -1572,7 +1573,7 @@ console.log('[eqFTP-queueisbusy][s.sKA 2] Setting busy to false');
                                         callback: function (err, data) {
                                             if (err !== null && err) {
                                                 //If there's an error
-                                                throwError("Can't get in directory: " + params.path + ". Trying to get in /. The error is: " + err);
+                                                throwError("[r.c] Can't get in directory: " + params.path + ". Trying to get in /. The error is: " + err);
                                                 if (params.callback)
                                                     params.callback(false);
                                             } else {
@@ -1590,7 +1591,7 @@ console.log('[eqFTP-queueisbusy][s.sKA 2] Setting busy to false');
                                         callback: function (err, data) {
                                             if (err !== null && err) {
                                                 //If there's an error
-                                                throwError("Can't get in directory: " + params.path + ". Trying to get in /");
+                                                throwError("[r.c] Can't get in directory: " + params.path + ". Trying to get in /");
                                                 if (params.callback)
                                                     params.callback(false);
                                             } else {
