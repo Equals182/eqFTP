@@ -25,7 +25,7 @@ define({
     "ERR_DIAG_ECONNABORTED_CONTENT" : "Připojení zrušeno. Zkouším se připojit znovu...", 
     "ERR_DIAG_UNIVERSAL_TITLE" : "Nastala chyba",
     "ERR_DIAG_UNIVERSAL_CONTENT" : "Podívejte se na tuto chybu! Jak se to mohlo stát?",
-    "ERR_DIAG_NORSAKEYFOUND" : "There's no RSA key found in: ", //NEW A path to RSA file will be appended after colon.
+    "ERR_DIAG_NORSAKEYFOUND" : "Nenalezen žádný RSA klíč v:", //TRANSLATED
 
     "NOT_DIAG_CONNECTED" : "Připojen k serveru.",
     "NOT_DIAG_DISCONNECTED" : "Odpojen od serveru.",
@@ -50,7 +50,7 @@ define({
     "SETTINGSWIND_NOTIF_DONE" : "Vše je uloženo! :)",
     "SETTINGSWIND_SAVEDCONN" : "FTP Připojení uloženo",
     "SETTINGSWIND_DELETECONN_HOVER" : "Smazat toto připojení",
-    "SETTINGSWIND_COPYCONN_HOVER" : "Copy This Connection", //NEW
+    "SETTINGSWIND_COPYCONN_HOVER" : "Kopírovat toto připojení", //TRANSLATED
     "SETTINGSWIND_ERROR_DELETE_CURCONNSERV" : "Nemůžete smazat připojení které právě používáte",
     "SETTINGSWIND_ADDCONN_HOVER" : "Přidat nové připojení",
     "SETTINGSWIND_ADDCONN_STRING" : "Vytvořit nové připojení...",
@@ -84,9 +84,9 @@ define({
     "SETTINGSWIND_GLOB_EVENDISCONN" : "I když je odpojeno",
     "SETTINGSWIND_GLOB_EVENDISCONN_EXPLAIN" : "Automatické připojení k serveru pokud je uložený soubor otevřen ze serveru nebo je uvnitř současného projektu který byl vytvořený tímto FTP rozšířením. Uf, vážně doufám že jsem to vysvětlil dobře...",
     "SETTINGSWIND_GLOB_LOCALPATH_FILLWPROJECT_TITLE" : "Vložit cestu současného projektu",
-    "SETTINGSWIND_GLOB_FRM_TITLE" : "Choose folder retrieving method:", //NEW
-    "SETTINGSWIND_GLOB_FRM_LIST" : "Use LIST command", //NEW
-    "SETTINGSWIND_GLOB_FRM_MLSD" : "Use MLSD command", //NEW
+    "SETTINGSWIND_GLOB_FRM_TITLE" : "Vybrat režim přenosu pro složku:", //TRANSLATED
+    "SETTINGSWIND_GLOB_FRM_LIST" : "Použít příkaz LIST", //TRANSLATED
+    "SETTINGSWIND_GLOB_FRM_MLSD" : "Použít příkaz MLSD", //TRANSLATED
     "SETTINGSWIND_GLOB_KEEPALIVE" : "Interval udržování připojení:", //Keep Alive is feature when client sends empty packages to server to prevet disconnection.
     "SETTINGSWIND_GLOB_KEEPALIVE_DESC" : "Hodnota v sekundách. Doporučená hodnota je 10. Při použití nuly nebude připojení udržováno a bude uzavřeno po každém provedení příkazu.",
     "SETTINGSWIND_GLOB_DEBUG" : "Ladění:",
@@ -119,7 +119,7 @@ define({
     "SETTINGSWIND_GLOB_SYNCLOCPROJWCONN" : "Otevřít příslušný lokální projekt po přepnutí připojení a naopak",
     "SETTINGS_NOTIF_RELOADED" : "Nastavení bylo úspěšně znovu načteno.",
     "SETTINGS_ERROR_RELOADED" : "Nemohu znovu načíst nastavení.",
-    "SETTINGSWIND_GLOB_SCE_TITLE" : "Use SSH commands with SFTP", //NEW
+    "SETTINGSWIND_GLOB_SCE_TITLE" : "Použít příkaz SSH s SFTP", //TRANSLATED
 
     "QUEUE_TITLE" : "eqFTP fronta",
     "QUEUE_HEADER_NAME" : "Jméno",
@@ -127,8 +127,8 @@ define({
     "QUEUE_HEADER_FROM" : "Zdrojová cesta",
     "QUEUE_HEADER_TO" : "Cílová cesta",
     "QUEUE_HEADER_STATUS" : "Status",
-    "QUEUE_CLEARQ" : "Zpracuj frontu",
-    "QUEUE_STARTQ" : "Start Queue", //NEW
+    "QUEUE_CLEARQ" : "Vyčisti frontu", //CHANEGD
+    "QUEUE_STARTQ" : "Zpracuj frontu", //TRANSLAED - CHANGED
     "QUEUE_PAUSEQ" : "Pozastavit frontu",
     "QUEUE_RESTARTQ" : "Opakování selhalo",
     "QUEUE_CONTEXTM_STARTT" : "Zpracovat",
@@ -174,8 +174,8 @@ define({
     "OTHER_COMPLETED" : "Dokončeno",
     "OTHER_CANCELLED" : "Zrušeno",
     "OTHER_WAITING" : "Čekání",
-    "OTHER_YES" : "Yes", //NEW
-    "OTHER_NO" : "No", //NEW
+    "OTHER_YES" : "Ano", //TRANSLATED
+    "OTHER_NO" : "Ne", //TRANSLATED
     "OTHER_OK" : "Ok",
     "OTHER_OFF" : "Vyp.",
     "OTHER_CANCEL" : "Zrušit",
