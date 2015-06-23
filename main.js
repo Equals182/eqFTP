@@ -731,7 +731,7 @@ define(function (require, exports, module) {
                     pwdDialog.callback = callback;
                     if (eqFTP.globals.masterPassword !== null) {
                         callback(eqFTP.globals.masterPassword);
-                    } else {
+                    } else if (!pwdDialog.dial) {
                         pwdDialog.dial = Dialogs.showModalDialogUsingTemplate(eqFTPPasswordTemplate, false);
                     }
                 }
