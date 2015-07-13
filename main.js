@@ -2138,7 +2138,7 @@ define(function (require, exports, module) {
         * Queue
         */
         
-        WorkspaceManager.createBottomPanel("eqFTP.eqFTPQueue", $(eqFTPQueueTemplate), 200);
+        WorkspaceManager.createBottomPanel("eqFTP.eqFTPQueue", $(eqFTPQueueTemplate), 125);
         StatusBar.addIndicator('eqFTPQueueIndicator', $("<div id='eqFTPQueueIndicator' eqFTP-action='queue_toggle' class='disabled'>"+eqFTPstrings.QUEUE_TITLE+"</div>"), true);
         
         /*
