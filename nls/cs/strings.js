@@ -9,7 +9,7 @@ define({
     "SIDEPANEL_FILETREE_MODIFIED" : "Upraveno",
     "SIDEPANEL_CONDISCONNECT" : "Připojit/odpojit",
     "SIDEPANEL_REFRESH" : "Obnovit",
-    "SIDEPANEL_RELOADSETTINGS" : "Načíst nastavení a zvonu zadat heslo",
+    "SIDEPANEL_RELOADSETTINGS" : "Načíst nastavení a znovu zadat heslo",
 
     "ERR_DIAG_SERVNOEXIST_TITLE" : "Server neexistuje",
     "ERR_DIAG_SERVNOEXIST_CONTENT" : "Vypadá to, že server neexistuje.<br>Zkontrolujte server zadaný v Nastavení připojení.",
@@ -45,7 +45,7 @@ define({
 
     "SETTINGSWIND_TITLE" : "eqFTP Správce připojení",
     "SETTINGSWIND_ERR_BLANKS" : "Jejda! Vypadá to, že něco je špatně. Zkontrolujte zadávací pole a zkuste to znovu.",
-    "SETTINGSWIND_ERR_CANTWRITE" : "Něco je totálně špatně! Nemohu zapsat tyto anstavení do souboru!",
+    "SETTINGSWIND_ERR_CANTWRITE" : "Něco je totálně špatně! Nemohu zapsat tyto nastavení do souboru!",
     "SETTINGSWIND_ERR_LOCALPATHREPEAT" : "Cesta kterou se pokoušíte zadat je aktuálně používána jiným připojením.",
     "SETTINGSWIND_NOTIF_DONE" : "Vše je uloženo! :)",
     "SETTINGSWIND_SAVEDCONN" : "FTP Připojení uloženo",
@@ -57,7 +57,7 @@ define({
     "SETTINGSWIND_DELETECONNCONF_1" : "Prosím potvrďte, že chcete smazet připojení: ",
     "SETTINGSWIND_DELETECONNCONF_2" : "",
     "SETTINGSWIND_OPENGLOBSET" : "Otevřít globální nastavení FTP...",
-    "SETTINGSWIND_NOTHINGYETMSG" : "Vyberte připojení, které chcete upravit v postraním panelu, nebo vytvořte nové.",
+    "SETTINGSWIND_NOTHINGYETMSG" : "Vyberte připojení, které chcete upravit v postranním panelu, nebo vytvořte nové.",
     "SETTINGSWIND_GLOB_FOLDERFORPROJ" : "Složka pro projekty:",
     "SETTINGSWIND_GLOB_FOLDERFORPROJ_DIAGTITLE" : "Adresář pro projekty se staženými soubory:",
     "SETTINGSWIND_GLOB_FOLDERFORSET" : "Složka pro nastavení:",
@@ -183,8 +183,8 @@ define({
     "OTHER_SAVE" : "Uložit",
     "OTHER_CLOSE" : "Zavřít",
     "OTHER_DELETE" : "Smazat",
-    "OTHER_CONFIRM_DELETE" : "Jste si jisti, že chcete smazat tuto položku",
-    "OTHER_CONFIRM_SETTINGSCLOSE" : "There are some unsaved changes that will be lost if you click OK.<br>Do you want to proceed?", //NEW
+    "OTHER_CONFIRM_DELETE" : "Jste si jisti, že chcete smazat tuto položku?",
+    "OTHER_CONFIRM_SETTINGSCLOSE" : "Kliknutím na OK budou ztraceny všechny provedené změny.<br>Opravdu chcete pokračovat?", //NEW
     "OTHER_ERROR_EVENDISCONN" : "Nemohu nahrát soubor. Nastavení 'I když je odpojeno' je zakázáno.", 
     "OTHER_ERROR_CANTREADSETTINGS" : "Nemohu načíst nastavení. Je možné, že jste zadali špatné hlavní heslo."
 });
