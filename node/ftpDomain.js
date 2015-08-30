@@ -2682,7 +2682,7 @@ console.log('[eqFTP-queueisbusy][q.p not a file or folder] Setting busy to false
                                     if(eqFTPconnections[params.connectionID].protocol === "sftp") {
                                         // SFTP
                                         eqFTPconnections[params.connectionID].ftpDomain.sftpClient.stat(params.path, function (err, stats) {
-                                            if (stats[0])
+                                            if (stats && stats[0])
                                                 stats = stats[0];
                                             else
                                                 stats = {size: 0};
