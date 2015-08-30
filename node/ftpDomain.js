@@ -682,7 +682,6 @@ console.log('[eqFTP-queueisbusy][c.d no connection] Setting busy to false');
                                     transferred: (uploaded || 0) + buffer,
                                 };
                                 if (data.total > 1000000) {
-                                    data.transferred = data.extr.progressReaded;
                                     _domainManager.emitEvent("eqFTP", "events", {
                                         event: "progress",
                                         connectionID: params.connectionID,
