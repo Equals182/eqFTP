@@ -12,7 +12,7 @@
 		"brackets": ">=1.1.0"
 	},
     "i18n": [
-        "cs", "de", "en", "es", "fr", "hu", "it", "nl", "pt-br", "ru", "tr", "uk", "ko"
+        "cs", "de", "en", "es", "fr", "hu", "it", "nl", "pt-br", "ru", "tr", "uk", "ja", "ko"
     ],
     "package-i18n": {
         "en": {

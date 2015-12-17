@@ -108,7 +108,7 @@ define(function (require, exports, module) {
             callback: function() {}
         },
         
-        eqftpVersion = "0.7.0";
+        eqftpVersion = "0.7.1";
     
     function isFunction(functionToCheck) {
         var getType = {};

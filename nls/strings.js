@@ -22,6 +22,7 @@ define(function (require, exports, module) {
         "nl":     true,
         "hu":     true,
         "cs":     true,
-        "ja":     true
+        "ja":     true,
+        "ko":     true
     };
 });
