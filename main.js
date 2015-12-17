@@ -34,6 +34,7 @@
   * Improved Brazilian Portuguese translation.
   * Added Ukrainian translation.
   * Added Czech translation.
+  * Added Korean translation.
   * Creating remote files and folders!
   * Connections' ordering
  */
