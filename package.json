@@ -12,7 +12,7 @@
 		"brackets": ">=1.1.0"
 	},
     "i18n": [
-        "cs", "de", "en", "es", "fr", "hu", "it", "nl", "pt-br", "ru", "tr", "uk"
+        "cs", "de", "en", "es", "fr", "hu", "it", "nl", "pt-br", "ru", "tr", "uk", "ko"
     ],
     "package-i18n": {
         "en": {
@@ -23,6 +23,9 @@
         },
         "ja": {
             "description": "Brackets 用 FTP クライアント。更新後は Brackets の再起動が必要です。"
+        },
+        "ko": {
+            "description": "Brackets 용 FTP/SFTP 클라이언트입니다. 업데이트 설치 후 재시작해 주세요."
         }
     }
 }
