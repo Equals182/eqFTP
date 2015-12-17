@@ -1593,7 +1593,6 @@ define(function (require, exports, module) {
                     });
                     if (o.type === "file")
                         queuersAll.push(o);
-                    console.log(getTimestamp(), 'Adding to queue', o);
                     nodeConnection.domains.eqFTP.addToQueue(o);
                 });
             }
@@ -1668,7 +1667,6 @@ define(function (require, exports, module) {
             }
             else if (e === "directory_got")
             {
-                console.log(getTimestamp(), 'Directory got');
                 if(params.err) {
                     eqFTP.sf.remoteStructure.redraw({
                         connectionID: eqFTP.globals.connectedServer
@@ -1857,7 +1855,6 @@ define(function (require, exports, module) {
             else if (e === "server_disconnect")
             {
                 eqFTP.globals.connectedServer = false;
-                console.log("[eqFTP] Disconnected from server");
                 $("#eqFTPConnectionControl").removeClass('disabled');
                 var serverList = true,
                     table = true;
@@ -1918,7 +1915,6 @@ define(function (require, exports, module) {
                         }
                     });
                 }
-                console.log("[eqFTP] Connected to server");
             }
             else if (e === "server_connecting")
             {
@@ -1974,7 +1970,6 @@ define(function (require, exports, module) {
             }
             else if (e === "upload_complete")
             {
-                console.log(getTimestamp(), 'Upload complete');
                 eqFTPdone();
                 if (params.element.after && params.element.after === "disconnect") {
                     eqFTP.ftp.disconnect({
@@ -3293,22 +3288,15 @@ define(function (require, exports, module) {
         });
         
         DocumentManager.on("documentSaved", function (event, doc) {
-console.log(getTimestamp(),'[eqFTP-uploadonsave] documentSaved triggered');
             var document = DocumentManager.getCurrentDocument();
-console.log('[eqFTP-uploadonsave] Checking if file is within project', document.file.fullPath);
             if (ProjectManager.isWithinProject(document.file.fullPath)) {
-console.log('[eqFTP-uploadonsave] Yes it is');
                 var projectRoot = ProjectManager.getProjectRoot();
-console.log('[eqFTP-uploadonsave] Getting connection ID by path');
                 eqFTP.sf.connections.getByPath(projectRoot._path, function(connectionID) {
-console.log('[eqFTP-uploadonsave] Here it is: ', connectionID);
                     if (!isNaN(parseInt(connectionID)) && connectionID > -1) {
                         if (eqFTP.sf.connections.byId(connectionID).automatization.type === "classic") {
-console.log('[eqFTP-uploadonsave] Automatization type is classic');
                             if (eqFTP.sf.connections.byId(connectionID).automatization.classic.uploadOnSave === true 
                                 && (eqFTP.sf.connections.byId(connectionID).automatization.classic.autoConnect || eqFTP.globals.connectedServer === connectionID) )
                             {
-console.log('[eqFTP-uploadonsave] Upload on save is on, everything is ok');
                                 var queue = "a";
                                 if (eqFTP.sf.connections.byId(connectionID).automatization.classic.uploadOnSavePaused)
                                     queue = "p";
@@ -3321,10 +3309,8 @@ console.log('[eqFTP-uploadonsave] Upload on save is on, everything is ok');
                                     type: "file",
                                     connectionID: connectionID
                                 };
-console.log('[eqFTP-uploadonsave] Here\'s queuer: ', queuer);
                                 if (eqFTP.globals.connectedServer !== connectionID)
                                     queuer.after = "disconnect"
-console.log('[eqFTP-uploadonsave] Adding to queue.');
                                 eqFTP.ftp.queue.add([queuer]);
                             }
                         }
