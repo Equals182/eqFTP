@@ -19,24 +19,8 @@
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
  *
- * version 0.7.0
-  * Updated Dutch translation.
-  * SFTP SUPPORT!
-  * ACTUAL SYNC!
-  * Added columns' sorting in FileTree Window!
-  * FileTree Window now saves dimensions and column widths after Brackets restart!
-  * Added Font Awesome for icons instead of svg and png images.
-  * Improved dark theme compatibility.
-  * Changed behavior of Connection Manager window.
-  * Fully rewritten main.js file (should work faster now).
-  * Updated Once module and added SCP2 module for SFTP support.
-  * Redesigned ftpDomain.js's structure for SFTP support.
-  * Improved Brazilian Portuguese translation.
-  * Added Ukrainian translation.
-  * Added Czech translation.
-  * Added Korean translation.
-  * Creating remote files and folders!
-  * Connections' ordering
+ * version 0.7.2
+  * fix #193
  */
 
 /*jslint vars: true, plusplus: true, devel: true, nomen: true, indent: 4, maxerr: 50  */
@@ -108,7 +92,7 @@ define(function (require, exports, module) {
             callback: function() {}
         },
         
-        eqftpVersion = "0.7.1";
+        eqftpVersion = "0.7.2";
     
     function isFunction(functionToCheck) {
         var getType = {};
