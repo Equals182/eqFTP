@@ -277,6 +277,7 @@ define(function (require, exports, module) {
         var r = [];
         $.each(eqFTP.globals.projectsPaths, function(i, o) {
             if (o != null) {
+                o = normalizePath(o+"/");
                 r.push("(^" + o.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/gi, "\\$&") + ")");
             }
         });
