@@ -26,6 +26,9 @@
         },
         "ko": {
             "description": "Brackets 용 FTP/SFTP 클라이언트입니다. 업데이트 설치 후 재시작해 주세요."
+        },
+        "it": {
+            "description": "Client FTP/SFTP per Brackets. Riavvia manualmente Brackets dopo l'aggiornamento"
         }
     }
 }
