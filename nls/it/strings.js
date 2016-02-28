@@ -25,7 +25,7 @@ define({
     "ERR_DIAG_ECONNABORTED_CONTENT" : "Connessione interrotta. Provo a riconnettermi...",
     "ERR_DIAG_UNIVERSAL_TITLE" : "C'é un errore",
     "ERR_DIAG_UNIVERSAL_CONTENT" : "Guarda questo errore! Come è potuto accadere?",
-    "ERR_DIAG_NORSAKEYFOUND" : "There's no RSA key found in: ", //NEW A path to RSA file will be appended after colon.
+    "ERR_DIAG_NORSAKEYFOUND" : "Non c'è la chiave RSA in: ",
 
     "NOT_DIAG_CONNECTED" : "Connesso al server.",
     "NOT_DIAG_DISCONNECTED" : "Disconnesso dal server.",
@@ -50,8 +50,8 @@ define({
     "SETTINGSWIND_NOTIF_DONE" : "Detto, fatto! :)",
     "SETTINGSWIND_SAVEDCONN" : "Connessioni FTP Memorizzate",
     "SETTINGSWIND_DELETECONN_HOVER" : "Rimuovi Questa Connessione",
-    "SETTINGSWIND_COPYCONN_HOVER" : "Copy This Connection", //NEW
-    "SETTINGSWIND_ERROR_DELETE_CURCONNSERV" : "You can't delete connection you're using now", //NEW
+    "SETTINGSWIND_COPYCONN_HOVER" : "Copia questa connessione",
+    "SETTINGSWIND_ERROR_DELETE_CURCONNSERV" : "Non puoi eliminare la connessione in uso",
     "SETTINGSWIND_ADDCONN_HOVER" : "Aggiungi Nuova Connessione",
     "SETTINGSWIND_ADDCONN_STRING" : "Crea Una Nuova Connessione...",
     "SETTINGSWIND_DELETECONNCONF_1" : "Conferma la rimozione della connessione ",
@@ -63,7 +63,7 @@ define({
     "SETTINGSWIND_GLOB_FOLDERFORSET" : "Cartella Impostazioni:",
     "SETTINGSWIND_GLOB_FOLDERFORSET_DIAGTITLE" : "Cartella Con il File Delle Impostazioni",
     "SETTINGSWIND_GLOB_DONTOPENPROJECTS" : "Non Aprire i Progetti Dopo Il Download",
-    "SETTINGSWIND_GLOB_MASTERPASSWORD" : "Master Password", //NEW
+    "SETTINGSWIND_GLOB_MASTERPASSWORD" : "Master Password",
     "SETTINGSWIND_GLOB_CONNECTIONNAME_TITLE" : "Nome Connessione:",
     "SETTINGSWIND_GLOB_CONNECTIONNAME_FIELD" : "Inserisci il nome della connessione",
     "SETTINGSWIND_GLOB_SERVER_TITLE" : "Server:",
@@ -84,9 +84,9 @@ define({
     "SETTINGSWIND_GLOB_EVENDISCONN" : "Anche Quando Disconnesso",
     "SETTINGSWIND_GLOB_EVENDISCONN_EXPLAIN" : "Questa opzione permette di collegarsi automaticamente ad un server quando un file salvato viene aperto dal server oppure quando si trova dentro il progetto corrente ed il progetto è stato creato da questa estensione FTP. Beh, spero che tu mi abbia capito..",
     "SETTINGSWIND_GLOB_LOCALPATH_FILLWPROJECT_TITLE" : "Aggiungi il percorso al progetto corrente",
-    "SETTINGSWIND_GLOB_FRM_TITLE" : "Choose folder retrieving method:", //NEW
-    "SETTINGSWIND_GLOB_FRM_LIST" : "Use LIST command", //NEW
-    "SETTINGSWIND_GLOB_FRM_MLSD" : "Use MLSD command", //NEW
+    "SETTINGSWIND_GLOB_FRM_TITLE" : "Scegli il metodo di recupero delle cartelle",
+    "SETTINGSWIND_GLOB_FRM_LIST" : "Usa il comando LIST",
+    "SETTINGSWIND_GLOB_FRM_MLSD" : "Usa il comando MLSD",
     "SETTINGSWIND_GLOB_KEEPALIVE" : "Intervallo keep alive:",
     "SETTINGSWIND_GLOB_KEEPALIVE_DESC" : "Valore espresso in secondi. Il valore consigliato è 10. Utilizzare zero per vietare il keep alive dei comandi e disconnettersi dal server ogni volta il comando è eseguito.",
     "SETTINGSWIND_GLOB_DEBUG" : "Debug:",
@@ -94,7 +94,7 @@ define({
     "SETTINGSWIND_GLOB_TIMEFORMAT_US" : "US",
     "SETTINGSWIND_GLOB_TIMEFORMAT_EU" : "Europeo",
     "SETTINGSWIND_GLOB_TIMEFORMAT_ASIAN" : "Asiatico",
-    "SETTINGSWIND_GLOB_AUTOCLEAR" : "Eliminazione automatica cosa",
+    "SETTINGSWIND_GLOB_AUTOCLEAR" : "Eliminazione automatica della coda",
     "SETTINGSWIND_GLOB_NOTIFICATIONS" : "Notifiche",
     "SETTINGSWIND_GLOB_TIMEOFFSET" : "Offset tempo:",
     "SETTINGSWIND_GLOB_TIMEOFFSET_DESC" : "Utilizzare questa opzione per impostare il tempo corretto per la colonna modificata",
@@ -119,7 +119,7 @@ define({
     "SETTINGSWIND_GLOB_SYNCLOCPROJWCONN" : "Apri i relativi progetti locali dopo lo switching della connessione e viceversa",
     "SETTINGS_NOTIF_RELOADED" : "Impostazioni ricaricate correttamente.",
     "SETTINGS_ERROR_RELOADED" : "Impossibile caricare le impostazioni.",
-    "SETTINGSWIND_GLOB_SCE_TITLE" : "Use SSH commands with SFTP", //NEW
+    "SETTINGSWIND_GLOB_SCE_TITLE" : "Usa i comandi SSH nelle connessioni SFTP",
 
     "QUEUE_TITLE" : "Coda di eqFTP",
     "QUEUE_HEADER_NAME" : "Nome",
@@ -174,8 +174,8 @@ define({
     "OTHER_COMPLETED" : "Completato",
     "OTHER_CANCELLED" : "Cancellato",
     "OTHER_WAITING" : "In attesa",
-    "OTHER_YES" : "Yes", //NEW
-    "OTHER_NO" : "No", //NEW
+    "OTHER_YES" : "Si",
+    "OTHER_NO" : "No",
     "OTHER_OK" : "Ok",
     "OTHER_OFF" : "Off",
     "OTHER_CANCEL" : "Annulla",
