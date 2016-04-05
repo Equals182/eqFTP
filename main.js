@@ -1591,7 +1591,7 @@ define(function (require, exports, module) {
         $("#toolbar-eqFTP").on('click', function (e) {
             if (!$(this).hasClass('disabled')) {
                 eqFTP.sf.settings.read(function(result) {
-                    if (result)
+                    //if (result)
                         eqFTP.sf.fileTree.show(e);
                 });
             }
