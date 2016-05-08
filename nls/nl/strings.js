@@ -50,7 +50,7 @@ define({
     "SETTINGSWIND_NOTIF_DONE" : "Alles is opgeslagen! :)",
     "SETTINGSWIND_SAVEDCONN" : "FTP Verbindingen zijn opgeslagen",
     "SETTINGSWIND_DELETECONN_HOVER" : "Verwijder deze verbinding",
-    "SETTINGSWIND_COPYCONN_HOVER" : "Copy This Connection", //NEW
+    "SETTINGSWIND_COPYCONN_HOVER" : "Kopieer deze verbinding", //NEW
     "SETTINGSWIND_ERROR_DELETE_CURCONNSERV" : "Je kunt de huidige verbinding niet verwijderen",
     "SETTINGSWIND_ADDCONN_HOVER" : "Voeg nieuwe verbinding toe",
     "SETTINGSWIND_ADDCONN_STRING" : "Maak nieuwe verbinding aan.",
@@ -84,9 +84,9 @@ define({
     "SETTINGSWIND_GLOB_EVENDISCONN" : "Zelfs als niet verbonden",
     "SETTINGSWIND_GLOB_EVENDISCONN_EXPLAIN" : "Deze optie verbind automatisch met de server zodra er een bestand is geopend van de server of een opgeslagen bestand in het momentele project (indien het project aangemaakt is door deze FTP extentie). Zo, Ik hoop dat deze zin duidelijk was :)",
     "SETTINGSWIND_GLOB_LOCALPATH_FILLWPROJECT_TITLE" : "Voer de locatie van uw project in",
-    "SETTINGSWIND_GLOB_FRM_TITLE" : "Choose folder retrieving method:", //NEW
-    "SETTINGSWIND_GLOB_FRM_LIST" : "Use LIST command", //NEW
-    "SETTINGSWIND_GLOB_FRM_MLSD" : "Use MLSD command", //NEW
+    "SETTINGSWIND_GLOB_FRM_TITLE" : "Kies map ontvang methode:", //NEW
+    "SETTINGSWIND_GLOB_FRM_LIST" : "Gebruik LIST command", //NEW
+    "SETTINGSWIND_GLOB_FRM_MLSD" : "Gebruik MLSD command", //NEW
     "SETTINGSWIND_GLOB_KEEPALIVE" : "Verbinding-behouden interval:", // Keep Alive is feature when client sends empty packages to server to prevet disconnection.
     "SETTINGSWIND_GLOB_KEEPALIVE_DESC" : "Waarde in seconden, standaard 10. Gebruik 0 om geen keep-alive commands te sturen en de verbinding te verbreken na het uitvoeren van een commando.",
     "SETTINGSWIND_GLOB_DEBUG" : "Debug:",
@@ -119,7 +119,7 @@ define({
     "SETTINGSWIND_GLOB_SYNCLOCPROJWCONN" : "Open gerelateerd lokaal project na het inschakelen van verbinding",
     "SETTINGS_NOTIF_RELOADED" : "Instellingen zijn succesvol herladen.",
     "SETTINGS_ERROR_RELOADED" : "Kan instellingen niet herladen.",
-    "SETTINGSWIND_GLOB_SCE_TITLE" : "Use SSH commands with SFTP", //NEW
+    "SETTINGSWIND_GLOB_SCE_TITLE" : "Gebruik SSH command's met SFTP", //NEW
 
     "QUEUE_TITLE" : "eqFTP Wachtrij",
     "QUEUE_HEADER_NAME" : "Naam",
@@ -174,8 +174,8 @@ define({
     "OTHER_COMPLETED" : "Klaar",
     "OTHER_CANCELLED" : "Gestopt",
     "OTHER_WAITING" : "Wachten...",
-    "OTHER_YES" : "Yes", //NEW
-    "OTHER_NO" : "No", //NEW
+    "OTHER_YES" : "Ja", //NEW
+    "OTHER_NO" : "Nee", //NEW
     "OTHER_OK" : "Ok",
     "OTHER_OFF" : "Uit",
     "OTHER_CANCEL" : "Stoppen",
