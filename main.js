@@ -258,15 +258,17 @@ define(function (require, exports, module) {
         return bytes.toFixed(1) + ' ' + units[u];
     };
     function local2remote(localPath) {
-        var r = [];
+        var len = -1
+	var path = ""
         $.each(eqFTP.globals.projectsPaths, function(i, o) {
             if (o != null) {
-                o = normalizePath(o+"/");
-                r.push("(^" + o.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/gi, "\\$&") + ")");
+		if(localPath.indexOf(o) == 0 && o.length > len){
+			len = o.length
+			path = localPath.replace(o, '');
+		}
             }
         });
-        r = new RegExp(r.join("|"));
-        return normalizePath("/" + localPath.replace(r, ""));
+        return normalizePath("/" + path);
     };
     function remote2local(params) {
         var root = eqFTP.sf.connections.byId(params.connectionID).localpath == "" ? normalizePath(eqFTP.globals.globalFtpDetails.main.folderToProjects + "/" + eqFTP.sf.connections.byId(params.connectionID).connectionName) : eqFTP.sf.connections.byId(params.connectionID).localpath;
@@ -1086,22 +1088,23 @@ define(function (require, exports, module) {
             getByPath: function(path, callback) {
                 eqFTP.sf.settings.read(function(result) {
                     if (result) {
-                        var found = false;
+			var path_len = -1;
+			var cID = null;
                         path = normalizePath(path + "/").replace(/(\/$)/gi, "");
                         $.each(eqFTP.globals.projectsPaths, function(i, o) {
                             if (o != null) {
                                 var r = new RegExp("^" + normalizePath(o + "/").replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/gi, "\\$&"), "gi");
-                                if ( r.test(normalizePath(path + "/")) ) {
-                                    found = true;
-                                    if (isFunction(callback))
-                                        callback(i);
-                                    return false;
+				if ( r.test(normalizePath(path + "/")) && o.length > path_len ) {
+					path_len = o.length;
+					cID = i;
                                 }
                             }
                         });
-                        if(!found) {
-                            callback(false);
-                        }
+                        if(cID == null) {
+				callback(false);
+                        }else{
+				callback(cID);
+			}
                     } else {
                         callback(false);
                     }
