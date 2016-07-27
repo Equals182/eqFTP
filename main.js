@@ -262,6 +262,7 @@ define(function (require, exports, module) {
 	var path = ""
         $.each(eqFTP.globals.projectsPaths, function(i, o) {
             if (o != null) {
+            	o = normalizePath(o+"/");
 		if(localPath.indexOf(o) == 0 && o.length > len){
 			len = o.length
 			path = localPath.replace(o, '');
