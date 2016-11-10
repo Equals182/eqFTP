@@ -19,8 +19,8 @@
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
  *
- * version 0.7.2
-  * fix #193
+ * version 0.7.3
+  * fix #242
  */
 
 /*jslint vars: true, plusplus: true, devel: true, nomen: true, indent: 4, maxerr: 50  */
@@ -93,7 +93,7 @@ define(function (require, exports, module) {
             callback: function() {}
         },
         
-        eqftpVersion = "0.7.2";
+        eqftpVersion = "0.7.3";
     
     function isFunction(functionToCheck) {
         var getType = {};

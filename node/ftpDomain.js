@@ -1159,7 +1159,7 @@ maxerr: 50, node: true */
                                             for (var i = 0; i < files.length; i++) {
                                                 tmp.push({
                                                     name: files[i].filename,
-                                                    type: ( ( (files[i].attrs.isDirectory()) ? 1 : ( (files[i].attrs.isFile()) ? 0 : false ) ) ),
+                                                    type: ( ( (files[i].longname.match(/^d/)) ? 1 : ( (files[i].longname.match(/^-/)) ? 0 : false ) ) ),
                                                     time: files[i].attrs.mtime * 1000,
                                                     size: files[i].attrs.size,
                                                     owner: files[i].attrs.uid,

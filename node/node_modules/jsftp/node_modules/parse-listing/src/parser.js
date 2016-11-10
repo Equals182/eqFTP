@@ -52,9 +52,10 @@ var RE_UnixEntry = new RegExp(
 var RE_DOSEntry = new RegExp(
   "(\\S+)\\s+(\\S+)\\s+" +
   "(<DIR>)?\\s*" +
-  "([0-9]+)?\\s*" +
+  "([0-9]+)?\\s{1,}" +
   "(\\S.*)"
 );
+
 
 // Not used for now
 // var RE_VMSEntry = new RegExp(

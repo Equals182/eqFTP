@@ -609,12 +609,19 @@ drwx------    2 1001     1001         4096 Oct 19 16:17 project2\r\n";
         name: 'pub',
       },
       {
+        line: '11-18-03  10:16AM       <DIR>          2015',
+        type: 1,
+        size: 0,
+        time: +(new Date("11-18-03  10:16 AM")),
+        name: '2015',
+      },
+      {
         line: '04-14-99  03:47PM                  589 readme.htm',
         type: 0,
         size: 589,
         time: +(new Date("04-14-99  03:47 PM")),
         name: 'readme.htm'
-      }
+      }   
     ];
 
     dosEntries.forEach(function(entry) {
