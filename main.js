@@ -24,7 +24,7 @@
  */
 
 /*jslint vars: true, plusplus: true, devel: true, nomen: true, indent: 4, maxerr: 50  */
-/*global define, brackets, Mustache, $*/
+/*global define, brackets, $*/
 
 
 define(function (require, exports, module) {
@@ -50,7 +50,8 @@ define(function (require, exports, module) {
         MainViewManager = brackets.getModule("view/MainViewManager"),
         LanguageManager = brackets.getModule("language/LanguageManager"),
         EditorManager = brackets.getModule("editor/EditorManager"),
-        
+        Mustache = brackets.getModule("thirdparty/mustache/mustache"),
+	
         eqFTPstrings = require("strings"),
         eqFTPToolbarTemplate = require("text!htmlContent/eqFTP-toolbar.html"),
         eqFTPModalTemplate = require("text!htmlContent/eqFTP-modal.html"),
