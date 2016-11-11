@@ -9,7 +9,7 @@
 	"categories": ["livedev","external"],
 	"keywords": ["FTP", "SFTP"],
 	"engines": {
-		"brackets": ">=1.1.0"
+		"brackets": ">=1.8.0"
 	},
     "i18n": [
         "cs", "de", "en", "es", "fr", "hu", "it", "nl", "pt-br", "ru", "tr", "uk", "ja", "ko"
