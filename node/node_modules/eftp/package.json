@@ -1,0 +1,30 @@
+{
+  "author": {
+    "name": "equals182"
+  },
+  "dependencies": {
+    "fs-extra": "*",
+    "ssh2": "^0.5.1",
+    "jsftp": "^1.5.4",
+    "lodash": "^4.16.4"
+  },
+  "description": "FUCKEN (S)FTP CLIENT",
+  "devDependencies": {},
+  "directories": {},
+  "gitHead": "c5ca804897de911395a8d9e1b567ff06ea50a0ba",
+  "license": "MIT",
+  "main": "lib/Eftp",
+  "maintainers": [
+    {
+      "name": "humy2833",
+      "email": "humy2833@gmail.com"
+    }
+  ],
+  "name": "eftp",
+  "optionalDependencies": {},
+  "readme": "ERROR: No README data found!",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "version": "0.3.22"
+}

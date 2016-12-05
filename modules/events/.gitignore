@@ -1,0 +1,6 @@
+node_modules
+components
+build
+coverage
+.tern-port
+npm-debug.log

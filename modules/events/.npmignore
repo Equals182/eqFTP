@@ -1,0 +1,9 @@
+benchmarks/
+components/
+coverage/
+build/
+component.json
+versions.js
+bower.json
+test.js
+.*
