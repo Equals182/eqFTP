@@ -46,7 +46,6 @@ define(function (require, exports, module) {
     _ = require("node/node_modules/lodash/lodash"),
 
     strings = require("strings"),
-    CryptoJS = require("modules/crypto-js/crypto-js"),
     dateFormat = require("modules/date-format/date_format"),
     utils = require("modules/utils"),
     ui = require("modules/ui"),
@@ -63,8 +62,32 @@ define(function (require, exports, module) {
   var _version = "1.0";
   var eqftp = {
     ui: ui,
-    utils: utils,
+    utils: utils
   };
+  eqftp.preferences = new function () {
+    var self = this;
+    self._value = {};
+    
+    self.p = PreferencesManager.getExtensionPrefs("eqFTP");
+    self.get = function (path) {
+      return _.get(self._value, path);
+    };
+    self.set = function (path, value) {
+      _.set(self._value, path, value);
+      self.p.set("eqFTP", self._value);
+      self.p.save();
+    };
+    self.init = function () {
+      self.p.definePreference("eqFTP", "object", {
+        misc: {
+          first_start: true,
+          last_settings_file: ''
+        }
+      });
+      self._value = self.p.get("eqFTP");
+      return self._value;
+    };
+  }();
   /**
    * Adding events to eqftp
    */
@@ -81,17 +104,39 @@ define(function (require, exports, module) {
         case 'ready:app':
           _node.domains.eqFTP.commands().done(function (commands) {
             if (_.isArray(commands)) {
+              // Adding Domain commands to eqftp object
               commands.forEach(function (command) {
                 _.set(eqftp, command.command, _node.domains.eqFTP[command.command]);
               });
+              // Initiating Brackets' preferences
+              eqftp.preferences.init();
+              // Populating eqftp object to window for global use
               window.eqftp = eqftp;
-              eqftp.settings.get().done(function (settings) {
+              eqftp.settings.get(eqftp.preferences.get('misc.last_settings_file')).done(function (settings) {
                 eqftp.settings = settings;
-                ui.dropdown.addItem({
-                  host: 'host',
-                  title: 'title',
-                  user: 'user',
-                  id: 'id'
+                _.forOwn(eqftp.settings.connections, function (connection, id) {
+                  ui.dropdown.addItem({
+                    title: connection.name,
+                    host: connection.server,
+                    user: connection.login,
+                    id: id
+                  });                  
+                });
+                // Proxy helps making easy requests like eqftp.connections['connection_id'].ls('/path'/);
+                eqftp.connections = new Proxy(eqftp.connections, {
+                  get: function(connections, prop, receiver) {
+                    if (prop in connections) {
+                      return connections[prop];
+                    }
+                    var id = prop;
+                    return new Proxy((eqftp.settings.connections[id] || {}), {
+                      get: function(obj, prop, receiver) {
+                        return function (params) {
+                          return eqftp.connections.action(id, prop, params);
+                        };
+                      }
+                    });
+                  }
                 });
               }).fail(function (err) {
                 console.error(err);
@@ -104,6 +149,31 @@ define(function (require, exports, module) {
       }
     }
   });
+  eqftp.connect = function (id) {
+    if (_.isEmpty(eqftp.connections[id])) {
+      eqftp.emit('event', {
+        action: 'connection:notexist',
+        params: {id: id}
+      });
+      return false;
+    }
+    eqftp.connections.new(id).done(function (id) {
+      eqftp.connections[id].ls((eqftp.connections[id].remotepath || '')).done(function () {
+        console.log('FOUND', arguments);
+      }).fail(function (err) {
+        //not found
+        console.log('NOT FOUND', err);
+      });
+    }).fail(function (err) {
+      eqftp.emit('event', {
+        action: 'connection:cantcreate',
+        params: {
+          id: id,
+          err: err
+        }
+      });
+    });
+  };
 
   // Adding eqftp + listener to ui so we could keep entities separately
   ui.eqftp = eqftp;

@@ -18,7 +18,9 @@ maxerr: 50, node: true */
 	}
 }(this, function (_) {
   "use strict";
-  //var _ = require("../node/node_modules/lodash/lodash");
+  if (!_) {
+    _ = require("../node/node_modules/lodash/lodash");
+  }
 
   var _uniq;
   var eqUtils = {
@@ -87,11 +89,45 @@ maxerr: 50, node: true */
       return str.replace(new RegExp('[' + to_delete + ']', 'g'), "\\$&");
     },
     normalize: function (path) {
-      if (eqftp.utils.check.isString(path)) {
+      if (_.isString(path)) {
         return path.replace(/\\+/g, '/').replace(/\/\/+/g, '/');
       }
       return path;
     },
+    parseConnectionString: function (str) {
+      if (!str || !_.isString(str)) {
+        return false;
+      }
+      //var m = str.match(/((ftp|sftp):\/\/)?((.*?)(:(.*?))?@)?([A-Z\.\-\_a-z0-9]+)(:(\d+))?/i);
+      /*
+      ** $2 - protocol
+      ** $4 - login
+      ** $6 - password
+      ** $7 - domain
+      ** $9 - port
+      */
+      var m = str.match(/((ftp|sftp):\/\/)?([^\s:]*)(:(.*))?@([^:\s]*)(:(.*))?/i);
+      /*
+      ** $2 - protocol
+      ** $3 - login
+      ** $5 - password
+      ** $6 - domain
+      ** $8 - port
+      */
+      if (!m) {
+        return false;
+      }
+      if (!m[3] || !m[6]) {
+        return false;
+      }
+      return {
+        protocol: m[2],
+        login: m[3],
+        password: m[5],
+        server: m[6],
+        port: m[8]
+      };
+    }
   };
   return eqUtils;
 }));

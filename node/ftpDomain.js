@@ -1,16 +1,16 @@
 /*jslint vars: true, plusplus: true, devel: true, nomen: true, indent: 2,
 maxerr: 50, node: true */
+/*jslint white: true */
 /*global */
 
 (function () {
   "use strict";
 
   var EFTP = require('eftp'),
-      safezone = require('domain').create(),
-      fs = require('fs'),
-      CryptoJS = require("../modules/crypto-js/crypto-js"),
-      utils = require('../modules/utils.js'),
-      _ = require("lodash");
+    fs = require('fs'),
+    CryptoJS = require("crypto-js"),
+    utils = require('../modules/utils.js'),
+    _ = require("lodash");
 
   var _domainManager;
 
@@ -79,7 +79,7 @@ maxerr: 50, node: true */
     };
     self.get = function () {
       return self._;
-    }
+    };
   }();
   var eqftp = {};
   eqftp.commands = _commands.get;
@@ -118,7 +118,6 @@ maxerr: 50, node: true */
               }
             }
           }
-          break;
         case 'toJSON':
           if (!_.isObject(data)) {
             return new Error('Passed data is not an object');
@@ -144,33 +143,107 @@ maxerr: 50, node: true */
           throw new Error('Passed file does not exists');
         }
         settingsFile = fs.realpathSync(settingsFile);
-        self.settings = self._process(fs.readFileSync(settingsFile), 'fromJSON', password);
+        self.settings = self._process(fs.readFileSync(settingsFile, {encoding: 'UTF-8'}), 'fromJSON', password);
+        eqftp.connections._connections = self.settings.connections;
       }
       if (!self.settings) {
         throw new Error('No settings loaded');
       }
-
       return self.settings;
     };
   }();
+  eqftp.connections = new function () {
+    var self = this;
+    self._current = {};
+    self._connections = {};
+    
+    self.get = function (id) {
+      return self._current[id];
+    };
+    self._unset = function (id) {
+      if (self._current[id] && self._current[id].interval) {
+        clearInterval(self._current[id].interval);
+      }
+      return _.unset(self._current, id);
+    };
+    self._set = function (id, params) {
+      return _.set(self._current, id, params);
+    };
+    self.new = function (id) {
+      var cb = _.once(arguments['1']),
+          pr = arguments['2'],
+          
+          connectionDetails = utils.parseConnectionString(id);
+      if (!connectionDetails) {
+        connectionDetails = self._connections[id];
+      }
+      if (self._current[id]) {
+        cb(null, id);
+        return id;
+      }
+      self._current[id] = new function () {
+          this.server = new EFTP();
+      }();
 
-  safezone.on('error', function (err) {
-    /*eqftp.utils.event({
-      action: 'error',
-      text: 'Some error happened',
-      errType: 'connections',
-      error: err
-    });
-    eqftp.utils.event({
-      action: 'debug',
-      trace: {
-        func: stackTrace.get()[0].getFunctionName(),
-        filename: stackTrace.get()[0].getFileName(),
-        line: stackTrace.get()[0].getLineNumber()
-      },
-      info: err
-    });*/
-  });
+      self._current[id].server.on('ready', function () {
+        cb(null, id);
+      });
+      self._current[id].server.on('close', function () {
+        _domainManager.emitEvent("eqFTP", "event", {
+          action: 'connection:close',
+          data: {id: id}
+        });
+        cb('Forced connection closing');
+        eqftp.connection._destroy(id);
+      });
+      self._current[id].server.on('error', function (err) {
+        _domainManager.emitEvent("eqFTP", "event", {
+          action: 'connection:error',
+          data: {
+            id: id,
+            error: err
+          }
+        });
+        cb(err);
+        eqftp.connection._destroy(id);
+      });
+      self._current[id].server.on('progress', function (data) {
+        _domainManager.emitEvent("eqFTP", "event", {
+          action: 'connection:progress',
+          data: data
+        });
+      });
+
+      var settings = {
+          host: connectionDetails.server,
+          type: connectionDetails.protocol,
+          port: connectionDetails.port || 21,
+          username: connectionDetails.login,
+          password: connectionDetails.password,
+          debugMode: true
+      };
+      if (connectionDetails.rsa) {
+          settings.privateKey = connectionDetails.rsa;
+      }
+      self._current[id].server.connect(settings);
+    };
+    self.action = function (id, action, params) {
+      var cb = _.once(arguments['3']),
+          pr = arguments['4'],
+          connection = self.get(id);
+      if (!connection) {
+        self.new(id, function (err, data) {
+          if (err) {
+            cb(err);
+            return err;
+          }
+          self.action(id, action, params, cb);
+        });
+        return;
+      }
+      console.log('TEST!!!', id, action, params);
+    };
+  }();
 
   function init(DomainManager) {
     if (!DomainManager.hasDomain("eqFTP")) {
@@ -204,6 +277,26 @@ maxerr: 50, node: true */
         returns: [
           { name: "settings", type: "object", description: "Settings object" }
         ]
+      },
+      {
+        command: "connections.new",
+        async: true,
+        description: 'Connects to server via id or credentials',
+        parameters: [
+          { name: "id", type: "string", description: "Connecion id or ftp credentials." }
+        ],
+        returns: []
+      },
+      {
+        command: "connections.action",
+        async: true,
+        description: 'Fires an ftp action for connection',
+        parameters: [
+          { name: "id", type: "string", description: "Connecion id or ftp credentials." },
+          { name: "action", type: "string", description: "FTP action (ls, upload, download)." },
+          { name: "params", type: "object", description: "Parameters object." }
+        ],
+        returns: []
       }
     ].forEach(function (c) {
       var cmd = _.get(eqftp, c.command);
