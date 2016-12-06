@@ -79,19 +79,26 @@ define(function (require, exports, module) {
         case 'ready:html':
           break;
         case 'ready:app':
-          window.eqftp = eqftp;
-          ui.dropdown.addItem({
-            host: 'host',
-            title: 'title',
-            user: 'user',
-            id: 'id'
-          });
-          eqftp.n['settings.get']().done(function (settings) {
-            eqftp.settings = settings;
-          }).fail(function (err) {
-            console.error(err);
-          }).always(function () {
-            console.log(arguments);
+          _node.domains.eqFTP.commands().done(function (commands) {
+            if (_.isArray(commands)) {
+              commands.forEach(function (command) {
+                _.set(eqftp, command.command, _node.domains.eqFTP[command.command]);
+              });
+              window.eqftp = eqftp;
+              eqftp.settings.get().done(function (settings) {
+                eqftp.settings = settings;
+                ui.dropdown.addItem({
+                  host: 'host',
+                  title: 'title',
+                  user: 'user',
+                  id: 'id'
+                });
+              }).fail(function (err) {
+                console.error(err);
+              }).always(function () {
+                console.log(arguments);
+              });
+            }
           });
           break;
       }
@@ -179,7 +186,6 @@ define(function (require, exports, module) {
         console.error(err);
       });
       loadPromise.done(function (done) {
-        eqftp.n = _node.domains.eqFTP;
         eqftp.emit('event', {
           action: 'ready:app'
         });
@@ -188,6 +194,8 @@ define(function (require, exports, module) {
         _node.on("eqFTP:event", function (event, params) {
           if (!params.action) {
             params.action = 'info';
+          }
+          switch(params.action) {
           }
           console.log('eqFTP:event', event, params);
         });

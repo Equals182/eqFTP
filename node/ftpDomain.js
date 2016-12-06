@@ -61,7 +61,28 @@ maxerr: 50, node: true */
     }
   };
   
+  var _commands = new function () {
+    var self = this;
+    self._ = [];
+    self.add = function (command) {
+      var toAdd = true;
+      self._.some(function (v, i) {
+        if (_.isEqual(v, command)) {
+          toAdd = false;
+          return true;
+        }
+      });
+      if (toAdd) {
+        self._.push(command);
+      }
+      return self._;
+    };
+    self.get = function () {
+      return self._;
+    }
+  }();
   var eqftp = {};
+  eqftp.commands = _commands.get;
   eqftp.settings = new function () {
     var self = this;
     self.settings = false;
@@ -117,22 +138,18 @@ maxerr: 50, node: true */
       return data;
     };
     self.get = function (settingsFile, password) {
-      console.log('Shit', settingsFile, password);
       if (settingsFile) {
         settingsFile = utils.normalize(settingsFile);
         if (!fs.existsSync(settingsFile)) {
-console.log('One');
           throw new Error('Passed file does not exists');
         }
         settingsFile = fs.realpathSync(settingsFile);
         self.settings = self._process(fs.readFileSync(settingsFile), 'fromJSON', password);
       }
       if (!self.settings) {
-console.log('Two');
         throw new Error('No settings loaded');
       }
 
-console.log('Three');
       return self.settings;
     };
   }();
@@ -161,16 +178,49 @@ console.log('Three');
     }
     _domainManager = DomainManager;
 
-    DomainManager.registerCommand(
-      "eqFTP",
-      "settings.get",
-      eqftp.settings.get,
-      false
-    );
     DomainManager.registerEvent(
       "eqFTP",
       "event"
     );
+    
+    [
+      {
+        command: "commands",
+        async: false,
+        description: 'Returns list of registered commands',
+        parameters: [],
+        returns: [
+          { name: "Commands", type: "array", description: "List of registered commands" }
+        ]
+      },
+      {
+        command: "settings.get",
+        async: false,
+        description: 'Returns settings from given file or cached settings object',
+        parameters: [
+          { name: "settingsFile", type: "string", description: "file:// url to the Settings file" },
+          { name: "password", type: "string", description: "Password to decrypt settings file. Optional." }
+        ],
+        returns: [
+          { name: "settings", type: "object", description: "Settings object" }
+        ]
+      }
+    ].forEach(function (c) {
+      var cmd = _.get(eqftp, c.command);
+      if (!cmd) {
+        return;
+      }
+      DomainManager.registerCommand(
+        "eqFTP",
+        c.command,
+        cmd,
+        c.async,
+        c.description,
+        c.parameters,
+        c.returns
+      );
+      _commands.add(c);
+    });
   }
   exports.init = init;
 }());
