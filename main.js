@@ -123,19 +123,30 @@ define(function (require, exports, module) {
                   });                  
                 });
                 // Proxy helps making easy requests like eqftp.connections['connection_id'].ls('/path'/);
+                var ap = 
                 eqftp.connections = new Proxy(eqftp.connections, {
                   get: function(connections, prop, receiver) {
                     if (prop in connections) {
                       return connections[prop];
+                    } else if (prop in eqftp.settings.connections) {
+                      // prop is id;
+                      return (function (id) {
+                        var p = new Proxy(eqftp.settings.connections[id], {
+                          get: function (connection, prop, receiver) {
+                            if (prop in connection) {
+                              return connection[prop];
+                            } else if (['ls', 'upload', 'download'].indexOf(prop) > -1) {
+                              return function (params) {
+                                return eqftp.connections.action(id, prop, arguments);
+                              }
+                            }
+                            return connection[prop];
+                          }
+                        });
+                        return p;
+                      })(prop);
                     }
-                    var id = prop;
-                    return new Proxy((eqftp.settings.connections[id] || {}), {
-                      get: function(obj, prop, receiver) {
-                        return function (params) {
-                          return eqftp.connections.action(id, prop, params);
-                        };
-                      }
-                    });
+                    return {};
                   }
                 });
               }).fail(function (err) {
@@ -157,22 +168,25 @@ define(function (require, exports, module) {
       });
       return false;
     }
-    eqftp.connections.new(id).done(function (id) {
-      eqftp.connections[id].ls((eqftp.connections[id].remotepath || '')).done(function () {
-        console.log('FOUND', arguments);
-      }).fail(function (err) {
-        //not found
-        console.log('NOT FOUND', err);
+    eqftp.connections.new(id)
+      .done(function (id) {
+        var path = (eqftp.connections[id].remotepath || '');
+        eqftp.connections[id].ls(path).done(function (elements) {
+          eqftp.ui.fileTree.add(elements, path);
+        }).fail(function (err) {
+          //not found
+          console.log('NOT FOUND', arguments, path);
+        });
+      })
+      .fail(function (err) {
+        eqftp.emit('event', {
+          action: 'connection:cantcreate',
+          params: {
+            id: id,
+            err: err
+          }
+        });
       });
-    }).fail(function (err) {
-      eqftp.emit('event', {
-        action: 'connection:cantcreate',
-        params: {
-          id: id,
-          err: err
-        }
-      });
-    });
   };
 
   // Adding eqftp + listener to ui so we could keep entities separately

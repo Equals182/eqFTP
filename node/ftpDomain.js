@@ -241,9 +241,41 @@ maxerr: 50, node: true */
         });
         return;
       }
-      console.log('TEST!!!', id, action, params);
+      eqftp.cmd[action](id, params, cb);
     };
   }();
+  eqftp.cmd = new Proxy({}, {
+    get: function (obj, action, ret) {
+      return function (id, params, cb) {
+        var p = [];
+        _.forOwn(params, function (v) {
+          p.push(v);
+        });
+        eqftp.connections._current[id].server[action](...p, function (err, data) {
+          // PRE-HOOKS
+          switch (action) {
+            case 'ls':
+              data.forEach(function (element, i) {
+                data[i].path = element.name;
+              });
+              break;
+          }
+          if (err) {
+            // Singing error event for everyone to see + more info here
+            _domainManager.emitEvent("eqFTP", "event", {
+              action: 'ftp:error',
+              data: {
+                error: err,
+                data: data
+              }
+            });
+          }
+          console.log(data);
+          cb(err, data);
+        });
+      };
+    }
+  });
 
   function init(DomainManager) {
     if (!DomainManager.hasDomain("eqFTP")) {

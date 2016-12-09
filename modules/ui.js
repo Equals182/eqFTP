@@ -115,6 +115,33 @@ define(function (require, exports, module) {
     };
   }();
   
+  eqUI.fileTree = new function () {
+    var self = this;
+    self.tpl = $(Mustache.render(require("text!htmlContent/fileTree.html"), strings));
+    
+    self.add = function (object, parent) {
+      if (_.isArray(object)) {
+        object.forEach(function (o) {
+          self.add(o, parent);
+        });
+      } else if (_.isObject(object)) {
+        var ul = self.tpl.children('ul');
+        if (parent && parent !== '/') {
+          ul = ul.find('[id="' + parent + '"]').find('ul:first');
+        }
+        ul.append($(Mustache.render(require("text!htmlContent/fileTreeElement.html"), _.defaults(_.clone(strings), object, {
+          customDate: 'test'
+        }))));
+        if (!ul.is(':visible')) {
+          ul.slideDown(100);
+        }
+      }
+    };
+    self.get = function () {
+      return self.tpl;
+    }
+  };
+  
   eqUI.panel = new function () {
     var self = this;
     self.state = 'closed';
@@ -157,6 +184,7 @@ define(function (require, exports, module) {
     
     var dropdownHolder = self.tpl.find('.eqftp-panel__dropdown_holder:first');
     dropdownHolder.append(eqUI.dropdown.get());
+    self.tpl.find('.eqftp-file_tree--holder').replaceWith(eqUI.fileTree.get());
     
     self.get = function () {
       return self.tpl;
