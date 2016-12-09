@@ -123,7 +123,6 @@ define(function (require, exports, module) {
                   });                  
                 });
                 // Proxy helps making easy requests like eqftp.connections['connection_id'].ls('/path'/);
-                var ap = 
                 eqftp.connections = new Proxy(eqftp.connections, {
                   get: function(connections, prop, receiver) {
                     if (prop in connections) {
