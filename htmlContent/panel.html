@@ -1,186 +1,185 @@
 <div class="eqftp">
 
-    <!-- HEADER -->
-    <div class="eqftp-header">
+  <!-- HEADER -->
+  <div class="eqftp-header">
 
-        <!-- TITLE -->
-        <div class="eqftp-header__title">
-            <div class="eqftp__title eqftp__title_medium">eqFTP</div>
-            <div class="eqftp__close"><i class="fa fa-times" aria-hidden="true"></i></div>
-        </div>
-        <!-- /TITLE -->
-
-        <!-- /SEARCH -->
-        <div class="eqftp-header__search">
-            <div class="eqftp-header__searchHolder">
-                <input type="text" name="eqftpSearch" class="eqftp__inputText" placeholder="Search or direct connection..."/>
-                <button type="submit" name="eqftpSearchConnect" class="eqftp__buttonSubmit">
-                    <i class="fa fa-bolt" aria-hidden="true"></i>
-                </button>
-            </div>
-            <div class="eqftp-header__dropdown">
-                <div class="eqftp-header__dropdownList">
-                    <div class="eqftp-header__dropdownItem"></div>
-                </div>
-            </div>
-        </div>
-        <!-- /SEARCH -->
-
-        <!-- NAVIGATION -->
-        <div class="eqftp-header__navigation">
-            <div class="eqftp-header__navigationTab eqftp-header__navigationTab_file-tree">
-                <i class="fa fa-folder-open" aria-hidden="true"></i>
-            </div>
-            <div class="eqftp-header__navigationTab eqftp-header__navigationTab_query">
-                <i class="fa fa-bars" aria-hidden="true"></i>
-            </div>
-            <div class="eqftp-header__navigationTab eqftp-header__navigationTab_connections">
-                <i class="fa fa-plug" aria-hidden="true"></i>
-            </div>
-            <div class="eqftp-header__navigationTab eqftp-header__navigationTab_settings">
-                <i class="fa fa-cog" aria-hidden="true"></i>
-            </div>
-        </div>
-        <!-- /NAVIGATION -->
-
+    <!-- TITLE -->
+    <div class="eqftp-header__title">
+      <div class="eqftp__title eqftp__title_medium">eqFTP</div>
+      <div class="eqftp__close"><i class="fa fa-times" aria-hidden="true"></i></div>
     </div>
-    <!-- /HEADER -->
+    <!-- /TITLE -->
 
-    <!-- CONNECTIONS SETTINGS -->
-    <div class="eqftp-connectionsSettings">
-
-        <!-- BASIC SETTINGS -->
-        <div class="eqftp-connectionsSettings__basic">
-            <div class="eqftp__row">
-                <input type="text" name="eqftpConnectionName" class="eqftp__inputText" placeholder="Connection name"/>
-                <select name="eqftpConnectionType" class="eqftp__select">
-                    <option value="ftp">FTP</option>
-                    <option value="sftp">SFTP</option>
-                </select>
-            </div>
-            <div class="eqftp__row">
-                <input type="text" name="eqftpConnectionIp" class="eqftp__inputText" placeholder="IP or domain name"/>
-                <input type="text" name="eqftpConnectionPort" class="eqftp__inputText" placeholder="21"/>
-            </div>
-            <div class="eqftp__row">
-                <input type="text" name="eqftpConnectionServerLogin" class="eqftp__inputText" placeholder="Login to server"/>
-                <input type="text" name="eqftpConnectionServerPassword" class="eqftp__inputText" placeholder="Password to server"/>
-            </div>
-            <div class="eqftp__row">
-                <input type="text" name="eqftpConnectionLocalPath" class="eqftp__inputText" placeholder="Local path"/>
-                <button type="submit" name="eqftpConnectionButtonLocalPath" class="eqftp__buttonSubmit"><i class="fa fa-magic" aria-hidden="true"></i></button>
-            </div>
-            <div class="eqftp__row">
-                <input type="text" name="eqftpConnectionRemotePath" class="eqftp__inputText" placeholder="Remote path"/>
-            </div>
-            <div class="eqftp__row">
-                <a href="#">Show additional settings</a>
-                <button type="submit" name="eqftpConnectionRemove" class="eqftp__buttonSubmit"><i class="fa fa-trash" aria-hidden="true"></i></button>
-            </div>
+    <!-- /SEARCH -->
+    <div class="eqftp-header__search">
+      <div class="eqftp-header__searchHolder">
+        <input type="text" name="eqftpSearch" class="eqftp__inputText" placeholder="Search or direct connection..." />
+        <button type="submit" name="eqftpSearchConnect" class="eqftp__buttonSubmit">
+          <i class="fa fa-bolt" aria-hidden="true"></i>
+        </button>
+      </div>
+      <div class="eqftp-header__dropdown">
+        <div class="eqftp-header__dropdownList">
+          <div class="eqftp-header__dropdownItem"></div>
         </div>
-        <!-- /BASIC SETTINGS -->
-
-        <!-- ADDITIONAL SETTINGS -->
-        <div class="eqftp-connectionsSettings__additional">
-            <div class="eqftp__row">
-                <input type="checkbox" name="eqftpConnectionCheckDifference" id="eqftpConnectionCheckDifference" class="eqftp__inputCheckbox"/>
-                <label for="eqftpConnectionCheckDifference" class="eqftp__label">Check difference files</label>
-            </div>
-            <div class="eqftp__row">
-                <input type="checkbox" name="eqftpConnectionAutoUpload" id="eqftpConnectionAutoUpload" class="eqftp__inputCheckbox"/>
-                <label for="eqftpConnectionAutoUpload" class="eqftp__label">Automatically upload changed files</label>
-            </div>
-            <div class="eqftp__row">
-                <textarea name="eqftpConnectionIgnoreList" class="eqftp__textarea" placeholder="Ignore list"></textarea>
-            </div>
-            <div class="eqftp__row">
-                <input type="text" name="eqftpConnectionKeepAlive" class="eqftp__inputText" placeholder="Keep alive"/>
-            </div>
-            <div class="eqftp__row">
-                <a href="#">Show basic settings</a>
-                <button type="submit" name="eqftpConnectionRemove" class="eqftp__buttonSubmit"><i class="fa fa-trash" aria-hidden="true"></i></button>
-            </div>
-        </div>
-        <!-- /ADDITIONAL SETTINGS -->
-
+      </div>
     </div>
-    <!-- /CONNECTIONS SETTINGS -->
+    <!-- /SEARCH -->
 
-    <!-- CONTENT -->
-    <div class="eqftp-content">
-
-        <!-- PAGE BLANK -->
-        <div class="eqftp-content__page eqftp-content__page_blank">
-            <div class="eqftp__hello">Hello, world!<br/><br/><span>( ^_^ )</span></div>
-            <button class="eqftp__button eqftp__button_big eqftp__button_cube"><i class="fa fa-plug" aria-hidden="true"></i>New connection</button>
-            <button class="eqftp__button eqftp__button_big eqftp__button_cube"><i class="fa fa-cog" aria-hidden="true"></i>Settings</button>
-        </div>
-        <!-- /PAGE BLANK -->
-
-        <!-- PAGE FILE TREE -->
-        <div class="eqftp-content__page eqftp-content__page_file-tree">
-            <div class="eqftp-fileTree">
-                <!-- fileTreeElement-file.html | fileTreeElement-folder.html -->
-            </div>
-        </div>
-        <!-- /PAGE FILE TREE -->
-
-        <!-- PAGE QUERY -->
-        <!-- !!!!!!!!! PLEASE CONSIDER RENAMING TO "QUEUE" !!!!!!!!!! -->
-        <div class="eqftp-content__page eqftp-content__page_query">
-            <div class="eqftp-query">
-                <!-- queueElement.html -->
-            </div>
-        </div>
-        <!-- /PAGE QUERY -->
-
-        <!-- PAGE CONNECTIONS -->
-        <div class="eqftp-content__page eqftp-content__page_connections">
-
-            <!-- NEW CONNECTION -->
-            <button type="submit" name="eqftpConnectionNew" class="eqftp__buttonSubmit">New connection</button>
-            <!-- /NEW CONNECTION -->
-
-            <!-- CONNECTIONS -->
-            <div class="eqftp-connections">
-
-                <!-- connectionsElements.html -->
-
-            </div>
-        </div>
-        <!-- /PAGE CONNECTIONS -->
-
-        <!-- PAGE SETTINGS -->
-        <div class="eqftp-content__page eqftp-content__page_settings">
-            <div class="eqftp__row">
-                <input type="text" name="eqftpSettingFile" class="eqftp__inputText" placeholder="Choose seting file"/>
-                <button type="submit" name="eqftpSettingFileCreate" class="eqftp__buttonSubmit">Create</button>
-            </div>
-            <div class="eqftp__row">
-                <input type="checkbox" name="eqftpSettingFileEncrypt" id="eqftpSettingFileEncrypt" class="eqftp__inputCheckbox"/>
-                <label for="eqftpSettingFileEncrypt" class="eqftp__label">Encrypt setting file</label>
-            </div>
-            <div class="eqftp__row">
-                <input type="text" name="eqftpProjectsFolder" class="eqftp__inputText" placeholder="Folder for projects"/>
-            </div>
-            <div class="eqftp__row">
-                <input type="text" name="eqftpTimestamp" class="eqftp__inputText" placeholder="Timestamp format"/>
-            </div>
-            <div class="eqftp__row">
-                <input type="checkbox" name="eqftpDebug" id="eqftpDebug" class="eqftp__inputCheckbox"/>
-                <label for="eqftpDebug" class="eqftp__label">Debug mode</label>
-            </div>
-            <div class="eqftp__row">
-                <button type="submit" name="eqftpSettingSave" class="eqftp__buttonSubmit">Save</button>
-            </div>
-        </div>
-        <!-- /PAGE SETTINGS -->
-
+    <!-- NAVIGATION -->
+    <div class="eqftp-header__navigation">
+      <div class="eqftp-header__navigationTab eqftp-header__navigationTab_file-tree">
+        <i class="fa fa-folder-open" aria-hidden="true"></i>
+      </div>
+      <div class="eqftp-header__navigationTab eqftp-header__navigationTab_queue">
+        <i class="fa fa-bars" aria-hidden="true"></i>
+      </div>
+      <div class="eqftp-header__navigationTab eqftp-header__navigationTab_connections">
+        <i class="fa fa-plug" aria-hidden="true"></i>
+      </div>
+      <div class="eqftp-header__navigationTab eqftp-header__navigationTab_settings">
+        <i class="fa fa-cog" aria-hidden="true"></i>
+      </div>
     </div>
-    <!-- /CONTENT -->
+    <!-- /NAVIGATION -->
 
-    <!-- /FOOTER -->
-    <div class="eqftp-footer"></div>
-    <!-- /FOOTER -->
+  </div>
+  <!-- /HEADER -->
+
+  <!-- CONNECTIONS SETTINGS -->
+  <div class="eqftp-connectionsSettings">
+
+    <!-- BASIC SETTINGS -->
+    <div class="eqftp-connectionsSettings__basic">
+      <div class="eqftp__row">
+        <input type="text" name="eqftpConnectionName" class="eqftp__inputText" placeholder="Connection name" />
+        <select name="eqftpConnectionType" class="eqftp__select">
+          <option value="ftp">FTP</option>
+          <option value="sftp">SFTP</option>
+        </select>
+      </div>
+      <div class="eqftp__row">
+        <input type="text" name="eqftpConnectionIp" class="eqftp__inputText" placeholder="IP or domain name" />
+        <input type="text" name="eqftpConnectionPort" class="eqftp__inputText" placeholder="21" />
+      </div>
+      <div class="eqftp__row">
+        <input type="text" name="eqftpConnectionServerLogin" class="eqftp__inputText" placeholder="Login to server" />
+        <input type="text" name="eqftpConnectionServerPassword" class="eqftp__inputText" placeholder="Password to server" />
+      </div>
+      <div class="eqftp__row">
+        <input type="text" name="eqftpConnectionLocalPath" class="eqftp__inputText" placeholder="Local path" />
+        <button type="submit" name="eqftpConnectionButtonLocalPath" class="eqftp__buttonSubmit"><i class="fa fa-magic" aria-hidden="true"></i></button>
+      </div>
+      <div class="eqftp__row">
+        <input type="text" name="eqftpConnectionRemotePath" class="eqftp__inputText" placeholder="Remote path" />
+      </div>
+      <div class="eqftp__row">
+        <a href="#">Show additional settings</a>
+        <button type="submit" name="eqftpConnectionRemove" class="eqftp__buttonSubmit"><i class="fa fa-trash" aria-hidden="true"></i></button>
+      </div>
+    </div>
+    <!-- /BASIC SETTINGS -->
+
+    <!-- ADDITIONAL SETTINGS -->
+    <div class="eqftp-connectionsSettings__additional">
+      <div class="eqftp__row">
+        <input type="checkbox" name="eqftpConnectionCheckDifference" id="eqftpConnectionCheckDifference" class="eqftp__inputCheckbox" />
+        <label for="eqftpConnectionCheckDifference" class="eqftp__label">Check difference files</label>
+      </div>
+      <div class="eqftp__row">
+        <input type="checkbox" name="eqftpConnectionAutoUpload" id="eqftpConnectionAutoUpload" class="eqftp__inputCheckbox" />
+        <label for="eqftpConnectionAutoUpload" class="eqftp__label">Automatically upload changed files</label>
+      </div>
+      <div class="eqftp__row">
+        <textarea name="eqftpConnectionIgnoreList" class="eqftp__textarea" placeholder="Ignore list"></textarea>
+      </div>
+      <div class="eqftp__row">
+        <input type="text" name="eqftpConnectionKeepAlive" class="eqftp__inputText" placeholder="Keep alive" />
+      </div>
+      <div class="eqftp__row">
+        <a href="#">Show basic settings</a>
+        <button type="submit" name="eqftpConnectionRemove" class="eqftp__buttonSubmit"><i class="fa fa-trash" aria-hidden="true"></i></button>
+      </div>
+    </div>
+    <!-- /ADDITIONAL SETTINGS -->
+
+  </div>
+  <!-- /CONNECTIONS SETTINGS -->
+
+  <!-- CONTENT -->
+  <div class="eqftp-content">
+
+    <!-- PAGE BLANK -->
+    <div class="eqftp-content__page eqftp-content__page_blank">
+      <div class="eqftp__hello">Hello, world!<br/><br/><span>( ^_^ )</span></div>
+      <button class="eqftp__button eqftp__button_big eqftp__button_cube"><i class="fa fa-plug" aria-hidden="true"></i>New connection</button>
+      <button class="eqftp__button eqftp__button_big eqftp__button_cube"><i class="fa fa-cog" aria-hidden="true"></i>Settings</button>
+    </div>
+    <!-- /PAGE BLANK -->
+
+    <!-- PAGE FILE TREE -->
+    <div class="eqftp-content__page eqftp-content__page_file-tree">
+      <div class="eqftp-fileTree">
+        <!-- fileTreeElement-file.html | fileTreeElement-folder.html -->
+      </div>
+    </div>
+    <!-- /PAGE FILE TREE -->
+
+    <!-- PAGE QUEUE -->
+    <div class="eqftp-content__page eqftp-content__page_queue">
+      <div class="eqftp-queue">
+        <!-- queueElement.html -->
+      </div>
+    </div>
+    <!-- /PAGE QUEUE -->
+
+    <!-- PAGE CONNECTIONS -->
+    <div class="eqftp-content__page eqftp-content__page_connections">
+
+      <!-- NEW CONNECTION -->
+      <button type="submit" name="eqftpConnectionNew" class="eqftp__buttonSubmit">New connection</button>
+      <!-- /NEW CONNECTION -->
+
+      <!-- CONNECTIONS -->
+      <div class="eqftp-connections">
+
+        <!-- connectionsElements.html -->
+
+      </div>
+    </div>
+    <!-- /PAGE CONNECTIONS -->
+
+    <!-- PAGE SETTINGS -->
+    <div class="eqftp-content__page eqftp-content__page_settings">
+      <div class="eqftp__row">
+        <input type="text" name="eqftpSettingFile" class="eqftp__inputText" placeholder="Choose seting file" />
+        <button type="submit" name="eqftpSettingFileCreate" class="eqftp__buttonSubmit">Create</button>
+      </div>
+      <div class="eqftp__row">
+        <input type="checkbox" name="eqftpSettingFileEncrypt" id="eqftpSettingFileEncrypt" class="eqftp__inputCheckbox" />
+        <label for="eqftpSettingFileEncrypt" class="eqftp__label">Encrypt setting file</label>
+      </div>
+      <div class="eqftp__row">
+        <input type="text" name="eqftpProjectsFolder" class="eqftp__inputText" placeholder="Folder for projects" />
+      </div>
+      <div class="eqftp__row">
+        <input type="text" name="eqftpTimestamp" class="eqftp__inputText" placeholder="Timestamp format" />
+      </div>
+      <div class="eqftp__row">
+        <input type="checkbox" name="eqftpDebug" id="eqftpDebug" class="eqftp__inputCheckbox" />
+        <label for="eqftpDebug" class="eqftp__label">Debug mode</label>
+      </div>
+      <div class="eqftp__row">
+        <button type="submit" name="eqftpSettingSave" class="eqftp__buttonSubmit">Save</button>
+      </div>
+    </div>
+    <!-- /PAGE SETTINGS -->
+
+  </div>
+  <!-- /CONTENT -->
+
+  <!-- /FOOTER -->
+  <div class="eqftp-footer"></div>
+  <!-- /FOOTER -->
 
 </div>
