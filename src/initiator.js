@@ -4,7 +4,6 @@ $.ajaxSetup({
 });
 ['connectionsElement', 'dropdownItem', 'fileTreeElement-file', 'fileTreeElement-folder', 'panel', 'queueElement'].forEach(function (tpl) {
   $.get('htmlContent/' + tpl + '.html', function (t, status, resp) {
-    console.log(resp.responseText);
     tpls[tpl] = function (params) {
       return $(Mustache.render(resp.responseText, params));
     };
@@ -21,8 +20,18 @@ var elements = {
 
 var panel = tpls['panel']();
 
-panel.find(elements.dropdownElementholder).append(tpls['dropdownItem']());
-panel.find(elements.dropdownElementholder).append(tpls['dropdownItem']());
+panel.find(elements.dropdownElementholder).append(tpls['dropdownItem']({
+    id: 'abc123',
+    title: 'Short',
+    user: 'root',
+    host: '111.222.333.444'
+}));
+panel.find(elements.dropdownElementholder).append(tpls['dropdownItem']({
+    id: 'abc123doesntmatter',
+    title: 'Long Connection Title Test it-321.32.33_a',
+    user: 'shitmynameisbiglikemydick',
+    host: 'ftp.pretty-long-websitename.com.ua.ru'
+}));
 
 panel.find(elements.connectionsElementholder).append(tpls['connectionsElement']());
 panel.find(elements.connectionsElementholder).append(tpls['connectionsElement']());
@@ -50,3 +59,16 @@ panel.find(elements.fileTreeElementholder).append(tpls['fileTreeElement-file']()
 panel.find(elements.fileTreeElementholder).append(tpls['fileTreeElement-file']());
 
 $('#generate').replaceWith(panel);
+
+/* Dummies below to avoid errors */
+window.eqftp = {
+  connect: function () {},
+  ui: {
+    panel: {
+      switchTo: function (tab) {
+        $('.eqftp-header__navigation').children('.eqftp-header__navigationTab_'+tab).addClass('eqftp-header__navigationTab_active').siblings().removeClass('eqftp-header__navigationTab_active');
+        $('.eqftp-content').children('.eqftp-content__page_'+tab).addClass('eqftp-content__page_active').siblings().removeClass('eqftp-content__page_active');
+      }
+    }
+  }
+}

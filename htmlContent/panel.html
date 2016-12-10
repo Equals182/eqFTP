@@ -20,7 +20,6 @@
       </div>
       <div class="eqftp-header__dropdown">
         <div class="eqftp-header__dropdownList">
-          <div class="eqftp-header__dropdownItem"></div>
         </div>
       </div>
     </div>
@@ -28,16 +27,16 @@
 
     <!-- NAVIGATION -->
     <div class="eqftp-header__navigation">
-      <div class="eqftp-header__navigationTab eqftp-header__navigationTab_file-tree">
+      <div class="eqftp-header__navigationTab eqftp-header__navigationTab_file-tree" onclick="eqftp.ui.panel.switchTo('file-tree');">
         <i class="fa fa-folder-open" aria-hidden="true"></i>
       </div>
-      <div class="eqftp-header__navigationTab eqftp-header__navigationTab_queue">
+      <div class="eqftp-header__navigationTab eqftp-header__navigationTab_queue" onclick="eqftp.ui.panel.switchTo('queue');">
         <i class="fa fa-bars" aria-hidden="true"></i>
       </div>
-      <div class="eqftp-header__navigationTab eqftp-header__navigationTab_connections">
+      <div class="eqftp-header__navigationTab eqftp-header__navigationTab_connections" onclick="eqftp.ui.panel.switchTo('connections');">
         <i class="fa fa-plug" aria-hidden="true"></i>
       </div>
-      <div class="eqftp-header__navigationTab eqftp-header__navigationTab_settings">
+      <div class="eqftp-header__navigationTab eqftp-header__navigationTab_settings" onclick="eqftp.ui.panel.switchTo('settings');">
         <i class="fa fa-cog" aria-hidden="true"></i>
       </div>
     </div>
