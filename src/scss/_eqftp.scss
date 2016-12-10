@@ -3,7 +3,10 @@
   animation-duration: 0.3s;
   animation-direction: alternate;
   position: absolute;
-  display: none;
+  top: 0;
+  right: -100%;
+  transition: right 0.2s;
+  display: flex;
   justify-content: flex-start;
   align-content: flex-start;
   align-items: stretch;
@@ -11,21 +14,10 @@
   height: 100%;
   width: 300px;
   &_active {
+    right: 0;
     display: flex;
   }
   &-toolbar {
-    padding-top: 10px;
-    padding-bottom: 10px;
-    background-color: $c06;
-    display: flex;
-    justify-content: center;
-    align-content: flex-start;
-    align-items: flex-start;
-    flex-wrap: wrap;
-    box-sizing: border-box;
-    height: 100%;
-    width: 30px;
-    z-index: 200;
     &__icon {
       padding-top: 1px;
       padding-bottom: 1px;
@@ -94,7 +86,7 @@
       &Tab {
         padding-left: $i3;
         padding-right: $i3;
-        font-size: 24px;
+        font-size: 20px;
         color: $c09;
         border-bottom: 2px solid transparent;
         transition: color 0.2s, border-bottom-color 0.2s;
