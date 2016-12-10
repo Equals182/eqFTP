@@ -1,0 +1,42 @@
+@import 'https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,200i,300,300i,400,400i,600,600i,700,700i,900,900i&amp;subset=latin-ext';
+
+$font-family: 'Source Sans Pro', Helvetica, Arial, 'Meiryo UI', 'ＭＳ Ｐゴシック', 'MS PGothic', sans-serif;
+
+$font-size-base: 22px;
+
+$font-size-1: 14px;
+$font-size-2: 16px;
+$font-size-3: 18px;
+$font-size-4: 22px;
+$font-size-5: 26px;
+$font-size-6: 32px;
+$font-size-7: 38px;
+$font-size-8: 46px;
+$font-size-9: 52px;
+$font-size-10: 62px;
+$font-size-11: 72px;
+
+$font-sizes:
+    $font-size-1,
+    $font-size-2,
+    $font-size-3,
+    $font-size-4,
+    $font-size-5,
+    $font-size-6,
+    $font-size-7,
+    $font-size-8,
+    $font-size-9,
+    $font-size-10,
+    $font-size-11;
+
+$font-weight-thin: 100;
+$font-weight-extra-light: 200;
+$font-weight-light: 300;
+$font-weight-regular: 400;
+$font-weight-medium: 500;
+$font-weight-semibold: 600;
+$font-weight-bold: 700;
+$font-weight-extra-bold: 800;
+$font-weight-black: 900;
+
+$line-height: 18px;

@@ -1,0 +1,100 @@
+@mixin transition($prop: all, $dur: 1s, $tf: $timing-function, $del: 0s) {
+  -webkit-transition: $prop $dur $tf $del;
+  -o-transition: $prop $dur $tf $del;
+  transition: $prop $dur $tf $del;
+}
+
+@mixin font($ff: $font-family, $fsz: $font-size-base, $fw: normal, $fst: normal, $c: $c00, $ta: left, $lh: $line-height, $tt: none) {
+  font-family: $ff;
+  font-size: $fsz;
+  font-weight: $fw;
+  font-style: $fst;
+  color: $c;
+  text-align: $ta;
+  line-height: $lh;
+  text-transform: $tt;
+}
+
+@mixin position($position, $top, $right, $bottom, $left) {
+  position: $position;
+  top: $top;
+  right: $right;
+  bottom: $bottom;
+  left: $left;
+}
+
+@mixin top-50($height) {
+  margin-top: -($height / 2);
+  top: 50%;
+  height: $height;
+}
+
+@mixin left-50($width) {
+  margin-left: -($width / 2);
+  left: 50%;
+  width: $width;
+}
+
+@mixin center-50($height, $width) {
+  margin-top: -($height / 2);
+  margin-left: -($width / 2);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  height: $height;
+  width: $width;
+}
+
+@mixin media-indent($count, $option, $divide: 1, $multi: 0) {
+  @media only screen and (max-width: nth($resolutions, $count)) {
+    @if $multi==1 {
+      #{$option}: nth($indents, $count) * $divide;
+    }
+    @else {
+      @if $divide>1 {
+        #{$option}: nth($indents, $count) / $divide;
+      }
+      @else {
+        #{$option}: nth($indents, $count);
+      }
+    }
+  }
+}
+
+@mixin arrow($direction, $width, $height, $color) {
+  @if $direction==left {
+    border-top-width: $width / 2;
+    border-top-style: solid;
+    border-top-color: transparent;
+    border-bottom-width: $width / 2;
+    border-bottom-style: solid;
+    border-bottom-color: transparent;
+  }
+  @else if $direction==right {
+    border-top-width: $width / 2;
+    border-top-style: solid;
+    border-top-color: transparent;
+    border-bottom-width: $width / 2;
+    border-bottom-style: solid;
+    border-bottom-color: transparent;
+  }
+  @else if $direction==top {
+    border-left-width: $width / 2;
+    border-left-style: solid;
+    border-left-color: transparent;
+    border-right-width: $width / 2;
+    border-right-style: solid;
+    border-right-color: transparent;
+  }
+  @else if $direction==bottom {
+    border-left-width: $width / 2;
+    border-left-style: solid;
+    border-left-color: transparent;
+    border-right-width: $width / 2;
+    border-right-style: solid;
+    border-right-color: transparent;
+  }
+  border-#{$direction}-width: $height;
+  border-#{$direction}-style: solid;
+  border-#{$direction}-color: $color;
+}
