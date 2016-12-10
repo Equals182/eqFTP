@@ -49,8 +49,8 @@ define(function (require, exports, module) {
   
   eqUI.dropdown = new function () {
     var self = this;
-    self.tpl = $(Mustache.render(require("text!htmlContent/dropdown.html"), strings));
-    var dropdownItemsHolder = self.tpl.find('.eqftp-panel__server_dropdown_holder');
+    self.tpl = $('.eqftp-header__dropdown');
+    var dropdownItemsHolder = self.tpl.find('.eqftp-header__dropdownList');
     self.state = 'closed';
     self.items = [];
     
@@ -105,6 +105,9 @@ define(function (require, exports, module) {
     self.get = function () {
       return self.tpl;
     };
+    self.init = function () {
+      return self.tpl;
+    };
     self.getItem = function (item) {
       if (!_.isObject(item)) {
         item = {};
@@ -117,7 +120,7 @@ define(function (require, exports, module) {
   
   eqUI.fileTree = new function () {
     var self = this;
-    self.tpl = $(Mustache.render(require("text!htmlContent/fileTree.html"), strings));
+    self.tpl = $('.eqftp-fileTree');
     
     self.add = function (object, parent) {
       if (_.isArray(object)) {
@@ -156,7 +159,7 @@ define(function (require, exports, module) {
           self.state = 'opened';
         });
         self.tpl.animate({
-          width: '300px'
+          right: '30px'
         }, 200);
       }
     };
@@ -168,7 +171,7 @@ define(function (require, exports, module) {
           self.state = 'closed';
         });
         self.tpl.animate({
-          width: '0px'
+          right: (self.tpl.outerWidth() * -1) + 'px'
         }, 200, function () {
           self.tpl.hide();
         });
@@ -181,10 +184,6 @@ define(function (require, exports, module) {
         self.open();
       }
     };
-    
-    var dropdownHolder = self.tpl.find('.eqftp-panel__dropdown_holder:first');
-    dropdownHolder.append(eqUI.dropdown.get());
-    self.tpl.find('.eqftp-file_tree--holder').replaceWith(eqUI.fileTree.get());
     
     self.get = function () {
       return self.tpl;
