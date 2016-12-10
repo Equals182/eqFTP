@@ -2,14 +2,14 @@
   background-color: $c04;
   animation-duration: 0.3s;
   animation-direction: alternate;
-  position: relative;
+  position: absolute;
   display: none;
   justify-content: flex-start;
   align-content: flex-start;
   align-items: stretch;
   flex-wrap: wrap;
   height: 100%;
-  width: 100%;
+  width: 300px;
   &_active {
     display: flex;
   }
