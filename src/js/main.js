@@ -11,7 +11,7 @@ $(document).ready(function () {
         title = $(e + '__header ' + e + '__title');
     eq.toggleClass('eqftp' + a);
     $(e + '__page_blank').toggleClass('eqftp__page' + a);
-    $('.toolbar__icon').click(function () {
+    $(e + '-toolbar__icon').click(function () {
         eq.toggleClass('eqftp' + a);
         $(e + '__page_blank').toggleClass('eqftp__page' + a);
     });
