@@ -47,13 +47,62 @@ define(function (require, exports, module) {
     };
   }();
   
+  eqUI.panel = new function () {
+    var self = this;
+    self.state = 'closed';
+    self.tpl = $(Mustache.render(require("text!htmlContent/panel.html"), strings));
+    
+    self.open = function () {
+      if (self.state === 'closed') {
+        self.tpl.show();
+        $("body > .main-view > .content").animate({
+          right: '330px'
+        }, 200, function () {
+          self.state = 'opened';
+        });
+        self.tpl.animate({
+          right: '30px'
+        }, 200);
+      }
+    };
+    self.close = function () {
+      if (self.state === 'opened') {
+        $("body > .main-view > .content").animate({
+          right: '30px'
+        }, 200, function () {
+          self.state = 'closed';
+        });
+        self.tpl.animate({
+          right: (self.tpl.outerWidth() * -1) + 'px'
+        }, 200, function () {
+          self.tpl.hide();
+        });
+      }
+    };
+    self.toggle = function () {
+      if (self.state === 'opened') {
+        self.close();
+      } else {
+        self.open();
+      }
+    };
+    self.switchTo = function (tab) {
+      $('.eqftp-header__navigation').children('.eqftp-header__navigationTab_'+tab).addClass('eqftp-header__navigationTab_active').siblings().removeClass('eqftp-header__navigationTab_active');
+      $('.eqftp-content').children('.eqftp-content__page_'+tab).addClass('eqftp-content__page_active').siblings().removeClass('eqftp-content__page_active');
+    };
+    
+    self.get = function () {
+      return self.tpl;
+    };
+  }();
+  
   eqUI.dropdown = new function () {
     var self = this;
-    self.tpl = $('.eqftp-header__dropdown');
+    self.tpl = eqUI.panel.tpl.find('.eqftp-header__dropdown');
     var dropdownItemsHolder = self.tpl.find('.eqftp-header__dropdownList');
     self.state = 'closed';
     self.items = [];
-    
+
     self.resetItems = function () {
       self.items = [];
       dropdownItemsHolder.html('');
@@ -101,11 +150,8 @@ define(function (require, exports, module) {
         });
       }
     };
-    
+
     self.get = function () {
-      return self.tpl;
-    };
-    self.init = function () {
       return self.tpl;
     };
     self.getItem = function (item) {
@@ -117,77 +163,39 @@ define(function (require, exports, module) {
       return item;
     };
   }();
-  
+
   eqUI.fileTree = new function () {
     var self = this;
-    self.tpl = $('.eqftp-fileTree');
-    
+    self.tpl = eqUI.panel.tpl.find('.eqftp-fileTree');
+    self._t = {
+      d: require("text!htmlContent/fileTreeElement-folder.html"),
+      f: require("text!htmlContent/fileTreeElement-file.html")
+    };
+
     self.add = function (object, parent) {
       if (_.isArray(object)) {
         object.forEach(function (o) {
           self.add(o, parent);
         });
       } else if (_.isObject(object)) {
-        var ul = self.tpl.children('ul');
+        var holder = self.tpl;
         if (parent && parent !== '/') {
-          ul = ul.find('[id="' + parent + '"]').find('ul:first');
+          holder = holder.find('[id="' + parent + '"]').find('.children:first');
         }
-        ul.append($(Mustache.render(require("text!htmlContent/fileTreeElement.html"), _.defaults(_.clone(strings), object, {
+        if (['f', 'd'].indexOf(object.type) < 0) {
+          return false;
+        }
+        holder.append($(Mustache.render(self._t[object.type], _.defaults(_.clone(strings), object, {
           customDate: 'test'
         }))));
-        if (!ul.is(':visible')) {
-          ul.slideDown(100);
+        if (!holder.is(':visible')) {
+          holder.slideDown(100);
         }
       }
     };
     self.get = function () {
       return self.tpl;
     }
-  };
-  
-  eqUI.panel = new function () {
-    var self = this;
-    self.state = 'closed';
-    self.tpl = $(Mustache.render(require("text!htmlContent/panel.html"), strings));
-    
-    self.open = function () {
-      if (self.state === 'closed') {
-        self.tpl.show();
-        $("body > .main-view > .content").animate({
-          right: '330px'
-        }, 200, function () {
-          self.state = 'opened';
-        });
-        self.tpl.animate({
-          right: '30px'
-        }, 200);
-      }
-    };
-    self.close = function () {
-      if (self.state === 'opened') {
-        $("body > .main-view > .content").animate({
-          right: '30px'
-        }, 200, function () {
-          self.state = 'closed';
-        });
-        self.tpl.animate({
-          right: (self.tpl.outerWidth() * -1) + 'px'
-        }, 200, function () {
-          self.tpl.hide();
-        });
-      }
-    };
-    self.toggle = function () {
-      if (self.state === 'opened') {
-        self.close();
-      } else {
-        self.open();
-      }
-    };
-    
-    self.get = function () {
-      return self.tpl;
-    };
   }();
   
   /*

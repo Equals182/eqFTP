@@ -189,7 +189,7 @@ define(function (require, exports, module) {
    */
   AppInit.htmlReady(function () {
     // Including CSS files
-    ExtensionUtils.loadStyleSheet(module, "styles/ext.css");
+    ExtensionUtils.loadStyleSheet(module, "assets/main.min.css");
 
     // Registering Commands
     CommandManager.register(strings.eqftp__context__upload, "eqftp.upload", function() {
