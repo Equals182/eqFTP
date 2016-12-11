@@ -9,7 +9,7 @@ var util = require('util'),
   fs = require('fs'),
   FTPClient = require('jsftp'),
   SSHClient = require('ssh2').Client,
-  FileUtil = require('./FileUtil'),
+  FileUtil = require('./lib/FileUtil'),
   _ = require('lodash'),
   semver = require('semver');
 
