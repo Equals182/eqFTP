@@ -5,7 +5,7 @@ $.ajaxSetup({
 ['connectionsElement', 'dropdownItem', 'fileTreeElement-file', 'fileTreeElement-folder', 'panel', 'queueElement'].forEach(function (tpl) {
   $.get('htmlContent/' + tpl + '.html', function (t, status, resp) {
     tpls[tpl] = function (params) {
-      return $(Mustache.render(resp.responseText, params));
+      return $(Mustache.render(resp.responseText, (params || {})));
     };
   });
 });
