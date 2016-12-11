@@ -1,6 +1,8 @@
 @import 'https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,200i,300,300i,400,400i,600,600i,700,700i,900,900i&amp;subset=latin-ext';
+@import 'https://fonts.googleapis.com/icon?family=Material+Icons';
 
 $font-family: 'Source Sans Pro', Helvetica, Arial, 'Meiryo UI', 'ＭＳ Ｐゴシック', 'MS PGothic', sans-serif;
+$icon: 'Material Icons';
 
 $font-size-base: 22px;
 
@@ -40,3 +42,17 @@ $font-weight-extra-bold: 800;
 $font-weight-black: 900;
 
 $line-height: 18px;
+
+.material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  display: inline-block;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+}

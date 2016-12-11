@@ -278,17 +278,12 @@
       }
     }
     &_name {
-      text-overflow: ellipsis;
       overflow: hidden;
       min-width: 120px;
       max-width: 120px;
       align-content: center;
       align-items: center;
       width: 100%;
-      .fa {
-        margin-right: $i1;
-        font-size: 8px;
-      }
     }
     &_ext {
       padding-left: $i1;
@@ -381,19 +376,6 @@
     flex-wrap: wrap;
     &:hover {
     }
-    & .fa {
-      font-size: 20px;
-      width: 100%;
-      &-search {
-        margin-bottom: 2px;
-      }
-      &-bolt {
-        margin-bottom: 1px;
-      }
-      &-arrow-left {
-        margin-bottom: 2px;
-      }
-    }
     &_border {
       border-radius: $i2;
       border-width: 1px;
@@ -408,7 +390,7 @@
       padding-right: $i1 * 2;
       font-size: 12px;
       border-radius: $i1;
-      & .fa {
+      & .material-icons {
         margin-bottom: $i2;
         font-size: 14px;
       }
@@ -421,7 +403,7 @@
       padding-right: $i2 * 2;
       font-size: 14px;
       border-radius: $i2;
-      & .fa {
+      & .material-icons {
         margin-bottom: $i4;
         font-size: 20px;
       }
@@ -434,7 +416,7 @@
       padding-right: $i3 * 2;
       font-size: 16px;
       border-radius: $i3;
-      & .fa {
+      & .material-icons {
         margin-bottom: $i6;
         font-size: 26px;
       }
@@ -624,7 +606,7 @@
       & .eqftp-title {
         padding-left: 0;
         color: $c09;
-        & .fa {
+        & .material-icons {
           margin-left: $i2;
           font-size: 10px;
           color: $c06;
@@ -640,7 +622,7 @@
       &_idle {
         & .eqftp-title {
           color: $c09;
-          & .fa {
+          & .material-icons {
             color: $c06;
           }
         }
@@ -648,7 +630,7 @@
       &_connect {
         & .eqftp-title {
           color: $c01;
-          & .fa {
+          & .material-icons {
             color: $green;
             animation-name: flash;
             animation-duration: 5s;
@@ -659,7 +641,7 @@
       &_error {
         & .eqftp-title {
           color: $c06;
-          & .fa {
+          & .material-icons {
             color: $red;
             animation-name: flash;
             animation-duration: 5s;
