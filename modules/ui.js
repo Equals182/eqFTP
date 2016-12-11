@@ -72,7 +72,7 @@ define(function (require, exports, module) {
       if (self.state === 'closed') {
         self.tpl.show();
         $("body > .main-view > .content").animate({
-          right: '330px'
+          right: (self.tpl.outerWidth() + 30) + 'px'
         }, 200, function () {
           self.state = 'opened';
         });
