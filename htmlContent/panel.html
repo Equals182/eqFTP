@@ -5,6 +5,7 @@
 
     <!-- TITLE -->
     <div class="eqftp-header__title">
+      <div class="eqftp-header__titleSearch"></div>
       <div class="eqftp__title eqftp__title_medium">eqFTP</div>
       <div class="eqftp__close"><i class="fa fa-times" aria-hidden="true"></i></div>
     </div>
@@ -14,9 +15,9 @@
     <div class="eqftp-header__search">
       <div class="eqftp-header__searchHolder">
         <input type="text" name="eqftpSearch" class="eqftp__inputText" placeholder="Search or direct connection..." />
-        <button type="submit" name="eqftpSearchConnect" class="eqftp__buttonSubmit">
+        <div class="eqftp__button">
           <i class="fa fa-bolt" aria-hidden="true"></i>
-        </button>
+        </div>
       </div>
       <div class="eqftp-header__dropdown">
         <div class="eqftp-header__dropdownList">
@@ -67,14 +68,14 @@
       </div>
       <div class="eqftp__row">
         <input type="text" name="eqftpConnectionLocalPath" class="eqftp__inputText" placeholder="Local path" />
-        <button type="submit" name="eqftpConnectionButtonLocalPath" class="eqftp__buttonSubmit"><i class="fa fa-magic" aria-hidden="true"></i></button>
+        <div class="eqftp__button"><i class="fa fa-magic" aria-hidden="true"></i></div>
       </div>
       <div class="eqftp__row">
         <input type="text" name="eqftpConnectionRemotePath" class="eqftp__inputText" placeholder="Remote path" />
       </div>
       <div class="eqftp__row">
         <a href="#">Show additional settings</a>
-        <button type="submit" name="eqftpConnectionRemove" class="eqftp__buttonSubmit"><i class="fa fa-trash" aria-hidden="true"></i></button>
+        <div class="eqftp__button"><i class="fa fa-trash" aria-hidden="true"></i></div>
       </div>
     </div>
     <!-- /BASIC SETTINGS -->
@@ -97,7 +98,7 @@
       </div>
       <div class="eqftp__row">
         <a href="#">Show basic settings</a>
-        <button type="submit" name="eqftpConnectionRemove" class="eqftp__buttonSubmit"><i class="fa fa-trash" aria-hidden="true"></i></button>
+        <div class="eqftp__button"><i class="fa fa-trash" aria-hidden="true"></i></div>
       </div>
     </div>
     <!-- /ADDITIONAL SETTINGS -->
@@ -111,8 +112,8 @@
     <!-- PAGE BLANK -->
     <div class="eqftp-content__page eqftp-content__page_blank">
       <div class="eqftp__hello">Hello, world!<br/><br/><span>( ^_^ )</span></div>
-      <button class="eqftp__button eqftp__button_big eqftp__button_cube"><i class="fa fa-plug" aria-hidden="true"></i>New connection</button>
-      <button class="eqftp__button eqftp__button_big eqftp__button_cube"><i class="fa fa-cog" aria-hidden="true"></i>Settings</button>
+      <div class="eqftp__button eqftp__button_big eqftp__button_cube"><i class="fa fa-plug" aria-hidden="true"></i>New connection</div>
+      <div class="eqftp__button eqftp__button_big eqftp__button_cube"><i class="fa fa-cog" aria-hidden="true"></i>Settings</div>
     </div>
     <!-- /PAGE BLANK -->
 
@@ -136,7 +137,7 @@
     <div class="eqftp-content__page eqftp-content__page_connections">
 
       <!-- NEW CONNECTION -->
-      <button type="submit" name="eqftpConnectionNew" class="eqftp__buttonSubmit">New connection</button>
+      <div class="eqftp__button">New connection</div>
       <!-- /NEW CONNECTION -->
 
       <!-- CONNECTIONS -->
@@ -152,7 +153,7 @@
     <div class="eqftp-content__page eqftp-content__page_settings">
       <div class="eqftp__row">
         <input type="text" name="eqftpSettingFile" class="eqftp__inputText" placeholder="Choose seting file" />
-        <button type="submit" name="eqftpSettingFileCreate" class="eqftp__buttonSubmit">Create</button>
+        <div class="eqftp__button">Create</div>
       </div>
       <div class="eqftp__row">
         <input type="checkbox" name="eqftpSettingFileEncrypt" id="eqftpSettingFileEncrypt" class="eqftp__inputCheckbox" />
@@ -169,7 +170,7 @@
         <label for="eqftpDebug" class="eqftp__label">Debug mode</label>
       </div>
       <div class="eqftp__row">
-        <button type="submit" name="eqftpSettingSave" class="eqftp__buttonSubmit">Save</button>
+        <div class="eqftp__button">Save</div>
       </div>
     </div>
     <!-- /PAGE SETTINGS -->
