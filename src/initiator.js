@@ -43,20 +43,71 @@ panel.find(elements.queueElementholder).append(tpls['queueElement']());
 panel.find(elements.queueElementholder).append(tpls['queueElement']());
 
 var withkids = tpls['fileTreeElement-folder']();
-withkids.find('.children').append(tpls['fileTreeElement-folder']());
-withkids.find('.children').append(tpls['fileTreeElement-folder']());
-withkids.find('.children').append(tpls['fileTreeElement-folder']());
-withkids.find('.children').append(tpls['fileTreeElement-folder']());
-withkids.find('.children').append(tpls['fileTreeElement-file']());
-withkids.find('.children').append(tpls['fileTreeElement-file']());
-withkids.find('.children').append(tpls['fileTreeElement-file']());
-withkids.find('.children').append(tpls['fileTreeElement-file']());
+withkids.find('.children').append(tpls['fileTreeElement-folder']({
+  date_formatted: '03-03-2030 12:20:45',
+  name_short: 'sub',
+}));
+withkids.find('.children').append(tpls['fileTreeElement-folder']({
+  date_formatted: '03-03-2030 12:20:45',
+  name_short: 'vsubar',
+}));
+withkids.find('.children').append(tpls['fileTreeElement-folder']({
+  date_formatted: '03-03-2030 12:20:45',
+  name_short: 'dev_ooooh im bad and long string here i am come handle me boi',
+}));
+withkids.find('.children').append(tpls['fileTreeElement-folder']({
+  date_formatted: '03-03-2030 12:20:45',
+  name_short: 'binary',
+}));
+withkids.find('.children').append(tpls['fileTreeElement-file']({
+  date_formatted: '03-03-2030 12:20:45',
+  size_formatted: '12.1 mb',
+  name_short: 'aquota',
+  extension: 'group'
+}));
+withkids.find('.children').append(tpls['fileTreeElement-file']({
+  date_formatted: '03-03-2030 12:20:45',
+  size_formatted: '20.9 kb',
+  name_short: 'limit',
+  extension: 'user'
+}));
+withkids.find('.children').append(tpls['fileTreeElement-file']({
+  date_formatted: '03-03-2030 12:20:45',
+  size_formatted: '12.1 mb',
+  name_short: 'aquota',
+  extension: 'group'
+}));
+withkids.find('.children').append(tpls['fileTreeElement-file']({
+  date_formatted: '03-03-2030 12:20:45',
+  size_formatted: '20.9 kb',
+  name_short: 'limit',
+  extension: 'user'
+}));
 panel.find(elements.fileTreeElementholder).append(withkids);
-panel.find(elements.fileTreeElementholder).append(tpls['fileTreeElement-folder']());
-panel.find(elements.fileTreeElementholder).append(tpls['fileTreeElement-folder']());
-panel.find(elements.fileTreeElementholder).append(tpls['fileTreeElement-folder']());
-panel.find(elements.fileTreeElementholder).append(tpls['fileTreeElement-file']());
-panel.find(elements.fileTreeElementholder).append(tpls['fileTreeElement-file']());
+panel.find(elements.fileTreeElementholder).append(tpls['fileTreeElement-folder']({
+  date_formatted: '03-03-2030 12:20:45',
+  name_short: 'var',
+}));
+panel.find(elements.fileTreeElementholder).append(tpls['fileTreeElement-folder']({
+  date_formatted: '03-03-2030 12:20:45',
+  name_short: 'home sweet home sweet home sweet home sweet home sweet home',
+}));
+panel.find(elements.fileTreeElementholder).append(tpls['fileTreeElement-folder']({
+  date_formatted: '03-03-2030 12:20:45',
+  name_short: 'usr',
+}));
+panel.find(elements.fileTreeElementholder).append(tpls['fileTreeElement-file']({
+  date_formatted: '03-03-2030 12:20:45',
+  size_formatted: '12.1 mb',
+  name_short: 'aquota',
+  extension: 'group'
+}));
+panel.find(elements.fileTreeElementholder).append(tpls['fileTreeElement-file']({
+  date_formatted: '03-03-2030 12:20:45',
+  size_formatted: '20.9 kb',
+  name_short: 'limit',
+  extension: 'user'
+}));
 
 $('#generate').replaceWith(panel);
 
