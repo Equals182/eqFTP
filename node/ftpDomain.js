@@ -167,6 +167,35 @@ maxerr: 50, node: true */
               eqftp.connections[id].close();
             });
             obj._all = _.clone(connections);
+            eqftp.queue = new function () {
+              var self = this;
+              if (!_.isObject(eqftp.connections._current)) {
+                return [];
+              }
+              self.q = [];
+              
+              self.get = function (id) {
+                if (id && eqftp.connections._current[id]) {
+                  return eqftp.connections._current[id]._queue;
+                }
+                self.q = [];
+                _.forOwn(eqftp.connections._current, function (connection, id) {
+                  if (connection._queue && _.isArray(connection._queue)) {
+                    connection._queue.forEach(function (queuer) {
+                      console.log(queuer);
+                      self.q.push({
+                        id: queuer.id,
+                        qid: queuer.qid,
+                        args: _.slice(queuer.args, 0, -2),
+                        act: queuer.act,
+                        queue: queuer.queue
+                      });
+                    });
+                  }
+                });
+                return self.q;
+              }
+            }();
           };
       }
       if (action in obj._all) {
@@ -183,16 +212,81 @@ maxerr: 50, node: true */
                 case 'download':
                 case 'pwd':
                   var d = function () {
-                    obj._current[id]._server[act](...arguments);
+                    var prepend = false;
+                    if (['upload', 'download'].indexOf(act) < 0) {
+                      // for everything except downloads and uploads
+                      prepend = true;
+                    }
+                    eqftp.connections[id].queue.add({
+                      id: id,
+                      act: act,
+                      args: [...arguments],
+                      queue: 'a'
+                    }, prepend);
                   };
                   return function () {
-                    var args = arguments;
+                    var args = [...arguments];
                     if (!obj._current[id]) {
                       eqftp.connections[id].new(function (err, id) {
                         d(...args);
                       });
                     } else {
                       d(...args);
+                    }
+                  };
+                  break;
+                case 'queue':
+                  return {
+                    add: function (queuer, prepend) {
+                      if (!obj._current[id]._queue) {
+                        obj._current[id]._queue = [];
+                      }
+                      queuer.qid = utils.uniq();
+                      if (prepend) {
+                        obj._current[id]._queue.unshift(queuer);
+                      } else {
+                        obj._current[id]._queue.push(queuer);
+                      }
+                      _domainManager.emitEvent("eqFTP", "event", {
+                        action: 'queue:update',
+                        data: eqftp.queue.get()
+                      });
+                      eqftp.connections[id].queue.next();
+                    },
+                    next: function () {
+                      if (obj._current[id]._queue && obj._current[id]._queue.length > 0) {
+                        var f = _.findIndex(obj._current[id]._queue, {queue: 'a'});
+                        if (f < 0) {
+                          return false;
+                        }
+                        var queuer = (_.pullAt(obj._current[id]._queue, f))[0];
+                        if (!obj._current[id].isBusy) {
+                          obj._current[id].isBusy = true;
+                        }
+                        var args = queuer.args,
+                            callback = _.nth(args, -2),
+                            progress = _.nth(args, -1);
+                        var cb = function (err, data) {
+                          //POST HOOKS
+                          obj._current[id].isBusy = false;
+                          if (err) {
+                            queuer.queue = 'f';
+                            queuer.err = err;
+                            obj._current[id].queue.add(queuer, true);
+                          }
+                          _domainManager.emitEvent("eqFTP", "event", {
+                            action: 'queue:update',
+                            data: eqftp.queue.get()
+                          });
+                          callback(err, data);
+                        };
+                        var pr = function (err, data) {
+                          progress(err, data);
+                        };
+                        
+                        args.splice(-2, 2, cb, pr);
+                        obj._current[queuer.id]._server[queuer.act](...args);
+                      }
                     }
                   };
                   break;
@@ -209,7 +303,7 @@ maxerr: 50, node: true */
                       cb(null, id);
                       return id;
                     }
-                    obj._current[id] = connectionDetails;
+                    obj._current[id] = _.cloneDeep(connectionDetails);
                     obj._current[id]._server = new EFTP();
 
                     obj._current[id]._server.on('ready', function () {
@@ -319,15 +413,17 @@ maxerr: 50, node: true */
         cmd: function () {
           var args = [...arguments],
               path = args.shift(),
-              passing = args;
+              passing = args,
+              callback = _.nth(args, -2),
+              progress = _.nth(args, -1);
           var f = _.get(eqftp.connections, path, false);
           if (!f) {
-            cb(true, f);
+            callback(true, f);
           }
           if (_.isFunction(f)) {
             f(...passing);
           } else {
-            cb(undefined, f);
+            callback(undefined, f);
           }
         }
       }
