@@ -26,7 +26,7 @@
 
 define(function (require, exports, module) {
   "use strict";
-
+  
   /**
    * Including all needed modules
    */
@@ -43,12 +43,12 @@ define(function (require, exports, module) {
     NodeConnection = brackets.getModule("utils/NodeConnection"),
     EventEmitter = require('modules/events/index'),
 
-    _ = require("node/node_modules/lodash/lodash"),
+    //_ = require("node/node_modules/lodash/lodash"),
+    utils = require("node/libs/utils"),
+    _ = utils._,
 
     strings = require("strings"),
-    dateFormat = require("modules/date-format/date_format"),
-    utils = require("modules/utils"),
-    ui = require("modules/ui"),
+    ui = require("./modules/ui"),
 
     _defaultEqFTPFolder = brackets.app.getUserDocumentsDirectory(),
     _callbacks = {},
@@ -181,8 +181,7 @@ define(function (require, exports, module) {
   };
 
   // Adding eqftp + listener to ui so we could keep entities separately
-  ui.eqftp = eqftp;
-  ui.eqftp.on('event', ui.events);
+  ui.eqftp(eqftp).on('event', ui.events);
   
   /**
    * This starts when Brackets' html is ready

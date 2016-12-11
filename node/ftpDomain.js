@@ -6,10 +6,10 @@ maxerr: 50, node: true */
 (function () {
   "use strict";
 
-  var EFTP = require('eftp'),
+  var EFTP = require('./libs/eftp'),
+    utils = require('./libs/utils.js'),
     fs = require('fs'),
     CryptoJS = require("crypto-js"),
-    utils = require('../modules/utils.js'),
     _ = require("lodash");
 
   var _domainManager;
@@ -221,7 +221,7 @@ maxerr: 50, node: true */
                         data: {id: id}
                       });
                       cb('Forced connection closing');
-                      eqftp.connection._destroy(id);
+                      _.unset(obj._current, id);
                     });
                     obj._current[id]._server.on('error', function (err) {
                       _domainManager.emitEvent("eqFTP", "event", {
@@ -232,7 +232,7 @@ maxerr: 50, node: true */
                         }
                       });
                       cb(err);
-                      eqftp.connection._destroy(id);
+                      obj._current[id].close();
                     });
                     obj._current[id]._server.on('progress', function (data) {
                       _domainManager.emitEvent("eqFTP", "event", {
@@ -253,6 +253,14 @@ maxerr: 50, node: true */
                         settings.privateKey = connectionDetails.rsa;
                     }
                     obj._current[id]._server.connect(settings);
+                  }
+                  break;
+                case 'close':
+                  return function (id) {
+                    if (obj._current && obj._current[id] && obj._current[id]._server) {
+                      return obj._current[id]._server.close();
+                    }
+                    return true;
                   }
                   break;
               }

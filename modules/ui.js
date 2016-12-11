@@ -7,8 +7,24 @@ define(function (require, exports, module) {
   "use strict";
   var Mustache = brackets.getModule("thirdparty/mustache/mustache"),
       strings = require("strings"),
-      _ = require("../node/node_modules/lodash/lodash"),
-      eqUI = this;
+      eqUI = this,
+      _ = false,
+      eqFTP = false,
+      utils = false;
+  
+  eqUI.eqftp = function (e) {
+    if (!eqFTP) {
+      eqFTP = e;
+    }
+    if (!utils) {
+      utils = eqFTP.utils;
+    }
+    if (!_) {
+      _ = eqFTP.utils._;
+    }
+    eqUI.eqftp = eqFTP;
+    return eqFTP;
+  }
   
   eqUI.events = function (event) {
     if (!event) {
@@ -133,8 +149,8 @@ define(function (require, exports, module) {
     };
     self.filter = function (keyword) {
       if (keyword) {
-        if (self.eqftp) {
-          keyword = self.eqftp.utils.escapeRegExp(keyword);
+        if (utils) {
+          keyword = utils.escapeRegExp(keyword);
         }
         var r = new RegExp('.*?' + keyword + '.*?');
         self.items.forEach(function (v, i) {
@@ -186,7 +202,32 @@ define(function (require, exports, module) {
           return false;
         }
         holder.append($(Mustache.render(self._t[object.type], _.defaults(_.clone(strings), object, {
-          customDate: 'test'
+          date_formatted: function () {
+            if (utils) {
+              return utils.date_format(new Date(object.date), 'd-m-Y');
+            } else {
+              return object.date;
+            }
+          },
+          size_formatted: function () {
+            return utils.filesize_format(object.size, 1, [
+              strings.eqftp__filesize_bytes,
+              strings.eqftp__filesize_kilobytes,
+              strings.eqftp__filesize_megabytes,
+              strings.eqftp__filesize_gigabytes,
+              strings.eqftp__filesize_terabytes,
+              strings.eqftp__filesize_petabytes,
+              strings.eqftp__filesize_exabytes,
+              strings.eqftp__filesize_zettabytes,
+              strings.eqftp__filesize_yottabytes
+            ]);
+          },
+          name_short: function () {
+            return utils.getNamepart(object.name, 'name_noext');
+          },
+          extension: function () {
+            return utils.getNamepart(object.name, 'ext');
+          }
         }))));
         if (!holder.is(':visible')) {
           holder.slideDown(100);
