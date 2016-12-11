@@ -49,7 +49,6 @@ $(document).ready(function () {
     });
   }*/
   $('.eqftp-header__searchHolder').click(function () {
-    $(this).toggleClass('eqftp-header__searchHolder_active');
     $('.eqftp-header__dropdown').toggleClass('eqftp-header__dropdown_active');
   });
 });

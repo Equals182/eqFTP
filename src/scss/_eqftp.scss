@@ -80,12 +80,10 @@
         border-radius: 2px;
         display: flex;
         justify-content: space-between;
+        align-content: flex-start;
         align-items: stretch;
+        flex-wrap: wrap;
         width: 100%;
-        &_active {
-          align-content: flex-start;
-          flex-wrap: wrap;
-        }
         & .eqftp__inputText {
           width: calc(100% - 36px - 36px);
         }
