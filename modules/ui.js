@@ -166,6 +166,7 @@ define(function (require, exports, module) {
       if (self.state === 'closed') {
         self.tpl.addClass('eqftp-header__search_active');
         self.state = 'opened';
+        self.tpl.find('input[name="eqftpSearch"]').focus();
         self.dropdown.open();
       }
     };

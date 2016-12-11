@@ -145,7 +145,8 @@ window.eqftp = {
         $('.eqftp-header__search').toggleClass('eqftp-header__search_active');
         $('.eqftp-header__dropdown').toggleClass('eqftp-header__dropdown_active');
         $('.eqftp-header__dropdownList').toggleSlide(80);
-      }
+      },
+      filter: function () {}
     }
   }
 }
