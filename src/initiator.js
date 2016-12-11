@@ -139,6 +139,13 @@ window.eqftp = {
         $('.eqftp-header__navigation').children('.eqftp-header__navigationTab_'+tab).addClass('eqftp-header__navigationTab_active').siblings().removeClass('eqftp-header__navigationTab_active');
         $('.eqftp-content').children('.eqftp-content__page_'+tab).addClass('eqftp-content__page_active').siblings().removeClass('eqftp-content__page_active');
       }
+    },
+    search: {
+      toggle: function () {
+        $('.eqftp-header__search').toggleClass('eqftp-header__search_active');
+        $('.eqftp-header__dropdown').toggleClass('eqftp-header__dropdown_active');
+        $('.eqftp-header__dropdownList').toggleSlide(80);
+      }
     }
   }
 }

@@ -115,7 +115,7 @@ define(function (require, exports, module) {
               eqftp.settings.get(eqftp.preferences.get('misc.last_settings_file')).done(function (settings) {
                 eqftp.settings = settings;
                 _.forOwn(eqftp.settings.connections, function (connection, id) {
-                  ui.dropdown.addItem({
+                  ui.search.dropdown.addItem({
                     title: connection.name,
                     host: connection.server,
                     user: connection.login,
