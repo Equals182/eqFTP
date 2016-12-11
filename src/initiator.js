@@ -42,7 +42,12 @@ panel.find(elements.queueElementholder).append(tpls['queueElement']());
 panel.find(elements.queueElementholder).append(tpls['queueElement']());
 panel.find(elements.queueElementholder).append(tpls['queueElement']());
 
-var withkids = tpls['fileTreeElement-folder']();
+var withkids = tpls['fileTreeElement-folder']({
+  date_formatted: '03-03-2030 12:20:45',
+  name_short: 'WITH SUBS',
+  size_formatted: '',
+  extension: ''
+});
 withkids.find('.children').append(tpls['fileTreeElement-folder']({
   date_formatted: '03-03-2030 12:20:45',
   name_short: 'sub',
