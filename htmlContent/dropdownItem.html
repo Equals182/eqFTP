@@ -1,3 +1,14 @@
 <div class="eqftp-header__dropdownItem" onclick="eqftp.connect('{{id}}');">
-    {{id}} {{title}} {{user}} {{host}}
+  <div class="eqftp__row">
+    <div class="eqftp__title eqftp__title_small eqftp__title_gray">
+      <span class="eqftp__titleNowrap">
+        {{title}}
+      </span>
+    </div>
+  </div>
+  <div class="eqftp__row">
+    <div class="eqftp__title eqftp__title_tiny eqftp__title_gray eqftp__title_nowrap">
+      <span class="eqftp__titleNowrap eqftp__titleNowrap_half">{{user}}</span><span class="eqftp__titleNowrap eqftp__titleNowrap_half">{{host}}</span>
+    </div>
+  </div>
 </div>

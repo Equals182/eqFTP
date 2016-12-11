@@ -3,19 +3,15 @@
   animation-duration: 0.3s;
   animation-direction: alternate;
   position: absolute;
-  top: 0;
-  right: -100%;
   transition: right 0.2s;
   display: flex;
   justify-content: flex-start;
   align-content: flex-start;
   align-items: stretch;
   flex-wrap: wrap;
+  overflow: hidden;
   height: 100%;
   width: 300px;
-  &_active {
-    right: 0;
-  }
   &-toolbar {
     &__icon {
       padding-top: 1px;
@@ -44,8 +40,8 @@
     align-items: flex-start;
     flex-wrap: wrap;
     width: 100%;
+    z-index: 300;
     &__title {
-      padding-left: $i3;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -53,27 +49,100 @@
       max-height: $i12;
       height: $i12;
       width: 100%;
+      & .eqftp__title {
+        width: 100%;
+      }
+      & .eqftp__button {
+        color: $c09;
+      }
     }
     &__search {
+      padding-top: 6px;
+      padding-bottom: 6px;
+      padding-left: 6px;
+      padding-right: 6px;
+      box-sizing: border-box;
       display: none;
       justify-content: center;
       align-items: center;
-      min-height: $i12;
-      max-height: $i12;
-      height: $i12;
+      animation-name: fadeIn;
+      animation-duration: 0.2s;
+      animation-direction: alternate;
+      position: absolute;
+      top: 0;
+      left: 0;
       width: 100%;
       &_active {
         display: flex;
       }
       &Holder {
-        min-height: $i9;
-        max-height: $i9;
-        height: $i9;
-        width: calc(100% - $i3);
+        background-color: #fafafa;
+        border-radius: 2px;
+        display: flex;
+        justify-content: space-between;
+        align-items: stretch;
+        width: 100%;
+        &_active {
+          align-content: flex-start;
+          flex-wrap: wrap;
+        }
+        & .eqftp__inputText {
+          width: calc(100% - 36px - 36px);
+        }
       }
     }
     &__dropdown {
+      padding-top: 6px;
+      padding-bottom: 6px;
+      border-top: 1px solid $c11;
+      box-sizing: border-box;
+      animation-name: fadeIn;
+      animation-duration: 0.2s;
+      animation-direction: alternate;
       display: none;
+      width: 100%;
+      &_active {
+        display: flex;
+        justify-content: flex-start;
+        align-content: flex-start;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+      &List {
+        width: 100%;
+      }
+      &Item {
+        padding-left: $i9;
+        padding-right: $i3;
+        box-sizing: border-box;
+        display: flex;
+        justify-content: flex-start;
+        align-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        transition: background-color 0.2s, border 0.2s;
+        cursor: pointer;
+        min-height: $i12;
+        max-height: $i12;
+        height: $i12;
+        width: 100%;
+        &:hover {
+          background-color: $c09;
+          & .eqftp__titleNowrap {
+            &+* {
+              border-left: 1px solid $c12;
+            }
+          }
+        }
+        & .eqftp__titleNowrap {
+          &+* {
+            margin-left: $i1;
+            padding-left: $i1;
+            border-left: 1px solid $c09;
+            line-height: 10px;
+          }
+        }
+      }
     }
     &__navigation {
       display: flex;
@@ -150,7 +219,7 @@
     min-width: 100%;
     max-width: 100%;
     width: 100%;
-    z-index: 500;
+    z-index: 200;
     &:hover {
       height: 26px * 3;
     }
@@ -264,11 +333,29 @@
     }
   }
   &__input {
-    @include font($font-family, 12px, 300, normal, $c09, left);
-    background-color: $c05;
+    padding-top: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    padding-right: 0;
+    background-color: transparent;
     border: none;
     box-sizing: border-box;
+    display: flex;
     width: 100%;
+    &Text {
+      @include font($font-family, 14px, 300, normal, $c03, left);
+      justify-content: flex-start;
+      align-items: center;
+      &_small {
+        font-size: 12px;
+      }
+      &_medium {
+        font-size: 14px;
+      }
+      &_big {
+        font-size: 16px;
+      }
+    }
     &_short {
       width: 33.3%;
     }
@@ -283,14 +370,7 @@
     }
   }
   &__button {
-    margin-top: $i4;
-    margin-bottom: $i4;
-    @include font($font-family, 16px, 300, normal, $c09, center, normal, uppercase);
-    background-color: $c05;
-    border-radius: $i2;
-    border-width: 1px;
-    border-style: solid;
-    border-color: $c03;
+    @include font($font-family, 16px, 300, normal, $c10, center, normal, uppercase);
     box-sizing: border-box;
     transition: color 0.2s, background-color 0.2s;
     cursor: pointer;
@@ -300,13 +380,25 @@
     align-items: center;
     flex-wrap: wrap;
     &:hover {
-      color: $c01;
-      background-color: $c08;
     }
-    .fa {
-      margin-bottom: $i4;
-      font-size: 24px;
+    & .fa {
+      font-size: 20px;
       width: 100%;
+      &-search {
+        margin-bottom: 2px;
+      }
+      &-bolt {
+        margin-bottom: 1px;
+      }
+      &-arrow-left {
+        margin-bottom: 2px;
+      }
+    }
+    &_border {
+      border-radius: $i2;
+      border-width: 1px;
+      border-style: solid;
+      border-color: $c03;
     }
     &_small {
       margin-top: $i2;
@@ -316,9 +408,9 @@
       padding-right: $i1 * 2;
       font-size: 12px;
       border-radius: $i1;
-      .fa {
+      & .fa {
         margin-bottom: $i2;
-        font-size: 18px;
+        font-size: 14px;
       }
     }
     &_medium {
@@ -329,9 +421,9 @@
       padding-right: $i2 * 2;
       font-size: 14px;
       border-radius: $i2;
-      .fa {
+      & .fa {
         margin-bottom: $i4;
-        font-size: 24px;
+        font-size: 20px;
       }
     }
     &_big {
@@ -342,16 +434,42 @@
       padding-right: $i3 * 2;
       font-size: 16px;
       border-radius: $i3;
-      .fa {
+      & .fa {
         margin-bottom: $i6;
-        font-size: 30px;
+        font-size: 26px;
       }
     }
-    &_cube {
-      min-height: 160px;
-      height: 160px;
-      min-width: 160px;
-      width: 160px;
+    &Cube {
+      min-height: 48px;
+      max-height: 48px;
+      height: 48px;
+      min-width: 48px;
+      max-width: 48px;
+      width: 48px;
+      &_small {
+        min-height: 36px;
+        max-height: 36px;
+        height: 36px;
+        min-width: 36px;
+        max-width: 36px;
+        width: 36px;
+      }
+      &_medium {
+        min-height: 48px;
+        max-height: 48px;
+        height: 48px;
+        min-width: 48px;
+        max-width: 48px;
+        width: 48px;
+      }
+      &_big {
+        min-height: 60px;
+        max-height: 60px;
+        height: 60px;
+        min-width: 60px;
+        max-width: 60px;
+        width: 60px;
+      }
     }
   }
   &__hello {
@@ -369,6 +487,8 @@
     display: flex;
     justify-content: flex-start;
     align-items: center;
+    width: 100%;
+    max-width: 100%;
     &_tiny {
       font-size: 12px;
     }
@@ -380,6 +500,24 @@
     }
     &_big {
       font-size: 24px;
+    }
+    &_black {
+      color: $c00;
+    }
+    &_white {
+      color: $c01;
+    }
+    &_gray {
+      color: $c02;
+    }
+    &Nowrap {
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+      max-width: 100%;
+      &_half {
+        max-width: 50%;
+      }
     }
   }
   &__close {
@@ -511,7 +649,7 @@
         & .eqftp-title {
           color: $c01;
           & .fa {
-            color: $c13;
+            color: $green;
             animation-name: flash;
             animation-duration: 5s;
             animation-iteration-count: infinite;
@@ -522,7 +660,7 @@
         & .eqftp-title {
           color: $c06;
           & .fa {
-            color: $c24;
+            color: $red;
             animation-name: flash;
             animation-duration: 5s;
             animation-iteration-count: infinite;
