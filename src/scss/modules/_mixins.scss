@@ -24,3 +24,18 @@
     }
   }
 }
+
+@mixin inputText($ff: 14px, $w: 100%) {
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 0;
+  padding-right: 0;
+  @include font($font-family, $ff, 300, normal, $c03, left);
+  background-color: transparent;
+  border: none;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: $w;
+}

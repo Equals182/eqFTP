@@ -85,7 +85,7 @@
         flex-wrap: wrap;
         width: 100%;
         & .eqftp__inputText {
-          width: calc(100% - 36px - 36px);
+          width: calc(100% - 36px - 36px) !important;
         }
       }
     }
