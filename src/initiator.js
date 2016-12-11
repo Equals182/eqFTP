@@ -46,18 +46,26 @@ var withkids = tpls['fileTreeElement-folder']();
 withkids.find('.children').append(tpls['fileTreeElement-folder']({
   date_formatted: '03-03-2030 12:20:45',
   name_short: 'sub',
+  size_formatted: '',
+  extension: ''
 }));
 withkids.find('.children').append(tpls['fileTreeElement-folder']({
   date_formatted: '03-03-2030 12:20:45',
   name_short: 'vsubar',
+  size_formatted: '',
+  extension: ''
 }));
 withkids.find('.children').append(tpls['fileTreeElement-folder']({
   date_formatted: '03-03-2030 12:20:45',
   name_short: 'dev_ooooh im bad and long string here i am come handle me boi',
+  size_formatted: '',
+  extension: ''
 }));
 withkids.find('.children').append(tpls['fileTreeElement-folder']({
   date_formatted: '03-03-2030 12:20:45',
   name_short: 'binary',
+  size_formatted: '',
+  extension: ''
 }));
 withkids.find('.children').append(tpls['fileTreeElement-file']({
   date_formatted: '03-03-2030 12:20:45',
@@ -87,14 +95,20 @@ panel.find(elements.fileTreeElementholder).append(withkids);
 panel.find(elements.fileTreeElementholder).append(tpls['fileTreeElement-folder']({
   date_formatted: '03-03-2030 12:20:45',
   name_short: 'var',
+  size_formatted: '',
+  extension: ''
 }));
 panel.find(elements.fileTreeElementholder).append(tpls['fileTreeElement-folder']({
   date_formatted: '03-03-2030 12:20:45',
   name_short: 'home sweet home sweet home sweet home sweet home sweet home',
+  size_formatted: '',
+  extension: ''
 }));
 panel.find(elements.fileTreeElementholder).append(tpls['fileTreeElement-folder']({
   date_formatted: '03-03-2030 12:20:45',
   name_short: 'usr',
+  size_formatted: '',
+  extension: ''
 }));
 panel.find(elements.fileTreeElementholder).append(tpls['fileTreeElement-file']({
   date_formatted: '03-03-2030 12:20:45',
