@@ -35,6 +35,7 @@ define(function (require, exports, module) {
         case 'ready:html':
           // Appending eqFTP button on toolbar
           $("#main-toolbar .buttons").append(eqUI.toolbarIcon.get());
+          // Appending eqFTP panel after content
           $("body > .main-view > .content").after(eqUI.panel.get());
           break;
         case 'ready:app':
@@ -67,6 +68,7 @@ define(function (require, exports, module) {
     var self = this;
     self.state = 'closed';
     self.tpl = $(Mustache.render(require("text!htmlContent/panel.html"), strings));
+    self.tpl.css('right', '-300px');
     
     self.open = function () {
       if (self.state === 'closed') {
@@ -75,6 +77,8 @@ define(function (require, exports, module) {
           right: (self.tpl.outerWidth() + 30) + 'px'
         }, 200, function () {
           self.state = 'opened';
+  $('.eqftp-header__search').show();
+  $('.eqftp-header__dropdown').show();
         });
         self.tpl.animate({
           right: '30px'
