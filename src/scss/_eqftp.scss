@@ -305,8 +305,7 @@
     align-content: center;
     align-items: center;
     flex-wrap: wrap;
-    &:hover {
-    }
+    &:hover {}
     &_border {
       border-radius: $i2;
       border-width: 1px;
@@ -533,22 +532,25 @@
         max-width: 40%;
       }
       &Wrap {
-        margin-left: $i1;
-        border-left: 1px solid $c08;
-        box-sizing: border-box;
         max-width: 100%;
         width: 100%;
       }
       &Children {
+        border-left: 1px solid $c08;
+        box-sizing: border-box;
         display: none;
         width: 100%;
         & .eqftp-fileTree__item {
           padding-left: 0;
           padding-right: 0;
         }
+        & .eqftp-fileTree__itemIcon {
+          margin-left: 4px;
+        }
       }
     }
   }
+
   &-connections {
     position: relative;
     display: flex;
@@ -637,4 +639,6 @@
       }
     }
   }
+
+
 }
