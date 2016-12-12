@@ -217,17 +217,36 @@ define(function (require, exports, module) {
       d: require("text!htmlContent/fileTreeElement-folder.html"),
       f: require("text!htmlContent/fileTreeElement-file.html")
     };
+    self._rendered = {};
 
-    self.add = function (object, parent) {
-      if (_.isArray(object)) {
+    self.add = function (object, path) {
+      /*if (_.isArray(object)) {
         object.forEach(function (o) {
-          self.add(o, parent);
+          self.add(o, path);
         });
+        self._rendered[path] = object;
       } else if (_.isObject(object)) {
         var holder = self.tpl;
-        if (parent && parent !== '/') {
-          holder = holder.find('[id="' + parent + '"]').find('.children:first');
+        
+        var is_shortest = true,
+            toreappend = [],
+            
+        if (self._rendered) {
+          if (_.has(self._rendered, path)) {
+            holder = holder.find('[id="' + path + '"]').find('.children:first');
+          } else {
+                r = RegExp("^" + path);
+            _.forOwn(self._rendered, function (object, rpath) {
+              if (r.test(rpath)) {
+                toreappend.push([object, rpath]);
+              }
+              if (rpath.length > path.length) {
+                is_shortest = false;
+              }
+            });
+          }
         }
+        
         if (['f', 'd'].indexOf(object.type) < 0) {
           return false;
         }
@@ -262,7 +281,7 @@ define(function (require, exports, module) {
         if (!holder.is(':visible')) {
           holder.slideDown(100);
         }
-      }
+      }*/
     };
     self.get = function () {
       return self.tpl;
