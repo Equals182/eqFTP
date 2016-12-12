@@ -222,6 +222,7 @@
   &__row {
     display: flex;
     align-items: stretch;
+    max-width: 100%;
     width: 100%;
     &_between {
       justify-content: space-between;
@@ -239,76 +240,8 @@
   &__col {
     display: flex;
     justify-content: flex-start;
-    align-content: flex-start;
-    align-items: flex-start;
-    flex-wrap: wrap;
-    box-sizing: border-box;
-    &_connection {
-      display: flex;
-      justify-content: flex-start;
-      align-content: flex-start;
-      align-items: center;
-      flex-wrap: wrap;
-    }
-    &_buttons {
-      display: none;
-      justify-content: center;
-      align-items: center;
-      animation-duration: 0.3s;
-      animation-name: fadeIn;
-      & button {
-        padding-top: $i1;
-        padding-bottom: $i1;
-        padding-left: $i1;
-        padding-right: $i1;
-        font-size: 14px;
-        color: $c09;
-        transition: color 0.2s;
-        background-color: transparent;
-        border: none;
-        cursor: pointer;
-        &:hover {
-          color: $c01;
-        }
-      }
-    }
-    &_name {
-      overflow: hidden;
-      min-width: 120px;
-      max-width: 120px;
-      align-content: center;
-      align-items: center;
-      width: 100%;
-    }
-    &_ext {
-      padding-left: $i1;
-      justify-content: flex-end;
-      opacity: 0.4;
-      text-overflow: ellipsis;
-      overflow: hidden;
-      min-width: 45px;
-      max-width: 45px;
-      width: 100%;
-    }
-    &_size {
-      padding-left: $i1;
-      font-style: italic;
-      opacity: 0.4;
-      text-overflow: ellipsis;
-      overflow: hidden;
-      min-width: 45px;
-      max-width: 45px;
-      width: 100%;
-    }
-    &_date {
-      padding-left: $i1;
-      justify-content: flex-end;
-      text-overflow: ellipsis;
-      overflow: hidden;
-      min-width: 110px;
-      max-width: 110px;
-      width: 100%;
-    }
+    align-items: center;
+    max-width: 100%;
     &_short {
       width: 33.3%;
     }
@@ -320,6 +253,9 @@
     }
     &_full {
       width: 100%;
+    }
+    &_fix {
+      width: 150px;
     }
   }
   &__input {
@@ -459,8 +395,10 @@
     }
   }
   &__title {
-    @include font($font-family, 20px, 200, normal, $c01);
-    transition: color 0.2s;
+    font-family: $font-family;
+    font-weight: 300;
+    font-style: normal;
+    color: $c01;
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -476,7 +414,7 @@
       font-size: 20px;
     }
     &_big {
-      font-size: 24px;
+      font-size: $i6;
     }
     &_black {
       color: $c00;
@@ -498,7 +436,7 @@
     }
   }
   &__close {
-    font-size: 24px;
+    font-size: $i6;
     color: $c09;
     transition: color 0.2s;
     display: flex;
@@ -516,45 +454,98 @@
     }
   }
   &-fileTree {
-    position: relative;
+    margin-top: $i2;
+    margin-bottom: $i2;
     height: 100%;
     width: 100%;
-    &__element {
+    &__item {
+      padding-left: $i1;
+      padding-right: $i1;
       position: relative;
       box-sizing: border-box;
       transition: background-color 0.1s;
       cursor: default;
       display: flex;
+      max-width: 100%;
       width: 100%;
       &:hover {
         background-color: rgba(0, 0, 0, 0.1);
       }
       &_file {
-        padding-left: $i1;
-        padding-right: $i1;
-        justify-content: space-between;
         align-items: center;
-        height: 18px;
+        min-height: $i6;
+        max-height: $i6;
+        height: $i6;
       }
       &_folder {
-        padding-left: $i1;
-        padding-right: $i1;
         justify-content: flex-start;
         align-content: flex-start;
         align-items: flex-start;
         flex-wrap: wrap;
         width: 100%;
       }
-      &_subfolder {
-        margin-left: $i1 - 1px;
+      &Icon {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: $i6;
+        max-height: $i6;
+        height: $i6;
+        min-width: $i6;
+        max-width: $i6;
+        width: $i6;
+        & .material-icons {
+          font-size: 16px;
+          color: $c09;
+        }
+      }
+      &Name {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        max-width: 100%;
+      }
+      &Ext {
         padding-left: $i1;
-        padding-right: 0;
-        border-left-width: 1px;
-        border-left-style: solid;
-        border-left-color: $c05;
+        opacity: 0.4;
         box-sizing: border-box;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        max-width: 30%;
+      }
+      &Size {
+        padding-left: $i1;
+        font-style: italic;
+        opacity: 0.4;
+        box-sizing: border-box;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        max-width: 30%;
+      }
+      &Date {
+        padding-left: $i1;
+        box-sizing: border-box;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        max-width: 40%;
+      }
+      &Wrap {
+        margin-left: $i1;
+        border-left: 1px solid $c08;
+        box-sizing: border-box;
+        max-width: 100%;
+        width: 100%;
+      }
+      &Children {
         display: none;
         width: 100%;
+        & .eqftp-fileTree__item {
+          padding-left: 0;
+          padding-right: 0;
+        }
       }
     }
   }

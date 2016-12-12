@@ -54,5 +54,17 @@ $(document).ready(function () {
 });
 
 function showSearch() {
+  'use strict';
   $('.eqftp-header__search').toggleClass('eqftp-header__search_active');
+}
+
+function showChildren(element) {
+  'use strict';
+  var text = $(element).find('.material-icons').text();
+  if (text == 'folder') {
+    $(element).find('.material-icons').text('folder_open');
+  } else {
+    $(element).find('.material-icons').text('folder');
+  }
+  $(element).next('.eqftp-fileTree__itemWrap').children('.eqftp-fileTree__itemChildren').slideToggle(100);
 }

@@ -21,16 +21,16 @@ var elements = {
 var panel = tpls['panel']();
 
 panel.find(elements.dropdownElementholder).append(tpls['dropdownItem']({
-    id: 'abc123',
-    title: 'Short',
-    user: 'root',
-    host: '111.222.333.444'
+  id: 'abc123',
+  title: 'Short',
+  user: 'root',
+  host: '111.222.333.444'
 }));
 panel.find(elements.dropdownElementholder).append(tpls['dropdownItem']({
-    id: 'abc123doesntmatter',
-    title: 'Long Connection Title Test it-321.32.33_a',
-    user: 'shitmynameisbiglikemydick',
-    host: 'ftp.pretty-long-websitename.com.ua.ru'
+  id: 'abc123doesntmatter',
+  title: 'Long Connection Title Test it-321.32.33_a',
+  user: 'shitmynameisbiglikemydick',
+  host: 'ftp.pretty-long-websitename.com.ua.ru'
 }));
 
 panel.find(elements.connectionsElementholder).append(tpls['connectionsElement']());
@@ -48,49 +48,49 @@ var withkids = tpls['fileTreeElement-folder']({
   size_formatted: '',
   extension: ''
 });
-withkids.find('.children').append(tpls['fileTreeElement-folder']({
+withkids.find('.eqftp-fileTree__itemChildren').append(tpls['fileTreeElement-folder']({
   date_formatted: '03-03-2030 12:20:45',
   name_short: 'sub',
   size_formatted: '',
   extension: ''
 }));
-withkids.find('.children').append(tpls['fileTreeElement-folder']({
+withkids.find('.eqftp-fileTree__itemChildren').append(tpls['fileTreeElement-folder']({
   date_formatted: '03-03-2030 12:20:45',
   name_short: 'vsubar',
   size_formatted: '',
   extension: ''
 }));
-withkids.find('.children').append(tpls['fileTreeElement-folder']({
+withkids.find('.eqftp-fileTree__itemChildren').append(tpls['fileTreeElement-folder']({
   date_formatted: '03-03-2030 12:20:45',
   name_short: 'dev_ooooh im bad and long string here i am come handle me boi',
   size_formatted: '',
   extension: ''
 }));
-withkids.find('.children').append(tpls['fileTreeElement-folder']({
+withkids.find('.eqftp-fileTree__itemChildren').append(tpls['fileTreeElement-folder']({
   date_formatted: '03-03-2030 12:20:45',
   name_short: 'binary',
   size_formatted: '',
   extension: ''
 }));
-withkids.find('.children').append(tpls['fileTreeElement-file']({
+withkids.find('.eqftp-fileTree__itemChildren').append(tpls['fileTreeElement-file']({
   date_formatted: '03-03-2030 12:20:45',
   size_formatted: '12.1 mb',
   name_short: 'aquota',
   extension: 'group'
 }));
-withkids.find('.children').append(tpls['fileTreeElement-file']({
+withkids.find('.eqftp-fileTree__itemChildren').append(tpls['fileTreeElement-file']({
   date_formatted: '03-03-2030 12:20:45',
   size_formatted: '20.9 kb',
   name_short: 'limit',
   extension: 'user'
 }));
-withkids.find('.children').append(tpls['fileTreeElement-file']({
+withkids.find('.eqftp-fileTree__itemChildren').append(tpls['fileTreeElement-file']({
   date_formatted: '03-03-2030 12:20:45',
   size_formatted: '12.1 mb',
   name_short: 'aquota',
   extension: 'group'
 }));
-withkids.find('.children').append(tpls['fileTreeElement-file']({
+withkids.find('.eqftp-fileTree__itemChildren').append(tpls['fileTreeElement-file']({
   date_formatted: '03-03-2030 12:20:45',
   size_formatted: '20.9 kb',
   name_short: 'limit',
@@ -136,8 +136,8 @@ window.eqftp = {
   ui: {
     panel: {
       switchTo: function (tab) {
-        $('.eqftp-header__navigation').children('.eqftp-header__navigationTab_'+tab).addClass('eqftp-header__navigationTab_active').siblings().removeClass('eqftp-header__navigationTab_active');
-        $('.eqftp-content').children('.eqftp-content__page_'+tab).addClass('eqftp-content__page_active').siblings().removeClass('eqftp-content__page_active');
+        $('.eqftp-header__navigation').children('.eqftp-header__navigationTab_' + tab).addClass('eqftp-header__navigationTab_active').siblings().removeClass('eqftp-header__navigationTab_active');
+        $('.eqftp-content').children('.eqftp-content__page_' + tab).addClass('eqftp-content__page_active').siblings().removeClass('eqftp-content__page_active');
       }
     },
     search: {
