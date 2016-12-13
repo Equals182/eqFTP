@@ -66,5 +66,6 @@ function showChildren(element) {
   } else {
     $(element).find('.material-icons').text('folder');
   }
-  $(element).next('.eqftp-fileTree__itemWrap').children('.eqftp-fileTree__itemChildren').slideToggle(100);
+  //$(element).next('.eqftp-fileTree__itemWrap').children('.eqftp-fileTree__itemChildren').slideToggle(100);
+  $(element).next('.eqftp-fileTree__itemChildren').slideToggle(100);
 }

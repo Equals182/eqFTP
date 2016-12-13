@@ -1,22 +1,26 @@
 <div id="{{fullPath}}" class="eqftp-fileTree__item eqftp-fileTree__item_folder">
-  <div class="eqftp__row eqftp__row_between" ondblclick="{{cmd_openFolder}}">
-    <div class="eqftp__col eqftp__col_half">
-      <div class="eqftp__row eqftp__row_start">
+  <div class="eqftp-fileTree__itemElement" ondblclick="{{cmd_openFolder}}">
+    <div class="eqftp-fileTree__itemInfo">
+      <div class="eqftp__col">
         <div class="eqftp-fileTree__itemIcon"><i class="material-icons">folder</i></div>
         <div class="eqftp-fileTree__itemName">
           <div class="eqftp__title eqftp__title_tiny"><span class="eqftp__titleNowrap">{{name_short}}</span></div>
         </div>
       </div>
-    </div>
-    <div class="eqftp__col eqftp__col_half">
-      <div class="eqftp__row eqftp__row_end">
-        <div class="eqftp-fileTree__itemDate">
-          <div class="eqftp__title eqftp__title_tiny"><span class="eqftp__titleNowrap">{{date_formatted}}</span></div>
+      <div class="eqftp__col eqftp__col_full eqftp__col_end">
+        <div class="eqftp-fileTree__itemExt">
+          <div class="eqftp__title eqftp__title_tiny"><span class="eqftp__titleNowrap">{{extension}}</span></div>
+        </div>
+        <div class="eqftp-fileTree__itemSize">
+          <div class="eqftp__title eqftp__title_tiny"><span class="eqftp__titleNowrap">{{size_formatted}}</span></div>
         </div>
       </div>
     </div>
+    <div class="eqftp-fileTree__itemDate">
+      <div class="eqftp__title eqftp__title_tiny"><span class="eqftp__titleNowrap">{{date_formatted}}</span></div>
+    </div>
   </div>
-  <div class="eqftp-fileTree__itemWrap">
-    <div class="eqftp-fileTree__itemChildren"></div>
-  </div>
+  <!--<div class="eqftp-fileTree__itemWrap">-->
+  <div class="eqftp-fileTree__itemChildren"></div>
+  <!--</div>-->
 </div>

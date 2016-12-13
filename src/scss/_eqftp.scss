@@ -239,7 +239,6 @@
   }
   &__col {
     display: flex;
-    justify-content: flex-start;
     align-items: center;
     max-width: 100%;
     &_short {
@@ -256,6 +255,9 @@
     }
     &_fix {
       width: 150px;
+    }
+    &_end {
+      justify-content: flex-end;
     }
   }
   &__input {
@@ -483,6 +485,20 @@
         flex-wrap: wrap;
         width: 100%;
       }
+      &Element {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        max-width: 100%;
+        width: 100%;
+      }
+      &Info {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        max-width: 100%;
+        width: 100%;
+      }
       &Icon {
         display: flex;
         justify-content: center;
@@ -511,7 +527,7 @@
         display: flex;
         justify-content: flex-end;
         align-items: center;
-        max-width: 30%;
+        max-width: 50%;
       }
       &Size {
         padding-left: $i1;
@@ -521,7 +537,7 @@
         display: flex;
         justify-content: flex-end;
         align-items: center;
-        max-width: 30%;
+        max-width: 50%;
       }
       &Date {
         padding-left: $i1;
@@ -529,13 +545,18 @@
         display: flex;
         justify-content: flex-end;
         align-items: center;
-        max-width: 40%;
+        min-width: 100px;
+        max-width: 100px;
+        width: 100px;
       }
       &Wrap {
+        padding-left: $i1;
+        box-sizing: border-box;
         max-width: 100%;
         width: 100%;
       }
       &Children {
+        padding-left: $i1;
         border-left: 1px solid $c08;
         box-sizing: border-box;
         display: none;
@@ -543,9 +564,6 @@
         & .eqftp-fileTree__item {
           padding-left: 0;
           padding-right: 0;
-        }
-        & .eqftp-fileTree__itemIcon {
-          margin-left: 4px;
         }
       }
     }
