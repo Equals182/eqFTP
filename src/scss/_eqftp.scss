@@ -8,7 +8,7 @@
   flex-wrap: wrap;
   overflow: hidden;
   height: 100%;
-  width: 300px;
+  width: 360px;
   &-toolbar {
     &__icon {
       padding-top: 1px;
@@ -496,6 +496,7 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
+        min-width: 0px;
         width: calc(100% - 100px);
       }
       &Icon {
@@ -524,7 +525,8 @@
         display: flex;
         justify-content: flex-end;
         align-items: center;
-        max-width: 50%;
+        min-width: 0px;
+        max-width: 30%;
       }
       &Size {
         padding-left: $i1;
@@ -534,7 +536,8 @@
         display: flex;
         justify-content: flex-end;
         align-items: center;
-        max-width: 50%;
+        min-width: 0px;
+        max-width: 70%;
       }
       &Date {
         padding-left: $i1;
@@ -553,8 +556,8 @@
         width: 100%;
       }
       &Children {
-        padding-left: $i1;
-        border-left: 1px solid $c08;
+        padding-left: $i2;
+        //border-left: 1px solid $c08;
         box-sizing: border-box;
         display: none;
         width: 100%;
@@ -562,17 +565,9 @@
           padding-left: 0;
           padding-right: 0;
         }
-        /*@for $i from 1 through 9 {
-          & .eqftp-fileTree__itemInfo {
-            &:nth-child(#{$i}) {
-
-            }
-          }
-        }*/
       }
     }
   }
-
   &-connections {
     position: relative;
     display: flex;
@@ -661,6 +656,4 @@
       }
     }
   }
-
-
 }

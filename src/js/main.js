@@ -61,10 +61,10 @@ function showSearch() {
 function showChildren(element) {
   'use strict';
   var text = $(element).find('.material-icons').text();
-  if (text == 'folder') {
-    $(element).find('.material-icons').text('folder_open');
+  if (text == 'keyboard_arrow_right') {
+    $(element).find('.material-icons').text('keyboard_arrow_down');
   } else {
-    $(element).find('.material-icons').text('folder');
+    $(element).find('.material-icons').text('keyboard_arrow_right');
   }
   //$(element).next('.eqftp-fileTree__itemWrap').children('.eqftp-fileTree__itemChildren').slideToggle(100);
   $(element).next('.eqftp-fileTree__itemChildren').slideToggle(100);
