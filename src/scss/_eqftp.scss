@@ -496,8 +496,7 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        max-width: 100%;
-        width: 100%;
+        width: calc(100% - 100px);
       }
       &Icon {
         display: flex;
@@ -515,9 +514,7 @@
         }
       }
       &Name {
-        display: flex;
-        justify-content: flex-end;
-        align-items: center;
+        min-width: 0px;
         max-width: 100%;
       }
       &Ext {
@@ -565,6 +562,13 @@
           padding-left: 0;
           padding-right: 0;
         }
+        /*@for $i from 1 through 9 {
+          & .eqftp-fileTree__itemInfo {
+            &:nth-child(#{$i}) {
+
+            }
+          }
+        }*/
       }
     }
   }
