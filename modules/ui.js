@@ -220,46 +220,46 @@ define(function (require, exports, module) {
     self._rendered = {};
 
     self.add = function (object, path) {
-      /*if (_.isArray(object)) {
-        object.forEach(function (o) {
-          self.add(o, path);
-        });
-        self._rendered[path] = object;
-      } else if (_.isObject(object)) {
-        var holder = self.tpl;
-        
-        var is_shortest = true,
-            toreappend = [],
-            
-        if (self._rendered) {
-          if (_.has(self._rendered, path)) {
-            holder = holder.find('[id="' + path + '"]').find('.children:first');
+      if (!_.isString(path)) {
+        return false;
+      }
+      if (!_.isArray(object)) {
+        object = [object];
+      }
+      
+      var parent = false;
+      if (!_.isEmpty(self._rendered)) {
+        parent = self.tpl.find('div[id="'+path+'"] .eqftp-fileTree__itemChildren');
+        if (parent.length == 0) {
+          if ((((_.keys(self._rendered)).sort(utils.byLevels))[0]).levels() < path.levels()) {
+            console.log("YEA");
           } else {
-                r = RegExp("^" + path);
-            _.forOwn(self._rendered, function (object, rpath) {
-              if (r.test(rpath)) {
-                toreappend.push([object, rpath]);
-              }
-              if (rpath.length > path.length) {
-                is_shortest = false;
-              }
-            });
+            console.error('cant find path in tree');
+            return false;
           }
+          parent = false;
         }
-        
-        if (['f', 'd'].indexOf(object.type) < 0) {
+      }
+      if (!parent) {
+        parent = $('.eqftp-fileTree');
+      }
+      self._rendered[path] = object;
+      
+      parent.html('');
+      object.forEach(function (element, i) {
+        if (['f', 'd'].indexOf(element.type) < 0) {
           return false;
         }
-        holder.append($(Mustache.render(self._t[object.type], _.defaults(_.clone(strings), object, {
+        parent.append($(Mustache.render(self._t[element.type], _.defaults(_.clone(strings), element, {
           date_formatted: function () {
             if (utils) {
-              return utils.date_format(new Date(object.date), 'd-m-Y');
+              return utils.date_format(new Date(element.date), 'd-m-Y');
             } else {
-              return object.date;
+              return element.date;
             }
           },
           size_formatted: function () {
-            return utils.filesize_format(object.size, 1, [
+            return utils.filesize_format(element.size, 1, [
               strings.eqftp__filesize_bytes,
               strings.eqftp__filesize_kilobytes,
               strings.eqftp__filesize_megabytes,
@@ -272,20 +272,55 @@ define(function (require, exports, module) {
             ]);
           },
           name_short: function () {
-            return utils.getNamepart(object.name, 'name_noext');
+            return utils.getNamepart(element.name, 'name_noext');
           },
           extension: function () {
-            return utils.getNamepart(object.name, 'ext');
+            return utils.getNamepart(element.name, 'ext');
+          },
+          cmd_download: function () {
+            return 'eqftp.download(\''+element.id+'\', \''+element.fullPath+'\');';
+          },
+          cmd_openFolder: function () {
+            return 'eqftp.openFolder(\''+element.id+'\', \''+element.fullPath+'\');';
           }
         }))));
-        if (!holder.is(':visible')) {
-          holder.slideDown(100);
-        }
-      }*/
+      });
+      self.itemOpen(path);
+    };
+    self.itemOpen = function (path) {
+      var el = self.tpl.find('div[id="'+path+'"]'),
+          ch = el.find('.eqftp-fileTree__itemChildren:first');
+      if (!ch.is(':visible')) {
+        el.find('.eqftp__row:first .eqftp-fileTree__itemIcon .material-icons').text('folder_open');
+        ch.slideDown(200);
+      }
+    };
+    self.itemClose = function (path) {
+      var el = self.tpl.find('div[id="'+path+'"]'),
+          ch = el.find('.eqftp-fileTree__itemChildren:first');
+      if (ch.is(':visible')) {
+        el.find('.eqftp__row:first .eqftp-fileTree__itemIcon .material-icons').text('folder');
+        ch.slideUp(200);
+      }
+    };
+    self.itemToggle = function (path) {
+      var el = self.tpl.find('div[id="'+path+'"]'),
+          ch = el.find('.eqftp-fileTree__itemChildren:first');
+      if (ch.is(':visible')) {
+        el.find('.eqftp__row:first .eqftp-fileTree__itemIcon .material-icons').text('folder');
+        ch.slideUp(200);
+      } else {
+        el.find('.eqftp__row:first .eqftp-fileTree__itemIcon .material-icons').text('folder_open');
+        ch.slideDown(200);
+      }
     };
     self.get = function () {
       return self.tpl;
-    }
+    };
+    self.reset = function () {
+      self.tpl.html('');
+      self._rendered = {};
+    };
   }();
   
   /*

@@ -148,5 +148,14 @@ window.eqftp = {
       },
       filter: function () {}
     }
+  },
+  openFolder: function (element) {
+    var text = $(element).find('.material-icons').text();
+    if (text == 'folder') {
+      $(element).find('.material-icons').text('folder_open');
+    } else {
+      $(element).find('.material-icons').text('folder');
+    }
+    $(element).next('.eqftp-fileTree__itemWrap').children('.eqftp-fileTree__itemChildren').slideToggle(100);
   }
 }

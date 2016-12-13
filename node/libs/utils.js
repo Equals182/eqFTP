@@ -23,6 +23,10 @@ maxerr: 50, node: true */
     _ = require("lodash");
   }
   
+  String.prototype.levels = function () {
+    return (this.replace(/(.+?)($|\/)/g, '.')).length;
+  };
+  
   var _uniq;
   var eqUtils = {
     _: _,
@@ -260,6 +264,22 @@ maxerr: 50, node: true */
       return format.replace(/(\\?)(.)/g, function(_, esc, chr) {
           return (esc === '' && replaceChars[chr]) ? replaceChars[chr].call(date) : chr;
       });
+    },
+    byLength: function (a, b, desc) {
+      return (a.length - b.length) * (desc?(-1):1);
+    },
+    byAlphabet: function (a, b, desc) {
+      var _a = a.toUpperCase(),
+          _b = b.toUpperCase();
+      if (_a < _b) {
+        return -1 * (desc?(-1):1);
+      } else if (_a > _b) {
+        return 1 * (desc?(-1):1);
+      }
+      return 0;
+    },
+    byLevels: function (a, b, desc) {
+      return (a.levels() - b.levels()) * (desc?(-1):1);
     }
   };
   return eqUtils;

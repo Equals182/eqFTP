@@ -168,7 +168,6 @@ EasyFTP.prototype.connect = function (config) {
         self.isConnect = true;
         self.pwd(function () {
           self.emit('ready', self.client);
-          console.log('!!!ready: ', arguments);
         });
       }
     },

@@ -217,6 +217,9 @@ maxerr: 50, node: true */
                       // for everything except downloads and uploads
                       prepend = true;
                     }
+                    
+                    // PRE-HOOKS
+                    
                     eqftp.connections[id].queue.add({
                       id: id,
                       act: act,
@@ -267,13 +270,45 @@ maxerr: 50, node: true */
                             callback = _.nth(args, -2),
                             progress = _.nth(args, -1);
                         var cb = function (err, data) {
-                          //POST HOOKS
-                          obj._current[id].isBusy = false;
+                          
+                          // POST-HOOKS
+                          
+                          switch(queuer.act) {
+                            case 'ls':
+                              if (!err) {
+                                var path = args[0];
+                                if (!/^\//.test(path)) {
+                                  path = obj._current[queuer.id]._server.getRealRemotePath(path);
+                                }
+                                var d = [],
+                                    f = [];
+                                data.forEach(function (v, i) {
+                                  data[i].id = queuer.id;
+                                  data[i].fullPath = utils.normalize(path + '/' + v.name);
+
+                                  switch (v.type) {
+                                    case 'f':
+                                      f.push(data[i]);
+                                      break;
+                                    case 'd':
+                                      d.push(data[i]);
+                                      break;
+                                  }
+                                });
+                                d = _.orderBy(d, ['name', 'asc']);
+                                f = _.orderBy(f, ['name', 'asc']);
+                                data = _.concat(d, f);
+                              }
+                              break;
+                          }
+                          
+                          obj._current[queuer.id].isBusy = false;
                           if (err) {
                             queuer.queue = 'f';
                             queuer.err = err;
-                            obj._current[id].queue.add(queuer, true);
+                            eqftp.connections[queuer.id].queue.add(queuer, true);
                           }
+                          
                           _domainManager.emitEvent("eqFTP", "event", {
                             action: 'queue:update',
                             data: eqftp.queue.get()

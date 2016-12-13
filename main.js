@@ -172,12 +172,35 @@ define(function (require, exports, module) {
       return false;
     }
     var path = (eqftp.connections[id].remotepath || '');
-    eqftp.connections[id].ls(path).done(function (elements) {
-      eqftp.ui.fileTree.add(elements, path);
-    }).fail(function (err) {
-      //not found
-      console.log('NOT FOUND', arguments, path);
+    ui.fileTree.reset();
+    eqftp.openFolder(id, path, function (err, elements) {
+      if (err) {
+        eqftp.openFolder(id, '');
+      }
     });
+  };
+  eqftp.openFolder = function (id, path, callback) {
+    if (!id) {
+      return false;
+    }
+    if (!_.isString(path)) {
+      path = '';
+    }
+    if (!_.isEmpty(ui.fileTree._rendered) && _.has(ui.fileTree._rendered, path)) {
+      ui.fileTree.itemToggle(path);
+    } else {
+      eqftp.connections[id].ls(path).done(function (elements) {
+        eqftp.ui.fileTree.add(elements, path);
+        if (_.isFunction(callback)) {
+          callback(null, elements);
+        }
+      }).fail(function (err) {
+        if (_.isFunction(callback)) {
+          callback(err);
+        }
+        console.error('NOT FOUND', arguments, path);
+      });
+    }
   };
 
   // Adding eqftp + listener to ui so we could keep entities separately
