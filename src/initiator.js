@@ -2,7 +2,7 @@ var tpls = {};
 $.ajaxSetup({
   async: false
 });
-['connectionsElement', 'dropdownItem', 'fileTreeElement-file', 'fileTreeElement-folder', 'panel', 'queueElement'].forEach(function (tpl) {
+['connectionsElement', 'dropdownItem', 'fileTreeElement-file', 'fileTreeElement-folder', 'panel', 'queueElement', 'logElement'].forEach(function (tpl) {
   $.get('htmlContent/' + tpl + '.html', function (t, status, resp) {
     tpls[tpl] = function (params) {
       return $(Mustache.render(resp.responseText, (params || {})));
@@ -15,6 +15,8 @@ var elements = {
   dropdownElementholder: '.eqftp-header__dropdownList',
   connectionsElementholder: '.eqftp-connections',
   fileTreeElementholder: '.eqftp-fileTree',
+  logElementholder: '.eqftp-footer__list',
+  footer: '.eqftp-footer',
   queueElementholder: '.eqftp-query'
 };
 
@@ -162,6 +164,18 @@ panel.find(elements.fileTreeElementholder)
   .append(_file_short())
   .append(_file_short());
 
+panel.find(elements.logElementholder)
+  .append(tpls['logElement']({
+    icon: 'done',
+    time: '22:10:05',
+    text: 'lol -content__page eqftp-content__page_blank ps-container ps-theme-default" data-ps-id="e67da67e-19b2-9f31-8913-f8f5b6ddbbd8'
+  }))
+  .append(tpls['logElement']({
+    icon: 'not_interested',
+    time: '22:10:05',
+    text: 'lol short log'
+  }));
+
 $('#generate').replaceWith(panel);
 
 /* Dummies below to avoid errors */
@@ -181,6 +195,12 @@ window.eqftp = {
         $('.eqftp-header__dropdownList').toggleSlide(80);
       },
       filter: function () {}
+    },
+    log: {
+      toggle: function () {
+        $('.eqftp-footer').toggleClass('eqftp-footer_active');
+        $('.eqftp__buttonCube_footer').toggleClass('eqftp__buttonCube_footer-rotate');
+      }
     }
   },
   openFolder: function (element) {
