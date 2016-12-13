@@ -94,7 +94,9 @@
       animation-name: fadeIn;
       animation-duration: 0.2s;
       animation-direction: alternate;
+      position: relative;
       display: none;
+      max-height: 480px;
       width: 100%;
       &_active {
         display: flex;
