@@ -181,6 +181,7 @@
     align-content: flex-start;
     align-items: flex-start;
     flex-wrap: wrap;
+    max-height: calc(100% - 122px);
     height: 100%;
     width: 100%;
     z-index: 100;
@@ -189,7 +190,6 @@
       display: none;
       justify-content: center;
       position: relative;
-      max-height: calc(100% - 119px);
       height: 100%;
       width: 100%;
       &_blank {

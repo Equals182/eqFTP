@@ -6,7 +6,7 @@ $(document).ready(function () {
       eqc = $(e + '__close'),
       eqp = $(e + '__page'),
       eqt = $(e + '-navigation__tab'),
-      psb = '.eqftp-fileTree',
+      psb = '.eqftp-content__page',
       title = $(e + '__header ' + e + '__title');
   eq.toggleClass('eqftp' + a);
   $(e + '__page_blank').toggleClass('eqftp__page' + a);
