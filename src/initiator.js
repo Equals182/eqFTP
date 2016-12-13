@@ -168,12 +168,20 @@ panel.find(elements.logElementholder)
   .append(tpls['logElement']({
     icon: 'done',
     time: '22:10:05',
-    text: 'lol -content__page eqftp-content__page_blank ps-container ps-theme-default" data-ps-id="e67da67e-19b2-9f31-8913-f8f5b6ddbbd8'
+    text: 'lol -content__page eqftp-content__page_blank ps-container ps-theme-default" data-ps-id="e67da67e-19b2-9f31-8913-f8f5b6ddbbd8',
+    type: 'material-icons_info'
+  }))
+  .append(tpls['logElement']({
+    icon: 'done',
+    time: '22:10:05',
+    text: 'lol -content__page eqftp-content__page_blank',
+    type: 'material-icons_ok'
   }))
   .append(tpls['logElement']({
     icon: 'not_interested',
     time: '22:10:05',
-    text: 'lol short log'
+    text: 'lol short log',
+    type: 'material-icons_error'
   }));
 
 $('#generate').replaceWith(panel);
