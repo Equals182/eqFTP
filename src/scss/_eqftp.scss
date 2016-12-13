@@ -209,15 +209,17 @@
   }
   &-footer {
     background-color: $c08;
-    transition: height 0.2s;
+    animation-name: fadeIn;
+    animation-duration: 0.3s;
     position: absolute;
     bottom: 0;
     left: 0;
     display: flex;
     justify-content: space-between;
+    align-items: flex-end;
+    overflow: hidden;
+    max-height: 100%;
     height: 26px;
-    min-width: 100%;
-    max-width: 100%;
     width: 100%;
     z-index: 500;
     & .eqftp__buttonCube_footer {
@@ -227,7 +229,7 @@
       }
     }
     &_active {
-      height: 100%;
+      height: auto;
     }
     &__list {
       display: flex;
@@ -236,14 +238,23 @@
       flex-wrap: wrap;
       max-width: calc(100% - 26px);
       width: 100%;
+      &_active {
+        padding-top: $i2;
+      }
       &Item {
         box-sizing: border-box;
         display: flex;
         align-items: center;
         min-height: 26px;
-        max-height: 26px;
         height: 26px;
         width: 100%;
+        &_active {
+          align-items: flex-start;
+          height: auto;
+          &+.eqftp-footer__listItem {
+            margin-top: $i1;
+          }
+        }
         &_icon {
           display: flex;
           justify-content: center;
@@ -256,12 +267,12 @@
         }
         &_date {
           opacity: 0.4;
-          min-width: 100px;
-          max-width: 100px;
-          width: 100px;
+          min-width: 40px;
+          max-width: 40px;
+          width: 40px;
         }
         &_info {
-          margin-left: $i1;
+          margin-left: $i2;
           min-width: 0px;
           max-width: 100%;
         }
@@ -410,6 +421,9 @@
       max-width: 48px;
       width: 48px;
       &_footer {
+        position: fixed;
+        bottom: 0;
+        right: 0;
         min-height: 26px;
         max-height: 26px;
         height: 26px;

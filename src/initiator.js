@@ -44,44 +44,54 @@ panel.find(elements.queueElementholder).append(tpls['queueElement']());
 panel.find(elements.queueElementholder).append(tpls['queueElement']());
 panel.find(elements.queueElementholder).append(tpls['queueElement']());
 
-var _file_short = function() { return tpls['fileTreeElement-file']({
+var _file_short = function () {
+    return tpls['fileTreeElement-file']({
       cmd_download: '',
       date_formatted: '03-03-2030 12:20:45',
       size_formatted: '20.9 kb',
       name_short: 'short',
       extension: 'ext'
-    }); },
-    _file_long = function() { return tpls['fileTreeElement-file']({
+    });
+  },
+  _file_long = function () {
+    return tpls['fileTreeElement-file']({
       cmd_download: '',
       date_formatted: '03-03-2030 12:20:45',
       size_formatted: '20.9 kb',
       name_short: 'oh its a big name of file shit dawg how big is it no ones know dawg i wonder myself',
       extension: 'ext'
-    }); },
-    _folder_short = function() { return tpls['fileTreeElement-folder']({
+    });
+  },
+  _folder_short = function () {
+    return tpls['fileTreeElement-folder']({
       cmd_openFolder: 'showChildren(this);',
       fullPath: '',
       date_formatted: '03-03-2030 12:20:45',
       size_formatted: '',
       name_short: 'foldershrt',
       extension: ''
-    }); },
-    _folder_long = function() { return tpls['fileTreeElement-folder']({
+    });
+  },
+  _folder_long = function () {
+    return tpls['fileTreeElement-folder']({
       cmd_openFolder: 'showChildren(this);',
       fullPath: '',
       date_formatted: '03-03-2030 12:20:45',
       size_formatted: '',
       name_short: 'This folder has hude name who would name folder like that i dont know man what about you',
       extension: ''
-    }); },
-    kidsful = function() { return tpls['fileTreeElement-folder']({
+    });
+  },
+  kidsful = function () {
+    return tpls['fileTreeElement-folder']({
       cmd_openFolder: 'showChildren(this);',
       fullPath: '',
       date_formatted: '03-03-2030 12:20:45',
       name_short: 'with subs',
       size_formatted: '',
       extension: ''
-    }); };
+    });
+  };
 var k = kidsful();
 k.find('.eqftp-fileTree__itemChildren')
   .append(_folder_long())
@@ -92,8 +102,12 @@ k.find('.eqftp-fileTree__itemChildren')
   .append(_file_long())
   .append(_file_long());
 var nk = false;
-nk = k.clone(); nk.find('.eqftp-fileTree__itemChildren').prepend(k); k = nk;
-nk = k.clone(); nk.find('.eqftp-fileTree__itemChildren').prepend(k); k = nk;
+nk = k.clone();
+nk.find('.eqftp-fileTree__itemChildren').prepend(k);
+k = nk;
+nk = k.clone();
+nk.find('.eqftp-fileTree__itemChildren').prepend(k);
+k = nk;
 
 panel.find(elements.fileTreeElementholder)
   .append(k)
@@ -174,6 +188,267 @@ panel.find(elements.logElementholder)
   .append(tpls['logElement']({
     icon: 'done',
     time: '22:10:05',
+    text: 'lol -content__page eqftp-content__page_blank ps-container ps-theme-default" data-ps-id="e67da67e-19b2-9f31-8913-f8f5b6ddbbd8',
+    type: 'material-icons_info'
+  })).append(tpls['logElement']({
+    icon: 'done',
+    time: '22:10:05',
+    text: 'lol -content__page eqftp-content__page_blank ps-container ps-theme-default" data-ps-id="e67da67e-19b2-9f31-8913-f8f5b6ddbbd8',
+    type: 'material-icons_info'
+  })).append(tpls['logElement']({
+    icon: 'done',
+    time: '22:10:05',
+    text: 'lol -content__page eqftp-content__page_blank ps-container ps-theme-default" data-ps-id="e67da67e-19b2-9f31-8913-f8f5b6ddbbd8',
+    type: 'material-icons_info'
+  })).append(tpls['logElement']({
+    icon: 'done',
+    time: '22:10:05',
+    text: 'lol -content__page eqftp-content__page_blank ps-container ps-theme-default" data-ps-id="e67da67e-19b2-9f31-8913-f8f5b6ddbbd8',
+    type: 'material-icons_info'
+  })).append(tpls['logElement']({
+    icon: 'done',
+    time: '22:10:05',
+    text: 'lol -content__page eqftp-content__page_blank ps-container ps-theme-default" data-ps-id="e67da67e-19b2-9f31-8913-f8f5b6ddbbd8',
+    type: 'material-icons_info'
+  })).append(tpls['logElement']({
+    icon: 'done',
+    time: '22:10:05',
+    text: 'lol -content__page eqftp-content__page_blank ps-container ps-theme-default" data-ps-id="e67da67e-19b2-9f31-8913-f8f5b6ddbbd8',
+    type: 'material-icons_info'
+  })).append(tpls['logElement']({
+    icon: 'done',
+    time: '22:10:05',
+    text: 'lol -content__page eqftp-content__page_blank ps-container ps-theme-default" data-ps-id="e67da67e-19b2-9f31-8913-f8f5b6ddbbd8',
+    type: 'material-icons_info'
+  })).append(tpls['logElement']({
+    icon: 'done',
+    time: '22:10:05',
+    text: 'lol -content__page eqftp-content__page_blank ps-container ps-theme-default" data-ps-id="e67da67e-19b2-9f31-8913-f8f5b6ddbbd8',
+    type: 'material-icons_info'
+  })).append(tpls['logElement']({
+    icon: 'done',
+    time: '22:10:05',
+    text: 'lol -content__page eqftp-content__page_blank ps-container ps-theme-default" data-ps-id="e67da67e-19b2-9f31-8913-f8f5b6ddbbd8',
+    type: 'material-icons_info'
+  })).append(tpls['logElement']({
+    icon: 'done',
+    time: '22:10:05',
+    text: 'lol -content__page eqftp-content__page_blank ps-container ps-theme-default" data-ps-id="e67da67e-19b2-9f31-8913-f8f5b6ddbbd8',
+    type: 'material-icons_info'
+  })).append(tpls['logElement']({
+    icon: 'done',
+    time: '22:10:05',
+    text: 'lol -content__page eqftp-content__page_blank ps-container ps-theme-default" data-ps-id="e67da67e-19b2-9f31-8913-f8f5b6ddbbd8',
+    type: 'material-icons_info'
+  })).append(tpls['logElement']({
+    icon: 'done',
+    time: '22:10:05',
+    text: 'lol -content__page eqftp-content__page_blank ps-container ps-theme-default" data-ps-id="e67da67e-19b2-9f31-8913-f8f5b6ddbbd8',
+    type: 'material-icons_info'
+  })).append(tpls['logElement']({
+    icon: 'done',
+    time: '22:10:05',
+    text: 'lol -content__page eqftp-content__page_blank ps-container ps-theme-default" data-ps-id="e67da67e-19b2-9f31-8913-f8f5b6ddbbd8',
+    type: 'material-icons_info'
+  })).append(tpls['logElement']({
+    icon: 'done',
+    time: '22:10:05',
+    text: 'lol -content__page eqftp-content__page_blank ps-container ps-theme-default" data-ps-id="e67da67e-19b2-9f31-8913-f8f5b6ddbbd8',
+    type: 'material-icons_info'
+  })).append(tpls['logElement']({
+    icon: 'done',
+    time: '22:10:05',
+    text: 'lol -content__page eqftp-content__page_blank ps-container ps-theme-default" data-ps-id="e67da67e-19b2-9f31-8913-f8f5b6ddbbd8',
+    type: 'material-icons_info'
+  })).append(tpls['logElement']({
+    icon: 'done',
+    time: '22:10:05',
+    text: 'lol -content__page eqftp-content__page_blank ps-container ps-theme-default" data-ps-id="e67da67e-19b2-9f31-8913-f8f5b6ddbbd8',
+    type: 'material-icons_info'
+  })).append(tpls['logElement']({
+    icon: 'done',
+    time: '22:10:05',
+    text: 'lol -content__page eqftp-content__page_blank ps-container ps-theme-default" data-ps-id="e67da67e-19b2-9f31-8913-f8f5b6ddbbd8',
+    type: 'material-icons_info'
+  })).append(tpls['logElement']({
+    icon: 'done',
+    time: '22:10:05',
+    text: 'lol -content__page eqftp-content__page_blank ps-container ps-theme-default" data-ps-id="e67da67e-19b2-9f31-8913-f8f5b6ddbbd8',
+    type: 'material-icons_info'
+  })).append(tpls['logElement']({
+    icon: 'done',
+    time: '22:10:05',
+    text: 'lol -content__page eqftp-content__page_blank ps-container ps-theme-default" data-ps-id="e67da67e-19b2-9f31-8913-f8f5b6ddbbd8',
+    type: 'material-icons_info'
+  })).append(tpls['logElement']({
+    icon: 'done',
+    time: '22:10:05',
+    text: 'lol -content__page eqftp-content__page_blank ps-container ps-theme-default" data-ps-id="e67da67e-19b2-9f31-8913-f8f5b6ddbbd8',
+    type: 'material-icons_info'
+  })).append(tpls['logElement']({
+    icon: 'done',
+    time: '22:10:05',
+    text: 'lol -content__page eqftp-content__page_blank ps-container ps-theme-default" data-ps-id="e67da67e-19b2-9f31-8913-f8f5b6ddbbd8',
+    type: 'material-icons_info'
+  })).append(tpls['logElement']({
+    icon: 'done',
+    time: '22:10:05',
+    text: 'lol -content__page eqftp-content__page_blank ps-container ps-theme-default" data-ps-id="e67da67e-19b2-9f31-8913-f8f5b6ddbbd8',
+    type: 'material-icons_info'
+  })).append(tpls['logElement']({
+    icon: 'done',
+    time: '22:10:05',
+    text: 'lol -content__page eqftp-content__page_blank ps-container ps-theme-default" data-ps-id="e67da67e-19b2-9f31-8913-f8f5b6ddbbd8',
+    type: 'material-icons_info'
+  })).append(tpls['logElement']({
+    icon: 'done',
+    time: '22:10:05',
+    text: 'lol -content__page eqftp-content__page_blank ps-container ps-theme-default" data-ps-id="e67da67e-19b2-9f31-8913-f8f5b6ddbbd8',
+    type: 'material-icons_info'
+  })).append(tpls['logElement']({
+    icon: 'done',
+    time: '22:10:05',
+    text: 'lol -content__page eqftp-content__page_blank ps-container ps-theme-default" data-ps-id="e67da67e-19b2-9f31-8913-f8f5b6ddbbd8',
+    type: 'material-icons_info'
+  })).append(tpls['logElement']({
+    icon: 'done',
+    time: '22:10:05',
+    text: 'lol -content__page eqftp-content__page_blank ps-container ps-theme-default" data-ps-id="e67da67e-19b2-9f31-8913-f8f5b6ddbbd8',
+    type: 'material-icons_info'
+  })).append(tpls['logElement']({
+    icon: 'done',
+    time: '22:10:05',
+    text: 'lol -content__page eqftp-content__page_blank ps-container ps-theme-default" data-ps-id="e67da67e-19b2-9f31-8913-f8f5b6ddbbd8',
+    type: 'material-icons_info'
+  })).append(tpls['logElement']({
+    icon: 'done',
+    time: '22:10:05',
+    text: 'lol -content__page eqftp-content__page_blank ps-container ps-theme-default" data-ps-id="e67da67e-19b2-9f31-8913-f8f5b6ddbbd8',
+    type: 'material-icons_info'
+  })).append(tpls['logElement']({
+    icon: 'done',
+    time: '22:10:05',
+    text: 'lol -content__page eqftp-content__page_blank ps-container ps-theme-default" data-ps-id="e67da67e-19b2-9f31-8913-f8f5b6ddbbd8',
+    type: 'material-icons_info'
+  })).append(tpls['logElement']({
+    icon: 'done',
+    time: '22:10:05',
+    text: 'lol -content__page eqftp-content__page_blank ps-container ps-theme-default" data-ps-id="e67da67e-19b2-9f31-8913-f8f5b6ddbbd8',
+    type: 'material-icons_info'
+  })).append(tpls['logElement']({
+    icon: 'done',
+    time: '22:10:05',
+    text: 'lol -content__page eqftp-content__page_blank ps-container ps-theme-default" data-ps-id="e67da67e-19b2-9f31-8913-f8f5b6ddbbd8',
+    type: 'material-icons_info'
+  })).append(tpls['logElement']({
+    icon: 'done',
+    time: '22:10:05',
+    text: 'lol -content__page eqftp-content__page_blank ps-container ps-theme-default" data-ps-id="e67da67e-19b2-9f31-8913-f8f5b6ddbbd8',
+    type: 'material-icons_info'
+  })).append(tpls['logElement']({
+    icon: 'done',
+    time: '22:10:05',
+    text: 'lol -content__page eqftp-content__page_blank ps-container ps-theme-default" data-ps-id="e67da67e-19b2-9f31-8913-f8f5b6ddbbd8',
+    type: 'material-icons_info'
+  })).append(tpls['logElement']({
+    icon: 'done',
+    time: '22:10:05',
+    text: 'lol -content__page eqftp-content__page_blank ps-container ps-theme-default" data-ps-id="e67da67e-19b2-9f31-8913-f8f5b6ddbbd8',
+    type: 'material-icons_info'
+  })).append(tpls['logElement']({
+    icon: 'done',
+    time: '22:10:05',
+    text: 'lol -content__page eqftp-content__page_blank ps-container ps-theme-default" data-ps-id="e67da67e-19b2-9f31-8913-f8f5b6ddbbd8',
+    type: 'material-icons_info'
+  })).append(tpls['logElement']({
+    icon: 'done',
+    time: '22:10:05',
+    text: 'lol -content__page eqftp-content__page_blank ps-container ps-theme-default" data-ps-id="e67da67e-19b2-9f31-8913-f8f5b6ddbbd8',
+    type: 'material-icons_info'
+  })).append(tpls['logElement']({
+    icon: 'done',
+    time: '22:10:05',
+    text: 'lol -content__page eqftp-content__page_blank ps-container ps-theme-default" data-ps-id="e67da67e-19b2-9f31-8913-f8f5b6ddbbd8',
+    type: 'material-icons_info'
+  })).append(tpls['logElement']({
+    icon: 'done',
+    time: '22:10:05',
+    text: 'lol -content__page eqftp-content__page_blank ps-container ps-theme-default" data-ps-id="e67da67e-19b2-9f31-8913-f8f5b6ddbbd8',
+    type: 'material-icons_info'
+  })).append(tpls['logElement']({
+    icon: 'done',
+    time: '22:10:05',
+    text: 'lol -content__page eqftp-content__page_blank ps-container ps-theme-default" data-ps-id="e67da67e-19b2-9f31-8913-f8f5b6ddbbd8',
+    type: 'material-icons_info'
+  })).append(tpls['logElement']({
+    icon: 'done',
+    time: '22:10:05',
+    text: 'lol -content__page eqftp-content__page_blank ps-container ps-theme-default" data-ps-id="e67da67e-19b2-9f31-8913-f8f5b6ddbbd8',
+    type: 'material-icons_info'
+  })).append(tpls['logElement']({
+    icon: 'done',
+    time: '22:10:05',
+    text: 'lol -content__page eqftp-content__page_blank ps-container ps-theme-default" data-ps-id="e67da67e-19b2-9f31-8913-f8f5b6ddbbd8',
+    type: 'material-icons_info'
+  })).append(tpls['logElement']({
+    icon: 'done',
+    time: '22:10:05',
+    text: 'lol -content__page eqftp-content__page_blank ps-container ps-theme-default" data-ps-id="e67da67e-19b2-9f31-8913-f8f5b6ddbbd8',
+    type: 'material-icons_info'
+  })).append(tpls['logElement']({
+    icon: 'done',
+    time: '22:10:05',
+    text: 'lol -content__page eqftp-content__page_blank ps-container ps-theme-default" data-ps-id="e67da67e-19b2-9f31-8913-f8f5b6ddbbd8',
+    type: 'material-icons_info'
+  })).append(tpls['logElement']({
+    icon: 'done',
+    time: '22:10:05',
+    text: 'lol -content__page eqftp-content__page_blank ps-container ps-theme-default" data-ps-id="e67da67e-19b2-9f31-8913-f8f5b6ddbbd8',
+    type: 'material-icons_info'
+  })).append(tpls['logElement']({
+    icon: 'done',
+    time: '22:10:05',
+    text: 'lol -content__page eqftp-content__page_blank ps-container ps-theme-default" data-ps-id="e67da67e-19b2-9f31-8913-f8f5b6ddbbd8',
+    type: 'material-icons_info'
+  })).append(tpls['logElement']({
+    icon: 'done',
+    time: '22:10:05',
+    text: 'lol -content__page eqftp-content__page_blank ps-container ps-theme-default" data-ps-id="e67da67e-19b2-9f31-8913-f8f5b6ddbbd8',
+    type: 'material-icons_info'
+  })).append(tpls['logElement']({
+    icon: 'done',
+    time: '22:10:05',
+    text: 'lol -content__page eqftp-content__page_blank ps-container ps-theme-default" data-ps-id="e67da67e-19b2-9f31-8913-f8f5b6ddbbd8',
+    type: 'material-icons_info'
+  })).append(tpls['logElement']({
+    icon: 'done',
+    time: '22:10:05',
+    text: 'lol -content__page eqftp-content__page_blank ps-container ps-theme-default" data-ps-id="e67da67e-19b2-9f31-8913-f8f5b6ddbbd8',
+    type: 'material-icons_info'
+  })).append(tpls['logElement']({
+    icon: 'done',
+    time: '22:10:05',
+    text: 'lol -content__page eqftp-content__page_blank ps-container ps-theme-default" data-ps-id="e67da67e-19b2-9f31-8913-f8f5b6ddbbd8',
+    type: 'material-icons_info'
+  })).append(tpls['logElement']({
+    icon: 'done',
+    time: '22:10:05',
+    text: 'lol -content__page eqftp-content__page_blank ps-container ps-theme-default" data-ps-id="e67da67e-19b2-9f31-8913-f8f5b6ddbbd8',
+    type: 'material-icons_info'
+  })).append(tpls['logElement']({
+    icon: 'done',
+    time: '22:10:05',
+    text: 'lol -content__page eqftp-content__page_blank ps-container ps-theme-default" data-ps-id="e67da67e-19b2-9f31-8913-f8f5b6ddbbd8',
+    type: 'material-icons_info'
+  })).append(tpls['logElement']({
+    icon: 'done',
+    time: '22:10:05',
+    text: 'lol -content__page eqftp-content__page_blank ps-container ps-theme-default" data-ps-id="e67da67e-19b2-9f31-8913-f8f5b6ddbbd8',
+    type: 'material-icons_info'
+  }))
+  .append(tpls['logElement']({
+    icon: 'done',
+    time: '22:10:05',
     text: 'lol -content__page eqftp-content__page_blank',
     type: 'material-icons_ok'
   }))
@@ -207,17 +482,20 @@ window.eqftp = {
     log: {
       toggle: function () {
         $('.eqftp-footer').toggleClass('eqftp-footer_active');
+        $('.eqftp-footer__list').toggleClass('eqftp-footer__list_active');
+        $('.eqftp-footer__listItem').toggleClass('eqftp-footer__listItem_active');
+        $('.eqftp__titleNowrap').toggleClass('eqftp__titleNowrap');
         $('.eqftp__buttonCube_footer').toggleClass('eqftp__buttonCube_footer-rotate');
       }
     }
   },
   openFolder: function (element) {
     var text = $(element).find('.material-icons').text();
-    if (text == 'folder') {
-      $(element).find('.material-icons').text('folder_open');
+    if (text == 'keyboard_arrow_right') {
+      $(element).find('.material-icons').text('keyboard_arrow_down');
     } else {
-      $(element).find('.material-icons').text('folder');
+      $(element).find('.material-icons').text('keyboard_arrow_right');
     }
-    $(element).next('.eqftp-fileTree__itemWrap').children('.eqftp-fileTree__itemChildren').slideToggle(100);
+    $(element).next('.eqftp-fileTree__itemChildren').slideToggle(100);
   }
 }

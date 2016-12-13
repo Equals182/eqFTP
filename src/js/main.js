@@ -6,7 +6,7 @@ $(document).ready(function () {
       eqc = $(e + '__close'),
       eqp = $(e + '__page'),
       eqt = $(e + '-navigation__tab'),
-      psb = '.eqftp-content__page',
+      psb = '.eqftp-content__page, .eqftp-footer',
       title = $(e + '__header ' + e + '__title');
   eq.toggleClass('eqftp' + a);
   $(e + '__page_blank').toggleClass('eqftp__page' + a);
@@ -72,5 +72,8 @@ function showChildren(element) {
 function showLog() {
   'use strict';
   $('.eqftp-footer').toggleClass('eqftp-footer_active');
+  $('.eqftp-footer__list').toggleClass('eqftp-footer__list_active');
+  $('.eqftp-footer__listItem').toggleClass('eqftp-footer__listItem_active');
+  $('.eqftp__titleNowrap').toggleClass('eqftp__titleNowrap');
   $('.eqftp__buttonCube_footer').toggleClass('eqftp__buttonCube_footer-rotate');
 }
