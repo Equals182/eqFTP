@@ -136,6 +136,7 @@ define(function (require, exports, module) {
         dropdown.addClass('eqftp-header__dropdown_active');
         dropdownItemsHolder.slideDown(80, function () {
           self.dropdownState = 'opened';
+          
         });
       }
     };
@@ -155,6 +156,13 @@ define(function (require, exports, module) {
       dropdownItemsHolder.append(self.getItem(item));
     };
     
+    self._autoclose = function (e) {
+      console.log(!$(e.target).is('.eqftp-header__search'));
+      console.log($(e.target).closest('.eqftp-header__search'), $(e.target).closest('.eqftp-header__search').length);
+      if (!$(e.target).is('.eqftp-header__search') && $(e.target).closest('.eqftp-header__search').length < 1) {
+        self.close();
+      }
+    };
     self.toggle = function () {
       if (self.state === 'opened') {
         self.close();
@@ -168,6 +176,10 @@ define(function (require, exports, module) {
         self.state = 'opened';
         self.tpl.find('input[name="eqftpSearch"]').focus();
         self.dropdown.open();
+        
+        _.delay(function () {
+          $('body').on('click', self._autoclose);
+        }, 50);
       }
     };
     self.close = function () {
@@ -175,6 +187,8 @@ define(function (require, exports, module) {
         self.tpl.removeClass('eqftp-header__search_active');
         self.state = 'closed';
         self.dropdown.close();
+        
+        $('body').off('click', self._autoclose);
       }
     };
     self.filter = function (keyword) {
