@@ -186,6 +186,7 @@
     width: 100%;
     z-index: 100;
     &__page {
+      animation-name: fadeInRight;
       animation-duration: 0.3s;
       display: none;
       justify-content: center;
@@ -212,14 +213,59 @@
     position: absolute;
     bottom: 0;
     left: 0;
-    display: none;
+    display: flex;
+    justify-content: space-between;
     height: 26px;
     min-width: 100%;
     max-width: 100%;
     width: 100%;
-    z-index: 200;
-    &:hover {
-      height: 26px * 3;
+    z-index: 500;
+    & .eqftp__buttonCube_footer {
+      transition: transform 0.2s;
+      &-rotate {
+        transform: rotate(180deg);
+      }
+    }
+    &_active {
+      height: 100%;
+    }
+    &__list {
+      display: flex;
+      align-content: flex-start;
+      align-items: center;
+      flex-wrap: wrap;
+      max-width: calc(100% - 26px);
+      width: 100%;
+      &Item {
+        box-sizing: border-box;
+        display: flex;
+        align-items: center;
+        min-height: 26px;
+        max-height: 26px;
+        height: 26px;
+        width: 100%;
+        &_icon {
+          display: flex;
+          justify-content: center;
+          min-width: 26px;
+          max-width: 26px;
+          width: 26px;
+          & .material-icons {
+            font-size: 16px;
+          }
+        }
+        &_date {
+          opacity: 0.4;
+          min-width: 100px;
+          max-width: 100px;
+          width: 100px;
+        }
+        &_info {
+          margin-left: $i1;
+          min-width: 0px;
+          max-width: 100%;
+        }
+      }
     }
   }
   &__row {
@@ -363,6 +409,14 @@
       min-width: 48px;
       max-width: 48px;
       width: 48px;
+      &_footer {
+        min-height: 26px;
+        max-height: 26px;
+        height: 26px;
+        min-width: 26px;
+        max-width: 26px;
+        width: 26px;
+      }
       &_small {
         min-height: 36px;
         max-height: 36px;

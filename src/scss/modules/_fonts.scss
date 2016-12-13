@@ -55,4 +55,13 @@ $line-height: 18px;
   word-wrap: normal;
   white-space: nowrap;
   direction: ltr;
+  &_ok {
+    color: $green;
+  }
+  &_error {
+    color: $red;
+  }
+  &_info {
+    color: $blue;
+  }
 }

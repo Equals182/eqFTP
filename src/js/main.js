@@ -66,6 +66,11 @@ function showChildren(element) {
   } else {
     $(element).find('.material-icons').text('keyboard_arrow_right');
   }
-  //$(element).next('.eqftp-fileTree__itemWrap').children('.eqftp-fileTree__itemChildren').slideToggle(100);
   $(element).next('.eqftp-fileTree__itemChildren').slideToggle(100);
+}
+
+function showLog() {
+  'use strict';
+  $('.eqftp-footer').toggleClass('eqftp-footer_active');
+  $('.eqftp__buttonCube_footer').toggleClass('eqftp__buttonCube_footer-rotate');
 }
