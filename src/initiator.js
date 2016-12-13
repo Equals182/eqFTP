@@ -42,113 +42,70 @@ panel.find(elements.queueElementholder).append(tpls['queueElement']());
 panel.find(elements.queueElementholder).append(tpls['queueElement']());
 panel.find(elements.queueElementholder).append(tpls['queueElement']());
 
-var withkids = tpls['fileTreeElement-folder']({
-  cmd_openFolder: 'showChildren(this);',
-  fullPath: '',
-  date_formatted: '03-03-2030 12:20:45',
-  name_short: 'WITH SUBS',
-  size_formatted: '',
-  extension: ''
-});
-withkids.find('.eqftp-fileTree__itemChildren').append(tpls['fileTreeElement-folder']({
-  cmd_openFolder: 'showChildren(this);',
-  fullPath: '',
-  date_formatted: '03-03-2030 12:20:45',
-  name_short: 'sub',
-  size_formatted: '',
-  extension: ''
-}));
-withkids.find('.eqftp-fileTree__itemChildren').append(tpls['fileTreeElement-folder']({
-  cmd_openFolder: 'showChildren(this);',
-  fullPath: '',
-  date_formatted: '03-03-2030 12:20:45',
-  name_short: 'vsubar',
-  size_formatted: '',
-  extension: ''
-}));
-withkids.find('.eqftp-fileTree__itemChildren').append(tpls['fileTreeElement-folder']({
-  cmd_openFolder: 'showChildren(this);',
-  fullPath: '',
-  date_formatted: '03-03-2030 12:20:45',
-  name_short: 'dev_ooooh im bad and long string here i am come handle me boi',
-  size_formatted: '',
-  extension: ''
-}));
-withkids.find('.eqftp-fileTree__itemChildren').append(tpls['fileTreeElement-folder']({
-  cmd_openFolder: 'showChildren(this);',
-  fullPath: '',
-  date_formatted: '03-03-2030 12:20:45',
-  name_short: 'binary',
-  size_formatted: '',
-  extension: ''
-}));
-withkids.find('.eqftp-fileTree__itemChildren').append(tpls['fileTreeElement-file']({
-  cmd_download: '',
-  date_formatted: '03-03-2030 12:20:45',
-  size_formatted: '12.1 mb',
-  name_short: 'aquota',
-  extension: 'group'
-}));
-withkids.find('.eqftp-fileTree__itemChildren').append(tpls['fileTreeElement-file']({
-  cmd_download: '',
-  date_formatted: '03-03-2030 12:20:45',
-  size_formatted: '20.9 kb',
-  name_short: 'limit',
-  extension: 'user'
-}));
-withkids.find('.eqftp-fileTree__itemChildren').append(tpls['fileTreeElement-file']({
-  cmd_download: '',
-  date_formatted: '03-03-2030 12:20:45',
-  size_formatted: '12.1 mb',
-  name_short: 'aquota',
-  extension: 'group'
-}));
-withkids.find('.eqftp-fileTree__itemChildren').append(tpls['fileTreeElement-file']({
-  cmd_download: '',
-  date_formatted: '03-03-2030 12:20:45',
-  size_formatted: '20.9 kb',
-  name_short: 'limit',
-  extension: 'user'
-}));
-panel.find(elements.fileTreeElementholder).append(withkids);
-panel.find(elements.fileTreeElementholder).append(tpls['fileTreeElement-folder']({
-  cmd_openFolder: 'showChildren(this);',
-  fullPath: '',
-  date_formatted: '03-03-2030 12:20:45',
-  name_short: 'var',
-  size_formatted: '',
-  extension: ''
-}));
-panel.find(elements.fileTreeElementholder).append(tpls['fileTreeElement-folder']({
-  cmd_openFolder: 'showChildren(this);',
-  fullPath: '',
-  date_formatted: '03-03-2030 12:20:45',
-  name_short: 'home sweet home sweet home sweet home sweet home sweet home',
-  size_formatted: '',
-  extension: ''
-}));
-panel.find(elements.fileTreeElementholder).append(tpls['fileTreeElement-folder']({
-  cmd_openFolder: 'showChildren(this);',
-  fullPath: '',
-  date_formatted: '03-03-2030 12:20:45',
-  name_short: 'usr',
-  size_formatted: '',
-  extension: ''
-}));
-panel.find(elements.fileTreeElementholder).append(tpls['fileTreeElement-file']({
-  cmd_download: '',
-  date_formatted: '03-03-2030 12:20:45',
-  size_formatted: '12.1 mb',
-  name_short: 'aquota',
-  extension: 'group'
-}));
-panel.find(elements.fileTreeElementholder).append(tpls['fileTreeElement-file']({
-  cmd_download: '',
-  date_formatted: '03-03-2030 12:20:45',
-  size_formatted: '20.9 kb',
-  name_short: 'limit',
-  extension: 'user'
-}));
+var _file_short = function() { return tpls['fileTreeElement-file']({
+      cmd_download: '',
+      date_formatted: '03-03-2030 12:20:45',
+      size_formatted: '20.9 kb',
+      name_short: 'short',
+      extension: 'ext'
+    }); },
+    _file_long = function() { return tpls['fileTreeElement-file']({
+      cmd_download: '',
+      date_formatted: '03-03-2030 12:20:45',
+      size_formatted: '20.9 kb',
+      name_short: 'oh its a big name of file shit dawg how big is it no ones know dawg i wonder myself',
+      extension: 'ext'
+    }); },
+    _folder_short = function() { return tpls['fileTreeElement-folder']({
+      cmd_openFolder: 'showChildren(this);',
+      fullPath: '',
+      date_formatted: '03-03-2030 12:20:45',
+      size_formatted: '',
+      name_short: 'foldershrt',
+      extension: ''
+    }); },
+    _folder_long = function() { return tpls['fileTreeElement-folder']({
+      cmd_openFolder: 'showChildren(this);',
+      fullPath: '',
+      date_formatted: '03-03-2030 12:20:45',
+      size_formatted: '',
+      name_short: 'This folder has hude name who would name folder like that i dont know man what about you',
+      extension: ''
+    }); },
+    kidsful = function() { return tpls['fileTreeElement-folder']({
+      cmd_openFolder: 'showChildren(this);',
+      fullPath: '',
+      date_formatted: '03-03-2030 12:20:45',
+      name_short: 'with subs',
+      size_formatted: '',
+      extension: ''
+    }); };
+var k = kidsful();
+k.find('.eqftp-fileTree__itemChildren')
+  .append(_folder_long())
+  .append(_folder_long())
+  .append(_folder_short())
+  .append(_folder_short())
+  .append(_file_long())
+  .append(_file_long())
+  .append(_file_long());
+var nk = false;
+nk = k.clone(); nk.find('.eqftp-fileTree__itemChildren').prepend(k); k = nk;
+nk = k.clone(); nk.find('.eqftp-fileTree__itemChildren').prepend(k); k = nk;
+
+panel.find(elements.fileTreeElementholder)
+  .append(k)
+  .append(_folder_long())
+  .append(_folder_long())
+  .append(_folder_short())
+  .append(_folder_short())
+  .append(_file_long())
+  .append(_file_long())
+  .append(_file_long())
+  .append(_file_short())
+  .append(_file_short())
+  .append(_file_short())
+  .append(_file_short());
 
 $('#generate').replaceWith(panel);
 
