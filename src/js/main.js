@@ -42,12 +42,12 @@ $(document).ready(function () {
   $(e + '__connection').click(function () {
     $(this).next(e + '__container_connection').slideToggle(100).toggleClass('eqftp__container' + a);
   });
-  /*if ($(psb).length !== 0) {
+  if ($(psb).length !== 0) {
     $(psb).perfectScrollbar();
     $(psb).mouseenter(function () {
       $(psb).perfectScrollbar('update');
     });
-  }*/
+  }
   $('.eqftp-header__searchHolder').click(function () {
     $('.eqftp-header__dropdown').toggleClass('eqftp-header__dropdown_active');
   });
