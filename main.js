@@ -45,6 +45,7 @@ define(function (require, exports, module) {
 
     //_ = require("node/node_modules/lodash/lodash"),
     utils = require("node/libs/utils"),
+    ps = require("node/node_modules/perfect-scrollbar/dist/js/perfect-scrollbar"),
     _ = utils._,
 
     strings = require("strings"),
@@ -54,6 +55,7 @@ define(function (require, exports, module) {
     _callbacks = {},
     _watching = [],
     _node;
+  ui.ps = ps;
   EventEmitter = new EventEmitter();
 
   /**
@@ -111,7 +113,12 @@ define(function (require, exports, module) {
               // Initiating Brackets' preferences
               eqftp.preferences.init();
               // Populating eqftp object to window for global use
-              window.eqftp = eqftp;
+              window.eqftp = {
+                ui: eqftp.ui,
+                connect: eqftp.connect,
+                openFolder: eqftp.openFolder,
+                download: eqftp.download
+              };
               eqftp.settings.get(eqftp.preferences.get('misc.last_settings_file')).done(function (settings) {
                 eqftp.settings = settings;
                 _.forOwn(eqftp.settings.connections, function (connection, id) {
@@ -201,6 +208,15 @@ define(function (require, exports, module) {
         console.error('NOT FOUND', arguments, path);
       });
     }
+  };
+  eqftp.download = function (id, remotepath, open) {
+    eqftp.connections[id].download(remotepath).done(function (localpath) {
+      if (open) {
+        console.log('OPEN NOW');
+      }
+    }).fail(function (err) {
+      console.error('CANT DOWNLOAD', arguments, remotepath);
+    });
   };
 
   // Adding eqftp + listener to ui so we could keep entities separately

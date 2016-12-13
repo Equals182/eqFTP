@@ -219,6 +219,12 @@ maxerr: 50, node: true */
                     }
                     
                     // PRE-HOOKS
+                    switch(act) {
+                      case 'download':
+                        console.log(arguments);
+                        return true;
+                        break;
+                    }
                     
                     eqftp.connections[id].queue.add({
                       id: id,

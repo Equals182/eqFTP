@@ -37,6 +37,12 @@ define(function (require, exports, module) {
           $("#main-toolbar .buttons").append(eqUI.toolbarIcon.get());
           // Appending eqFTP panel after content
           $("body > .main-view > .content").after(eqUI.panel.get());
+          if (eqUI.ps) {
+            $('.eqftp-content__page').each(function () {
+              eqUI.ps.initialize(this);
+            });
+            eqUI.ps.initialize($('.eqftp-header__dropdown')[0]);
+          }
           break;
         case 'ready:app':
           eqUI.toolbarIcon.activate();
@@ -66,9 +72,10 @@ define(function (require, exports, module) {
   
   eqUI.panel = new function () {
     var self = this;
+    var width = 360;
     self.state = 'closed';
     self.tpl = $(Mustache.render(require("text!htmlContent/panel.html"), strings));
-    self.tpl.css('right', '-300px');
+    self.tpl.css('right', (width * -1) + 'px').width(width);
     
     self.open = function () {
       if (self.state === 'closed') {
@@ -136,7 +143,7 @@ define(function (require, exports, module) {
         dropdown.addClass('eqftp-header__dropdown_active');
         dropdownItemsHolder.slideDown(80, function () {
           self.dropdownState = 'opened';
-          
+          eqUI.ps.update(dropdown[0]);
         });
       }
     };
@@ -145,15 +152,18 @@ define(function (require, exports, module) {
         dropdown.removeClass('eqftp-header__dropdown_active');
         dropdownItemsHolder.slideUp(80, function () {
           self.dropdownState = 'closed';
+          eqUI.ps.update(dropdown[0]);
         });
       }
     };
     self.dropdown.resetItems = function () {
       self.items = [];
       dropdownItemsHolder.html('');
+      eqUI.ps.update(dropdown[0]);
     };
     self.dropdown.addItem = function (item) {
       dropdownItemsHolder.append(self.getItem(item));
+      eqUI.ps.update(dropdown[0]);
     };
     
     self._autoclose = function (e) {
@@ -209,6 +219,7 @@ define(function (require, exports, module) {
           v.show();
         });
       }
+      eqUI.ps.update(dropdown[0]);
     };
 
     self.get = function () {
@@ -292,7 +303,7 @@ define(function (require, exports, module) {
             return utils.getNamepart(element.name, 'ext');
           },
           cmd_download: function () {
-            return 'eqftp.download(\''+element.id+'\', \''+element.fullPath+'\');';
+            return 'eqftp.download(\''+element.id+'\', \''+element.fullPath+'\', true);';
           },
           cmd_openFolder: function () {
             return 'eqftp.openFolder(\''+element.id+'\', \''+element.fullPath+'\');';
@@ -306,7 +317,11 @@ define(function (require, exports, module) {
           ch = el.find('.eqftp-fileTree__itemChildren:first');
       if (!ch.is(':visible')) {
         el.find('.eqftp__row:first .eqftp-fileTree__itemIcon .material-icons').text('folder_open');
-        ch.slideDown(200);
+        ch.slideDown(200, function () {
+          if (eqUI.ps) {
+            eqUI.ps.update($('.eqftp-content__page_file-tree')[0]);
+          }
+        });
       }
     };
     self.itemClose = function (path) {
@@ -314,7 +329,11 @@ define(function (require, exports, module) {
           ch = el.find('.eqftp-fileTree__itemChildren:first');
       if (ch.is(':visible')) {
         el.find('.eqftp__row:first .eqftp-fileTree__itemIcon .material-icons').text('folder');
-        ch.slideUp(200);
+        ch.slideUp(200, function () {
+          if (eqUI.ps) {
+            eqUI.ps.update($('.eqftp-content__page_file-tree')[0]);
+          }
+        });
       }
     };
     self.itemToggle = function (path) {
@@ -325,7 +344,11 @@ define(function (require, exports, module) {
         ch.slideUp(200);
       } else {
         el.find('.eqftp__row:first .eqftp-fileTree__itemIcon .material-icons').text('folder_open');
-        ch.slideDown(200);
+        ch.slideDown(200, function () {
+          if (eqUI.ps) {
+            eqUI.ps.update($('.eqftp-content__page_file-tree')[0]);
+          }
+        });
       }
     };
     self.get = function () {
@@ -336,6 +359,50 @@ define(function (require, exports, module) {
       self._rendered = {};
     };
   }();
+  
+  eqUI.log = new function () {
+    var self = this;
+    self.tpl = eqUI.panel.tpl.find('.eqftp-footer__list');
+    self.footer = eqUI.panel.tpl.find('.eqftp-footer');
+    self.state = 'closed';
+    
+    self.toggle = function () {
+      if (self.state === 'opened') {
+        self.close();
+      } else {
+        self.open();
+      }
+    };
+    self.open = function () {
+      if (self.state === 'closed') {
+        self.footer.addClass('eqftp-footer_active');
+        self.footer.find('.eqftp__buttonCube_footer').addClass('eqftp__buttonCube_footer-rotate');
+        self.state = 'opened';
+      }
+    };
+    self.close = function () {
+      if (self.state === 'opened') {
+        self.footer.removeClass('eqftp-footer_active');
+        self.footer.find('.eqftp__buttonCube_footer').removeClass('eqftp__buttonCube_footer-rotate');
+        self.state = 'closed';
+      }
+    };
+    self.add = function (item) {
+      item = $(Mustache.render(require("text!htmlContent/logElement.html"), _.defaults(_.clone(strings), item, {
+        type: function () {
+          return 'material-icons_' . item.type;
+        }
+      })));
+      self.tpl.append(item);
+      if (self.tpl.find('.eqftp-footer__listItem').length > 1000) {
+        self.tpl.find('.eqftp-footer__listItem:first').remove();
+      }
+    };
+    
+    self.get = function () {
+      return self.tpl;
+    }
+  };
   
   /*
   eqUI.dropdown = new function () {
