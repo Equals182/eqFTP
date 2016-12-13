@@ -217,19 +217,27 @@ maxerr: 50, node: true */
                       // for everything except downloads and uploads
                       prepend = true;
                     }
+                    var args = [...arguments],
+                        callback = _.nth(args, -2),
+                        progress = _.nth(args, -1),
+                        qid = utils.uniq();
                     
                     // PRE-HOOKS
                     switch(act) {
                       case 'download':
-                        console.log(arguments);
-                        return true;
+                        args[0] = {
+                          qid: qid,
+                          remotepath: args[0],
+                          localpath: eqftp.connections[id].resolveLocalpath(args[0])
+                        };
                         break;
                     }
                     
                     eqftp.connections[id].queue.add({
+                      qid: qid,
                       id: id,
                       act: act,
-                      args: [...arguments],
+                      args: args,
                       queue: 'a'
                     }, prepend);
                   };
@@ -250,7 +258,9 @@ maxerr: 50, node: true */
                       if (!obj._current[id]._queue) {
                         obj._current[id]._queue = [];
                       }
-                      queuer.qid = utils.uniq();
+                      if (!queuer.qid) {
+                        queuer.qid = utils.uniq();
+                      }
                       if (prepend) {
                         obj._current[id]._queue.unshift(queuer);
                       } else {
@@ -276,7 +286,6 @@ maxerr: 50, node: true */
                             callback = _.nth(args, -2),
                             progress = _.nth(args, -1);
                         var cb = function (err, data) {
-                          
                           // POST-HOOKS
                           
                           switch(queuer.act) {
@@ -388,6 +397,7 @@ maxerr: 50, node: true */
                         settings.privateKey = connectionDetails.rsa;
                     }
                     obj._current[id]._server.connect(settings);
+                    obj._current[id]._startpath = obj._current[id]._server.currentPath;
                   }
                   break;
                 case 'close':
@@ -397,6 +407,17 @@ maxerr: 50, node: true */
                     }
                     return true;
                   }
+                  break;
+                case 'resolveLocalpath':
+                  return function (remotepath) {
+                    if (obj._current[id].temp) {
+                      // TODO
+                    }
+                    var localpath = utils.normalize(obj._current[id].localpath + '/' +
+                                     remotepath.replace(RegExp("^" + (obj._current[id]._startpath || '')), '')
+                                    );
+                    return localpath;
+                  };
                   break;
               }
             }

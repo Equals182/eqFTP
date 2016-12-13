@@ -529,12 +529,12 @@ EasyFTP.prototype.download = function (queuer, cb) {
               cb(err);
             } else {
               self.emit("download", {
-                _id: queuer._id,
+                qid: queuer.qid,
                 remotepath: queuer.remotepath,
                 localpath: queuer.localpath
               });
               cb(err, {
-                _id: queuer._id,
+                qid: queuer.qid,
                 remotepath: queuer.remotepath,
                 localpath: queuer.localpath
               });
@@ -558,13 +558,13 @@ EasyFTP.prototype.download = function (queuer, cb) {
                 }
               } else {
                 self.emit("download", {
-                  _id: queuer._id,
+                  qid: queuer.qid,
                   remotepath: queuer.remotepath,
                   localpath: queuer.localpath
                 });
                 if (cb) {
                   cb(err, {
-                    _id: queuer._id,
+                    qid: queuer.qid,
                     remotepath: queuer.remotepath,
                     localpath: queuer.localpath
                   });

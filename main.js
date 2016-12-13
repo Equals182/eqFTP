@@ -90,6 +90,20 @@ define(function (require, exports, module) {
       return self._value;
     };
   }();
+  eqftp.log = function (text, type, icon) {
+    switch (type) {
+      case 'error':
+        break;
+    }
+    if (eqftp.ui && eqftp.ui.log) {
+      eqftp.ui.log.add({
+        icon: icon,
+        time: utils.date_format(new Date(), 'H:i:s'),
+        text: text,
+        type: type
+      });
+    }
+  };
   /**
    * Adding events to eqftp
    */
@@ -210,11 +224,21 @@ define(function (require, exports, module) {
     }
   };
   eqftp.download = function (id, remotepath, open) {
-    eqftp.connections[id].download(remotepath).done(function (localpath) {
+    var args = [...arguments];
+    eqftp.connections[id].download(remotepath).done(function (data) {
+      eqftp.log(ui.m(strings.eqftp__log__download_success, {
+        filename: utils.getNamepart(remotepath, 'filename')
+      }), 'ok', 'done');
       if (open) {
-        console.log('OPEN NOW');
+        _.delay(function () {
+          CommandManager.execute(Commands.CMD_ADD_TO_WORKINGSET_AND_OPEN, {fullPath: data.localpath, paneId: MainViewManager.getActivePaneId(), options: {noPaneActivate: (args[3].shiftKey ? true : false)}});
+        }, 300);
       }
     }).fail(function (err) {
+      eqftp.log(ui.m(strings.eqftp__log__download_error, {
+        err: err,
+        filename: utils.getNamepart(remotepath, 'filename')
+      }), 'error');
       console.error('CANT DOWNLOAD', arguments, remotepath);
     });
   };

@@ -25,6 +25,7 @@ define(function (require, exports, module) {
     eqUI.eqftp = eqFTP;
     return eqFTP;
   }
+  eqUI.m = Mustache.render;
   
   eqUI.events = function (event) {
     if (!event) {
@@ -303,7 +304,7 @@ define(function (require, exports, module) {
             return utils.getNamepart(element.name, 'ext');
           },
           cmd_download: function () {
-            return 'eqftp.download(\''+element.id+'\', \''+element.fullPath+'\', true);';
+            return 'eqftp.download(\''+element.id+'\', \''+element.fullPath+'\', true, [...arguments][0]);';
           },
           cmd_openFolder: function () {
             return 'eqftp.openFolder(\''+element.id+'\', \''+element.fullPath+'\');';
@@ -316,7 +317,7 @@ define(function (require, exports, module) {
       var el = self.tpl.find('div[id="'+path+'"]'),
           ch = el.find('.eqftp-fileTree__itemChildren:first');
       if (!ch.is(':visible')) {
-        el.find('.eqftp__row:first .eqftp-fileTree__itemIcon .material-icons').text('folder_open');
+        el.find('.eqftp-fileTree__itemInfo:first .eqftp-fileTree__itemIcon .material-icons').text('keyboard_arrow_down');
         ch.slideDown(200, function () {
           if (eqUI.ps) {
             eqUI.ps.update($('.eqftp-content__page_file-tree')[0]);
@@ -328,7 +329,7 @@ define(function (require, exports, module) {
       var el = self.tpl.find('div[id="'+path+'"]'),
           ch = el.find('.eqftp-fileTree__itemChildren:first');
       if (ch.is(':visible')) {
-        el.find('.eqftp__row:first .eqftp-fileTree__itemIcon .material-icons').text('folder');
+        el.find('.eqftp-fileTree__itemInfo:first .eqftp-fileTree__itemIcon .material-icons').text('keyboard_arrow_right');
         ch.slideUp(200, function () {
           if (eqUI.ps) {
             eqUI.ps.update($('.eqftp-content__page_file-tree')[0]);
@@ -340,10 +341,14 @@ define(function (require, exports, module) {
       var el = self.tpl.find('div[id="'+path+'"]'),
           ch = el.find('.eqftp-fileTree__itemChildren:first');
       if (ch.is(':visible')) {
-        el.find('.eqftp__row:first .eqftp-fileTree__itemIcon .material-icons').text('folder');
-        ch.slideUp(200);
+        el.find('.eqftp-fileTree__itemInfo:first .eqftp-fileTree__itemIcon .material-icons').text('keyboard_arrow_right');
+        ch.slideUp(200, function () {
+          if (eqUI.ps) {
+            eqUI.ps.update($('.eqftp-content__page_file-tree')[0]);
+          }
+        });
       } else {
-        el.find('.eqftp__row:first .eqftp-fileTree__itemIcon .material-icons').text('folder_open');
+        el.find('.eqftp-fileTree__itemInfo:first .eqftp-fileTree__itemIcon .material-icons').text('keyboard_arrow_down');
         ch.slideDown(200, function () {
           if (eqUI.ps) {
             eqUI.ps.update($('.eqftp-content__page_file-tree')[0]);
@@ -388,11 +393,11 @@ define(function (require, exports, module) {
       }
     };
     self.add = function (item) {
-      item = $(Mustache.render(require("text!htmlContent/logElement.html"), _.defaults(_.clone(strings), item, {
+      item = $(Mustache.render(require("text!htmlContent/logElement.html"), _.defaults(_.clone(strings), {
         type: function () {
-          return 'material-icons_' . item.type;
+          return (item.type ? ('material-icons_' + item.type) : '');
         }
-      })));
+      }, item)));
       self.tpl.append(item);
       if (self.tpl.find('.eqftp-footer__listItem').length > 1000) {
         self.tpl.find('.eqftp-footer__listItem:first').remove();
