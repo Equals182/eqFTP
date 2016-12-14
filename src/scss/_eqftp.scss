@@ -218,18 +218,13 @@
     justify-content: space-between;
     align-items: flex-end;
     overflow: hidden;
-    max-height: 100%;
     height: 26px;
     width: 100%;
     z-index: 500;
-    & .eqftp__buttonCube_footer {
-      transition: transform 0.2s;
-      &-rotate {
-        transform: rotate(180deg);
-      }
-    }
     &_active {
-      height: auto;
+      padding-top: $i2;
+      box-sizing: border-box;
+      height: 100%;
     }
     &__list {
       position: relative;
@@ -237,11 +232,10 @@
       align-content: flex-start;
       align-items: center;
       flex-wrap: wrap;
-      max-width: calc(100% - 26px);
       width: 100%;
+      z-index: 1;
       &_active {
-        padding-top: $i2;
-        max-height: 500px;
+        max-height: 100%;
       }
       &Item {
         box-sizing: border-box;
@@ -276,7 +270,7 @@
         &_info {
           margin-left: $i2;
           min-width: 0px;
-          max-width: 100%;
+          max-width: calc(100% - 26px - 50px - 26px);
         }
       }
     }
@@ -426,12 +420,17 @@
         position: absolute;
         bottom: 0;
         right: 0;
+        transition: transform 0.2s;
         min-height: 26px;
         max-height: 26px;
         height: 26px;
         min-width: 26px;
         max-width: 26px;
         width: 26px;
+        z-index: 2;
+        &-rotate {
+          transform: rotate(180deg);
+        }
       }
       &_small {
         min-height: 36px;
