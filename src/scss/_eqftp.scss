@@ -232,6 +232,7 @@
       height: auto;
     }
     &__list {
+      position: relative;
       display: flex;
       align-content: flex-start;
       align-items: center;
@@ -240,6 +241,7 @@
       width: 100%;
       &_active {
         padding-top: $i2;
+        max-height: 500px;
       }
       &Item {
         box-sizing: border-box;
@@ -421,7 +423,7 @@
       max-width: 48px;
       width: 48px;
       &_footer {
-        position: fixed;
+        position: absolute;
         bottom: 0;
         right: 0;
         min-height: 26px;
@@ -628,7 +630,6 @@
       }
       &Children {
         padding-left: $i2;
-        //border-left: 1px solid $c08;
         box-sizing: border-box;
         display: none;
         width: 100%;
