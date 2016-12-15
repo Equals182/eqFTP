@@ -62,7 +62,7 @@ panel.find(elements.queueElementholder).append(tpls['queueElement']({
   size: '999 bytes',
   percents: '20%'
 }));
-panel.find(elements.queueElementholder).append(tpls['queueElement']({
+var queue_element = function () { return tpls['queueElement']({
   class: '',
   icon: 'file_download',
   error_text: '',
@@ -72,7 +72,46 @@ panel.find(elements.queueElementholder).append(tpls['queueElement']({
   remotename: '.htaccess?',
   size: '666 TB',
   percents: '0%'
-}));
+}); };
+panel.find(elements.queueElementholder)
+  .append(queue_element())
+  .append(queue_element())
+  .append(queue_element())
+  .append(queue_element())
+  .append(queue_element())
+  .append(queue_element())
+  .append(queue_element())
+  .append(queue_element())
+  .append(queue_element())
+  .append(queue_element())
+  .append(queue_element())
+  .append(queue_element())
+  .append(queue_element())
+  .append(queue_element())
+  .append(queue_element())
+  .append(queue_element())
+  .append(queue_element())
+  .append(queue_element())
+  .append(queue_element())
+  .append(queue_element())
+  .append(queue_element())
+  .append(queue_element())
+  .append(queue_element())
+  .append(queue_element())
+  .append(queue_element())
+  .append(queue_element())
+  .append(queue_element())
+  .append(queue_element())
+  .append(queue_element())
+  .append(queue_element())
+  .append(queue_element())
+  .append(queue_element())
+  .append(queue_element())
+  .append(queue_element())
+  .append(queue_element())
+  .append(queue_element())
+  .append(queue_element())
+;
 
 var _file_short = function () {
     return tpls['fileTreeElement-file']({
