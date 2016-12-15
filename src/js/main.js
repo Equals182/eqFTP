@@ -72,8 +72,4 @@ function showChildren(element) {
 function showLog() {
   'use strict';
   $('.eqftp-footer').toggleClass('eqftp-footer_active');
-  $('.eqftp-footer__list').toggleClass('eqftp-footer__list_active');
-  $('.eqftp-footer__listItem').toggleClass('eqftp-footer__listItem_active');
-  $('.eqftp__titleNowrap').toggleClass('eqftp__titleNowrap');
-  $('.eqftp__buttonCube_footer').toggleClass('eqftp__buttonCube_footer-rotate');
 }

@@ -225,6 +225,27 @@
       padding-top: $i2;
       box-sizing: border-box;
       height: 100%;
+      & .eqftp-footer__list {
+        max-height: 100%;
+        & .eqftp-footer__listItem {
+          align-items: flex-start;
+          height: auto;
+          &+.eqftp-footer__listItem {
+            margin-top: $i1;
+          }
+          & .eqftp-footer__listItemInfo {
+            span {
+              text-overflow: none;
+              overflow: visible;
+              white-space: normal;
+              max-width: none;
+            }
+          }
+        }
+      }
+      & .eqftp__buttonCube_footer {
+        transform: rotate(180deg);
+      }
     }
     &__list {
       position: relative;
@@ -234,9 +255,6 @@
       flex-wrap: wrap;
       width: 100%;
       z-index: 1;
-      &_active {
-        max-height: 100%;
-      }
       &Item {
         box-sizing: border-box;
         display: flex;
@@ -244,14 +262,7 @@
         min-height: 26px;
         height: 26px;
         width: 100%;
-        &_active {
-          align-items: flex-start;
-          height: auto;
-          &+.eqftp-footer__listItem {
-            margin-top: $i1;
-          }
-        }
-        &_icon {
+        &Icon {
           display: flex;
           justify-content: center;
           min-width: 26px;
@@ -261,16 +272,22 @@
             font-size: 16px;
           }
         }
-        &_date {
+        &Date {
           opacity: 0.4;
           min-width: 40px;
           max-width: 40px;
           width: 40px;
         }
-        &_info {
+        &Info {
           margin-left: $i2;
           min-width: 0px;
           max-width: calc(100% - 26px - 50px - 26px);
+          span {
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+            max-width: 100%;
+          }
         }
       }
     }
@@ -428,9 +445,6 @@
         max-width: 26px;
         width: 26px;
         z-index: 2;
-        &-rotate {
-          transform: rotate(180deg);
-        }
       }
       &_small {
         min-height: 36px;
