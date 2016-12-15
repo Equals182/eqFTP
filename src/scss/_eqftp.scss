@@ -408,14 +408,6 @@
     flex-wrap: wrap;
     height: calc(100% - 8px);
     width: 100%;
-    &_error {
-      & .eqftp__progress {
-        display: none;
-      }
-      & .eqftp-queue__error {
-        display: block;
-      }
-    }
     &__info {
       display: flex;
       align-items: center;
@@ -434,6 +426,14 @@
       height: $i6;
       max-width: 100%;
       width: 100%;
+      &_error {
+        & .eqftp__progress {
+          display: none;
+        }
+        & .eqftp-queue__error {
+          display: block;
+        }
+      }
       &Direction {
         margin-right: $i1;
         & .material-icons {
