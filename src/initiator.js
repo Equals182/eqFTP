@@ -41,7 +41,7 @@ panel.find(elements.connectionsElementholder).append(tpls['connectionsElement'](
 panel.find(elements.connectionsElementholder).append(tpls['connectionsElement']());
 
 panel.find(elements.queueElementholder).append(tpls['queueElement']({
-  direction: 'upload',
+  direction: 'download',
   localpath: 'C:\programfiles\foo\bar\whatever.js',
   localname: 'whatever.js',
   remotepath: '/var/www/html/whatever.js',
@@ -59,7 +59,7 @@ panel.find(elements.queueElementholder).append(tpls['queueElement']({
   percents: '20%'
 }));
 panel.find(elements.queueElementholder).append(tpls['queueElement']({
-  direction: 'upload',
+  direction: 'download',
   localpath: 'C:\programfiles\foo\bar\whatever.js',
   localname: '.okay',
   remotepath: '/var/www/html/whatever.js',
