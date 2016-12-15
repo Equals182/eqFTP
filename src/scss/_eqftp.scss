@@ -186,8 +186,11 @@
     width: 100%;
     z-index: 100;
     &__page {
+      padding-top: $i2;
+      padding-bottom: $i2;
       animation-name: fadeInRight;
-      animation-duration: 0.3s;
+      animation-duration: 0.2s;
+      box-sizing: border-box;
       display: none;
       justify-content: center;
       position: relative;
@@ -542,8 +545,6 @@
     }
   }
   &-fileTree {
-    margin-top: $i2;
-    margin-bottom: $i2;
     height: 100%;
     width: 100%;
     &__item {
