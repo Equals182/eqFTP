@@ -632,9 +632,12 @@
         display: flex;
         justify-content: flex-end;
         align-items: center;
-        min-width: 100px;
+        min-width: 50px;
         max-width: 100px;
-        width: 100px;
+        width: auto;
+        & .eqftp__title {
+          text-align: right;
+        }
       }
       &Wrap {
         padding-left: $i1;
