@@ -41,7 +41,9 @@ panel.find(elements.connectionsElementholder).append(tpls['connectionsElement'](
 panel.find(elements.connectionsElementholder).append(tpls['connectionsElement']());
 
 panel.find(elements.queueElementholder).append(tpls['queueElement']({
-  direction: 'download',
+  class: '',
+  icon: 'file_upload',
+  error_text: '',
   localpath: 'C:\programfiles\foo\bar\whatever.js',
   localname: 'whatever.js',
   remotepath: '/var/www/html/whatever.js',
@@ -50,7 +52,9 @@ panel.find(elements.queueElementholder).append(tpls['queueElement']({
   percents: '50%'
 }));
 panel.find(elements.queueElementholder).append(tpls['queueElement']({
-  direction: 'upload',
+  class: 'eqftp-queue__item_error',
+  icon: 'error',
+  error_text: 'Error',
   localpath: 'C:\programfiles\foo\bar\whatever.js',
   localname: 'whatever_longname_superlong_man.jsonononononono',
   remotepath: '/var/www/html/whatever.js',
@@ -59,7 +63,9 @@ panel.find(elements.queueElementholder).append(tpls['queueElement']({
   percents: '20%'
 }));
 panel.find(elements.queueElementholder).append(tpls['queueElement']({
-  direction: 'download',
+  class: '',
+  icon: 'file_download',
+  error_text: '',
   localpath: 'C:\programfiles\foo\bar\whatever.js',
   localname: '.okay',
   remotepath: '/var/www/html/whatever.js',
