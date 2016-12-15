@@ -477,12 +477,14 @@
         color: $c02;
         animation-name: fadeInLeft;
         animation-duration: 0.1s;
+        z-index: 2;
       }
       &Percent {
         color: $c02;
         animation-name: fadeInRight;
         animation-duration: 0.1s;
         display: none;
+        z-index: 2;
       }
       &Menu {
         color: $c09;
@@ -916,15 +918,19 @@
   }
   &__progress {
     background-color: $c12;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     height: $i4;
     width: 100%;
     &Bar {
-      display: flex;
-      justify-content: center;
-      align-items: center;
       background-color: $c09;
+      position: absolute;
+      top: 0;
+      left: 0;
       height: 100%;
-      width: 80%;
+      z-index: 1;
     }
   }
 }
