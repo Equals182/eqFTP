@@ -193,15 +193,6 @@
       position: relative;
       height: 100%;
       width: 100%;
-      &_blank {
-        align-content: flex-start;
-        align-items: center;
-        flex-wrap: wrap;
-      }
-      &_file-tree {}
-      &_queue {}
-      &_connections {}
-      &_settings {}
       &_active {
         display: flex;
       }
@@ -288,6 +279,293 @@
             overflow: hidden;
             white-space: nowrap;
             max-width: 100%;
+          }
+        }
+      }
+    }
+  }
+  &-fileTree {
+    padding-top: $i2;
+    box-sizing: border-box;
+    height: calc(100% - 8px);
+    width: 100%;
+    &__item {
+      padding-left: $i1;
+      padding-right: $i1;
+      position: relative;
+      box-sizing: border-box;
+      transition: background-color 0.1s;
+      cursor: default;
+      display: flex;
+      max-width: 100%;
+      width: 100%;
+      &:hover {
+        background-color: rgba(0, 0, 0, 0.1);
+      }
+      &_file {
+        align-items: center;
+        min-height: $i6;
+        max-height: $i6;
+        height: $i6;
+      }
+      &_folder {
+        justify-content: flex-start;
+        align-content: flex-start;
+        align-items: flex-start;
+        flex-wrap: wrap;
+        width: 100%;
+      }
+      &Element {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        max-width: 100%;
+        width: 100%;
+      }
+      &Info {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        min-width: 0px;
+        width: calc(100% - 100px);
+      }
+      &Icon {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: $i6;
+        max-height: $i6;
+        height: $i6;
+        min-width: $i6;
+        max-width: $i6;
+        width: $i6;
+        & .material-icons {
+          font-size: 16px;
+          color: $c09;
+        }
+      }
+      &Name {
+        min-width: 0px;
+        max-width: 100%;
+      }
+      &Ext {
+        padding-left: $i1;
+        opacity: 0.4;
+        box-sizing: border-box;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        min-width: 0px;
+        max-width: 30%;
+      }
+      &Size {
+        padding-left: $i1;
+        font-style: italic;
+        opacity: 0.4;
+        box-sizing: border-box;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        min-width: 0px;
+        max-width: 70%;
+      }
+      &Date {
+        padding-left: $i1;
+        box-sizing: border-box;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        min-width: 50px;
+        max-width: 100px;
+        width: auto;
+        & .eqftp__title {
+          text-align: right;
+        }
+      }
+      &Wrap {
+        padding-left: $i1;
+        box-sizing: border-box;
+        max-width: 100%;
+        width: 100%;
+      }
+      &Children {
+        padding-left: $i2;
+        box-sizing: border-box;
+        display: none;
+        width: 100%;
+        & .eqftp-fileTree__item {
+          padding-left: 0;
+          padding-right: 0;
+        }
+      }
+    }
+  }
+  &-queue {
+    padding-top: $i2;
+    box-sizing: border-box;
+    display: flex;
+    align-content: flex-start;
+    flex-wrap: wrap;
+    height: calc(100% - 8px);
+    width: 100%;
+    &__item {
+      position: relative;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      height: $i6;
+      max-width: 100%;
+      width: 100%;
+      &Direction {
+        margin-left: $i1;
+        margin-right: $i1;
+        & .material-icons {
+          font-size: 12px;
+          color: $c09;
+        }
+      }
+      &Local {
+        min-width: 20%;
+        max-width: 20%;
+      }
+      &Remote {
+        min-width: 20%;
+        max-width: 20%;
+      }
+      &Progress {
+        margin-left: $i1;
+        margin-right: $i1;
+        min-width: 20%;
+        max-width: 20%;
+        &:hover {
+          & .eqftp-queue__itemSize {
+            display: none;
+          }
+          & .eqftp-queue__itemPercent {
+            display: block;
+          }
+        }
+      }
+      &Size {
+        color: $c02;
+        animation-name: fadeInRight;
+        animation-duration: 0.1s;
+      }
+      &Percent {
+        color: $c02;
+        animation-name: fadeInRight;
+        animation-duration: 0.1s;
+        display: none;
+      }
+      &Menu {
+        background-color: rgba(0, 0, 0, 0.1);
+        color: $c09;
+        position: absolute;
+        top: 0;
+        right: 0;
+        cursor: pointer;
+        animation-name: fadeInRight;
+        animation-duration: 0.1s;
+        display: none;
+        justify-content: center;
+        align-items: center;
+        height: $i6;
+        width: $i6;
+        &:hover {
+          color: $c01;
+        }
+      }
+      &:hover {
+        background-color: rgba(0, 0, 0, 0.1);
+        & .eqftp-queue__itemMenu {
+          display: flex;
+        }
+      }
+    }
+  }
+  &-connections {
+    position: relative;
+    display: flex;
+    justify-content: flex-start;
+    align-content: flex-start;
+    align-items: center;
+    flex-wrap: wrap;
+    height: 100%;
+    width: 100%;
+    &__connection {
+      padding-top: $i2;
+      padding-bottom: $i2;
+      padding-left: $i2;
+      padding-right: $i2;
+      @include font($font-family, 12.4px, 400, normal, $c09, left);
+      background-color: $c05;
+      border-top-width: 1px;
+      border-top-style: solid;
+      border-top-color: $c03;
+      transition: background-color 0.2s;
+      cursor: pointer;
+      box-sizing: border-box;
+      display: flex;
+      justify-content: space-between;
+      width: 25%;
+      @media only screen and (max-width: 800px) {
+        width: 50%;
+      }
+      @media only screen and (max-width: 400px) {
+        width: 100%;
+      }
+      &:hover {
+        background-color: $c08;
+        & .eqftp-title {
+          color: $c01;
+        }
+        & .eqftp__col_buttons {
+          display: flex;
+        }
+      }
+      & .eqftp-title {
+        padding-left: 0;
+        color: $c09;
+        & .material-icons {
+          margin-left: $i2;
+          font-size: 10px;
+          color: $c06;
+        }
+      }
+      &_new {
+        justify-content: center;
+        align-content: flex-start;
+        align-items: flex-start;
+        flex-wrap: wrap;
+        width: 100%;
+      }
+      &_idle {
+        & .eqftp-title {
+          color: $c09;
+          & .material-icons {
+            color: $c06;
+          }
+        }
+      }
+      &_connect {
+        & .eqftp-title {
+          color: $c01;
+          & .material-icons {
+            color: $green;
+            animation-name: flash;
+            animation-duration: 5s;
+            animation-iteration-count: infinite;
+          }
+        }
+      }
+      &_error {
+        & .eqftp-title {
+          color: $c06;
+          & .material-icons {
+            color: $red;
+            animation-name: flash;
+            animation-duration: 5s;
+            animation-iteration-count: infinite;
           }
         }
       }
@@ -428,12 +706,15 @@
       }
     }
     &Cube {
-      min-height: 48px;
-      max-height: 48px;
-      height: 48px;
-      min-width: 48px;
-      max-width: 48px;
-      width: 48px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: $i12;
+      max-height: $i12;
+      height: $i12;
+      min-width: $i12;
+      max-width: $i12;
+      width: $i12;
       &_footer {
         position: absolute;
         bottom: 0;
@@ -447,29 +728,37 @@
         width: 26px;
         z-index: 2;
       }
+      &_smallest {
+        min-height: $i6;
+        max-height: $i6;
+        height: $i6;
+        min-width: $i6;
+        max-width: $i6;
+        width: $i6;
+      }
       &_small {
-        min-height: 36px;
-        max-height: 36px;
-        height: 36px;
-        min-width: 36px;
-        max-width: 36px;
-        width: 36px;
+        min-height: $i9;
+        max-height: $i9;
+        height: $i9;
+        min-width: $i9;
+        max-width: $i9;
+        width: $i9;
       }
       &_medium {
-        min-height: 48px;
-        max-height: 48px;
-        height: 48px;
-        min-width: 48px;
-        max-width: 48px;
-        width: 48px;
+        min-height: $i12;
+        max-height: $i12;
+        height: $i12;
+        min-width: $i12;
+        max-width: $i12;
+        width: $i12;
       }
       &_big {
-        min-height: 60px;
-        max-height: 60px;
-        height: 60px;
-        min-width: 60px;
-        max-width: 60px;
-        width: 60px;
+        min-height: $i15;
+        max-height: $i15;
+        height: $i15;
+        min-width: $i15;
+        max-width: $i15;
+        width: $i15;
       }
     }
   }
@@ -541,208 +830,68 @@
       color: $c01;
     }
   }
-  &-fileTree {
-    padding-top: $i2;
-    box-sizing: border-box;
-    height: calc(100% - 8px);
-    width: 100%;
-    &__item {
-      padding-left: $i1;
-      padding-right: $i1;
-      position: relative;
-      box-sizing: border-box;
-      transition: background-color 0.1s;
-      cursor: default;
-      display: flex;
-      max-width: 100%;
-      width: 100%;
-      &:hover {
-        background-color: rgba(0, 0, 0, 0.1);
-      }
-      &_file {
-        align-items: center;
-        min-height: $i6;
-        max-height: $i6;
-        height: $i6;
-      }
-      &_folder {
-        justify-content: flex-start;
-        align-content: flex-start;
-        align-items: flex-start;
-        flex-wrap: wrap;
-        width: 100%;
-      }
-      &Element {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        max-width: 100%;
-        width: 100%;
-      }
-      &Info {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        min-width: 0px;
-        width: calc(100% - 100px);
-      }
-      &Icon {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        min-height: $i6;
-        max-height: $i6;
-        height: $i6;
-        min-width: $i6;
-        max-width: $i6;
-        width: $i6;
-        & .material-icons {
-          font-size: 16px;
-          color: $c09;
-        }
-      }
-      &Name {
-        min-width: 0px;
-        max-width: 100%;
-      }
-      &Ext {
-        padding-left: $i1;
-        opacity: 0.4;
-        box-sizing: border-box;
-        display: flex;
-        justify-content: flex-end;
-        align-items: center;
-        min-width: 0px;
-        max-width: 30%;
-      }
-      &Size {
-        padding-left: $i1;
-        font-style: italic;
-        opacity: 0.4;
-        box-sizing: border-box;
-        display: flex;
-        justify-content: flex-end;
-        align-items: center;
-        min-width: 0px;
-        max-width: 70%;
-      }
-      &Date {
-        padding-left: $i1;
-        box-sizing: border-box;
-        display: flex;
-        justify-content: flex-end;
-        align-items: center;
-        min-width: 50px;
-        max-width: 100px;
-        width: auto;
-        & .eqftp__title {
-          text-align: right;
-        }
-      }
-      &Wrap {
-        padding-left: $i1;
-        box-sizing: border-box;
-        max-width: 100%;
-        width: 100%;
-      }
-      &Children {
-        padding-left: $i2;
-        box-sizing: border-box;
-        display: none;
-        width: 100%;
-        & .eqftp-fileTree__item {
-          padding-left: 0;
-          padding-right: 0;
-        }
-      }
+  &__icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: $i12;
+    max-height: $i12;
+    height: $i12;
+    min-width: $i12;
+    max-width: $i12;
+    width: $i12;
+    &_smallest {
+      min-height: $i6;
+      max-height: $i6;
+      height: $i6;
+      min-width: $i6;
+      max-width: $i6;
+      width: $i6;
+    }
+    &_small {
+      min-height: $i9;
+      max-height: $i9;
+      height: $i9;
+      min-width: $i9;
+      max-width: $i9;
+      width: $i9;
+    }
+    &_medium {
+      min-height: $i12;
+      max-height: $i12;
+      height: $i12;
+      min-width: $i12;
+      max-width: $i12;
+      width: $i12;
+    }
+    &_big {
+      min-height: $i15;
+      max-height: $i15;
+      height: $i15;
+      min-width: $i15;
+      max-width: $i15;
+      width: $i15;
+    }
+    &_biggest {
+      min-height: $i18;
+      max-height: $i18;
+      height: $i18;
+      min-width: $i18;
+      max-width: $i18;
+      width: $i18;
     }
   }
-  &-connections {
-    position: relative;
-    display: flex;
-    justify-content: flex-start;
-    align-content: flex-start;
-    align-items: center;
-    flex-wrap: wrap;
-    height: 100%;
+  &__progress {
+    background-color: $c12;
+    height: $i4;
     width: 100%;
-    &__connection {
-      padding-top: $i2;
-      padding-bottom: $i2;
-      padding-left: $i2;
-      padding-right: $i2;
-      @include font($font-family, 12.4px, 400, normal, $c09, left);
-      background-color: $c05;
-      border-top-width: 1px;
-      border-top-style: solid;
-      border-top-color: $c03;
-      transition: background-color 0.2s;
-      cursor: pointer;
-      box-sizing: border-box;
+    &Bar {
       display: flex;
-      justify-content: space-between;
-      width: 25%;
-      @media only screen and (max-width: 800px) {
-        width: 50%;
-      }
-      @media only screen and (max-width: 400px) {
-        width: 100%;
-      }
-      &:hover {
-        background-color: $c08;
-        & .eqftp-title {
-          color: $c01;
-        }
-        & .eqftp__col_buttons {
-          display: flex;
-        }
-      }
-      & .eqftp-title {
-        padding-left: 0;
-        color: $c09;
-        & .material-icons {
-          margin-left: $i2;
-          font-size: 10px;
-          color: $c06;
-        }
-      }
-      &_new {
-        justify-content: center;
-        align-content: flex-start;
-        align-items: flex-start;
-        flex-wrap: wrap;
-        width: 100%;
-      }
-      &_idle {
-        & .eqftp-title {
-          color: $c09;
-          & .material-icons {
-            color: $c06;
-          }
-        }
-      }
-      &_connect {
-        & .eqftp-title {
-          color: $c01;
-          & .material-icons {
-            color: $green;
-            animation-name: flash;
-            animation-duration: 5s;
-            animation-iteration-count: infinite;
-          }
-        }
-      }
-      &_error {
-        & .eqftp-title {
-          color: $c06;
-          & .material-icons {
-            color: $red;
-            animation-name: flash;
-            animation-duration: 5s;
-            animation-iteration-count: infinite;
-          }
-        }
-      }
+      justify-content: center;
+      align-items: center;
+      background-color: $c09;
+      height: 100%;
+      width: 80%;
     }
   }
 }

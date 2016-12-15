@@ -19,17 +19,17 @@ $font-size-10: 62px;
 $font-size-11: 72px;
 
 $font-sizes:
-    $font-size-1,
-    $font-size-2,
-    $font-size-3,
-    $font-size-4,
-    $font-size-5,
-    $font-size-6,
-    $font-size-7,
-    $font-size-8,
-    $font-size-9,
-    $font-size-10,
-    $font-size-11;
+  $font-size-1,
+  $font-size-2,
+  $font-size-3,
+  $font-size-4,
+  $font-size-5,
+  $font-size-6,
+  $font-size-7,
+  $font-size-8,
+  $font-size-9,
+  $font-size-10,
+  $font-size-11;
 
 $font-weight-thin: 100;
 $font-weight-extra-light: 200;
@@ -56,7 +56,10 @@ $line-height: 18px;
   white-space: nowrap;
   direction: ltr;
   &_ok {
-    color: $green;
+    &:before {
+      content: '\E86C';
+      color: $green;
+    }
   }
   &_error {
     color: $red;
