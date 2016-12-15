@@ -1,22 +1,27 @@
 <div class="eqftp-queue__item">
-  <div class="eqftp-queue__itemDirection">
+  <div class="eqftp-queue__itemDirection eqftp__icon eqftp__icon_smallest">
     <i class="material-icons">file_{{direction}}</i>
   </div>
-  <div class="eqftp-queue__itemLocal">
-    <div class="eqftp__title eqftp__title_tiny"><span class="eqftp__titleNowrap" title="{{localpath}}">{{localname}}</span></div>
-  </div>
-  <div class="eqftp-queue__itemRemote">
-    <div class="eqftp__title eqftp__title_tiny"><span class="eqftp__titleNowrap" title="{{remotepath}}">{{remotename}}</span></div>
-  </div>
-  <div class="eqftp-queue__itemProgress">
-    <div class="eqftp__progress">
-      <div class="eqftp__progressBar">
-        <div class="eqftp-queue__itemSize">
-          <div class="eqftp__title eqftp__title_tiny"><span class="eqftp__titleNowrap">{{size}}</span></div>
+  <div class="eqftp-queue__info">
+    <div class="eqftp-queue__itemLocal">
+      <div class="eqftp__title eqftp__title_tiny"><span class="eqftp__titleNowrap" title="{{localpath}}">{{localname}}</span></div>
+    </div>
+    <div class="eqftp-queue__itemRemote">
+      <div class="eqftp__title eqftp__title_tiny"><span class="eqftp__titleNowrap" title="{{remotepath}}">{{remotename}}</span></div>
+    </div>
+    <div class="eqftp-queue__itemProgress">
+      <div class="eqftp__progress">
+        <div class="eqftp__progressBar">
+          <div class="eqftp-queue__itemSize">
+            <div class="eqftp__title eqftp__title_tiny"><span class="eqftp__titleNowrap">{{size}}</span></div>
+          </div>
+          <div class="eqftp-queue__itemPercent">
+            <div class="eqftp__title eqftp__title_tiny"><span class="eqftp__titleNowrap">{{percents}}</span></div>
+          </div>
         </div>
-        <div class="eqftp-queue__itemPercent">
-          <div class="eqftp__title eqftp__title_tiny"><span class="eqftp__titleNowrap">{{percents}}</span></div>
-        </div>
+      </div>
+      <div class="eqftp-queue__error">
+        <div class="eqftp__title eqftp__title_tiny"><span class="eqftp__titleNowrap">error</span></div>
       </div>
     </div>
   </div>
