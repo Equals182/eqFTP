@@ -427,6 +427,12 @@
       max-width: 100%;
       width: 100%;
       &_error {
+        background-color: rgba(192, 57, 43, 0.1);
+        & .eqftp-queue__itemDirection {
+          & .material-icons {
+            color: $red;
+          }
+        }
         & .eqftp__progress {
           display: none;
         }
@@ -436,8 +442,9 @@
       }
       &Direction {
         margin-right: $i1;
+        transition: opacity 0.1s;
         & .material-icons {
-          font-size: 12px;
+          font-size: 14px;
           color: $c09;
         }
       }
@@ -481,10 +488,10 @@
         color: $c09;
         position: absolute;
         top: 0;
-        right: 0;
+        left: 0;
         cursor: pointer;
         transition: color 0.1s;
-        animation-name: fadeInRight;
+        animation-name: fadeInLeft;
         animation-duration: 0.1s;
         display: none;
         justify-content: center;
@@ -497,12 +504,11 @@
       }
       &:hover {
         background-color: rgba(0, 0, 0, 0.1);
-        /*& .eqftp-queue__info {
-    max-width: calc(100% - #{$i6} - #{$i1} - #{$i1} - #{$i1} - #{$i2} - #{$i2} - #{$i6});
-  }*/
-        & .eqftp-queue__itemProgress {
-          min-width: calc(40% - #{$i4});
-          max-width: calc(40% - #{$i4});
+        &.eqftp-queue__item_error {
+          background-color: rgba(192, 57, 43, 0.3);
+        }
+        & .eqftp-queue__itemDirection {
+          opacity: 0;
         }
         & .eqftp-queue__itemMenu {
           display: flex;
