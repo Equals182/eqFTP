@@ -381,14 +381,12 @@ define(function (require, exports, module) {
     self.open = function () {
       if (self.state === 'closed') {
         self.footer.addClass('eqftp-footer_active');
-        self.footer.find('.eqftp__buttonCube_footer').addClass('eqftp__buttonCube_footer-rotate');
         self.state = 'opened';
       }
     };
     self.close = function () {
       if (self.state === 'opened') {
         self.footer.removeClass('eqftp-footer_active');
-        self.footer.find('.eqftp__buttonCube_footer').removeClass('eqftp__buttonCube_footer-rotate');
         self.state = 'closed';
       }
     };
