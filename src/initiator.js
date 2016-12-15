@@ -17,7 +17,7 @@ var elements = {
   fileTreeElementholder: '.eqftp-fileTree',
   logElementholder: '.eqftp-footer__list',
   footer: '.eqftp-footer',
-  queueElementholder: '.eqftp-query'
+  queueElementholder: '.eqftp-queue'
 };
 
 var panel = tpls['panel']();
@@ -40,9 +40,33 @@ panel.find(elements.connectionsElementholder).append(tpls['connectionsElement'](
 panel.find(elements.connectionsElementholder).append(tpls['connectionsElement']());
 panel.find(elements.connectionsElementholder).append(tpls['connectionsElement']());
 
-panel.find(elements.queueElementholder).append(tpls['queueElement']());
-panel.find(elements.queueElementholder).append(tpls['queueElement']());
-panel.find(elements.queueElementholder).append(tpls['queueElement']());
+panel.find(elements.queueElementholder).append(tpls['queueElement']({
+  direction: 'upload',
+  localpath: 'C:\programfiles\foo\bar\whatever.js',
+  localname: 'whatever.js',
+  remotepath: '/var/www/html/whatever.js',
+  remotename: 'whatever.js',
+  size: '100 kb',
+  percents: '50%'
+}));
+panel.find(elements.queueElementholder).append(tpls['queueElement']({
+  direction: 'upload',
+  localpath: 'C:\programfiles\foo\bar\whatever.js',
+  localname: 'whatever_longname_superlong_man.jsonononononono',
+  remotepath: '/var/www/html/whatever.js',
+  remotename: 'actuallyshort.noitsnot',
+  size: '999 bytes',
+  percents: '20%'
+}));
+panel.find(elements.queueElementholder).append(tpls['queueElement']({
+  direction: 'upload',
+  localpath: 'C:\programfiles\foo\bar\whatever.js',
+  localname: '.okay',
+  remotepath: '/var/www/html/whatever.js',
+  remotename: '.htaccess?',
+  size: '666 TB',
+  percents: '0%'
+}));
 
 var _file_short = function () {
     return tpls['fileTreeElement-file']({
