@@ -55,16 +55,28 @@ $line-height: 18px;
   word-wrap: normal;
   white-space: nowrap;
   direction: ltr;
-  &_ok {
+  &_success {
     &:before {
       content: '\E86C';
       color: $green;
     }
   }
   &_error {
-    color: $red;
+    &:before {
+      content: '\E000';
+      color: $red;
+    }
+  }
+  &_warning {
+    &:before {
+      content: '\E002';
+      color: $red;
+    }
   }
   &_info {
-    color: $blue;
+    &:before {
+      content: '\E88E';
+      color: $blue;
+    }
   }
 }
