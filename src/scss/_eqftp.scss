@@ -670,50 +670,6 @@
       justify-content: flex-end;
     }
   }
-  &__input {
-    padding-top: 0;
-    padding-bottom: 0;
-    padding-left: 0;
-    padding-right: 0;
-    background-color: transparent;
-    border: none;
-    box-sizing: border-box;
-    display: flex;
-    width: 100%;
-    &Text {
-      padding-top: $i2;
-      padding-bottom: 7px;
-      @include font($font-family, 14px, 300, normal, $c09, left);
-      box-sizing: border-box;
-      align-items: flex-end;
-      transition: border-bottom-color 0.2s;
-      width: 100%;
-      &:hover {
-        border-bottom-color: $c02;
-      }
-      &_small {
-        font-size: 12px;
-      }
-      &_medium {
-        font-size: 14px;
-      }
-      &_big {
-        font-size: 16px;
-      }
-    }
-    &_short {
-      width: 33.3%;
-    }
-    &_half {
-      width: 50%;
-    }
-    &_long {
-      width: 66.6%;
-    }
-    &_full {
-      width: 100%;
-    }
-  }
   &__button {
     box-sizing: border-box;
     transition: background-color 0.2s;
