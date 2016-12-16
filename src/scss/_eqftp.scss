@@ -64,7 +64,6 @@
       align-items: center;
       animation-name: fadeIn;
       animation-duration: 0.2s;
-      animation-direction: alternate;
       position: absolute;
       top: 0;
       left: 0;
@@ -166,8 +165,8 @@
         width: 25%;
         &_active,
         &:hover {
-          color: $c01;
-          border-bottom-color: $c01;
+          color: $c20;
+          border-bottom-color: $c20;
         }
       }
     }
@@ -200,17 +199,10 @@
         align-content: flex-start;
         flex-wrap: wrap;
         & .eqftp__buttonRound {
-          background-color: $c07;
           position: absolute;
           bottom: $i4;
           right: $i4;
           z-index: 1;
-          &:hover {
-            background-color: $c06;
-          }
-          & .material-icons {
-            color: $c09;
-          }
         }
       }
     }
@@ -577,7 +569,6 @@
     }
   }
   &-connections {
-    padding-bottom: $i12;
     box-sizing: border-box;
     position: relative;
     display: flex;
@@ -586,11 +577,6 @@
     flex-wrap: wrap;
     height: calc(100% - 72px);
     width: 100%;
-    &:after {
-      content: '';
-      height: 88px;
-      width: 100%;
-    }
     &__item {
       position: relative;
       display: flex;
@@ -598,34 +584,15 @@
       cursor: pointer;
       overflow: hidden;
       width: 100%;
-      &Icon {}
       &Name {
-        min-width: 0px;
-        max-width: 100%;
         width: 100%;
         & .material-icons {
           font-size: 24px;
           color: $c09;
         }
       }
-      &Buttons {
-        position: absolute;
-        top: 0;
-        right: 0;
-        animation-name: fadeInRight;
-        animation-duration: 0.1s;
-        display: none;
-        justify-content: center;
-        align-items: center;
-      }
       &:hover {
         background-color: rgba(0, 0, 0, 0.1);
-        & .eqftp-connections__itemName {
-          max-width: calc(100% - 48px - 48px);
-        }
-        & .eqftp-connections__itemButtons {
-          display: flex;
-        }
       }
     }
   }
@@ -672,11 +639,17 @@
   }
   &__button {
     box-sizing: border-box;
-    transition: background-color 0.2s;
+    transition: background-color 166ms;
     cursor: pointer;
     display: flex;
     justify-content: center;
     align-items: center;
+    &_blue {
+      background-color: $c20;
+      &:hover {
+        background-color: $c21;
+      }
+    }
     &Round {
       border-radius: 50%;
       display: flex;
@@ -762,18 +735,12 @@
   &__holder {
     box-sizing: border-box;
     display: flex;
+    align-items: center;
     width: 100%;
-    &Icon {
-      cursor: pointer;
-    }
-    &Input {
+    &_searchConnection {
       padding-top: $i4;
       padding-bottom: $i4;
       padding-right: $i4;
-      min-height: $i18;
-      max-height: $i18;
-      height: $i18;
-      width: 100%;
     }
   }
   &__hello {

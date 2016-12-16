@@ -19,11 +19,11 @@
     <div class="eqftp-header__search">
       <div class="eqftp-header__searchHolder shadow-small">
         <div class="eqftp__button eqftp__buttonCube eqftp__buttonCube_small" onclick="eqftp.ui.search.toggle();">
-          <i class="material-icons">&#xE5C4;</i>
+          <i class="material-icons">arrow_back</i>
         </div>
         <input type="text" name="eqftpSearch" class="eqftp__input eqftp__inputText" placeholder="Search or connect directly..." onkeyup="eqftp.ui.search.filter($(this).val());" />
         <div class="eqftp__button eqftp__buttonCube eqftp__buttonCube_small">
-          <i class="material-icons">&#xE3E7;</i>
+          <i class="material-icons">flash_on</i>
         </div>
         <div class="eqftp-header__dropdown">
           <div class="eqftp-header__dropdownList"></div>
@@ -35,16 +35,16 @@
     <!-- NAVIGATION -->
     <div class="eqftp-header__navigation">
       <div class="eqftp-header__navigationTab eqftp-header__navigationTab_file-tree" onclick="eqftp.ui.panel.switchTo('file-tree');">
-        <i class="material-icons">&#xE2C7;</i>
+        <i class="material-icons">folder</i>
       </div>
       <div class="eqftp-header__navigationTab eqftp-header__navigationTab_queue" onclick="eqftp.ui.panel.switchTo('queue');">
         <i class="material-icons">playlist_add_check</i>
       </div>
       <div class="eqftp-header__navigationTab eqftp-header__navigationTab_connections" onclick="eqftp.ui.panel.switchTo('connections');">
-        <i class="material-icons">&#xE63C;</i>
+        <i class="material-icons">power</i>
       </div>
       <div class="eqftp-header__navigationTab eqftp-header__navigationTab_settings" onclick="eqftp.ui.panel.switchTo('settings');">
-        <i class="material-icons">&#xE8B8;</i>
+        <i class="material-icons">settings</i>
       </div>
     </div>
     <!-- /NAVIGATION -->
@@ -143,15 +143,13 @@
     <div class="eqftp-content__page eqftp-content__page_connections">
 
       <!-- NEW CONNECTION -->
-      <div class="eqftp__button eqftp__buttonRound shadow-smallest"><i class="material-icons">add</i></div>
+      <div class="eqftp__button eqftp__button_blue eqftp__buttonRound shadow-smallest"><i class="material-icons">add</i></div>
       <!-- /NEW CONNECTION -->
 
       <!-- SEARCH CONNECTION -->
-      <div class="eqftp__holder eqftp__holderInput">
-        <div class="eqftp__holdderIcon">
-          <div class="eqftp__icon eqftp__icon_medium"><i class="material-icons">search</i></div>
-        </div>
-        <input type="text" name="symbol" placeholder="Connection's name" class="eqftp__input eqftp__inputText eqftp__inputText_big" id="searchConnections">
+      <div class="eqftp__holder eqftp__holder_searchConnection">
+        <div class="eqftp__button eqftp__buttonCube eqftp__buttonCube_middle"><i class="material-icons">search</i></div>
+        <input type="text" name="symbol" placeholder="Connection's name" class="eqftp__input eqftp__inputText eqftp__inputText_underline eqftp__inputText_labelOut" id="searchConnections">
       </div>
       <!-- /SEARCH CONNECTION -->
 
