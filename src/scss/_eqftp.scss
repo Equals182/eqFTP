@@ -254,6 +254,46 @@
         min-height: 26px;
         height: 26px;
         width: 100%;
+        &_success {
+          & .eqftp-footer__listItemIcon {
+            & .materials-icon {
+              &:before {
+                content: '\E86C';
+                color: $green;
+              }
+            }
+          }
+        }
+        &_error {
+          & .eqftp-footer__listItemIcon {
+            & .materials-icon {
+              &:before {
+                content: '\E000';
+                color: $red;
+              }
+            }
+          }
+        }
+        &_warning {
+          & .eqftp-footer__listItemIcon {
+            & .materials-icon {
+              &:before {
+                content: '\E002';
+                color: $red;
+              }
+            }
+          }
+        }
+        &_info {
+          & .eqftp-footer__listItemIcon {
+            & .materials-icon {
+              &:before {
+                content: '\E88E';
+                color: $blue;
+              }
+            }
+          }
+        }
         &Icon {
           display: flex;
           justify-content: center;
@@ -287,6 +327,7 @@
   &-fileTree {
     padding-top: $i2;
     box-sizing: border-box;
+    user-select: none;
     height: calc(100% - 8px);
     width: 100%;
     &__item {
