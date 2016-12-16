@@ -357,12 +357,16 @@ maxerr: 50, node: true */
                     obj._current[id]._server = new EFTP();
 
                     obj._current[id]._server.on('ready', function () {
+                      _domainManager.emitEvent("eqFTP", "event", {
+                        action: 'connection:ready',
+                        data: connectionDetails
+                      });
                       cb(null, id);
                     });
                     obj._current[id]._server.on('close', function () {
                       _domainManager.emitEvent("eqFTP", "event", {
                         action: 'connection:close',
-                        data: {id: id}
+                        data: connectionDetails
                       });
                       cb('Forced connection closing');
                       _.unset(obj._current, id);
@@ -371,7 +375,7 @@ maxerr: 50, node: true */
                       _domainManager.emitEvent("eqFTP", "event", {
                         action: 'connection:error',
                         data: {
-                          id: id,
+                          connection: connectionDetails,
                           error: err
                         }
                       });

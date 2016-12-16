@@ -55,6 +55,7 @@ define(function (require, exports, module) {
               eqUI.ps.initialize(this);
             });
             eqUI.ps.initialize($('.eqftp-header__dropdown')[0]);
+            eqUI.ps.initialize($('.eqftp-footer__list')[0]);
           }
           break;
         case 'ready:app':
@@ -401,13 +402,14 @@ define(function (require, exports, module) {
     self.add = function (item) {
       item = $(Mustache.render(require("text!htmlContent/logElement.html"), _.defaults(_.clone(strings), {
         type: function () {
-          return (item.type ? ('material-icons_' + item.type) : '');
+          return (item.type ? (item.type) : '');
         }
       }, item)));
       self.tpl.append(item);
       if (self.tpl.find('.eqftp-footer__listItem').length > 1000) {
         self.tpl.find('.eqftp-footer__listItem:first').remove();
       }
+      eqUI.ps.update(self.tpl[0]);
     };
     
     self.get = function () {
