@@ -256,7 +256,7 @@
         width: 100%;
         &_success {
           & .eqftp-footer__listItemIcon {
-            & .materials-icon {
+            & .material-icons {
               &:before {
                 content: '\E86C';
                 color: $green;
@@ -266,7 +266,7 @@
         }
         &_error {
           & .eqftp-footer__listItemIcon {
-            & .materials-icon {
+            & .material-icons {
               &:before {
                 content: '\E000';
                 color: $red;
@@ -276,7 +276,7 @@
         }
         &_warning {
           & .eqftp-footer__listItemIcon {
-            & .materials-icon {
+            & .material-icons {
               &:before {
                 content: '\E002';
                 color: $red;
@@ -286,7 +286,7 @@
         }
         &_info {
           & .eqftp-footer__listItemIcon {
-            & .materials-icon {
+            & .material-icons {
               &:before {
                 content: '\E88E';
                 color: $blue;
