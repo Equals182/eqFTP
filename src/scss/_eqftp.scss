@@ -804,24 +804,19 @@
     }
   }
   &__holder {
-    padding-left: $i12;
-    padding-right: $i4;
     box-sizing: border-box;
     display: flex;
     width: 100%;
+    &Icon {
+      cursor: pointer;
+    }
     &Input {
-      margin-bottom: $i2;
       padding-top: $i4;
-      padding-bottom: $i2;
-      align-content: flex-end;
-      flex-wrap: wrap;
+      padding-bottom: $i4;
+      padding-right: $i4;
       min-height: $i18;
       max-height: $i18;
       height: $i18;
-    }
-    &Separator {
-      background-color: $c09;
-      height: 1px;
       width: 100%;
     }
   }

@@ -34,9 +34,11 @@
   padding-bottom: 0;
   padding-left: 0;
   padding-right: 0;
-  @include font($font-family, $ff, 300, normal, $c09, left);
+  @include font($font-family, $ff, 300, normal, $c01, left);
+  transition: border 0.2s;
   background-color: transparent;
   border: none;
+  border-bottom: 1px solid $c09;
   border-radius: none;
   box-sizing: border-box;
   box-shadow: none;
@@ -48,4 +50,8 @@
   vertical-align: middle;
   height: auto;
   width: $w;
+  &:focus {
+    margin-bottom: -1px;
+    border-bottom: 2px solid #2196F3;
+  }
 }
