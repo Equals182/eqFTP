@@ -560,90 +560,40 @@
     }
   }
   &-connections {
-    position: relative;
+    padding-top: $i2;
+    box-sizing: border-box;
     display: flex;
-    justify-content: flex-start;
     align-content: flex-start;
     align-items: center;
     flex-wrap: wrap;
-    height: 100%;
+    height: calc(100% - 8px);
     width: 100%;
-    &__connection {
-      padding-top: $i2;
-      padding-bottom: $i2;
-      padding-left: $i2;
-      padding-right: $i2;
-      @include font($font-family, 12.4px, 400, normal, $c09, left);
-      background-color: $c05;
-      border-top-width: 1px;
-      border-top-style: solid;
-      border-top-color: $c03;
-      transition: background-color 0.2s;
-      cursor: pointer;
-      box-sizing: border-box;
+    &__item {
       display: flex;
-      justify-content: space-between;
-      width: 25%;
-      @media only screen and (max-width: 800px) {
-        width: 50%;
-      }
-      @media only screen and (max-width: 400px) {
-        width: 100%;
-      }
+      align-items: center;
       &:hover {
-        background-color: $c08;
-        & .eqftp-title {
-          color: $c01;
-        }
-        & .eqftp__col_buttons {
+        & .eqftp-connections__itemButtons {
           display: flex;
         }
       }
-      & .eqftp-title {
-        padding-left: 0;
-        color: $c09;
+      &Icon {}
+      &Name {
+        min-width: 0px;
+        max-width: 100%;
         & .material-icons {
-          margin-left: $i2;
-          font-size: 10px;
-          color: $c06;
-        }
-      }
-      &_new {
-        justify-content: center;
-        align-content: flex-start;
-        align-items: flex-start;
-        flex-wrap: wrap;
-        width: 100%;
-      }
-      &_idle {
-        & .eqftp-title {
+          font-size: 24px;
           color: $c09;
-          & .material-icons {
-            color: $c06;
-          }
         }
       }
-      &_connect {
-        & .eqftp-title {
-          color: $c01;
-          & .material-icons {
-            color: $green;
-            animation-name: flash;
-            animation-duration: 5s;
-            animation-iteration-count: infinite;
-          }
-        }
-      }
-      &_error {
-        & .eqftp-title {
-          color: $c06;
-          & .material-icons {
-            color: $red;
-            animation-name: flash;
-            animation-duration: 5s;
-            animation-iteration-count: infinite;
-          }
-        }
+      &Buttons {
+        position: absolute;
+        top: 0;
+        right: 0;
+        animation-name: fadeInRight;
+        animation-duration: 0.1s;
+        display: none;
+        justify-content: center;
+        align-items: center;
       }
     }
   }
