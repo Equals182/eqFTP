@@ -2,7 +2,7 @@ var tpls = {};
 $.ajaxSetup({
   async: false
 });
-['connectionsElement', 'dropdownItem', 'fileTreeElement-file', 'fileTreeElement-folder', 'panel', 'queueElement', 'logElement'].forEach(function (tpl) {
+['connectionElement', 'dropdownItem', 'fileTreeElement-file', 'fileTreeElement-folder', 'panel', 'queueElement', 'logElement'].forEach(function (tpl) {
   $.get('htmlContent/' + tpl + '.html', function (t, status, resp) {
     tpls[tpl] = function (params) {
       return $(Mustache.render(resp.responseText, (params || {})));
@@ -35,10 +35,44 @@ panel.find(elements.dropdownElementholder).append(tpls['dropdownItem']({
   host: 'ftp.pretty-long-websitename.com.ua.ru'
 }));
 
-panel.find(elements.connectionsElementholder).append(tpls['connectionsElement']());
-panel.find(elements.connectionsElementholder).append(tpls['connectionsElement']());
-panel.find(elements.connectionsElementholder).append(tpls['connectionsElement']());
-panel.find(elements.connectionsElementholder).append(tpls['connectionsElement']());
+var connection_idle = function () { return tpls['connectionsElement']({
+  id: 'test123',
+  status: 'idle',
+  name: 'Connection Name Pretty Long I guess',
+  login: 'veeeerylongnameprettylong',
+  host: '111.222.333.444'
+}); };
+var connection_connected = function () { return tpls['connectionsElement']({
+  id: '123test',
+  status: 'connected',
+  name: 'Test',
+  login: 'root',
+  host: 'kappa.com'
+}); };
+var connection_error = function () { return tpls['connectionsElement']({
+  id: '123test123',
+  status: 'error',
+  name: 'WOOOOW',
+  login: 'anonymous',
+  host: 'test.com'
+}); };
+panel.find(elements.connectionsElementholder).append(connection_idle());
+panel.find(elements.connectionsElementholder).append(connection_connected());
+panel.find(elements.connectionsElementholder).append(connection_idle());
+panel.find(elements.connectionsElementholder).append(connection_idle());
+panel.find(elements.connectionsElementholder).append(connection_idle());
+panel.find(elements.connectionsElementholder).append(connection_connected());
+panel.find(elements.connectionsElementholder).append(connection_error());
+panel.find(elements.connectionsElementholder).append(connection_error());
+panel.find(elements.connectionsElementholder).append(connection_connected());
+panel.find(elements.connectionsElementholder).append(connection_connected());
+panel.find(elements.connectionsElementholder).append(connection_idle());
+panel.find(elements.connectionsElementholder).append(connection_idle());
+panel.find(elements.connectionsElementholder).append(connection_connected());
+panel.find(elements.connectionsElementholder).append(connection_connected());
+panel.find(elements.connectionsElementholder).append(connection_error());
+panel.find(elements.connectionsElementholder).append(connection_error());
+panel.find(elements.connectionsElementholder).append(connection_connected());
 
 panel.find(elements.queueElementholder).append(tpls['queueElement']({
   class: '',
