@@ -35,21 +35,21 @@ panel.find(elements.dropdownElementholder).append(tpls['dropdownElement']({
   host: 'ftp.pretty-long-websitename.com.ua.ru'
 }));
 
-var connection_idle = function () { return tpls['connectionsElement']({
+var connection_idle = function () { return tpls['connectionElement']({
   id: 'test123',
   status: 'idle',
   name: 'Connection Name Pretty Long I guess',
   login: 'veeeerylongnameprettylong',
   host: '111.222.333.444'
 }); };
-var connection_connected = function () { return tpls['connectionsElement']({
+var connection_connected = function () { return tpls['connectionElement']({
   id: '123test',
   status: 'connected',
   name: 'Test',
   login: 'root',
   host: 'kappa.com'
 }); };
-var connection_error = function () { return tpls['connectionsElement']({
+var connection_error = function () { return tpls['connectionElement']({
   id: '123test123',
   status: 'error',
   name: 'WOOOOW',
