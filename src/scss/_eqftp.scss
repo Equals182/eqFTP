@@ -196,6 +196,21 @@
       &_active {
         display: flex;
       }
+      &_connections {
+        & .eqftp__buttonRound {
+          background-color: $c07;
+          position: absolute;
+          bottom: $i4;
+          right: $i4;
+          z-index: 2;
+          &:hover {
+            background-color: $c06;
+          }
+          & .material-icons {
+            color: $c09;
+          }
+        }
+      }
     }
   }
   &-footer {
@@ -566,20 +581,21 @@
     align-content: flex-start;
     align-items: center;
     flex-wrap: wrap;
+    z-index: 1;
     height: calc(100% - 8px);
     width: 100%;
     &__item {
+      position: relative;
       display: flex;
       align-items: center;
-      &:hover {
-        & .eqftp-connections__itemButtons {
-          display: flex;
-        }
-      }
+      cursor: pointer;
+      overflow: hidden;
+      width: 100%;
       &Icon {}
       &Name {
         min-width: 0px;
         max-width: 100%;
+        width: 100%;
         & .material-icons {
           font-size: 24px;
           color: $c09;
@@ -594,6 +610,15 @@
         display: none;
         justify-content: center;
         align-items: center;
+      }
+      &:hover {
+        background-color: rgba(0, 0, 0, 0.1);
+        & .eqftp-connections__itemName {
+          max-width: calc(100% - #{$i12} - #{$i12});
+        }
+        & .eqftp-connections__itemButtons {
+          display: flex;
+        }
       }
     }
   }
@@ -676,60 +701,23 @@
     }
   }
   &__button {
-    @include font($font-family, 16px, 300, normal, $c10, center, normal, uppercase);
     box-sizing: border-box;
-    transition: color 0.2s, background-color 0.2s;
+    transition: background-color 0.2s;
     cursor: pointer;
     display: flex;
     justify-content: center;
-    align-content: center;
     align-items: center;
-    flex-wrap: wrap;
-    &:hover {}
-    &_border {
-      border-radius: $i2;
-      border-width: 1px;
-      border-style: solid;
-      border-color: $c03;
-    }
-    &_small {
-      margin-top: $i2;
-      padding-top: $i1 / 2;
-      padding-bottom: $i1 / 2;
-      padding-left: $i1 * 2;
-      padding-right: $i1 * 2;
-      font-size: 12px;
-      border-radius: $i1;
-      & .material-icons {
-        margin-bottom: $i2;
-        font-size: 14px;
-      }
-    }
-    &_medium {
-      margin-top: $i4;
-      padding-top: $i2 / 2;
-      padding-bottom: $i2 / 2;
-      padding-left: $i2 * 2;
-      padding-right: $i2 * 2;
-      font-size: 14px;
-      border-radius: $i2;
-      & .material-icons {
-        margin-bottom: $i4;
-        font-size: 20px;
-      }
-    }
-    &_big {
-      margin-top: $i6;
-      padding-top: $i3 / 2;
-      padding-bottom: $i3 / 2;
-      padding-left: $i3 * 2;
-      padding-right: $i3 * 2;
-      font-size: 16px;
-      border-radius: $i3;
-      & .material-icons {
-        margin-bottom: $i6;
-        font-size: 26px;
-      }
+    &Round {
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: $i14;
+      max-height: $i14;
+      height: $i14;
+      min-width: $i14;
+      max-width: $i14;
+      width: $i14;
     }
     &Cube {
       display: flex;
@@ -785,6 +773,11 @@
         min-width: $i15;
         max-width: $i15;
         width: $i15;
+      }
+    }
+    &:hover {
+      & .material-icons {
+        color: $c01;
       }
     }
   }
