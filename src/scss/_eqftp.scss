@@ -46,12 +46,6 @@
       max-height: $i12;
       height: $i12;
       width: 100%;
-      & .eqftp__title {
-        width: 100%;
-      }
-      & .eqftp__button {
-        color: $c09;
-      }
     }
     &__search {
       padding-top: 6px;
@@ -644,10 +638,36 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    &_dark {
+      & .material-icons {
+        color: rgba(255, 255, 255, 0.5);
+      }
+      &:hover {
+        & .material-icons {
+          color: $c01;
+        }
+      }
+    }
+    &_light {
+      & .material-icons {
+        color: rgba(0, 0, 0, 0.38);
+      }
+      &:hover {
+        & .material-icons {
+          color: rgba(0, 0, 0, 0.87);
+        }
+      }
+    }
     &_blue {
       background-color: $c20;
+      & .material-icons {
+        color: rgba(255, 255, 255, 0.5);
+      }
       &:hover {
         background-color: $c21;
+        & .material-icons {
+          color: $c01;
+        }
       }
     }
     &Round {
@@ -718,11 +738,6 @@
         width: $i15;
       }
     }
-    &:hover {
-      & .material-icons {
-        color: $c01;
-      }
-    }
   }
   &__label {
     @include font($font-family, 12px, 300, normal, $c12, left);
@@ -753,15 +768,12 @@
     }
   }
   &__title {
-    font-family: $font-family;
-    font-weight: 300;
-    font-style: normal;
-    color: $c01;
+    @include font($font-family, 20px, 300, normal, $c01, left);
     display: flex;
-    justify-content: flex-start;
     align-items: center;
-    width: 100%;
+    min-width: 0px;
     max-width: 100%;
+    width: 100%;
     &_tiny {
       font-size: 12px;
     }
@@ -821,6 +833,26 @@
     min-width: $i12;
     max-width: $i12;
     width: $i12;
+    &_dark {
+      & .material-icons {
+        color: rgba(255, 255, 255, 0.5);
+      }
+      &:hover {
+        & .material-icons {
+          color: $c01;
+        }
+      }
+    }
+    &_light {
+      & .material-icons {
+        color: rgba(0, 0, 0, 0.38);
+      }
+      &:hover {
+        & .material-icons {
+          color: rgba(0, 0, 0, 0.87);
+        }
+      }
+    }
     &_smallest {
       min-height: $i6;
       max-height: $i6;
