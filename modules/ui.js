@@ -378,6 +378,7 @@ define(function (require, exports, module) {
     self.tpl = eqUI.panel.tpl.find('.eqftp-footer__list');
     self.footer = eqUI.panel.tpl.find('.eqftp-footer');
     self.state = 'closed';
+    self._hasPs = false;
     
     self.toggle = function () {
       if (self.state === 'opened') {
@@ -390,23 +391,37 @@ define(function (require, exports, module) {
       if (self.state === 'closed') {
         self.footer.addClass('eqftp-footer_active');
         self.state = 'opened';
+        if (!self._hasPs) {
+          eqUI.ps.initialize(self.tpl[0]);
+          self._hasPs = true;
+          self.tpl[0].scrollTop = self.tpl[0].scrollHeight;
+          eqUI.ps.update(self.tpl[0]);
+        }
       }
     };
     self.close = function () {
       if (self.state === 'opened') {
         self.footer.removeClass('eqftp-footer_active');
         self.state = 'closed';
+        if (self._hasPs) {
+          eqUI.ps.destroy(self.tpl[0]);
+          self._hasPs = false;
+        }
       }
     };
     self.add = function (item) {
       item = $(Mustache.render(require("text!htmlContent/logElement.html"), _.defaults(_.clone(strings), {
         type: function () {
-          return (item.type ? ('material-icons_' + item.type) : '');
+          return (item.type ? (item.type) : '');
         }
       }, item)));
       self.tpl.append(item);
       if (self.tpl.find('.eqftp-footer__listItem').length > 1000) {
         self.tpl.find('.eqftp-footer__listItem:first').remove();
+      }
+      if (self._hasPs) {
+        self.tpl[0].scrollTop = self.tpl[0].scrollHeight;
+        eqUI.ps.update(self.tpl[0]);
       }
     };
     

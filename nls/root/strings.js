@@ -8,6 +8,13 @@ define({
  */
  "eqftp__log__download_success": "File {{filename}} successfuly downloaded",
  "eqftp__log__download_error": "There was an error downloading {{filename}}: {{err}}",
+ 
+ "eqftp__log__connection_ready": "Connection {{name}} opened",
+ "eqftp__log__connection_error": "There was an error on {{name}} connection: {{error}}",
+ "eqftp__log__connection_close": "Connection {{name}} closed",
+ 
+ "eqftp__log__settings_load_success": "Settings file {{filename}} loaded",
+ "eqftp__log__settings_load_error": "There was an error loading settings file {{filename}}",
 
  /**
  * FILESIZES
