@@ -1,15 +1,29 @@
-#{$all-text-inputs} {
-  &.eqftp {
-    &__input {
-      padding-top: 0;
-      padding-bottom: 0;
-      padding-left: 0;
-      padding-right: 0;
-      background-color: transparent;
-      border: none;
-      box-sizing: border-box;
-      display: flex;
-      width: 100%;
+.eqftp {
+  & #{$all-text-inputs} {
+    &.eqftp {
+      &__input {
+        padding-top: 0;
+        padding-bottom: 0;
+        padding-left: 0;
+        padding-right: 0;
+        background-color: transparent;
+        border: none;
+        box-sizing: border-box;
+        display: flex;
+        width: 100%;
+        &_short {
+          width: 33.3%;
+        }
+        &_half {
+          width: 50%;
+        }
+        &_long {
+          width: 66.6%;
+        }
+        &_full {
+          width: 100%;
+        }
+      }
       &Text {
         padding-top: $i2;
         padding-bottom: 7px;
@@ -29,49 +43,7 @@
           font-size: 16px;
         }
       }
-      &_short {
-        width: 33.3%;
-      }
-      &_half {
-        width: 50%;
-      }
-      &_long {
-        width: 66.6%;
-      }
-      &_full {
-        width: 100%;
-      }
-    }
-  }
-  /*&.eqftp__inputText {
-    margin-top: 0;
-    margin-bottom: 0;
-    margin-left: 0;
-    margin-right: 0;
-    padding-top: 0;
-    padding-bottom: 0;
-    padding-left: 0;
-    padding-right: 0;
-    @include font($font-family, 16px, 300, normal, $c01, left);
-    transition: border 0.2s;
-    background-color: transparent;
-    border: none;
-    border-bottom: 1px solid $c09;
-    border-radius: none;
-    box-sizing: border-box;
-    box-shadow: none;
-    transition: none;
-    outline: none;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    vertical-align: middle;
-  }*/
-}
-
-/*.dark {
-  #{$all-text-inputs} {
-    &.eqftp__inputText {
+      /*&.eqftp__inputText {
       margin-top: 0;
       margin-bottom: 0;
       margin-left: 0;
@@ -94,40 +66,73 @@
       justify-content: flex-start;
       align-items: center;
       vertical-align: middle;
+    }*/
+    }
+    #{$all-text-inputs-focus} {
+      &.eqftp__inputText {
+        margin-bottom: -1px;
+        background-color: transparent;
+        border: none;
+        border-bottom: 2px solid #2196F3;
+        box-shadow: none;
+      }
+    }
+    #{$all-text-inputs-hover} {
+      &.eqftp__inputText {
+        background-color: transparent;
+        border: none;
+        border-bottom: 1px solid $c09;
+        box-shadow: none;
+      }
     }
   }
-}*/
+}
 
-#{$all-text-inputs-focus} {
+
+/*
+
+  .dark {
+  .eqftp {
+  #{$all-text-inputs} {
   &.eqftp__inputText {
-    margin-bottom: -1px;
-    border-bottom: 2px solid #2196F3;
-  }
+  margin-top: 0;
+  margin-bottom: 0;
+  margin-left: 0;
+  margin-right: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 0;
+  padding-right: 0;
+  @include font($font-family, 16px, 300, normal, $c01, left);
+  transition: border 0.2s;
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid $c09;
+  border-radius: none;
+  box-sizing: border-box;
+  box-shadow: none;
+  transition: none;
+  outline: none;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  vertical-align: middle;
 }
-
-.dark {
+}
   #{$all-text-inputs-focus} {
-    &.eqftp__inputText {
-      margin-bottom: -1px;
-      border-bottom: 2px solid #2196F3;
-    }
-  }
-}
-
-#{$all-text-inputs-hover} {
   &.eqftp__inputText {
-    border-bottom: 1px solid $c09;
-  }
+  margin-bottom: -1px;
+  background-color: transparent;
+  border-bottom: 2px solid #2196F3;
 }
-
-.dark {
+}
   #{$all-text-inputs-focus} {
-    &.eqftp__inputText {
-      border-bottom: 1px solid $c09;
-    }
-  }
+  &.eqftp__inputText {
+  border-bottom: 1px solid $c09;
+}
+}
+  #{$all-text-inputs-active} {}
+}
 }
 
-#{$all-text-inputs-active} {
-}
-
+  */
