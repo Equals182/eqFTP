@@ -380,7 +380,7 @@ maxerr: 50, node: true */
                     });
                     obj._current[id]._server.on('progress', function (data) {
                       _domainManager.emitEvent("eqFTP", "event", {
-                        action: 'connection:progress',
+                        action: 'queue:progress',
                         data: data
                       });
                     });

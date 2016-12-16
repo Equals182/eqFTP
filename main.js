@@ -329,12 +329,8 @@ define(function (require, exports, module) {
         
         // Adding listener to Node
         _node.on("eqFTP:event", function (event, params) {
-          if (!params.action) {
-            params.action = 'info';
-          }
-          switch(params.action) {
-          }
-          console.log('eqFTP:event', event, params);
+          console.log(params);
+          eqftp.emit('event', params);
         });
       });
       return loadPromise;

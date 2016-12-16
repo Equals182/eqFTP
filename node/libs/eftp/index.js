@@ -17,18 +17,19 @@ var once = require('once'),
   NOOP = function () { },
   _fix_version = false;
 
-if (semver.ltr(process.version.replace(/^[^d]/, ''), '0.10.30')) {
-  _fix_version = '0.10.30';
-}
+console.log('Node: ', process.version);
+var v = process.version.replace(/^[^d]/, '');
+[
+  '0.10.30',
+  '6.3.2'
+].forEach(function (t) {
+  if (semver.ltr(v, t)) {
+    _fix_version = t;
+  }
+});
 
-FTPClient.prototype._emitProgress = _.throttle(function (data) {
-  this.emit('progress', {
-    queuer: data.queuer,
-    action: data.action,
-    total: data.totalSize || data.queuer.size,
-    transferred: data.socket[data.action === 'get' ? 'bytesRead' : 'bytesWritten']
-  });
-}, 100);
+
+FTPClient.prototype._emitProgress = function () {};
 
 /**
  * Depending on the number of parameters, returns the content of the specified
@@ -56,13 +57,15 @@ FTPClient.prototype._get = function (queuer, callback) {
       var writeStream = fs.createWriteStream(queuer.localpath);
       writeStream.on('error', callback);
 
-      socket.on('readable', function () {
-        self._emitProgress({
-          queuer: queuer,
-          action: 'get',
-          socket: socket
+      if (_fix_version === '0.10.30') {
+        socket.on('readable', function () {
+          self._emitProgress({
+            queuer: queuer,
+            action: 'download',
+            socket: socket
+          });
         });
-      });
+      }
 
       // This ensures that any expected outcome is handled. There is no
       // danger of the callback being executed several times, because it is
@@ -71,8 +74,17 @@ FTPClient.prototype._get = function (queuer, callback) {
       socket.on('end', callback);
       socket.on('close', callback);
 
-      socket.pipe(writeStream);
+      if (_fix_version === '6.3.2') {
+        socket.on('data', function(data) {
+          self._emitProgress({
+            queuer: queuer,
+            action: 'download',
+            socket: socket
+          });
+        }).pipe(writeStream);
+      }
       if (_fix_version === '0.10.30') {
+        socket.pipe(writeStream);
         socket.resume();
       }
     };
@@ -157,12 +169,7 @@ EasyFTP.prototype.init = function (config) {
 
 EasyFTP.prototype.connect = function (config) {
   var self = this;
-  if (!config) {
-    throw "must config param";
-  }
-  this.init(config);
-  
-  var events = {
+  self.events = {
     ready: function (err) {
       if (!err) {
         self.isConnect = true;
@@ -181,17 +188,22 @@ EasyFTP.prototype.connect = function (config) {
       self.close();
       console.log('!!!error: ', arguments);
     },
-    progress: function (data) {
+    progress: _.throttle(function (data) {
       self.emit('progress', {
         queuer: data.queuer,
-        direction: (data.action === 'get')?'download':'upload',
+        direction: data.direction,
         total: data.total,
         transferred: data.transferred,
         percents: data.transferred / data.total
       });
-    }
+    }, 100)
   };
-  this.events = events;
+  
+  if (!config) {
+    throw "must config param";
+  }
+  this.init(config);
+  
   switch (this.config.type) {
     case 'sftp':
       this.client = new SSHClient();
@@ -211,26 +223,34 @@ EasyFTP.prototype.connect = function (config) {
       this.client.on('continue', function() {
         console.log('NEXT QUESTION!');
       });
-      this.client.on('ready', events.ready);
-      this.client.on('close', events.close);
-      this.client.on('error', events.error);
+      this.client.on('ready', self.events.ready);
+      this.client.on('close', self.events.close);
+      this.client.on('error', self.events.error);
       this.client.connect(c);
       break;
     case 'ftp':
+      FTPClient.prototype._emitProgress = function (data) {
+        self.events.progress({
+          queuer: data.queuer,
+          direction: data.action,
+          total: data.totalSize || data.queuer.size,
+          transferred: data.socket[data.action === 'download' ? 'bytesRead' : 'bytesWritten']
+        });
+      };
       this.client = new FTPClient({
         host: config.host,
         port: config.port || 21,
         user: config.username,
         pass: config.password
       });
-      //this.client.on('connect', events.ready);
-      this.client.on('timeout', events.close);
-      this.client.on('error', events.error);
-      this.client.on('progress', events.progress);
+      //this.client.on('connect', self.events.ready);
+      this.client.on('timeout', self.events.close);
+      this.client.on('error', self.events.error);
+      this.client.on('progress', self.events.progress);
       this.client.auth(config.username, config.password, function (err, response) {
         if (err) {
           self.isLoginFail = true;
-          events.error(err);
+          self.events.error(err);
         } else {
           self.client.ls("/", function (err, list) {
             if (!err) {
@@ -240,12 +260,12 @@ EasyFTP.prototype.connect = function (config) {
                 if (!err) {
                   self.isPasv = true;
                 } else {
-                  events.error(err);
+                  self.events.error(err);
                 }
               });
             }
           });
-          events.ready(undefined);
+          self.events.ready(undefined);
         }
       });
       break;
