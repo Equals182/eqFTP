@@ -51,9 +51,8 @@ define(function (require, exports, module) {
           // Appending eqFTP panel after content
           $("body > .main-view > .content").after(eqUI.panel.get());
           if (eqUI.ps) {
-            $('.eqftp-content__page').each(function () {
-              eqUI.ps.initialize(this);
-            });
+            eqUI.ps.initialize($('.eqftp-content__page_file-tree')[0]);
+            eqUI.ps.initialize($('.eqftp-content__page_queue')[0]);
             eqUI.ps.initialize($('.eqftp-header__dropdown')[0]);
           }
           break;
