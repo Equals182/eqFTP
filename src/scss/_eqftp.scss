@@ -197,12 +197,14 @@
         display: flex;
       }
       &_connections {
+        align-content: flex-start;
+        flex-wrap: wrap;
         & .eqftp__buttonRound {
           background-color: $c07;
           position: absolute;
           bottom: $i4;
           right: $i4;
-          z-index: 2;
+          z-index: 1;
           &:hover {
             background-color: $c06;
           }
@@ -468,7 +470,7 @@
       display: flex;
       align-items: center;
       transition: width 0.1s;
-      max-width: calc(100% - #{$i6} - #{$i1} - #{$i1} - #{$i1} - #{$i2});
+      max-width: calc(100% - 24px - 4px - 4px - 4px - 8px);
       width: 100%;
     }
     &__error {
@@ -575,15 +577,20 @@
     }
   }
   &-connections {
-    padding-top: $i2;
+    padding-bottom: $i12;
     box-sizing: border-box;
+    position: relative;
     display: flex;
     align-content: flex-start;
     align-items: center;
     flex-wrap: wrap;
-    z-index: 1;
-    height: calc(100% - 8px);
+    height: calc(100% - 72px);
     width: 100%;
+    &:after {
+      content: '';
+      height: 88px;
+      width: 100%;
+    }
     &__item {
       position: relative;
       display: flex;
@@ -614,7 +621,7 @@
       &:hover {
         background-color: rgba(0, 0, 0, 0.1);
         & .eqftp-connections__itemName {
-          max-width: calc(100% - #{$i12} - #{$i12});
+          max-width: calc(100% - 48px - 48px);
         }
         & .eqftp-connections__itemButtons {
           display: flex;
@@ -674,9 +681,16 @@
     display: flex;
     width: 100%;
     &Text {
-      @include font($font-family, 14px, 300, normal, $c03, left);
-      justify-content: flex-start;
-      align-items: center;
+      padding-top: $i2;
+      padding-bottom: 7px;
+      @include font($font-family, 14px, 300, normal, $c09, left);
+      box-sizing: border-box;
+      align-items: flex-end;
+      transition: border-bottom-color 0.2s;
+      width: 100%;
+      &:hover {
+        border-bottom-color: $c02;
+      }
       &_small {
         font-size: 12px;
       }
@@ -779,6 +793,36 @@
       & .material-icons {
         color: $c01;
       }
+    }
+  }
+  &__label {
+    @include font($font-family, 12px, 300, normal, $c12, left);
+    cursor: pointer;
+    transition: color 0.2s;
+    &:hover {
+      color: $c09;
+    }
+  }
+  &__holder {
+    padding-left: $i12;
+    padding-right: $i4;
+    box-sizing: border-box;
+    display: flex;
+    width: 100%;
+    &Input {
+      margin-bottom: $i2;
+      padding-top: $i4;
+      padding-bottom: $i2;
+      align-content: flex-end;
+      flex-wrap: wrap;
+      min-height: $i18;
+      max-height: $i18;
+      height: $i18;
+    }
+    &Separator {
+      background-color: $c09;
+      height: 1px;
+      width: 100%;
     }
   }
   &__hello {
