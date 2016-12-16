@@ -2,7 +2,7 @@ var tpls = {};
 $.ajaxSetup({
   async: false
 });
-['connectionElement', 'dropdownItem', 'fileTreeElement-file', 'fileTreeElement-folder', 'panel', 'queueElement', 'logElement'].forEach(function (tpl) {
+['connectionElement', 'dropdownElement', 'fileTreeElement-file', 'fileTreeElement-folder', 'panel', 'queueElement', 'logElement'].forEach(function (tpl) {
   $.get('htmlContent/' + tpl + '.html', function (t, status, resp) {
     tpls[tpl] = function (params) {
       return $(Mustache.render(resp.responseText, (params || {})));
@@ -22,13 +22,13 @@ var elements = {
 
 var panel = tpls['panel']();
 
-panel.find(elements.dropdownElementholder).append(tpls['dropdownItem']({
+panel.find(elements.dropdownElementholder).append(tpls['dropdownElement']({
   id: 'abc123',
   title: 'Short',
   user: 'root',
   host: '111.222.333.444'
 }));
-panel.find(elements.dropdownElementholder).append(tpls['dropdownItem']({
+panel.find(elements.dropdownElementholder).append(tpls['dropdownElement']({
   id: 'abc123doesntmatter',
   title: 'Long Connection Title Test it-321.32.33_a',
   user: 'shitmynameisbiglikemydick',

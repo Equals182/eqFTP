@@ -248,7 +248,7 @@ define(function (require, exports, module) {
       if (!_.isObject(item)) {
         item = {};
       }
-      item = $(Mustache.render(require("text!htmlContent/dropdownItem.html"), _.defaults(_.clone(strings), item)));
+      item = $(Mustache.render(require("text!htmlContent/dropdownElement.html"), _.defaults(_.clone(strings), item)));
       self.items.push(item);
       return item;
     };
