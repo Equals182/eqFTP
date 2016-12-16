@@ -2,14 +2,22 @@
   & #{$all-text-inputs} {
     &.eqftp {
       &__input {
+        margin-top: 0;
+        margin-bottom: 0;
+        margin-left: 0;
+        margin-right: 0;
         padding-top: 0;
         padding-bottom: 0;
         padding-left: 0;
         padding-right: 0;
+        line-height: normal;
         background-color: transparent;
+        border-radius: 0;
         border: none;
         box-sizing: border-box;
         display: flex;
+        vertical-align: middle;
+        height: auto;
         width: 100%;
         &_short {
           width: 33.3%;
@@ -23,24 +31,24 @@
         &_full {
           width: 100%;
         }
-      }
-      &Text {
-        padding-top: $i2;
-        padding-bottom: 7px;
-        @include font($font-family, 14px, 300, normal, $c09, left);
-        box-sizing: border-box;
-        display: flex;
-        align-items: flex-end;
-        transition: border-bottom-color 0.2s;
-        width: 100%;
-        &_small {
-          font-size: 12px;
-        }
-        &_medium {
-          font-size: 14px;
-        }
-        &_big {
-          font-size: 16px;
+        &Text {
+          padding-top: $i2;
+          padding-bottom: 7px;
+          @include font($font-family, 14px, 300, normal, $c09, left);
+          box-sizing: border-box;
+          display: flex;
+          align-items: flex-end;
+          transition: border-bottom-color 0.2s;
+          width: 100%;
+          &_small {
+            font-size: 12px;
+          }
+          &_medium {
+            font-size: 14px;
+          }
+          &_big {
+            font-size: 16px;
+          }
         }
       }
       /*&.eqftp__inputText {
@@ -91,48 +99,48 @@
 
 /*
 
-  .dark {
-  .eqftp {
-  #{$all-text-inputs} {
-  &.eqftp__inputText {
-  margin-top: 0;
-  margin-bottom: 0;
-  margin-left: 0;
-  margin-right: 0;
-  padding-top: 0;
-  padding-bottom: 0;
-  padding-left: 0;
-  padding-right: 0;
-  @include font($font-family, 16px, 300, normal, $c01, left);
-  transition: border 0.2s;
-  background-color: transparent;
-  border: none;
-  border-bottom: 1px solid $c09;
-  border-radius: none;
-  box-sizing: border-box;
-  box-shadow: none;
-  transition: none;
-  outline: none;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  vertical-align: middle;
+.dark {
+.eqftp {
+#{$all-text-inputs} {
+&.eqftp__inputText {
+margin-top: 0;
+margin-bottom: 0;
+margin-left: 0;
+margin-right: 0;
+padding-top: 0;
+padding-bottom: 0;
+padding-left: 0;
+padding-right: 0;
+@include font($font-family, 16px, 300, normal, $c01, left);
+transition: border 0.2s;
+background-color: transparent;
+border: none;
+border-bottom: 1px solid $c09;
+border-radius: none;
+box-sizing: border-box;
+box-shadow: none;
+transition: none;
+outline: none;
+display: flex;
+justify-content: flex-start;
+align-items: center;
+vertical-align: middle;
 }
 }
-  #{$all-text-inputs-focus} {
-  &.eqftp__inputText {
-  margin-bottom: -1px;
-  background-color: transparent;
-  border-bottom: 2px solid #2196F3;
+#{$all-text-inputs-focus} {
+&.eqftp__inputText {
+margin-bottom: -1px;
+background-color: transparent;
+border-bottom: 2px solid #2196F3;
 }
 }
-  #{$all-text-inputs-focus} {
-  &.eqftp__inputText {
-  border-bottom: 1px solid $c09;
+#{$all-text-inputs-focus} {
+&.eqftp__inputText {
+border-bottom: 1px solid $c09;
 }
 }
-  #{$all-text-inputs-active} {}
+#{$all-text-inputs-active} {}
 }
 }
 
-  */
+*/
