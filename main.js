@@ -53,8 +53,12 @@ define(function (require, exports, module) {
 
     _defaultEqFTPFolder = brackets.app.getUserDocumentsDirectory(),
     _callbacks = {},
-    _watching = [],
-    _node;
+    _node,
+    _ignore = [
+        "**/(.pyc|.git|.gitmodules|.svn|.DS_Store|Thumbs.db|.hg|CVS|.hgtags|.idea|.c9revisions|.SyncArchive|.SyncID|.SyncIgnore|.eqftp)",
+        "**/bower_components",
+        "**/node_modules"
+    ];
   ui.ps = ps;
   EventEmitter = new EventEmitter();
 
@@ -103,6 +107,67 @@ define(function (require, exports, module) {
       });
     }
   };
+  eqftp._cache = {
+    watched: [],
+    tmpfiles: []
+  };
+  eqftp._watch = {
+    reset: function () {
+        if (eqftp._cache.watched && _.isArray(eqftp._cache.watched)) {
+            eqftp._cache.watched.forEach(function (localpath, i) {
+                eqftp._watch.remove(localpath);
+            });
+        }
+        eqftp._cache.watched = [];
+        if (eqftp._cache.tmpfiles && _.isObject(eqftp._cache.tmpfiles)) {
+            _.forOwn(eqftp._cache.tmpfiles, function (files, i) {
+                if (_.isArray(files)) {
+                    files.forEach(function (v, i) {
+                        eqftp._watch.add(v.localpath);
+                    });
+                }
+            });
+        }
+        _.forOwn(eqftp.settings.connections, function (connection, id) {
+            if (connection.autoupload && connection.localpath) {
+                eqftp._watch.add(connection.localpath);
+            }
+        });
+    },
+    remove: function (localpath) {
+        var i = _.indexOf(eqftp._cache.watched, localpath);
+        if (i > -1) {
+            eqftp._cache.watched.splice(i, 1);
+            FileSystem.resolve(localpath, function (err, item, stat) {
+                if (!err) {
+                    FileSystem.unwatch(item, function (err) {
+                        if (err) {
+                            console.error(err, localpath);
+                        }
+                    });
+                }
+            });
+        }
+    },
+    add: function (localpath) {
+        if (_.indexOf(eqftp._cache.watched, localpath) == -1) {
+            eqftp._cache.watched.push(localpath);
+            FileSystem.resolve(localpath, function (err, item, stat) {
+                if (!err) {
+                    FileSystem.watch(item, function () { return true; }, _ignore, function (err) {
+                        if (err) {
+                            console.error(err, localpath);
+                        }
+                    });
+                }
+            });
+            eqftp._cache.watched.sort(function (a, b) {
+                return a.length - b.length;
+            });
+            console.log(eqftp._cache.watched);
+        }
+    }
+  };
   /**
    * Adding events to eqftp
    */
@@ -143,6 +208,7 @@ define(function (require, exports, module) {
                     id: id
                   });                  
                 });
+                eqftp._watch.reset();
                 // Proxy helps making easy requests like eqftp.connections['connection_id'].ls('/path'/);
                 eqftp.connections = new Proxy({
                   __do: eqftp.connections
@@ -168,7 +234,9 @@ define(function (require, exports, module) {
                         return p;
                       })(prop);
                     } else {
-                      return eqftp.connections.__do([prop], ...arguments);
+                      return function (params) {
+                        return eqftp.connections.__do([prop], ...arguments);
+                      }
                     }
                     return {};
                   }
@@ -205,24 +273,52 @@ define(function (require, exports, module) {
             id: event.data.id
           }), 'info');
           break;
+        case 'connection:update':
+          eqftp.settings.connections = event.data;
+          console.log(event);
+          break;
+        case 'settings:reload':
+          console.log(event);
+          break;
       }
     }
   });
   eqftp.connect = function (id) {
-    if (_.isEmpty(eqftp.connections[id])) {
-      eqftp.emit('event', {
-        action: 'connection:notexist',
-        params: {id: id}
-      });
-      return false;
-    }
-    var path = (eqftp.connections[id].remotepath || '');
-    ui.fileTree.reset();
-    eqftp.openFolder(id, path, function (err, elements) {
-      if (err) {
-        eqftp.openFolder(id, '');
+    var cb = _.once(function () {
+      if (_.isEmpty(eqftp.connections[id])) {
+        eqftp.emit('event', {
+          action: 'connection:notexist',
+          params: {id: id}
+        });
+        return false;
       }
+      var path = (eqftp.connections[id].remotepath || '');
+      ui.fileTree.reset();
+      eqftp.openFolder(id, path, function (err, elements) {
+        if (err) {
+          eqftp.openFolder(id, '', function (err) {
+            if (!err) {
+              eqftp.ui.panel.switchTo('file-tree'); 
+            }
+          });
+        } else {
+          eqftp.ui.panel.switchTo('file-tree'); 
+        }
+      });
     });
+    if (_.isObject) {
+      eqftp.connections.tmp(id).done(function (connection) {
+        id = connection.id;
+        cb();
+      }).fail(function (err) {
+        console.log(err, arguments);
+        eqftp.log(ui.m(strings.eqftp__log__connection_tmp_error, {
+          error: err
+        }), 'error');
+      });
+    } else {
+      cb();
+    }
   };
   eqftp.openFolder = function (id, path, callback) {
     if (!id) {
@@ -301,28 +397,17 @@ define(function (require, exports, module) {
   AppInit.appReady(function () {
     // Adding "change" listener on watched paths
     FileSystem.on("change", function (e, file) {
-      _watching.some(function (v, i) {
+      eqftp._cache.watched.some(function (v, i) {
         var r = new RegExp('^' + v);
         if (r.test(file._path)) {
-          var _id = utils.uniq();
-          eqftp.queue.add({
-            _id: _id,
-            action: 'upload',
-            localpath: file._path,
-            callback: function (result) {
-              if (result) {
-                console.log('UPLOADED!!!!');
-              }
-            },
-            queue_type: 'auto'
-          });
+          console.log('UPLOAD!!!!', file._path);
           return true;
         }
       });
     });
     // Adding "rename" listener on watched paths
     FileSystem.on("rename", function (e, file) {
-      _watching.some(function (v, i) {
+      eqftp._cache.watched.some(function (v, i) {
         var r = new RegExp('^' + v);
         if (r.test(file._path)) {
           console.log('RENAME!', file._path);

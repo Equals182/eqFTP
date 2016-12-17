@@ -18,17 +18,44 @@ maxerr: 50, node: true */
 	}
 }(this, function (_) {
   "use strict";
+  var eqUtils = {};
 
   if (!_) {
     _ = require("lodash");
   }
+  _.isConnection = function (connection) {
+    if (!_.isObject(connection)) {
+      return false;
+    }
+    if (
+      !_.has(connection, 'id') ||
+      !_.has(connection, 'localpath') ||
+      !_.has(connection, 'login') ||
+      !_.has(connection, 'server')
+    ) {
+      return false;
+    }
+    return true;
+  };
+  _.isEqualConnections = function (a, b) {
+    if (
+      (
+        eqUtils.normalize(a.localpath) === eqUtils.normalize(b.localpath) &&
+        a.isTmp !== true && b.isTmp !== true
+      ) ||
+      a.id === b.id
+    ) {
+      return true;
+    }
+    return false;
+  };
   
   String.prototype.levels = function () {
     return (this.replace(/(.+?)($|\/)/g, '.')).length;
   };
   
   var _uniq;
-  var eqUtils = {
+  eqUtils = {
     _: _,
     parseQuery: function (str) {
       var query = {};

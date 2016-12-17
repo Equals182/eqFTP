@@ -219,19 +219,31 @@ define(function (require, exports, module) {
         $('body').off('click', self._autoclose);
       }
     };
-    self.filter = function (keyword) {
+    self.filter = function (keyword, e) {
+      var p = utils.parseConnectionString(keyword);
+      if (p) {
+        if (e && e.keyCode === 13) {
+          eqftp.connect(p);
+          return true;
+        }
+      }
       if (keyword) {
         if (utils) {
           keyword = utils.escapeRegExp(keyword);
         }
-        var r = new RegExp('.*?' + keyword + '.*?');
+        var r = new RegExp('.*?' + keyword + '.*?'),
+            shown = 0;
         self.items.forEach(function (v, i) {
           if (!r.test(v.text())) {
             v.hide();
           } else {
             v.show();
+            shown++;
           }
         });
+        if (!shown) {
+          self.dropdown.close();
+        }
       } else {
         self.items.forEach(function (v, i) {
           v.show();

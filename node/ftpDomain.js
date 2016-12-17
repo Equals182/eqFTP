@@ -154,7 +154,9 @@ maxerr: 50, node: true */
   }();
   eqftp.connections = new Proxy({
     _current: {},
-    _all: {}
+    _all: {},
+    _c_settings: {},
+    _c_tmp: {}
   }, {
     get: function (obj, action) {
       if (action in obj) {
@@ -166,7 +168,12 @@ maxerr: 50, node: true */
             _.forOwn(obj._current, function (connection, id) {
               eqftp.connections[id].close();
             });
-            obj._all = _.clone(connections);
+            obj._c_settings = _.clone(connections);
+            obj._all = _.defaults(obj._c_settings, obj._c_tmp, _.isEqualConnections);
+            _domainManager.emitEvent("eqFTP", "event", {
+              action: 'connection:update',
+              data: obj._all
+            });
             eqftp.queue = new function () {
               var self = this;
               if (!_.isObject(eqftp.connections._current)) {
@@ -197,6 +204,44 @@ maxerr: 50, node: true */
               }
             }();
           };
+        case 'tmp':
+          return function (params, callback) {
+            if (!_.isObject(params)) {
+              if (_.isString(params)) {
+                params = utils.parseConnectionString(params);
+                if (!params) {
+                  callback('Passed argument[1] is not a valid connection string', {});
+                  return false
+                }
+              } else {
+                callback('Passed argument[1] is not an connection object', {});
+                return false;
+              }
+            }
+            if (_.isConnection) {
+              if (!_.isConnection(params)) {
+                params.id = utils.uniq();
+                params.localpath = eqftp.settings.get().main.projects_folder;
+              }
+              if (!_.isConnection(params)) {
+                callback('Passed argument[1] is not an connection object', {});
+              }
+            }
+            params.name = params.login + '@' + params.server;
+            params.isTmp = true;
+            if (!_.findKey(obj._c_tmp, function (o) {
+              return _.isEqualConnections(o, params);
+            })) {
+              obj._c_tmp[params.id] = params;
+              obj._all = _.merge(obj._c_settings, obj._c_tmp);
+              _domainManager.emitEvent("eqFTP", "event", {
+                action: 'connection:update',
+                data: obj._all
+              });
+            }
+            callback(null, params);
+          };
+          break;
       }
       if (action in obj._all) {
         //we have it in settings, action is id

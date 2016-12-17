@@ -21,7 +21,7 @@
         <div class="eqftp__button eqftp__button_light eqftp__buttonCube eqftp__buttonCube_small" onclick="eqftp.ui.search.toggle();">
           <i class="material-icons">arrow_back</i>
         </div>
-        <input type="text" name="eqftpSearch" class="eqftp__input eqftp__inputText" placeholder="Search or connect directly..." onkeyup="eqftp.ui.search.filter($(this).val());" />
+        <input type="text" name="eqftpSearch" class="eqftp__input eqftp__inputText" placeholder="Search or connect directly..." onkeyup="eqftp.ui.search.filter($(this).val(), event);" />
         <div class="eqftp__button eqftp__button_light eqftp__buttonCube eqftp__buttonCube_small">
           <i class="material-icons">flash_on</i>
         </div>
