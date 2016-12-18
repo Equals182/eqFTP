@@ -41,7 +41,7 @@
           }
         }
         &Text {
-          @include font($font-family, 16px, 300, normal, rgba(0, 0, 0, 0.38), left, 16px);
+          @include font($font-family, 16px, 300, normal, rgba(0, 0, 0, 0.38), left);
           display: flex;
           align-items: flex-end;
           vertical-align: bottom;

@@ -761,6 +761,11 @@
       padding-bottom: $i4;
       padding-right: $i4;
     }
+    &_input {
+      flex-wrap: wrap;
+      align-content: flex-end;
+      align-items: flex-end;
+    }
   }
   &__hello {
     margin-top: 40px;
