@@ -32,6 +32,29 @@
           }
         }
       }
+      &Rectangle {
+        color: rgba(255, 255, 255, 0.5);
+        background-color: $c40;
+        &:hover,
+        &:focus {
+          color: rgba(255, 255, 255, 0.7);
+          background-color: $c41;
+        }
+        &:active {
+          color: $c01;
+          background-color: $c42;
+        }
+        &_nobg {
+          background-color: transparent;
+          &:hover,
+          &:focus {
+            background-color: transparent;
+          }
+          &:active {
+            background-color: transparent;
+          }
+        }
+      }
     }
     &__title {
       color: $c01;
@@ -63,6 +86,29 @@
       &:hover {
         & .material-icons {
           color: $c01;
+        }
+      }
+    }
+    &Rectangle {
+      color: rgba(0, 0, 0, 0.38);
+      background-color: $c30;
+      &:hover,
+      &:focus {
+        color: rgba(0, 0, 0, 0.54);
+        background-color: $c31;
+      }
+      &:active {
+        color: rgba(0, 0, 0, 0.87);
+        background-color: $c32;
+      }
+      &_nobg {
+        background-color: transparent;
+        &:hover,
+        &:focus {
+          background-color: transparent;
+        }
+        &:active {
+          background-color: transparent;
         }
       }
     }

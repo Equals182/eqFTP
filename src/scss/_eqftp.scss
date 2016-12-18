@@ -134,29 +134,25 @@
     &__navigation {
       display: flex;
       justify-content: space-between;
-      align-content: center;
-      align-items: center;
-      flex-wrap: wrap;
       width: 100%;
       &Tab {
-        padding-left: $i3;
-        padding-right: $i3;
-        font-size: 20px;
-        color: $c09;
+        color: rgba(255, 255, 255, 0.5);
         border-bottom: 2px solid transparent;
         display: flex;
         justify-content: center;
         align-items: center;
-        box-sizing: border-box;
         cursor: pointer;
-        min-height: $i12;
-        max-height: $i12;
         height: $i12;
         width: 25%;
-        &_active,
         &:hover {
+          color: rgba(255, 255, 255, 0.7);
+        }
+        &_active {
+          border-bottom: 2px solid $c20;
           color: $c20;
-          border-bottom-color: $c20;
+          &:hover {
+            color: $c20;
+          }
         }
       }
     }
@@ -223,13 +219,20 @@
           z-index: 1;
         }
       }
+      &_settings {
+        padding-top: $i4;
+        padding-bottom: $i4;
+        padding-left: $i4;
+        padding-right: $i4;
+        box-sizing: border-box;
+        align-content: flex-start;
+        flex-wrap: wrap;
+      }
     }
   }
   &-footer {
     background-color: $c08;
-    animation-name: fadeIn;
-    animation-duration: 0.3s;
-    transition: height 0.2s;
+    transition: height $time-fast;
     position: absolute;
     bottom: 0;
     left: 0;
@@ -574,7 +577,7 @@
       }
       &:hover {
         background-color: rgba(0, 0, 0, 0.1);
-        box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
         &.eqftp-queue__item_error {
           background-color: rgba(192, 57, 43, 0.3);
         }
@@ -594,7 +597,7 @@
     align-content: flex-start;
     align-items: center;
     flex-wrap: wrap;
-    height: calc(100% - 72px);
+    height: calc(100% - 64px - 26px);
     width: 100%;
     &__item {
       position: relative;
@@ -603,6 +606,9 @@
       cursor: pointer;
       overflow: hidden;
       width: 100%;
+      &+.eqftp-connections__item {
+        border-top: 1px solid $c05;
+      }
       &Name {
         width: 100%;
         & .material-icons {
@@ -612,7 +618,6 @@
       }
       &:hover {
         background-color: rgba(0, 0, 0, 0.1);
-        box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
       }
     }
   }
@@ -638,6 +643,9 @@
     display: flex;
     align-items: center;
     max-width: 100%;
+    &_shortest {
+      width: 25%;
+    }
     &_short {
       width: 33.3%;
     }
@@ -646,6 +654,9 @@
     }
     &_long {
       width: 66.6%;
+    }
+    &_longest {
+      width: 75%;
     }
     &_full {
       width: 100%;
@@ -656,6 +667,14 @@
     &_end {
       justify-content: flex-end;
     }
+    &_padding {
+      &Right {
+        padding-right: $i4;
+      }
+      &Left {
+        padding-left: $i4;
+      }
+    }
   }
   &__button {
     box-sizing: border-box;
@@ -664,21 +683,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    &_blue {
-      background-color: $c20;
-      & .material-icons {
-        color: $c01;
-      }
-      &:hover {
-        background-color: $c21;
-        box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
-      }
-    }
     &Round {
       border-radius: 50%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
       min-height: $i14;
       max-height: $i14;
       height: $i14;
@@ -687,9 +693,6 @@
       width: $i14;
     }
     &Cube {
-      display: flex;
-      justify-content: center;
-      align-items: center;
       min-height: $i12;
       max-height: $i12;
       height: $i12;
@@ -742,13 +745,71 @@
         width: $i15;
       }
     }
+    &Rectangle {
+      margin-top: $i2;
+      margin-bottom: $i2;
+      margin-left: $i2;
+      margin-right: $i2;
+      padding-left: $i2;
+      padding-right: $i2;
+      border-radius: 2px;
+      font-family: $font-family;
+      font-size: 14px;
+      font-weight: 600;
+      font-style: normal;
+      text-transform: uppercase;
+      min-height: $i9;
+      max-height: $i9;
+      height: $i9;
+      min-width: 88px;
+      max-width: 100%;
+    }
+    &_blue {
+      color: $c01 !important;
+      background-color: $c20 !important;
+      & .material-icons {
+        color: $c01 !important;
+      }
+      &:hover,
+      &:focus {
+        background-color: $c21 !important;
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+      }
+    }
+    &_medium {
+      min-height: $i12;
+      max-height: $i12;
+      height: $i12;
+    }
+    &_full {
+      width: $width-full;
+    }
+    &_margin {
+      &Reset {
+        margin: 0;
+      }
+      &Left {
+        margin-left: $i4;
+        &Reset {
+          margin-left: 0;
+        }
+      }
+      &Right {
+        margin-right: $i4;
+        &Reset {
+          margin-right: 0;
+        }
+      }
+    }
   }
   &__label {
-    @include font($font-family, 12px, 300, normal, $c12, left);
+    @include font($font-family, 12px, 300, normal, rgba(255, 255, 255, 0.5), left);
     cursor: pointer;
-    transition: color 0.2s;
+    display: flex;
+    align-items: center;
+    user-select: none;
     &:hover {
-      color: $c09;
+      color: rgba(255, 255, 255, 0.7);
     }
   }
   &__holder {

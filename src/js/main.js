@@ -7,7 +7,7 @@ $(document).ready(function () {
       eqp = $(e + '__page'),
       eqt = $(e + '-navigation__tab'),
       psb = '.eqftp-content__page_fileTree, .eqftp-content__page_queue, .eqftp-connections, .eqftp-footer__list',
-      title = $(e + '__header ' + e + '__title');
+      title = $(e + '__header ' + e + '__title span');
   eq.toggleClass('eqftp' + a);
   $(e + '__page_blank').toggleClass('eqftp__page' + a);
   $(e + '-toolbar__icon').click(function () {

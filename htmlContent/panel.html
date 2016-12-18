@@ -83,22 +83,35 @@
           <option value="sftp">SFTP</option>
         </select>
       </div>
-      <div class="eqftp__holder eqftp__holder_input">
-        <label class="eqftp__label" for="eqftpConnectionIp">IP or domain name</label>
-        <input type="text" name="eqftpConnectionIp" id="eqftpConnectionIp" class="eqftp__input eqftp__inputText eqftp__inputText_underline eqftp__inputText_labelIn" placeholder="IP or domain name" />
+      <div class="eqftp__row eqftp__row_between">
+        <div class="eqftp__col eqftp__col_longest eqftp__col_paddingRight">
+          <div class="eqftp__holder eqftp__holder_input">
+            <label class="eqftp__label" for="eqftpConnectionIp">IP or domain name</label>
+            <input type="text" name="eqftpConnectionIp" id="eqftpConnectionIp" class="eqftp__input eqftp__inputText eqftp__inputText_underline eqftp__inputText_labelIn" placeholder="IP or domain name" />
+          </div>
+        </div>
+        <div class="eqftp__col eqftp__col_shortest">
+          <div class="eqftp__holder eqftp__holder_input">
+            <label class="eqftp__label" for="eqftpConnectionPort">Port</label>
+            <input type="text" name="eqftpConnectionPort" id="eqftpConnectionPort" class="eqftp__input eqftp__inputText eqftp__inputText_underline eqftp__inputText_labelIn" placeholder="21" />
+          </div>
+        </div>
       </div>
-      <div class="eqftp__holder eqftp__holder_input">
-        <label class="eqftp__label" for="eqftpConnectionPort">Port</label>
-        <input type="text" name="eqftpConnectionPort" id="eqftpConnectionPort" class="eqftp__input eqftp__inputText eqftp__inputText_underline eqftp__inputText_labelIn" placeholder="21" />
+      <div class="eqftp__row eqftp__row_between">
+        <div class="eqftp__col eqftp__col_half eqftp__col_paddingRight">
+          <div class="eqftp__holder eqftp__holder_input">
+            <label class="eqftp__label" for="eqftpConnectionServerLogin">Login</label>
+            <input type="text" name="eqftpConnectionServerLogin" id="eqftpConnectionServerLogin" class="eqftp__input eqftp__inputText eqftp__inputText_underline eqftp__inputText_labelIn" placeholder="Login to server" />
+          </div>
+        </div>
+        <div class="eqftp__col eqftp__col_half">
+          <div class="eqftp__holder eqftp__holder_input">
+            <label class="eqftp__label" for="eqftpConnectionServerPassword">Password</label>
+            <input type="text" name="eqftpConnectionServerPassword" id="eqftpConnectionServerPassword" class="eqftp__input eqftp__inputText eqftp__inputText_underline eqftp__inputText_labelIn" placeholder="Password to server" />
+          </div>
+        </div>
       </div>
-      <div class="eqftp__holder eqftp__holder_input">
-        <label class="eqftp__label" for="eqftpConnectionServerLogin">Login</label>
-        <input type="text" name="eqftpConnectionServerLogin" id="eqftpConnectionServerLogin" class="eqftp__input eqftp__inputText eqftp__inputText_underline eqftp__inputText_labelIn" placeholder="Login to server" />
-      </div>
-      <div class="eqftp__holder eqftp__holder_input">
-        <label class="eqftp__label" for="eqftpConnectionServerPassword">Password</label>
-        <input type="text" name="eqftpConnectionServerPassword" id="eqftpConnectionServerPassword" class="eqftp__input eqftp__inputText eqftp__inputText_underline eqftp__inputText_labelIn" placeholder="Password to server" />
-      </div>
+
       <div class="eqftp__holder eqftp__holder_input">
         <label class="eqftp__label" for="eqftpConnectionLocalPath">Local path</label>
         <input type="text" name="eqftpConnectionLocalPath" id="eqftpConnectionLocalPath" class="eqftp__input eqftp__inputText eqftp__inputText_underline eqftp__inputText_labelIn" placeholder="Local path" />
@@ -116,19 +129,29 @@
       <!-- /SUBHEADER -->
 
       <!-- ADDITIONAL SETTINGS -->
-      <div class="eqftp__row">
-        <input type="checkbox" name="eqftpConnectionCheckDifference" id="eqftpConnectionCheckDifference" class="eqftp__input eqftp__inputCheckbox" />
+      <div class="eqftp__holder">
+        <input type="checkbox" name="eqftpConnectionCheckDifference" id="eqftpConnectionCheckDifference" />
         <label for="eqftpConnectionCheckDifference" class="eqftp__label">Check difference files</label>
       </div>
-      <div class="eqftp__row">
-        <input type="checkbox" name="eqftpConnectionAutoUpload" id="eqftpConnectionAutoUpload" class="eqftp__input eqftp__inputCheckbox" />
+      <div class="eqftp__holder">
+        <input type="checkbox" name="eqftpConnectionAutoUpload" id="eqftpConnectionAutoUpload" />
         <label for="eqftpConnectionAutoUpload" class="eqftp__label">Automatically upload changed files</label>
       </div>
-      <textarea name="eqftpConnectionIgnoreList" class="eqftp__textarea" placeholder="Ignore list"></textarea>
-      <input type="text" name="eqftpConnectionKeepAlive" class="eqftp__input eqftp__inputText" placeholder="Keep alive" />
+      <div class="eqftp__holder eqftp__holder_input">
+        <label class="eqftp__label" for="eqftpConnectionIgnoreList">Ignore list</label>
+        <textarea name="eqftpConnectionIgnoreList" id="eqftpConnectionIgnoreList" class="eqftp__input eqftp__inputText eqftp__inputText_underline eqftp__inputText_labelIn" placeholder="Gitignore syntax"></textarea>
+      </div>
+      <div class="eqftp__holder eqftp__holder_input">
+        <label class="eqftp__label" for="eqftpConnectionKeepAlive">Keep alive</label>
+        <input type="text" name="eqftpConnectionKeepAlive" id="eqftpConnectionKeepAlive" class="eqftp__input eqftp__inputText eqftp__inputText_underline eqftp__inputText_labelIn" placeholder="Keep alive" />
+      </div>
       <!-- /ADDITIONAL SETTINGS -->
 
-      <div class="eqftp__button"><i class="material-icons">delete</i></div>
+    </div>
+
+    <div class="eqftp__row eqftp__row_end">
+      <div class="eqftp__button eqftp__buttonRectangle eqftp__buttonRectangle_nobg">delete</div>
+      <div class="eqftp__button eqftp__button_marginRight eqftp__button_blue eqftp__buttonRectangle">save</div>
     </div>
 
   </div>
@@ -186,26 +209,28 @@
 
     <!-- PAGE SETTINGS -->
     <div class="eqftp-content__page eqftp-content__page_settings">
-      <div class="eqftp__row">
-        <input type="text" name="eqftpSettingFile" class="eqftp__input eqftp__inputText" placeholder="Choose seting file" />
-        <div class="eqftp__button">Create</div>
+      <div class="eqftp__holder eqftp__holder_input">
+        <label class="eqftp__label" for="eqftpSettingFile">Setting file</label>
+        <input type="text" name="eqftpSettingFile" id="eqftpSettingFile" class="eqftp__input eqftp__inputText eqftp__inputText_underline eqftp__inputText_labelIn" placeholder="Choose setting file" />
       </div>
-      <div class="eqftp__row">
-        <input type="checkbox" name="eqftpSettingFileEncrypt" id="eqftpSettingFileEncrypt" class="eqftp__input eqftp__inputCheckbox" />
+      <div class="eqftp__holder">
+        <input type="checkbox" name="eqftpSettingFileEncrypt" id="eqftpSettingFileEncrypt" />
         <label for="eqftpSettingFileEncrypt" class="eqftp__label">Encrypt setting file</label>
       </div>
-      <div class="eqftp__row">
-        <input type="text" name="eqftpProjectsFolder" class="eqftp__input eqftp__inputText" placeholder="Folder for projects" />
+      <div class="eqftp__holder eqftp__holder_input">
+        <label class="eqftp__label" for="eqftpProjectsFolder">Folder for projects</label>
+        <input type="text" name="eqftpProjectsFolder" id="eqftpProjectsFolder" class="eqftp__input eqftp__inputText eqftp__inputText_underline eqftp__inputText_labelIn" placeholder="Folder for projects" />
       </div>
-      <div class="eqftp__row">
-        <input type="text" name="eqftpTimestamp" class="eqftp__input eqftp__inputText" placeholder="Timestamp format" />
+      <div class="eqftp__holder eqftp__holder_input">
+        <label class="eqftp__label" for="eqftpTimestamp">Timestamp format</label>
+        <input type="text" name="eqftpTimestamp" id="eqftpTimestamp" class="eqftp__input eqftp__inputText eqftp__inputText_underline eqftp__inputText_labelIn" placeholder="Timestamp format" />
       </div>
-      <div class="eqftp__row">
-        <input type="checkbox" name="eqftpDebug" id="eqftpDebug" class="eqftp__input eqftp__inputCheckbox" />
-        <label for="eqftpDebug" class="eqftp__label">Debug mode</label>
+      <div class="eqftp__holder">
+        <input type="checkbox" name="eqftpDebug" id="eqftpDebug" />
+        <label for="eqftpDebug" class="eqftp__label">Debug</label>
       </div>
-      <div class="eqftp__row">
-        <div class="eqftp__button">Save</div>
+      <div class="eqftp__row eqftp__row_end">
+        <div class="eqftp__button eqftp__button_marginRightReset eqftp__button_blue eqftp__buttonRectangle">save</div>
       </div>
     </div>
     <!-- /PAGE SETTINGS -->
