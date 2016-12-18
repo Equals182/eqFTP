@@ -513,7 +513,6 @@ define(function (require, exports, module) {
           p = Math.floor(data.percents * 100),
           s = data.total;
       el.find('.eqftp__progressBar:first').css('width', p + '%');
-      el.find('.eqftp-placeholder-percents').text(p + '%');
       o(el, s);
     };
     

@@ -306,7 +306,7 @@ define(function (require, exports, module) {
         }
       });
     });
-    if (_.isObject) {
+    if (_.isObject(id)) {
       eqftp.connections.tmp(id).done(function (connection) {
         id = connection.id;
         cb();
@@ -349,6 +349,9 @@ define(function (require, exports, module) {
       eqftp.log(ui.m(strings.eqftp__log__download_success, {
         filename: utils.getNamepart(remotepath, 'filename')
       }), 'success');
+      if (eqftp.connections[id].isTmp) {
+        eqftp._watch.add(data.localpath);
+      }
       if (open) {
         _.delay(function () {
           CommandManager.execute(Commands.CMD_ADD_TO_WORKINGSET_AND_OPEN, {fullPath: data.localpath, paneId: MainViewManager.getActivePaneId(), options: {noPaneActivate: (args[3].shiftKey ? true : false)}});
@@ -359,7 +362,25 @@ define(function (require, exports, module) {
         err: err,
         filename: utils.getNamepart(remotepath, 'filename')
       }), 'error');
-      console.error('CANT DOWNLOAD', arguments, remotepath);
+    });
+  };
+  eqftp.upload = function (localpath) {
+    eqftp.connections.getByLocalpath(localpath).done(function (id) {
+      var args = [...arguments];
+      eqftp.connections[id].upload(localpath).done(function (data) {
+        eqftp.log(ui.m(strings.eqftp__log__upload_success, {
+          filename: utils.getNamepart(localpath, 'filename')
+        }), 'success');
+      }).fail(function (err) {
+        if (err !== 'Skipping this file due it being recently downloaded') {
+          eqftp.log(ui.m(strings.eqftp__log__upload_error, {
+            err: err,
+            filename: utils.getNamepart(localpath, 'filename')
+          }), 'error');
+        }
+      });
+    }).fail(function (err) {
+      // cant find connection related to this file
     });
   };
 
@@ -375,7 +396,9 @@ define(function (require, exports, module) {
 
     // Registering Commands
     CommandManager.register(strings.eqftp__context__upload, "eqftp.upload", function() {
-
+      var fileEntry = ProjectManager.getSelectedItem(),
+        localpath = fileEntry._path;
+      eqftp.upload(localpath);
     });
 
     // Creating context menus
@@ -400,7 +423,7 @@ define(function (require, exports, module) {
       eqftp._cache.watched.some(function (v, i) {
         var r = new RegExp('^' + v);
         if (r.test(file._path)) {
-          console.log('UPLOAD!!!!', file._path);
+          eqftp.upload(file._path);
           return true;
         }
       });

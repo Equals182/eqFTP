@@ -8,6 +8,8 @@ define({
  */
  "eqftp__log__download_success": "File {{filename}} successfuly downloaded",
  "eqftp__log__download_error": "There was an error downloading {{filename}}: {{err}}",
+ "eqftp__log__upload_success": "File {{filename}} successfuly uploaded",
+ "eqftp__log__upload_error": "There was an error uploading {{filename}}: {{err}}",
  
  "eqftp__log__connection_ready": "Connection {{name}} opened",
  "eqftp__log__connection_error": "There was an error on {{name}} connection: {{error}}",

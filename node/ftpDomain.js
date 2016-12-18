@@ -157,7 +157,8 @@ maxerr: 50, node: true */
     _all: {},
     _c_settings: {},
     _c_tmp: {},
-    _tmp_downloaded: []
+    _tmp_downloaded: [],
+    _recently_downloaded: []
   }, {
     get: function (obj, action) {
       if (action in obj) {
@@ -190,7 +191,6 @@ maxerr: 50, node: true */
                 _.forOwn(eqftp.connections._current, function (connection, id) {
                   if (connection._queue && _.isArray(connection._queue)) {
                     connection._queue.forEach(function (queuer) {
-                      console.log(queuer);
                       self.q.push({
                         id: queuer.id,
                         qid: queuer.qid,
@@ -243,6 +243,30 @@ maxerr: 50, node: true */
             callback(null, params);
           };
           break;
+        case 'getByLocalpath':
+          return function (localpath, callback) {
+            var tmp = _.findIndex(eqftp.connections._tmp_downloaded, {params: {localpath: localpath}});
+            if (tmp > -1) {
+              callback(null, eqftp.connections._tmp_downloaded[tmp].connection.id);
+              return eqftp.connections._tmp_downloaded[tmp].connection.id;
+            } else {
+              var deepest = 0,
+                  сonn = {};
+              _.forOwn(eqftp.connections._c_settings, function (connection, id) {
+                var r = RegExp('^' + utils.escapeRegExp(connection.localpath));
+                if (r.test(localpath) && connection.localpath.levels() > deepest) {
+                  deepest = connection.localpath.levels();
+                  сonn = _.clone(connection);
+                }
+              });
+              if (deepest > 0) {
+                callback(null, сonn.id);
+                return сonn.id;
+              }
+            }
+            callback('Can\'t find related connection to given path: ' + localpath, {});
+          };
+          break;
       }
       if (action in obj._all) {
         //we have it in settings, action is id
@@ -275,6 +299,19 @@ maxerr: 50, node: true */
                           qid: qid,
                           remotepath: args[0],
                           localpath: eqftp.connections[id].resolveLocalpath(args[0])
+                        };
+                        break;
+                      case 'upload':
+                        var rd = _.findIndex(eqftp.connections._recently_downloaded, {id: id, localpath: args[0]});
+                        if (rd > -1) {
+                          eqftp.connections._recently_downloaded.splice(rd, 1);
+                          callback('Skipping this file due it being recently downloaded');
+                          return false;
+                        }
+                        args[0] = {
+                          qid: qid,
+                          localpath: args[0],
+                          remotepath: eqftp.connections[id].resolveRemotepath(args[0])
                         };
                         break;
                     }
@@ -363,6 +400,13 @@ maxerr: 50, node: true */
                               break;
                             case 'download':
                               if (!err) {
+                                eqftp.connections._recently_downloaded = _.unionWith(eqftp.connections._recently_downloaded, [{
+                                  id: id,
+                                  localpath: args[0].localpath,
+                                  remotepath: args[0].remotepath
+                                }], function (a, b) {
+                                  return (a.id === b.id && a.localpath === b.localpath);
+                                });
                                 if (obj._current[queuer.id].isTmp) {
                                   if (!eqftp.connections._tmp_downloaded) {
                                     eqftp.connections._tmp_downloaded = [];
@@ -476,7 +520,6 @@ maxerr: 50, node: true */
                     var filename = remotepath.replace(RegExp("^" + (obj._current[id]._startpath || '')), '');
                     if (obj._current[id].isTmp) {
                       var tmp = _.findIndex(eqftp.connections._tmp_downloaded, {params: {remotepath: remotepath}, connection: {id: id}});
-                      console.log('TMP', eqftp.connections._tmp_downloaded, tmp);
                       if (tmp > -1) {
                         filename = utils.getNamepart(eqftp.connections._tmp_downloaded[tmp].params.localpath);
                       } else {
@@ -486,15 +529,23 @@ maxerr: 50, node: true */
                     return utils.normalize(obj._current[id].localpath + '/' + filename);
                   };
                   break;
+                case 'resolveRemotepath':
+                  return function (localpath) {
+                    if (obj._current[id].isTmp) {
+                      var tmp = _.findIndex(eqftp.connections._tmp_downloaded, {params: {localpath: localpath}, connection: {id: id}});
+                      if (tmp > -1) {
+                        return eqftp.connections._tmp_downloaded[tmp].params.remotepath;
+                      }
+                    }
+                    return utils.normalize((obj._current[id].remotepath || obj._current[id]._startpath) + '/' + localpath.replace(RegExp("^" + (obj._current[id].localpath || '')), ''));
+                  };
+                  break;
               }
             }
           });
           return p;
         })(action);
       }
-    },
-    set: function (target, property, value, receiver) {
-      console.log('OKAY', property, value);
     }
   });
 

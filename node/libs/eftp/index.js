@@ -612,17 +612,18 @@ EasyFTP.prototype.upload = function (queuer, cb) {
             sftp.fastPut(queuer.localpath, queuer.remotepath, {
               concurrency: 1
             }, function (err) {
+              console.log(err);
               sftp.end();
               if (err) {
                 cb(err);
               } else {
                 self.emit("upload", {
-                  _id: queuer._id,
+                  qid: queuer.qid,
                   remotepath: queuer.remotepath,
                   localpath: queuer.localpath
                 });
                 cb(err, {
-                  _id: queuer._id,
+                  qid: queuer.qid,
                   remotepath: queuer.remotepath,
                   localpath: queuer.localpath
                 });
@@ -638,13 +639,13 @@ EasyFTP.prototype.upload = function (queuer, cb) {
               }
             } else {
               self.emit("upload", {
-                _id: queuer._id,
+                qid: queuer.qid,
                 remotepath: queuer.remotepath,
                 localpath: queuer.localpath
               });
               if (cb) {
                 cb(err, {
-                  _id: queuer._id,
+                  qid: queuer.qid,
                   remotepath: queuer.remotepath,
                   localpath: queuer.localpath
                 });
