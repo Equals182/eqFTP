@@ -5,11 +5,11 @@
 
     <!-- TITLE -->
     <div class="eqftp-header__title">
-      <div class="eqftp__button eqftp__button_dark eqftp__buttonCube eqftp__buttonCube_medium" onclick="eqftp.ui.search.toggle();">
+      <div class="eqftp__button eqftp__buttonCube eqftp__buttonCube_medium" onclick="eqftp.ui.search.toggle();">
         <i class="material-icons">search</i>
       </div>
       <div class="eqftp__title eqftp__title_full eqftp__title_medium"><span class="eqftp__titleNowrap">eqFTP</span></div>
-      <div class="eqftp__button eqftp__button_dark eqftp__buttonCube eqftp__buttonCube_medium" onclick="eqftp.ui.panel.close();">
+      <div class="eqftp__button eqftp__buttonCube eqftp__buttonCube_medium" onclick="eqftp.ui.panel.close();">
         <i class="material-icons">clear</i>
       </div>
     </div>
@@ -18,11 +18,11 @@
     <!-- /SEARCH -->
     <div class="eqftp-header__search">
       <div class="eqftp-header__searchHolder shadow-small">
-        <div class="eqftp__button eqftp__button_light eqftp__buttonCube eqftp__buttonCube_small" onclick="eqftp.ui.search.toggle();">
+        <div class="eqftp__button eqftp__button_inversion eqftp__button_light eqftp__buttonCube eqftp__buttonCube_small" onclick="eqftp.ui.search.toggle();">
           <i class="material-icons">arrow_back</i>
         </div>
-        <input type="text" name="eqftpSearch" class="eqftp__input eqftp__inputText" placeholder="Search or connect directly..." onkeyup="eqftp.ui.search.filter($(this).val(), event);" />
-        <div class="eqftp__button eqftp__button_light eqftp__buttonCube eqftp__buttonCube_small">
+        <input type="text" name="eqftpSearch" class="eqftp__input eqftp__inputText eqftp__inputText_inversion" placeholder="Search or connect directly..." onkeyup="eqftp.ui.search.filter($(this).val(), event);" />
+        <div class="eqftp__button eqftp__button_inversion eqftp__button_light eqftp__buttonCube eqftp__buttonCube_small">
           <i class="material-icons">flash_on</i>
         </div>
         <div class="eqftp-header__dropdown">
@@ -55,18 +55,41 @@
   <!-- CONNECTIONS SETTINGS -->
   <div class="eqftp-connectionsSettings">
 
-    <!-- BASIC SETTINGS -->
-    <div class="eqftp-connectionsSettings__basic">
-      <div class="eqftp__row">
-        <input type="text" name="eqftpConnectionName" class="eqftp__input eqftp__inputText" placeholder="Connection name" />
+    <!-- TITLE -->
+    <div class="eqftp-connectionsSettings__title">
+      <div class="eqftp__icon eqftp__icon_medium">
+        <i class="material-icons">power</i>
+      </div>
+      <div class="eqftp__title eqftp__title_full eqftp__title_medium"><span class="eqftp__titleNowrap">Connection's settings</span></div>
+      <div class="eqftp__button eqftp__buttonCube eqftp__buttonCube_medium" onclick="showConnectionsSettings();">
+        <i class="material-icons">clear</i>
+      </div>
+    </div>
+    <!-- /TITLE -->
+
+    <div class="eqftp-connectionsSettings__content">
+
+      <!-- SUBHEADER -->
+      <div class="eqftp__subheader">
+        <div class="eqftp__title eqftp__title_small"><span class="eqftp__titleNowrap">Basic setting's</span></div>
+      </div>
+      <!-- /SUBHEADER -->
+
+      <!-- BASIC SETTINGS -->
+      <input type="text" name="eqftpConnectionName" class="eqftp__input eqftp__inputText eqftp__inputText_underline eqftp__inputText_labelOut" placeholder="Connection name" />
+      <div class="eqftp__holder">
         <select name="eqftpConnectionType" class="eqftp__select">
           <option value="ftp">FTP</option>
           <option value="sftp">SFTP</option>
         </select>
       </div>
       <div class="eqftp__row">
-        <input type="text" name="eqftpConnectionIp" class="eqftp__input eqftp__inputText" placeholder="IP or domain name" />
-        <input type="text" name="eqftpConnectionPort" class="eqftp__input eqftp__inputText" placeholder="21" />
+        <div class="eqftp__col eqftp__col_long">
+          <input type="text" name="eqftpConnectionIp" class="eqftp__input eqftp__inputText eqftp__inputText_underline eqftp__inputText_labelOut" placeholder="IP or domain name" />
+        </div>
+        <div class="eqftp__col eqftp__col_short">
+          <input type="text" name="eqftpConnectionPort" class="eqftp__input eqftp__input_marginLeft eqftp__inputText eqftp__inputText_underline eqftp__inputText_labelOut" placeholder="21" />
+        </div>
       </div>
       <div class="eqftp__row">
         <input type="text" name="eqftpConnectionServerLogin" class="eqftp__input eqftp__inputText" placeholder="Login to server" />
@@ -79,15 +102,15 @@
       <div class="eqftp__row">
         <input type="text" name="eqftpConnectionRemotePath" class="eqftp__input eqftp__inputText" placeholder="Remote path" />
       </div>
-      <div class="eqftp__row">
-        <a href="#">Show additional settings</a>
-        <div class="eqftp__button"><i class="fa fa-trash" aria-hidden="true"></i></div>
-      </div>
-    </div>
-    <!-- /BASIC SETTINGS -->
+      <!-- /BASIC SETTINGS -->
 
-    <!-- ADDITIONAL SETTINGS -->
-    <div class="eqftp-connectionsSettings__additional">
+      <!-- SUBHEADER -->
+      <div class="eqftp__subheader">
+        <div class="eqftp__title eqftp__title_small"><span class="eqftp__titleNowrap">Additional setting's</span></div>
+      </div>
+      <!-- /SUBHEADER -->
+
+      <!-- ADDITIONAL SETTINGS -->
       <div class="eqftp__row">
         <input type="checkbox" name="eqftpConnectionCheckDifference" id="eqftpConnectionCheckDifference" class="eqftp__input eqftp__inputCheckbox" />
         <label for="eqftpConnectionCheckDifference" class="eqftp__label">Check difference files</label>
@@ -102,12 +125,10 @@
       <div class="eqftp__row">
         <input type="text" name="eqftpConnectionKeepAlive" class="eqftp__input eqftp__inputText" placeholder="Keep alive" />
       </div>
-      <div class="eqftp__row">
-        <a href="#">Show basic settings</a>
-        <div class="eqftp__button"><i class="fa fa-trash" aria-hidden="true"></i></div>
-      </div>
+      <!-- /ADDITIONAL SETTINGS -->
+
+      <div class="eqftp__button"><i class="material-icons">delete</i></div>
     </div>
-    <!-- /ADDITIONAL SETTINGS -->
 
   </div>
   <!-- /CONNECTIONS SETTINGS -->
@@ -143,12 +164,12 @@
     <div class="eqftp-content__page eqftp-content__page_connections">
 
       <!-- NEW CONNECTION -->
-      <div class="eqftp__button eqftp__button_blue eqftp__buttonRound shadow-smallest"><i class="material-icons">add</i></div>
+      <div class="eqftp__button eqftp__button_blue eqftp__buttonRound shadow-smallest" onclick="showConnectionsSettings();"><i class="material-icons">add</i></div>
       <!-- /NEW CONNECTION -->
 
       <!-- SEARCH CONNECTION -->
       <div class="eqftp__holder eqftp__holder_searchConnection">
-        <div class="eqftp__button eqftp__button_dark eqftp__buttonCube eqftp__buttonCube_middle"><i class="material-icons">search</i></div>
+        <div class="eqftp__button eqftp__buttonCube eqftp__buttonCube_middle"><i class="material-icons">search</i></div>
         <input type="text" name="symbol" placeholder="Connection's name" class="eqftp__input eqftp__inputText eqftp__inputText_underline eqftp__inputText_labelOut" id="searchConnections">
       </div>
       <!-- /SEARCH CONNECTION -->
@@ -194,7 +215,7 @@
   <!-- /FOOTER -->
   <div class="eqftp-footer">
     <div class="eqftp-footer__list"></div>
-    <div class="eqftp__button eqftp__button_dark eqftp__buttonCube eqftp__buttonCube_footer" onclick="eqftp.ui.log.toggle();">
+    <div class="eqftp__button eqftp__buttonCube eqftp__buttonCube_footer" onclick="eqftp.ui.log.toggle();">
       <i class="material-icons">keyboard_arrow_up</i>
     </div>
   </div>

@@ -1,0 +1,76 @@
+.dark {
+  .eqftp {
+    background-color: $c04;
+    &-header {
+      background-color: $c07;
+      &__search {
+        &Holder {
+          background-color: #fafafa;
+        }
+      }
+    }
+    &-connectionsSettings {
+      background-color: $c03;
+    }
+    &__icon,
+    &__button {
+      & .material-icons {
+        color: rgba(255, 255, 255, 0.5);
+      }
+      &:hover {
+        & .material-icons {
+          color: $c01;
+        }
+      }
+      &_inversion {
+        & .material-icons {
+          color: rgba(0, 0, 0, 0.38);
+        }
+        &:hover {
+          & .material-icons {
+            color: rgba(0, 0, 0, 0.87);
+          }
+        }
+      }
+    }
+    &__title {
+      color: $c01;
+      &_inversion {
+        color: $c02;
+      }
+    }
+  }
+}
+
+.eqftp {
+  &-connectionsSettings {
+    background-color: $c13;
+  }
+  &__icon,
+  &__button {
+    & .material-icons {
+      color: rgba(0, 0, 0, 0.38);
+    }
+    &:hover {
+      & .material-icons {
+        color: rgba(0, 0, 0, 0.87);
+      }
+    }
+    &_inversion {
+      & .material-icons {
+        color: rgba(255, 255, 255, 0.5);
+      }
+      &:hover {
+        & .material-icons {
+          color: $c01;
+        }
+      }
+    }
+  }
+  &__title {
+    color: $c02;
+    &_inversion {
+      color: $c01;
+    }
+  }
+}

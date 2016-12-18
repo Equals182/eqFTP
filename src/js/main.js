@@ -53,6 +53,11 @@ $(document).ready(function () {
   });
 });
 
+function showConnectionsSettings() {
+  'use strict';
+  $('.eqftp-connectionsSettings').toggleClass('eqftp-connectionsSettings_active');
+}
+
 function showSearch() {
   'use strict';
   $('.eqftp-header__search').toggleClass('eqftp-header__search_active');
