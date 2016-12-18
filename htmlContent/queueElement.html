@@ -1,6 +1,8 @@
 <div id="{{id}}" class="eqftp-queue__item {{class}}">
-  <div class="eqftp-queue__itemDirection eqftp__icon eqftp__icon_smallest">
-    <i class="material-icons">{{icon}}</i>
+  <div class="eqftp-queue__direction">
+    <div class="eqftp__icon eqftp__icon_small">
+      <i class="material-icons">{{icon}}</i>
+    </div>
   </div>
   <div class="eqftp-queue__info">
     <div class="eqftp-queue__itemLocal">
@@ -9,22 +11,21 @@
     <div class="eqftp-queue__itemRemote">
       <div class="eqftp__title eqftp__title_smallest"><span class="eqftp__titleNowrap" title="{{remotepath}}">{{remotename}}</span></div>
     </div>
-    <div class="eqftp-queue__itemProgress">
-      <div class="eqftp__progress">
-        <div class="eqftp__progressBar"></div>
-        <div class="eqftp-queue__itemSize">
-          <div class="eqftp__title eqftp__title_smallest eqftp__title_gray"><span class="eqftp__titleNowrap"><span class="eqftp-placeholder-size">{{size}}</span></span></div>
-        </div>
-        <div class="eqftp-queue__itemPercent">
-          <div class="eqftp__title eqftp__title_smallest eqftp__title_gray"><span class="eqftp__titleNowrap"><span class="eqftp-placeholder-percents">{{percents}}</span></span></div>
-        </div>
-      </div>
-      <div class="eqftp-queue__error">
-        <div class="eqftp__title eqftp__title_smallest"><span class="eqftp__titleNowrap">{{error_text}}</span></div>
-      </div>
+    <div class="eqftp-queue__itemSize">
+      <div class="eqftp__title eqftp__title_right eqftp__title_smallest"><span class="eqftp__titleNowrap eqftp-placeholder-size">{{size}}</span></div>
+    </div>
+    <div class="eqftp-queue__itemError">
+      <div class="eqftp__title eqftp__title_smallest"><span class="eqftp__titleNowrap">{{error_text}}</span></div>
     </div>
   </div>
-  <div class="eqftp-queue__itemMenu">
-    <i class="material-icons">more_vert</i>
+  <div class="eqftp-queue__itemProgress">
+    <div class="eqftp__progress">
+      <div class="eqftp__progressBar"></div>
+    </div>
+  </div>
+  <div class="eqftp-queue__menu">
+    <div class="eqftp__button eqftp__buttonCube eqftp__buttonCube_small">
+      <i class="material-icons">more_vert</i>
+    </div>
   </div>
 </div>

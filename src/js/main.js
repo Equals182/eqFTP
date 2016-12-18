@@ -5,7 +5,7 @@ $(document).ready(function () {
       eq = $(e),
       eqc = $(e + '__close'),
       eqp = $(e + '__page'),
-      eqt = $(e + '-navigation__tab'),
+      eqt = $(e + '-header__navigationTab'),
       psb = '.eqftp-content__page_fileTree, .eqftp-content__page_queue, .eqftp-connections, .eqftp-footer__list',
       title = $(e + '__header ' + e + '__title ' + e + '__titleNowrap');
   eq.toggleClass('eqftp' + a);
@@ -19,17 +19,17 @@ $(document).ready(function () {
     title.text('eqFTP');
   });
   eqt.click(function () {
-    $(this).addClass('eqftp-navigation__tab' + a).siblings().removeClass('eqftp-navigation__tab' + a);
-    if ($(this).hasClass('eqftp-navigation__tab_file-tree')) {
+    $(this).addClass('eqftp-header__navigationTab' + a).siblings().removeClass('eqftp-header__navigationTab' + a);
+    if ($(this).hasClass('eqftp-header__navigationTab_file-tree')) {
       title.text('File tree');
       $(e + '__page_file-tree').addClass('eqftp__page' + a).siblings().removeClass('eqftp__page' + a);
-    } else if ($(this).hasClass('eqftp-navigation__tab_query')) {
+    } else if ($(this).hasClass('eqftp-header__navigationTab_query')) {
       title.text('Query');
       $(e + '__page_query').addClass('eqftp__page' + a).siblings().removeClass('eqftp__page' + a);
-    } else if ($(this).hasClass('eqftp-navigation__tab_connections')) {
+    } else if ($(this).hasClass('eqftp-header__navigationTab_connections')) {
       title.text('Connections');
       $(e + '__page_connections').addClass('eqftp__page' + a).siblings().removeClass('eqftp__page' + a);
-    } else if ($(this).hasClass('eqftp-navigation__tab_settings')) {
+    } else if ($(this).hasClass('eqftp-header__navigationTab_settings')) {
       title.text('Settings');
       $(e + '__page_settings').addClass('eqftp__page' + a).siblings().removeClass('eqftp__page' + a);
     }

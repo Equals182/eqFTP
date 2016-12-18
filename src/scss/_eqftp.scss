@@ -472,119 +472,92 @@
     }
   }
   &-queue {
-    padding-top: $i2;
-    box-sizing: border-box;
     display: flex;
     align-content: flex-start;
     flex-wrap: wrap;
-    height: calc(100% - 8px);
+    height: 100%;
     width: 100%;
+    &__direction {
+      transition: opacity $time-fast;
+    }
     &__info {
       display: flex;
       align-items: center;
-      transition: width $time-fast;
-      max-width: calc(100% - 24px - 4px - 4px - 4px - 8px);
+      max-width: calc(100% - 36px - 4px);
       width: 100%;
     }
-    &__error {
+    &__menu {
+      position: absolute;
+      top: 0;
+      left: 0;
+      animation-name: fadeInLeft;
+      animation-duration: $time-fast;
       display: none;
+      justify-content: center;
+      align-items: center;
     }
     &__item {
       position: relative;
       display: flex;
-      justify-content: flex-start;
       align-items: center;
-      height: $i6;
+      min-height: $i9;
+      max-height: $i9;
+      height: $i9;
       max-width: 100%;
       width: 100%;
+      &+.eqftp-queue__item {
+        border-top: 1px solid $c08;
+      }
       &_error {
         background-color: rgba(192, 57, 43, 0.1);
-        & .eqftp-queue__itemDirection {
+        & .eqftp-queue__direction {
           & .material-icons {
             color: $red;
           }
         }
-        & .eqftp__progress {
+        & .eqftp-queue__itemSize {
           display: none;
         }
-        & .eqftp-queue__error {
+        & .eqftp-queue__itemError {
           display: block;
         }
       }
-      &Direction {
-        margin-right: $i1;
-        transition: opacity $time-fast;
-        & .material-icons {
-          font-size: 14px;
-          color: $c09;
-        }
-      }
       &Local {
-        min-width: 30%;
-        max-width: 30%;
+        min-width: 43%;
+        max-width: 43%;
       }
       &Remote {
         margin-left: $i1;
-        min-width: 30%;
-        max-width: 30%;
-      }
-      &Progress {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin-left: $i1;
-        min-width: 40%;
-        max-width: 40%;
-        &:hover {
-          & .eqftp-queue__itemSize {
-            display: none;
-          }
-          & .eqftp-queue__itemPercent {
-            display: block;
-          }
-        }
+        min-width: 43%;
+        max-width: 43%;
       }
       &Size {
-        color: $c02;
-        animation-name: fadeInLeft;
-        animation-duration: $time-fast;
-        z-index: 2;
+        display: flex;
+        justify-content: flex-end;
+        min-width: 14%;
+        max-width: 14%;
       }
-      &Percent {
-        color: $c02;
-        animation-name: fadeInRight;
-        animation-duration: $time-fast;
+      &Error {
         display: none;
-        z-index: 2;
+        min-width: 14%;
+        max-width: 14%;
       }
-      &Menu {
-        color: $c09;
+      &Progress {
         position: absolute;
-        top: 0;
+        bottom: 0;
         left: 0;
-        cursor: pointer;
-        transition: color $time-fast;
-        animation-name: fadeInLeft;
-        animation-duration: $time-fast;
-        display: none;
-        justify-content: center;
-        align-items: center;
-        height: $i6;
-        width: $i6;
-        &:hover {
-          color: $c01;
-        }
+        height: 2px;
+        width: 100%;
       }
       &:hover {
         background-color: rgba(0, 0, 0, 0.1);
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
         &.eqftp-queue__item_error {
           background-color: rgba(192, 57, 43, 0.3);
         }
-        & .eqftp-queue__itemDirection {
+        & .eqftp-queue__direction {
           opacity: 0;
         }
-        & .eqftp-queue__itemMenu {
+        & .eqftp-queue__menu {
           display: flex;
         }
       }
@@ -607,7 +580,7 @@
       overflow: hidden;
       width: 100%;
       &+.eqftp-connections__item {
-        border-top: 1px solid $c05;
+        border-top: 1px solid $c08;
       }
       &Name {
         width: 100%;
@@ -872,6 +845,9 @@
     &_gray {
       color: $c02;
     }
+    &_right {
+      text-align: right;
+    }
     &Nowrap {
       text-overflow: ellipsis;
       overflow: hidden;
@@ -960,20 +936,16 @@
     }
   }
   &__progress {
-    background-color: $c12;
     position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: $i4;
+    height: 100%;
     width: 100%;
     &Bar {
-      background-color: $c09;
+      background-color: $c20;
       position: absolute;
       top: 0;
       left: 0;
       height: 100%;
-      z-index: 1;
+      width: 50%;
     }
   }
 }
