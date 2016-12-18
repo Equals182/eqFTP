@@ -156,7 +156,8 @@ maxerr: 50, node: true */
     _current: {},
     _all: {},
     _c_settings: {},
-    _c_tmp: {}
+    _c_tmp: {},
+    _tmp_downloaded: []
   }, {
     get: function (obj, action) {
       if (action in obj) {
@@ -360,6 +361,19 @@ maxerr: 50, node: true */
                                 data = _.concat(d, f);
                               }
                               break;
+                            case 'download':
+                              if (!err) {
+                                if (obj._current[queuer.id].isTmp) {
+                                  if (!eqftp.connections._tmp_downloaded) {
+                                    eqftp.connections._tmp_downloaded = [];
+                                  }
+                                  eqftp.connections._tmp_downloaded.push({
+                                    params: args[0],
+                                    connection: obj._all[queuer.id]
+                                  });
+                                }
+                              }
+                              break;
                           }
                           
                           obj._current[queuer.id].isBusy = false;
@@ -402,6 +416,7 @@ maxerr: 50, node: true */
                     obj._current[id]._server = new EFTP();
 
                     obj._current[id]._server.on('ready', function () {
+                      obj._current[id]._startpath = obj._current[id]._server.currentPath;
                       _domainManager.emitEvent("eqFTP", "event", {
                         action: 'connection:ready',
                         data: connectionDetails
@@ -446,7 +461,6 @@ maxerr: 50, node: true */
                         settings.privateKey = connectionDetails.rsa;
                     }
                     obj._current[id]._server.connect(settings);
-                    obj._current[id]._startpath = obj._current[id]._server.currentPath;
                   }
                   break;
                 case 'close':
@@ -459,13 +473,17 @@ maxerr: 50, node: true */
                   break;
                 case 'resolveLocalpath':
                   return function (remotepath) {
-                    if (obj._current[id].temp) {
-                      // TODO
+                    var filename = remotepath.replace(RegExp("^" + (obj._current[id]._startpath || '')), '');
+                    if (obj._current[id].isTmp) {
+                      var tmp = _.findIndex(eqftp.connections._tmp_downloaded, {params: {remotepath: remotepath}, connection: {id: id}});
+                      console.log('TMP', eqftp.connections._tmp_downloaded, tmp);
+                      if (tmp > -1) {
+                        filename = utils.getNamepart(eqftp.connections._tmp_downloaded[tmp].params.localpath);
+                      } else {
+                        filename = id + '.' + utils.uniq() + '.' + utils.getNamepart(filename, 'filename');
+                      }
                     }
-                    var localpath = utils.normalize(obj._current[id].localpath + '/' +
-                                     remotepath.replace(RegExp("^" + (obj._current[id]._startpath || '')), '')
-                                    );
-                    return localpath;
+                    return utils.normalize(obj._current[id].localpath + '/' + filename);
                   };
                   break;
               }
