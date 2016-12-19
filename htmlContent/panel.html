@@ -60,8 +60,8 @@
       <div class="eqftp__icon eqftp__icon_medium">
         <i class="material-icons">power</i>
       </div>
-      <div class="eqftp__title eqftp__title_full eqftp__title_medium"><span class="eqftp__titleNowrap">Connection's settings</span></div>
-      <div class="eqftp__button eqftp__buttonCube eqftp__buttonCube_medium" onclick="showConnectionsSettings();">
+      <div class="eqftp__title eqftp__title_full eqftp__title_medium"><span class="eqftp__titleNowrap">{{eqftp__cs__window_title}}</span></div>
+      <div class="eqftp__button eqftp__buttonCube eqftp__buttonCube_medium" onclick="eqftp.ui.connections.editor.close();">
         <i class="material-icons">clear</i>
       </div>
     </div>
@@ -71,14 +71,14 @@
 
       <!-- SUBHEADER -->
       <div class="eqftp__subheader">
-        <div class="eqftp__title eqftp__title_small"><span class="eqftp__titleNowrap">Basic setting's</span></div>
+        <div class="eqftp__title eqftp__title_small"><span class="eqftp__titleNowrap">{{eqftp__cs__basic_settings}}</span></div>
       </div>
       <!-- /SUBHEADER -->
 
       <!-- BASIC SETTINGS -->
-      <input type="text" name="eqftpConnectionName" class="eqftp__input eqftp__inputText eqftp__inputText_underline eqftp__inputText_labelOut" placeholder="Connection name" />
+      <input type="text" name="name" class="eqftp__input eqftp__inputText eqftp__inputText_underline eqftp__inputText_labelOut" placeholder="{{eqftp__cs__c_name}}" />
       <div class="eqftp__holder">
-        <select name="eqftpConnectionType" class="eqftp__select">
+        <select name="protocol" class="eqftp__select">
           <option value="ftp">FTP</option>
           <option value="sftp">SFTP</option>
         </select>
@@ -86,72 +86,68 @@
       <div class="eqftp__row eqftp__row_between">
         <div class="eqftp__col eqftp__col_longest eqftp__col_paddingRight">
           <div class="eqftp__holder eqftp__holder_input">
-            <label class="eqftp__label" for="eqftpConnectionIp">IP or domain name</label>
-            <input type="text" name="eqftpConnectionIp" id="eqftpConnectionIp" class="eqftp__input eqftp__inputText eqftp__inputText_underline eqftp__inputText_labelIn" placeholder="IP or domain name" />
+            <label class="eqftp__label" for="eqftpConnectionIp">{{eqftp__cs__c_server}}</label>
+            <input type="text" name="server" id="eqftpConnectionIp" class="eqftp__input eqftp__inputText eqftp__inputText_underline eqftp__inputText_labelIn" placeholder="{{eqftp__cs__c_server}}" />
           </div>
         </div>
         <div class="eqftp__col eqftp__col_shortest">
           <div class="eqftp__holder eqftp__holder_input">
-            <label class="eqftp__label" for="eqftpConnectionPort">Port</label>
-            <input type="text" name="eqftpConnectionPort" id="eqftpConnectionPort" class="eqftp__input eqftp__inputText eqftp__inputText_underline eqftp__inputText_labelIn" placeholder="21" />
+            <label class="eqftp__label" for="eqftpConnectionPort">{{eqftp__cs__c_port}}</label>
+            <input type="text" name="port" id="eqftpConnectionPort" class="eqftp__input eqftp__inputText eqftp__inputText_underline eqftp__inputText_labelIn" placeholder="21" />
           </div>
         </div>
       </div>
       <div class="eqftp__row eqftp__row_between">
         <div class="eqftp__col eqftp__col_half eqftp__col_paddingRight">
           <div class="eqftp__holder eqftp__holder_input">
-            <label class="eqftp__label" for="eqftpConnectionServerLogin">Login</label>
-            <input type="text" name="eqftpConnectionServerLogin" id="eqftpConnectionServerLogin" class="eqftp__input eqftp__inputText eqftp__inputText_underline eqftp__inputText_labelIn" placeholder="Login to server" />
+            <label class="eqftp__label" for="eqftpConnectionServerLogin">{{eqftp__cs__c_login}}</label>
+            <input type="text" name="login" id="eqftpConnectionServerLogin" class="eqftp__input eqftp__inputText eqftp__inputText_underline eqftp__inputText_labelIn" placeholder="{{eqftp__cs__c_login}} to server" />
           </div>
         </div>
         <div class="eqftp__col eqftp__col_half">
           <div class="eqftp__holder eqftp__holder_input">
-            <label class="eqftp__label" for="eqftpConnectionServerPassword">Password</label>
-            <input type="text" name="eqftpConnectionServerPassword" id="eqftpConnectionServerPassword" class="eqftp__input eqftp__inputText eqftp__inputText_underline eqftp__inputText_labelIn" placeholder="Password to server" />
+            <label class="eqftp__label" for="eqftpConnectionServerPassword">{{eqftp__cs__c_password}}</label>
+            <input type="text" name="password" id="eqftpConnectionServerPassword" class="eqftp__input eqftp__inputText eqftp__inputText_underline eqftp__inputText_labelIn" placeholder="{{eqftp__cs__c_password}}" />
           </div>
         </div>
       </div>
 
       <div class="eqftp__holder eqftp__holder_input">
-        <label class="eqftp__label" for="eqftpConnectionLocalPath">Local path</label>
-        <input type="text" name="eqftpConnectionLocalPath" id="eqftpConnectionLocalPath" class="eqftp__input eqftp__inputText eqftp__inputText_underline eqftp__inputText_labelIn" placeholder="Local path" />
+        <label class="eqftp__label" for="eqftpConnectionLocalPath">{{eqftp__cs__c_localpath}}</label>
+        <input type="text" name="localpath" id="eqftpConnectionLocalPath" class="eqftp__input eqftp__inputText eqftp__inputText_underline eqftp__inputText_labelIn" placeholder="{{eqftp__cs__c_localpath}}" />
       </div>
       <div class="eqftp__holder eqftp__holder_input">
-        <label class="eqftp__label" for="eqftpConnectionRemotePath">Remote path</label>
-        <input type="text" name="eqftpConnectionRemotePath" id="eqftpConnectionRemotePath" class="eqftp__input eqftp__inputText eqftp__inputText_underline eqftp__inputText_labelIn" placeholder="Remote path" />
+        <label class="eqftp__label" for="eqftpConnectionRemotePath">{{eqftp__cs__c_remotepath}}</label>
+        <input type="text" name="remotepath" id="eqftpConnectionRemotePath" class="eqftp__input eqftp__inputText eqftp__inputText_underline eqftp__inputText_labelIn" placeholder="{{eqftp__cs__c_remotepath}}" />
       </div>
       <!-- /BASIC SETTINGS -->
 
       <!-- SUBHEADER -->
       <div class="eqftp__subheader">
-        <div class="eqftp__title eqftp__title_small"><span class="eqftp__titleNowrap">Additional setting's</span></div>
+        <div class="eqftp__title eqftp__title_small"><span class="eqftp__titleNowrap">{{eqftp__cs__additional_settings}}</span></div>
       </div>
       <!-- /SUBHEADER -->
 
       <!-- ADDITIONAL SETTINGS -->
       <div class="eqftp__holder">
-        <input type="checkbox" name="eqftpConnectionCheckDifference" id="eqftpConnectionCheckDifference" />
-        <label for="eqftpConnectionCheckDifference" class="eqftp__label">Check difference files</label>
+        <input type="checkbox" name="check_difference" id="eqftpConnectionCheckDifference" />
+        <label for="eqftpConnectionCheckDifference" class="eqftp__label">{{eqftp__cs__c_check_difference}}</label>
       </div>
       <div class="eqftp__holder">
-        <input type="checkbox" name="eqftpConnectionAutoUpload" id="eqftpConnectionAutoUpload" />
-        <label for="eqftpConnectionAutoUpload" class="eqftp__label">Automatically upload changed files</label>
+        <input type="checkbox" name="autoupload" id="eqftpConnectionAutoUpload" />
+        <label for="eqftpConnectionAutoUpload" class="eqftp__label">{{eqftp__cs__c_autoupload}}</label>
       </div>
       <div class="eqftp__holder eqftp__holder_input">
-        <label class="eqftp__label" for="eqftpConnectionIgnoreList">Ignore list</label>
-        <textarea name="eqftpConnectionIgnoreList" id="eqftpConnectionIgnoreList" class="eqftp__input eqftp__inputText eqftp__inputText_underline eqftp__inputText_labelIn" placeholder="Gitignore syntax"></textarea>
-      </div>
-      <div class="eqftp__holder eqftp__holder_input">
-        <label class="eqftp__label" for="eqftpConnectionKeepAlive">Keep alive</label>
-        <input type="text" name="eqftpConnectionKeepAlive" id="eqftpConnectionKeepAlive" class="eqftp__input eqftp__inputText eqftp__inputText_underline eqftp__inputText_labelIn" placeholder="Keep alive" />
+        <label class="eqftp__label" for="eqftpConnectionIgnoreList">{{eqftp__cs__c_ignore_list}}</label>
+        <textarea name="ignore_list" id="eqftpConnectionIgnoreList" class="eqftp__input eqftp__inputText eqftp__inputText_underline eqftp__inputText_labelIn" placeholder="{{eqftp__cs__c_ignore_list_placeholder}}"></textarea>
       </div>
       <!-- /ADDITIONAL SETTINGS -->
 
     </div>
 
     <div class="eqftp__row eqftp__row_end">
-      <div class="eqftp__button eqftp__buttonRectangle eqftp__buttonRectangle_nobg">delete</div>
-      <div class="eqftp__button eqftp__button_marginRight eqftp__button_blue eqftp__buttonRectangle">save</div>
+      <div class="eqftp__button eqftp__buttonRectangle eqftp__buttonRectangle_nobg">{{eqftp__controls__delete}}</div>
+      <div class="eqftp__button eqftp__button_marginRight eqftp__button_blue eqftp__buttonRectangle" onclick="console.log(eqftp.ui.connections.editor.read());">{{eqftp__controls__save}}</div>
     </div>
 
   </div>
@@ -188,7 +184,7 @@
     <div class="eqftp-content__page eqftp-content__page_connections">
 
       <!-- NEW CONNECTION -->
-      <div class="eqftp__button eqftp__button_blue eqftp__buttonRound shadow-smallest" onclick="showConnectionsSettings();"><i class="material-icons">add</i></div>
+      <div class="eqftp__button eqftp__button_blue eqftp__buttonRound shadow-smallest" onclick="eqftp.ui.connections.new();"><i class="material-icons">add</i></div>
       <!-- /NEW CONNECTION -->
 
       <!-- SEARCH CONNECTION -->

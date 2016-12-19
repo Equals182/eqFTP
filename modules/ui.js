@@ -65,6 +65,9 @@ define(function (require, exports, module) {
         case 'queue:progress':
           eqUI.queue.progress(event.data);
           break;
+        case 'connection:update':
+          eqUI.connections.render(event.data);
+          break;
       }
     }
   };
@@ -524,6 +527,155 @@ define(function (require, exports, module) {
       return self.tpl;
     };
   }();
+  
+  eqUI.connections = new function () {
+    var self = this;
+    self.tpl = eqUI.panel.tpl.find('.eqftp-connections');
+    
+    self.editor = new function () {
+      var connections = self,
+          self = this;
+      self.tpl = eqUI.panel.tpl.find('.eqftp-connectionsSettings');
+      self.state = 'closed';
+      var activeClass = 'eqftp-connectionsSettings_active';
+      
+      self.open = function () {
+        if (self.state === 'closed') {
+          self.tpl.addClass(activeClass);
+          self.state = 'opened';
+        }
+      };
+      self.close = function () {
+        if (self.state === 'opened') {
+          self.tpl.removeClass(activeClass);
+          self.state = 'closed';
+        }
+      };
+      self.toggle = function () {
+        switch (self.state) {
+          case 'opened':
+            self.close();
+            break;
+          case 'closed':
+            self.open();
+            break;
+        }
+      };
+      self.reset = function () {
+        self.tpl.find('[name="id"]').remove();
+        self.tpl.find('input, select, textarea').each(function () {
+          if ($(this).is('[type=checkbox]')) {
+            $(this).prop('checked', false);
+          } else if ($(this).is('[type=radio]')) {
+            $(this).prop('checked', false);
+          } else if ($(this).is('textarea')) {
+            $(this).val('');
+          } else if ($(this).is('select')) {
+            $(this).find('option:selected').prop('selected', false);
+          } else {
+            $(this).val('');
+          }
+        });
+      };
+      self.read = function () {
+        var r = {};
+        self.tpl.find('input, select, textarea').each(function () {
+          var name = false,
+              value = false;
+          if ($(this).is('[type=checkbox]')) {
+            name = $(this).attr('name');
+            value = !!$(this).is(':checked');
+          } else if ($(this).is('[type=radio]')) {
+            name = $(this).attr('name');
+            value = $(this).val();
+          } else if ($(this).is('textarea')) {
+            name = $(this).attr('name');
+            value = $(this).val();
+          } else if ($(this).is('select')) {
+            name = $(this).attr('name');
+            value = $(this).val();
+          } else {
+            name = $(this).attr('name');
+            value = $(this).val();
+          }
+          r[name] = value;
+        });
+        return r;
+      };
+      
+      self.edit = function (connection) {
+        self.reset();
+        if (connection) {
+          if (_.isString(connection)) {
+            connection = eqFTP.connections[connection];
+            if (!connection) {
+              return false;
+            }
+          }
+          if (!_.isObject(connection)) {
+            return false;
+          }
+          _.forOwn(connection, function (value, name) {
+            var c = self.tpl.find('[name="' + name + '"]');
+            if (c.length > 0) {
+              if (c.is('[type=checkbox]')) {
+                c.prop('checked', !!value);
+              } else if (c.is('[type=radio]')) {
+                c.find('[value="' + value + '"]').prop('checked', true);
+              } else if (c.is('textarea')) {
+                c.val(value);
+              } else if (c.is('select')) {
+                c.find('[value="' + value + '"]').prop('selected', true);
+              } else {
+                c.val(value);
+              }
+            }
+          });
+          self.tpl.append('<input name="id" type="hidden" value="' + connection.id + '"/>');
+        }
+        self.open();
+      };
+      self.new = function () {
+        return self.edit({
+          autoupload: true,
+          check_difference: true
+        });
+      };
+    }();
+    
+    self._gen = function (connection) {
+      return $(Mustache.render(require("text!htmlContent/connectionElement.html"), _.defaults(_.clone(strings), {
+        host: connection.server
+      }, connection)));
+    };
+    self.render = function (connections) {
+      if (_.isObject(connections)) {
+        var _c = [];
+        _.forOwn(connections, function (v, i) {
+          _c.push(v);
+        });
+        connections = _c;
+      }
+      if (!_.isArray(connections)) {
+        return false;
+      }
+      /*
+      connections.sort(function (a, b) {
+        return a.index - b.index;
+      });
+      */
+      self.tpl.html('');
+      connections.forEach(function (v, i) {
+        self.tpl.append(self._gen(v));
+      });
+    };
+    self.edit = self.editor.edit;
+    self.new = self.editor.new;
+    
+    self.get = function () {
+      return self.tpl;
+    };
+  };
   
   /*
   eqUI.dropdown = new function () {

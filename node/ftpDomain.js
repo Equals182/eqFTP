@@ -151,6 +151,29 @@ maxerr: 50, node: true */
       }
       return self.settings;
     };
+    self.setConnection = function (connection) {
+      var defaults = {
+        protocol: 'ftp',
+        port: 21,
+        autoupload: true,
+        check_difference: true
+      };
+      if (!_.isObject(connection)) {
+        throw new Error('Passed connection is not an object');
+      }
+      if (!connection.id) {
+        connection.id = utils.uniq();
+        connection = _.defaults(connection, defaults);
+      } else {
+        var _c = _.get(eqftp, ['connections', '_all', connection.id]);
+        if (!_c) {
+          throw new Error('Passed connection\'s id doesn\'t exist');
+        }
+        connection = _.defaults(_c, connection, defaults);
+      }
+      self.settings.connections[connection.id] = connection;
+      eqftp.connections.init(self.settings.connections);
+    }
   }();
   eqftp.connections = new Proxy({
     _current: {},

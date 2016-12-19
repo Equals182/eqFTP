@@ -4,6 +4,25 @@ define({
  "eqftp__context__upload": "Upload",
  
  /**
+ * CONNECTION'S SETTINGS WINDOW
+ */
+ "eqftp__cs__window_title": "Edit connection",
+ "eqftp__cs__basic_settings": "Basic settings",
+ "eqftp__cs__additional_settings": "Additional settings",
+ "eqftp__cs__c_name": "Connection name",
+ "eqftp__cs__c_protocol": "Protocol",
+ "eqftp__cs__c_server": "IP address or domain name",
+ "eqftp__cs__c_port": "Port",
+ "eqftp__cs__c_login": "Login",
+ "eqftp__cs__c_password": "Password",
+ "eqftp__cs__c_localpath": "Local path",
+ "eqftp__cs__c_remotepath": "Remote path",
+ "eqftp__cs__c_check_difference": "Check difference between files",
+ "eqftp__cs__c_autoupload": "Automatically upload changes",
+ "eqftp__cs__c_ignore_list": "Ignore list",
+ "eqftp__cs__c_ignore_list_placeholder": "Use .gitignore syntax",
+ 
+ /**
  * LOGS
  */
  "eqftp__log__download_success": "File {{filename}} successfuly downloaded",
@@ -18,7 +37,14 @@ define({
  
  "eqftp__log__settings_load_success": "Settings file {{filename}} loaded",
  "eqftp__log__settings_load_error": "There was an error loading settings file {{filename}}",
-
+ 
+ /**
+ * CONTROLS
+ */
+ "eqftp__controls__save": "Save",
+ "eqftp__controls__delete": "Delete",
+ "eqftp__controls__cancel": "Cancel",
+ 
  /**
  * FILESIZES
  */

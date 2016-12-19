@@ -195,7 +195,8 @@ define(function (require, exports, module) {
                 ui: eqftp.ui,
                 connect: eqftp.connect,
                 openFolder: eqftp.openFolder,
-                download: eqftp.download
+                download: eqftp.download,
+                upload: eqftp.upload
               };
               var file = eqftp.preferences.get('misc.last_settings_file');
               eqftp.settings.get(file).done(function (settings) {

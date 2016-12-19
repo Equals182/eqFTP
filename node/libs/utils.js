@@ -177,11 +177,6 @@ maxerr: 50, node: true */
         case 'parentName':
           return (m[2]?m[2].replace('/', ''):'');
           break;
-        case 'name':
-        case 'filename':
-        default:
-          return m[3];
-          break;
         case 'name_noext':
         case 'filename_noext':
         case 'name_noextension':
@@ -191,6 +186,11 @@ maxerr: 50, node: true */
         case 'extension':
         case 'ext':
           return (m[5] ? m[6] : '');
+          break;
+        case 'name':
+        case 'filename':
+        default:
+          return m[3];
           break;
       }
     },
@@ -223,17 +223,17 @@ maxerr: 50, node: true */
           z: function() { var d = new Date(date.getFullYear(),0,1); return Math.ceil((date - d) / 86400000); }, // Fixed now
           // Week
           W: function() {
-              var target = new Date(date.valueOf());
-              var dayNr = (date.getDay() + 6) % 7;
-              target.setDate(target.getDate() - dayNr + 3);
-              var firstThursday = target.valueOf();
-              target.setMonth(0, 1);
-              if (target.getDay() !== 4) {
-                  target.setMonth(0, 1 + ((4 - target.getDay()) + 7) % 7);
-              }
-              var retVal = 1 + Math.ceil((firstThursday - target) / 604800000);
+            var target = new Date(date.valueOf());
+            var dayNr = (date.getDay() + 6) % 7;
+            target.setDate(target.getDate() - dayNr + 3);
+            var firstThursday = target.valueOf();
+            target.setMonth(0, 1);
+            if (target.getDay() !== 4) {
+                target.setMonth(0, 1 + ((4 - target.getDay()) + 7) % 7);
+            }
+            var retVal = 1 + Math.ceil((firstThursday - target) / 604800000);
 
-              return (retVal < 10 ? '0' + retVal : retVal);
+            return (retVal < 10 ? '0' + retVal : retVal);
           },
           // Month
           F: function() { return Date.longMonths[date.getMonth()]; },
@@ -241,12 +241,12 @@ maxerr: 50, node: true */
           M: function() { return Date.shortMonths[date.getMonth()]; },
           n: function() { return date.getMonth() + 1; },
           t: function() {
-              var year = date.getFullYear(), nextMonth = date.getMonth() + 1;
-              if (nextMonth === 12) {
-                  year = year++;
-                  nextMonth = 0;
-              }
-              return new Date(year, nextMonth, 0).getDate();
+            var year = date.getFullYear(), nextMonth = date.getMonth() + 1;
+            if (nextMonth === 12) {
+              year = year++;
+              nextMonth = 0;
+            }
+            return new Date(year, nextMonth, 0).getDate();
           },
           // Year
           L: function() { var year = date.getFullYear(); return (year % 400 == 0 || (year % 100 != 0 && year % 4 == 0)); },   // Fixed now
@@ -268,16 +268,17 @@ maxerr: 50, node: true */
           // Timezone
           e: function() { return /\((.*)\)/.exec(new Date().toString())[1]; },
           I: function() {
-              var DST = null;
-                  for (var i = 0; i < 12; ++i) {
-                          var d = new Date(date.getFullYear(), i, 1);
-                          var offset = d.getTimezoneOffset();
+            var DST = null;
+              for (var i = 0; i < 12; ++i) {
+                var d = new Date(date.getFullYear(), i, 1);
+                var offset = d.getTimezoneOffset();
 
-                          if (DST === null) DST = offset;
-                          else if (offset < DST) { DST = offset; break; }                     else if (offset > DST) break;
-                  }
-                  return (date.getTimezoneOffset() == DST) | 0;
-              },
+                if (DST === null) DST = offset;
+                else if (offset < DST) { DST = offset; break; }
+                else if (offset > DST) break;
+              }
+              return (date.getTimezoneOffset() == DST) | 0;
+            },
           O: function() { return (-date.getTimezoneOffset() < 0 ? '-' : '+') + (Math.abs(date.getTimezoneOffset() / 60) < 10 ? '0' : '') + Math.floor(Math.abs(date.getTimezoneOffset() / 60)) + (Math.abs(date.getTimezoneOffset() % 60) == 0 ? '00' : ((Math.abs(date.getTimezoneOffset() % 60) < 10 ? '0' : '')) + (Math.abs(date.getTimezoneOffset() % 60))); },
           P: function() { return (-date.getTimezoneOffset() < 0 ? '-' : '+') + (Math.abs(date.getTimezoneOffset() / 60) < 10 ? '0' : '') + Math.floor(Math.abs(date.getTimezoneOffset() / 60)) + ':' + (Math.abs(date.getTimezoneOffset() % 60) == 0 ? '00' : ((Math.abs(date.getTimezoneOffset() % 60) < 10 ? '0' : '')) + (Math.abs(date.getTimezoneOffset() % 60))); }, // Fixed now
           T: function() { return date.toTimeString().replace(/^.+ \(?([^\)]+)\)?$/, '$1'); },
