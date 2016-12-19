@@ -251,17 +251,17 @@ maxerr: 50, node: true */
               return eqftp.connections._tmp_downloaded[tmp].connection.id;
             } else {
               var deepest = 0,
-                  сonn = {};
+                  сonn = '';
               _.forOwn(eqftp.connections._c_settings, function (connection, id) {
                 var r = RegExp('^' + utils.escapeRegExp(connection.localpath));
                 if (r.test(localpath) && connection.localpath.levels() > deepest) {
                   deepest = connection.localpath.levels();
-                  сonn = _.clone(connection);
+                  сonn = id;
                 }
               });
               if (deepest > 0) {
-                callback(null, сonn.id);
-                return сonn.id;
+                callback(null, сonn);
+                return сonn;
               }
             }
             callback('Can\'t find related connection to given path: ' + localpath, {});
@@ -517,7 +517,8 @@ maxerr: 50, node: true */
                   break;
                 case 'resolveLocalpath':
                   return function (remotepath) {
-                    var filename = remotepath.replace(RegExp("^" + (obj._current[id]._startpath || '')), '');
+                    var filename = remotepath.replace(RegExp("^" + (obj._current[id].remotepath || obj._current[id]._startpath || '')), '');
+                    console.log('resolving localpath', filename, obj._current[id]._startpath);
                     if (obj._current[id].isTmp) {
                       var tmp = _.findIndex(eqftp.connections._tmp_downloaded, {params: {remotepath: remotepath}, connection: {id: id}});
                       if (tmp > -1) {

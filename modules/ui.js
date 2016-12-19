@@ -308,7 +308,11 @@ define(function (require, exports, module) {
         parent.append($(Mustache.render(self._t[element.type], _.defaults(_.clone(strings), element, {
           date_formatted: function () {
             if (utils) {
-              return utils.date_format(new Date(element.date), 'd-m-Y');
+              var format = 'H:i d/m';
+              if (_.has(eqFTP, 'settings.main.date_format')) {
+                format = eqFTP.settings.main.date_format;
+              }
+              return utils.date_format(new Date(element.date), format);
             } else {
               return element.date;
             }
