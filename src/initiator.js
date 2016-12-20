@@ -670,13 +670,13 @@ window.eqftp = {
     $(element).next('.eqftp-fileTree__itemChildren').slideToggle(100);
   },
   editor: {
-    new: {
+    new: function () {
       $('.eqftp-connectionsSettings').toggleClass('eqftp-connectionsSettings_active');
     },
-    edit: {
+    edit: function () {
       $('.eqftp-connectionsSettings').toggleClass('eqftp-connectionsSettings_active');
     },
-    close: {
+    close: function () {
       $('.eqftp-connectionsSettings').toggleClass('eqftp-connectionsSettings_active');
     }
   }
