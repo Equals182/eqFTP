@@ -398,7 +398,7 @@
         justify-content: space-between;
         align-items: center;
         min-width: 0px;
-        width: calc(100% - 100px);
+        width: calc(100% - 120px);
       }
       &Icon {
         display: flex;
@@ -447,7 +447,7 @@
         justify-content: flex-end;
         align-items: center;
         min-width: 50px;
-        max-width: 100px;
+        max-width: 120px;
         width: auto;
         & .eqftp__title {
           text-align: right;
