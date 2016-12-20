@@ -776,11 +776,20 @@
     }
   }
   &__label {
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    margin-right: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    padding-right: 0;
     @include font($font-family, 12px, 300, normal, rgba(255, 255, 255, 0.5), left);
     cursor: pointer;
     display: flex;
     align-items: center;
     user-select: none;
+    transition: all 0s;
     &:hover {
       color: rgba(255, 255, 255, 0.7);
     }
