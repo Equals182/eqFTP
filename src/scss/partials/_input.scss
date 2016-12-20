@@ -1,5 +1,8 @@
 .eqftp {
   & #{$all-text-inputs} {
+    @include placeholder {
+      color: rgba(0, 0, 0, 0.38);
+    }
     &.eqftp {
       &__input {
         margin-top: 0;
@@ -44,7 +47,12 @@
           }
         }
         &Text {
-          @include font($font-family, 16px, 300, normal, rgba(0, 0, 0, 0.38), left);
+          font-family: $font-family;
+          font-size: 16px;
+          font-weight: 300;
+          font-style: normal;
+          color: $c00;
+          text-align: left;
           display: flex;
           align-items: flex-end;
           vertical-align: bottom;
@@ -65,7 +73,10 @@
             border-bottom: 1px solid $c09;
           }
           &_inversion {
-            color: rgba(255, 255, 255, 0.5);
+            color: $c01;
+            @include placeholder {
+              color: rgba(255,255,255,0.5);
+            }
           }
         }
       }
@@ -78,12 +89,16 @@
         border: none;
         box-shadow: none;
         &Text {
-          color: rgba(0, 0, 0, 0.54);
+          @include placeholder {
+            color: rgba(0, 0, 0, 0.54);
+          }
           &_underline {
             border-bottom: 1px solid $c09;
           }
           &_inversion {
-            color: rgba(255, 255, 255, 0.7);
+            @include placeholder {
+              color: rgba(255, 255, 255, 0.7)
+            }
           }
         }
       }
@@ -96,13 +111,17 @@
         border: none;
         box-shadow: none;
         &Text {
-          color: rgba(0, 0, 0, 0.87);
+          @include placeholder {
+            color: rgba(0, 0, 0, 0.87);
+          }
           &_underline {
             padding-bottom: 6px;
             border-bottom: 2px solid $c21;
           }
           &_inversion {
-            color: $c01;
+            @include placeholder {
+              color: $c01;
+            }
           }
         }
       }
@@ -112,11 +131,11 @@
     display: none;
     &+label {
       &:before {
+        content: '\E835';
         margin-right: $i4;
         font-family: 'Material Icons';
         font-size: 24px;
         color: rgba(0, 0, 0, 0.87);
-        content: '\E835';
         display: inline-flex;
         justify-content: center;
         align-items: center;
@@ -128,9 +147,9 @@
   & input[type="checkbox"]:checked {
     &+label {
       &:before {
+        content: '\E834';
         font-family: 'Material Icons';
         color: $c21;
-        content: '\E834';
       }
     }
   }
@@ -142,33 +161,32 @@
       &.eqftp {
         &__input {
           &Text {
-            color: rgba(255, 255, 255, 0.5);
+            color: $c01;
+            @include placeholder {
+              color: rgba(255, 255, 255, 0.5);
+            }
             &_inversion {
-              color: rgba(0, 0, 0, 0.38);
+              color: $c00;
+              @include placeholder {
+                color: rgba(0, 0, 0, 0.38);
+              }
             }
           }
         }
       }
     }
-    & #{$all-text-inputs-hover} {
-      &.eqftp {
-        &__input {
-          &Text {
-            color: rgba(255, 255, 255, 0.7);
-            &_inversion {
-              color: rgba(0, 0, 0, 0.54);
-            }
-          }
-        }
-      }
-    }
+    & #{$all-text-inputs-hover},
     & #{$all-text-inputs-focus} {
       &.eqftp {
         &__input {
           &Text {
-            color: $c01;
+            @include placeholder {
+              color: rgba(255, 255, 255, 0.7);
+            }
             &_inversion {
-              color: rgba(0, 0, 0, 0.87);
+              @include placeholder {
+                color: rgba(0, 0, 0, 0.54);
+              }
             }
           }
         }
