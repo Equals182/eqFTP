@@ -336,9 +336,9 @@
         }
         &Date {
           opacity: 0.4;
-          min-width: 40px;
-          max-width: 40px;
-          width: 40px;
+          min-width: $i11;
+          max-width: $i11;
+          width: $i11;
         }
         &Info {
           margin-left: $i2;
@@ -394,9 +394,6 @@
         width: 100%;
       }
       &Info {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
         min-width: 0px;
         width: calc(100% - 120px);
       }
@@ -419,26 +416,15 @@
         min-width: 0px;
         max-width: 100%;
       }
-      &Ext {
-        padding-left: $i1;
-        opacity: 0.4;
-        box-sizing: border-box;
-        display: flex;
-        justify-content: flex-end;
-        align-items: center;
-        min-width: 0px;
-        max-width: 30%;
-      }
       &Size {
         padding-left: $i1;
-        font-style: italic;
         opacity: 0.4;
         box-sizing: border-box;
         display: flex;
         justify-content: flex-end;
         align-items: center;
         min-width: 0px;
-        max-width: 70%;
+        max-width: 100%;
       }
       &Date {
         padding-left: $i1;
@@ -793,6 +779,9 @@
     &:hover {
       color: rgba(255, 255, 255, 0.7);
     }
+  }
+  &__textarea {
+    min-height: 100px;
   }
   &__holder {
     box-sizing: border-box;
