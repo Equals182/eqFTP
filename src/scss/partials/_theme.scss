@@ -56,11 +56,17 @@
         }
       }
     }
+    &__label {
+      color: rgba(255, 255, 255, 0.5);
+    }
     &__title {
       color: $c01;
       &_inversion {
         color: $c02;
       }
+    }
+    &__subheader {
+      color: rgba(255, 255, 255, 0.5);
     }
   }
 }
@@ -113,10 +119,16 @@
       }
     }
   }
+  &__label {
+    color: rgba(0, 0, 0, 0.38);
+  }
   &__title {
     color: $c02;
     &_inversion {
       color: $c01;
     }
+  }
+  &__subheader {
+    color: rgba(0, 0, 0, 0.38);
   }
 }

@@ -714,7 +714,7 @@
       border-radius: 2px;
       font-family: $font-family;
       font-size: 14px;
-      font-weight: 600;
+      font-weight: 700;
       font-style: normal;
       text-transform: uppercase;
       min-height: $i9;
@@ -762,7 +762,7 @@
     }
   }
   &__label {
-    margin-top: 0;
+    margin-top: 16px;
     margin-bottom: 0;
     margin-left: 0;
     margin-right: 0;
@@ -770,15 +770,15 @@
     padding-bottom: 0;
     padding-left: 0;
     padding-right: 0;
-    @include font($font-family, 12px, 300, normal, rgba(255, 255, 255, 0.5), left);
+    font-family: $font-family;
+    font-size: 12px;
+    font-weight: 400;
+    text-align: left;
     cursor: pointer;
     display: flex;
     align-items: center;
     user-select: none;
     transition: all 0s;
-    &:hover {
-      color: rgba(255, 255, 255, 0.7);
-    }
   }
   &__textarea {
     min-height: 100px;
@@ -811,7 +811,7 @@
   &__title {
     font-size: 14px;
     font-family: $font-family;
-    font-weight: 300;
+    font-weight: 400;
     font-style: normal;
     text-align: left;
     display: flex;
@@ -857,6 +857,10 @@
     }
   }
   &__subheader {
+    font-family: $font-family;
+    font-size: 14px;
+    font-weight: 500;
+    font-style: normal;
     display: flex;
     align-items: center;
     min-height: $i12;

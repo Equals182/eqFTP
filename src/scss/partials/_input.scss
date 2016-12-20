@@ -1,8 +1,5 @@
 .eqftp {
   & #{$all-text-inputs} {
-    @include placeholder {
-      color: rgba(0, 0, 0, 0.38);
-    }
     &.eqftp {
       &__input {
         margin-top: 0;
@@ -47,9 +44,12 @@
           }
         }
         &Text {
+          @include placeholder {
+            color: rgba(0, 0, 0, 0.38);
+          }
           font-family: $font-family;
           font-size: 16px;
-          font-weight: 300;
+          font-weight: 400;
           font-style: normal;
           color: $c00;
           text-align: left;
@@ -116,7 +116,7 @@
           }
           &_underline {
             padding-bottom: 6px;
-            border-bottom: 2px solid $c21;
+            border-bottom: 2px solid $c20;
           }
           &_inversion {
             @include placeholder {
@@ -161,10 +161,10 @@
       &.eqftp {
         &__input {
           &Text {
-            color: $c01;
             @include placeholder {
               color: rgba(255, 255, 255, 0.5);
             }
+            color: $c01;
             &_inversion {
               color: $c00;
               @include placeholder {
