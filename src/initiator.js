@@ -658,6 +658,19 @@ window.eqftp = {
       toggle: function () {
         $('.eqftp-footer').toggleClass('eqftp-footer_active');
       }
+    },
+    connections: {
+      new: function () {
+        $('.eqftp-connectionsSettings').toggleClass('eqftp-connectionsSettings_active');
+      },
+      edit: function () {
+        $('.eqftp-connectionsSettings').toggleClass('eqftp-connectionsSettings_active');
+      },
+      editor: {
+        close: function () {
+          $('.eqftp-connectionsSettings').toggleClass('eqftp-connectionsSettings_active');
+        }
+      }
     }
   },
   openFolder: function (element) {
@@ -669,15 +682,4 @@ window.eqftp = {
     }
     $(element).next('.eqftp-fileTree__itemChildren').slideToggle(100);
   },
-  editor: {
-    new: function () {
-      $('.eqftp-connectionsSettings').toggleClass('eqftp-connectionsSettings_active');
-    },
-    edit: function () {
-      $('.eqftp-connectionsSettings').toggleClass('eqftp-connectionsSettings_active');
-    },
-    close: function () {
-      $('.eqftp-connectionsSettings').toggleClass('eqftp-connectionsSettings_active');
-    }
-  }
 }
