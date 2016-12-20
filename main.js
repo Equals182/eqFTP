@@ -421,13 +421,17 @@ define(function (require, exports, module) {
   AppInit.appReady(function () {
     // Adding "change" listener on watched paths
     FileSystem.on("change", function (e, file) {
-      eqftp._cache.watched.some(function (v, i) {
-        var r = new RegExp('^' + v);
-        if (r.test(file._path)) {
-          eqftp.upload(file._path);
-          return true;
-        }
-      });
+      if (file._isFile) {
+        eqftp._cache.watched.some(function (v, i) {
+          var r = new RegExp('^' + v);
+          if (r.test(file._path)) {
+            eqftp.upload(file._path);
+            return true;
+          }
+        });
+      } else if (file._isDirectory) {
+        console.log('CHANGE', file, e);
+      }
     });
     // Adding "rename" listener on watched paths
     FileSystem.on("rename", function (e, file) {
