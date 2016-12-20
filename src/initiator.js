@@ -660,5 +660,16 @@ window.eqftp = {
       $(element).find('.material-icons').text('keyboard_arrow_right');
     }
     $(element).next('.eqftp-fileTree__itemChildren').slideToggle(100);
+  },
+  editor: {
+    new: {
+      $('.eqftp-connectionsSettings').toggleClass('eqftp-connectionsSettings_active');
+    },
+    edit: {
+      $('.eqftp-connectionsSettings').toggleClass('eqftp-connectionsSettings_active');
+    },
+    close: {
+      $('.eqftp-connectionsSettings').toggleClass('eqftp-connectionsSettings_active');
+    }
   }
 }
