@@ -53,6 +53,16 @@ maxerr: 50, node: true */
   String.prototype.levels = function () {
     return (this.replace(/(.+?)($|\/)/g, '.')).length;
   };
+  String.prototype.splitIgnores = function () {
+    return _.compact(
+      _.uniq(
+        _.concat(
+          this.split("\n"),
+          /.*?(\.pyc|\.git|\.gitmodules|\.svn|\.DS_Store|Thumbs\.db|\.hg|CVS|\.hgtags|\.idea|\.c9revisions|\.SyncArchive|\.SyncID|\.SyncIgnore|\.eqftp)/
+        )
+      )
+    );
+  };
   
   var _uniq;
   eqUtils = {
@@ -165,7 +175,7 @@ maxerr: 50, node: true */
       if (!_.isString(filename)) {
         return filename;
       }
-      var m = filename.match(/((\/?.*?\/)*)(((.*)\.)?(.*))/);
+      var m = filename.match(/((\/?.*?\/)*)((.*?)((\.)(.*))?)$/);
       if (!m) {
         return filename;
       }
@@ -181,11 +191,18 @@ maxerr: 50, node: true */
         case 'filename_noext':
         case 'name_noextension':
         case 'filename_noextension':
-          return (m[5] || m[6]);
+          return m[4];
           break;
         case 'extension':
         case 'ext':
-          return (m[5] ? m[6] : '');
+          return m[7];
+          break;
+        case 'extension_dot':
+        case 'ext_dot':
+          return m[5];
+          break;
+        case 'extdot':
+          return m[6];
           break;
         case 'name':
         case 'filename':

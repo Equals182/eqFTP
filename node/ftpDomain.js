@@ -10,6 +10,7 @@ maxerr: 50, node: true */
     utils = require('./libs/utils.js'),
     fs = require('fs'),
     CryptoJS = require("crypto-js"),
+    chokidar = require('chokidar'),
     _ = require("lodash");
 
   var _domainManager;
@@ -195,6 +196,27 @@ maxerr: 50, node: true */
             });
             obj._c_settings = _.clone(connections);
             obj._all = _.defaults(obj._c_settings, obj._c_tmp, _.isEqualConnections);
+            _.forOwn(obj._all, function (connection, id) {
+              if (!obj._all[id].isTmp) {
+                if (!obj._all[id]._watch) {
+                  obj._all[id]._watch = chokidar.watch(obj._all[id].localpath, {
+                    ignored: obj._all[id].ignore_list.splitIgnores(),
+                    persistent: true,
+                    awaitWriteFinish: true
+                  });
+                  obj._all[id]._watch
+                    .on('add', function (path, stats) {
+                      console.log('add', path, stats);
+                    })
+                    .on('change', function (path, stats) {
+                      console.log('change', path, stats);
+                    })
+                    .on('unlink', function (path, stats) {
+                      console.log('unlink', path, stats);
+                    });
+                }
+              }
+            });
             _domainManager.emitEvent("eqFTP", "event", {
               action: 'connection:update',
               data: obj._all
@@ -438,6 +460,15 @@ maxerr: 50, node: true */
                                     params: args[0],
                                     connection: obj._all[queuer.id]
                                   });
+                                  if (!obj._all[id]._watch) {
+                                    obj._all[id]._watch = chokidar.watch(args[0].localpath);
+                                    obj._all[id]._watch
+                                      .on('change', function (path) {
+                                        console.log('change tmp', path, arguments);
+                                      });
+                                  } else {
+                                    obj._all[id]._watch.add(args[0].localpath);
+                                  }
                                 }
                               }
                               break;
@@ -533,6 +564,9 @@ maxerr: 50, node: true */
                 case 'close':
                   return function (id) {
                     if (obj._current && obj._current[id] && obj._current[id]._server) {
+                      if (obj._all[id]._watch) {
+                        obj._all[id]._watch.close();
+                      }
                       return obj._current[id]._server.close();
                     }
                     return true;

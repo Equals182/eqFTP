@@ -326,6 +326,9 @@ define(function (require, exports, module) {
           name_short: function () {
             return utils.getNamepart(element.name, 'name_noext');
           },
+          extdot: function () {
+            return utils.getNamepart(element.name, 'extdot');
+          },
           extension: function () {
             return utils.getNamepart(element.name, 'ext');
           },

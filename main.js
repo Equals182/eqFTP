@@ -53,12 +53,7 @@ define(function (require, exports, module) {
 
     _defaultEqFTPFolder = brackets.app.getUserDocumentsDirectory(),
     _callbacks = {},
-    _node,
-    _ignore = [
-        "**/(.pyc|.git|.gitmodules|.svn|.DS_Store|Thumbs.db|.hg|CVS|.hgtags|.idea|.c9revisions|.SyncArchive|.SyncID|.SyncIgnore|.eqftp)",
-        "**/bower_components",
-        "**/node_modules"
-    ];
+    _node;
   ui.ps = ps;
   EventEmitter = new EventEmitter();
 
@@ -111,63 +106,6 @@ define(function (require, exports, module) {
     watched: [],
     tmpfiles: []
   };
-  eqftp._watch = {
-    reset: function () {
-        if (eqftp._cache.watched && _.isArray(eqftp._cache.watched)) {
-            eqftp._cache.watched.forEach(function (localpath, i) {
-                eqftp._watch.remove(localpath);
-            });
-        }
-        eqftp._cache.watched = [];
-        if (eqftp._cache.tmpfiles && _.isObject(eqftp._cache.tmpfiles)) {
-            _.forOwn(eqftp._cache.tmpfiles, function (files, i) {
-                if (_.isArray(files)) {
-                    files.forEach(function (v, i) {
-                        eqftp._watch.add(v.localpath);
-                    });
-                }
-            });
-        }
-        _.forOwn(eqftp.settings.connections, function (connection, id) {
-            if (connection.autoupload && connection.localpath) {
-                eqftp._watch.add(connection.localpath);
-            }
-        });
-    },
-    remove: function (localpath) {
-        var i = _.indexOf(eqftp._cache.watched, localpath);
-        if (i > -1) {
-            eqftp._cache.watched.splice(i, 1);
-            FileSystem.resolve(localpath, function (err, item, stat) {
-                if (!err) {
-                    FileSystem.unwatch(item, function (err) {
-                        if (err) {
-                            console.error(err, localpath);
-                        }
-                    });
-                }
-            });
-        }
-    },
-    add: function (localpath) {
-        if (_.indexOf(eqftp._cache.watched, localpath) == -1) {
-            eqftp._cache.watched.push(localpath);
-            FileSystem.resolve(localpath, function (err, item, stat) {
-                if (!err) {
-                    FileSystem.watch(item, function () { return true; }, _ignore, function (err) {
-                        if (err) {
-                            console.error(err, localpath);
-                        }
-                    });
-                }
-            });
-            eqftp._cache.watched.sort(function (a, b) {
-                return a.length - b.length;
-            });
-            console.log(eqftp._cache.watched);
-        }
-    }
-  };
   /**
    * Adding events to eqftp
    */
@@ -209,7 +147,6 @@ define(function (require, exports, module) {
                     id: id
                   });                  
                 });
-                eqftp._watch.reset();
                 // Proxy helps making easy requests like eqftp.connections['connection_id'].ls('/path'/);
                 eqftp.connections = new Proxy({
                   __do: eqftp.connections
@@ -350,9 +287,6 @@ define(function (require, exports, module) {
       eqftp.log(ui.m(strings.eqftp__log__download_success, {
         filename: utils.getNamepart(remotepath, 'filename')
       }), 'success');
-      if (eqftp.connections[id].isTmp) {
-        eqftp._watch.add(data.localpath);
-      }
       if (open) {
         _.delay(function () {
           CommandManager.execute(Commands.CMD_ADD_TO_WORKINGSET_AND_OPEN, {fullPath: data.localpath, paneId: MainViewManager.getActivePaneId(), options: {noPaneActivate: (args[3].shiftKey ? true : false)}});

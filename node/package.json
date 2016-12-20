@@ -8,12 +8,12 @@
   },
   "dependencies": {
     "crypto-js": "^3.1.6",
-    "date_format": "^0.1.1",
     "fs-extra": "*",
     "jsftp": "^1.5.4",
     "lodash": "^4.16.4",
     "semver": "^5.3.0",
-    "ssh2": "^0.5.1"
+    "ssh2": "^0.5.1",
+    "chokidar": "^1.6.1"
   },
   "description": "jsftp + ssh2 wrapper",
   "devDependencies": {},
