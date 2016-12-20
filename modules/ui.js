@@ -534,6 +534,7 @@ define(function (require, exports, module) {
   eqUI.connections = new function () {
     var self = this;
     self.tpl = eqUI.panel.tpl.find('.eqftp-connections');
+    self.items = [];
     
     self.editor = new function () {
       var connections = self,
@@ -668,9 +669,31 @@ define(function (require, exports, module) {
       });
       */
       self.tpl.html('');
+      self.items = [];
       connections.forEach(function (v, i) {
-        self.tpl.append(self._gen(v));
+        var el = self._gen(v);
+        self.items.push(el);
+        self.tpl.append(el);
       });
+    };
+    self.filter = function (keyword, e) {
+      if (keyword) {
+        if (utils) {
+          keyword = utils.escapeRegExp(keyword);
+        }
+        var r = new RegExp('.*?' + keyword + '.*?');
+        self.items.forEach(function (v, i) {
+          if (!r.test(v.text())) {
+            v.hide();
+          } else {
+            v.show();
+          }
+        });
+      } else {
+        self.items.forEach(function (v, i) {
+          v.show();
+        });
+      }
     };
     self.edit = self.editor.edit;
     self.new = self.editor.new;

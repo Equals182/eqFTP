@@ -175,7 +175,7 @@ maxerr: 50, node: true */
       self.settings.connections[connection.id] = connection;
       eqftp.connections.init(self.settings.connections);
       console.log(self._process(self.settings, 'toJSON', ''));
-    }
+    };
   }();
   eqftp.connections = new Proxy({
     _current: {},
@@ -258,7 +258,7 @@ maxerr: 50, node: true */
                   }
                 });
                 return self.q;
-              }
+              };
             }();
           };
         case 'tmp':
@@ -268,7 +268,7 @@ maxerr: 50, node: true */
                 params = utils.parseConnectionString(params);
                 if (!params) {
                   callback('Passed argument[1] is not a valid connection string', {});
-                  return false
+                  return false;
                 }
               } else {
                 callback('Passed argument[1] is not an connection object', {});
@@ -491,7 +491,7 @@ maxerr: 50, node: true */
                             data: eqftp.queue.get()
                           });
                           _domainManager.emitEvent("eqFTP", "event", {
-                            action: 'connection:'+queuer.act,
+                            action: 'connection:' + queuer.act,
                             data: queuer
                           });
                           callback(err, data);
