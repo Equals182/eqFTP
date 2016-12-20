@@ -204,16 +204,18 @@ maxerr: 50, node: true */
                     persistent: true,
                     awaitWriteFinish: true
                   });
-                  obj._all[id]._watch
-                    .on('add', function (path, stats) {
-                      console.log('add', path, stats);
-                    })
-                    .on('change', function (path, stats) {
-                      console.log('change', path, stats);
-                    })
-                    .on('unlink', function (path, stats) {
-                      console.log('unlink', path, stats);
-                    });
+                  _.delay(function() {
+                    obj._all[id]._watch
+                      .on('add', function (path, stats) {
+                        console.log('add', path, stats);
+                      })
+                      .on('change', function (path, stats) {
+                        console.log('change', path, stats);
+                      })
+                      .on('unlink', function (path, stats) {
+                        console.log('unlink', path, stats);
+                      });
+                  }, 500);
                 }
               }
             });
