@@ -216,6 +216,7 @@ var _file_short = function () {
       date_formatted: '03-03-2030 12:20:45',
       size_formatted: '20.9 kb',
       name_short: 'short',
+      extdot: '.',
       extension: 'ext'
     });
   },
@@ -225,6 +226,7 @@ var _file_short = function () {
       date_formatted: '03-03-2030 12:20:45',
       size_formatted: '20.9 kb',
       name_short: 'oh its a big name of file shit dawg how big is it no ones know dawg i wonder myself',
+      extdot: '.',
       extension: 'ext'
     });
   },
@@ -235,6 +237,8 @@ var _file_short = function () {
       date_formatted: '03-03-2030 12:20:45',
       size_formatted: '',
       name_short: 'foldershrt',
+      name: 'foldershrt',
+      extdot: '.',
       extension: ''
     });
   },
@@ -245,6 +249,8 @@ var _file_short = function () {
       date_formatted: '03-03-2030 12:20:45',
       size_formatted: '',
       name_short: 'This folder has hude name who would name folder like that i dont know man what about you',
+      name: 'This folder has hude name who would name folder like that i dont know man what about you',
+      extdot: '.',
       extension: ''
     });
   },
@@ -254,6 +260,8 @@ var _file_short = function () {
       fullPath: '',
       date_formatted: '03-03-2030 12:20:45',
       name_short: 'with subs',
+      name: 'with subs',
+      extdot: '.',
       size_formatted: '',
       extension: ''
     });
