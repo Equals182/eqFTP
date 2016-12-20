@@ -174,6 +174,7 @@ maxerr: 50, node: true */
       }
       self.settings.connections[connection.id] = connection;
       eqftp.connections.init(self.settings.connections);
+      console.log(self._process(self.settings, 'toJSON', ''));
     }
   }();
   eqftp.connections = new Proxy({
@@ -207,12 +208,20 @@ maxerr: 50, node: true */
                   _.delay(function() {
                     obj._all[id]._watch
                       .on('add', function (path, stats) {
+                        path = utils.normalize(path);
                         console.log('add', path, stats);
                       })
                       .on('change', function (path, stats) {
-                        console.log('change', path, stats);
+                        path = utils.normalize(path);
+                        var rd = _.findIndex(eqftp.connections._recently_downloaded, {id: id, localpath: path});
+                        if (rd > -1) {
+                          eqftp.connections._recently_downloaded.splice(rd, 1);
+                          return false;
+                        }
+                        eqftp.connections[id].upload(path, function () {}, function () {});
                       })
                       .on('unlink', function (path, stats) {
+                        path = utils.normalize(path);
                         console.log('unlink', path, stats);
                       });
                   }, 500);
@@ -241,7 +250,7 @@ maxerr: 50, node: true */
                       self.q.push({
                         id: queuer.id,
                         qid: queuer.qid,
-                        args: _.slice(queuer.args, 0, -2),
+                        args: _.filter(queuer.args, _.negate(_.isFunction)),
                         act: queuer.act,
                         queue: queuer.queue
                       });
@@ -349,12 +358,6 @@ maxerr: 50, node: true */
                         };
                         break;
                       case 'upload':
-                        var rd = _.findIndex(eqftp.connections._recently_downloaded, {id: id, localpath: args[0]});
-                        if (rd > -1) {
-                          eqftp.connections._recently_downloaded.splice(rd, 1);
-                          callback('Skipping this file due it being recently downloaded');
-                          return false;
-                        }
                         args[0] = {
                           qid: qid,
                           localpath: args[0],
@@ -486,6 +489,10 @@ maxerr: 50, node: true */
                           _domainManager.emitEvent("eqFTP", "event", {
                             action: 'queue:update',
                             data: eqftp.queue.get()
+                          });
+                          _domainManager.emitEvent("eqFTP", "event", {
+                            action: 'connection:'+queuer.act,
+                            data: queuer
                           });
                           callback(err, data);
                         };

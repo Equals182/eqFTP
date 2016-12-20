@@ -103,7 +103,6 @@ define(function (require, exports, module) {
     }
   };
   eqftp._cache = {
-    watched: [],
     tmpfiles: []
   };
   /**
@@ -134,7 +133,8 @@ define(function (require, exports, module) {
                 connect: eqftp.connect,
                 openFolder: eqftp.openFolder,
                 download: eqftp.download,
-                upload: eqftp.upload
+                upload: eqftp.upload,
+                setConnection: eqftp.setConnection
               };
               var file = eqftp.preferences.get('misc.last_settings_file');
               eqftp.settings.get(file).done(function (settings) {
@@ -215,6 +215,18 @@ define(function (require, exports, module) {
           eqftp.settings.connections = event.data;
           console.log(event);
           break;
+        case 'connection:download':
+          var status = (event.data.queue === 'a' ? 'success' : 'error');
+          eqftp.log(ui.m(strings['eqftp__log__download_' + status], {
+            filename: utils.getNamepart(event.data.args[0].localpath, 'filename')
+          }), status);
+          break;
+        case 'connection:upload':
+          var status = (event.data.queue === 'a' ? 'success' : 'error');
+          eqftp.log(ui.m(strings['eqftp__log__upload_' + status], {
+            filename: utils.getNamepart(event.data.args[0].localpath, 'filename')
+          }), status);
+          break;
         case 'settings:reload':
           console.log(event);
           break;
@@ -284,39 +296,30 @@ define(function (require, exports, module) {
   eqftp.download = function (id, remotepath, open) {
     var args = [...arguments];
     eqftp.connections[id].download(remotepath).done(function (data) {
-      eqftp.log(ui.m(strings.eqftp__log__download_success, {
-        filename: utils.getNamepart(remotepath, 'filename')
-      }), 'success');
+      //success
       if (open) {
         _.delay(function () {
           CommandManager.execute(Commands.CMD_ADD_TO_WORKINGSET_AND_OPEN, {fullPath: data.localpath, paneId: MainViewManager.getActivePaneId(), options: {noPaneActivate: (args[3].shiftKey ? true : false)}});
         }, 300);
       }
     }).fail(function (err) {
-      eqftp.log(ui.m(strings.eqftp__log__download_error, {
-        err: err,
-        filename: utils.getNamepart(remotepath, 'filename')
-      }), 'error');
+      //error
     });
   };
   eqftp.upload = function (localpath) {
     eqftp.connections.getByLocalpath(localpath).done(function (id) {
       var args = [...arguments];
       eqftp.connections[id].upload(localpath).done(function (data) {
-        eqftp.log(ui.m(strings.eqftp__log__upload_success, {
-          filename: utils.getNamepart(localpath, 'filename')
-        }), 'success');
+        //success
       }).fail(function (err) {
-        if (err !== 'Skipping this file due it being recently downloaded') {
-          eqftp.log(ui.m(strings.eqftp__log__upload_error, {
-            err: err,
-            filename: utils.getNamepart(localpath, 'filename')
-          }), 'error');
-        }
+        //error
       });
     }).fail(function (err) {
       // cant find connection related to this file
     });
+  };
+  eqftp.setConnection = function () {
+    
   };
 
   // Adding eqftp + listener to ui so we could keep entities separately
@@ -353,31 +356,6 @@ define(function (require, exports, module) {
    * This starts when Node is ready
    */
   AppInit.appReady(function () {
-    // Adding "change" listener on watched paths
-    FileSystem.on("change", function (e, file) {
-      if (file._isFile) {
-        eqftp._cache.watched.some(function (v, i) {
-          var r = new RegExp('^' + v);
-          if (r.test(file._path)) {
-            eqftp.upload(file._path);
-            return true;
-          }
-        });
-      } else if (file._isDirectory) {
-        console.log('CHANGE', file, e);
-      }
-    });
-    // Adding "rename" listener on watched paths
-    FileSystem.on("rename", function (e, file) {
-      eqftp._cache.watched.some(function (v, i) {
-        var r = new RegExp('^' + v);
-        if (r.test(file._path)) {
-          console.log('RENAME!', file._path);
-          return true;
-        }
-      });
-    });
-
     // Creating Node connection
     _node = new NodeConnection();
     function connectNode() {
