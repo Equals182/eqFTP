@@ -203,7 +203,9 @@ maxerr: 50, node: true */
                   obj._all[id]._watch = chokidar.watch(obj._all[id].localpath, {
                     ignored: obj._all[id].ignore_list.splitIgnores(),
                     persistent: true,
-                    awaitWriteFinish: true
+                    awaitWriteFinish: true,
+                    cwd: obj._all[id].localpath,
+                    ignoreInitial: true
                   });
                   _.delay(function() {
                     obj._all[id]._watch

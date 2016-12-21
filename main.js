@@ -202,7 +202,7 @@ define(function (require, exports, module) {
           eqftp.log(ui.m(strings.eqftp__log__connection_error, {
             name: event.data.connection.name,
             id: event.data.connection.id,
-            error: event.data.error
+            error: event.data.error.code
           }), 'error');
           break;
         case 'connection:close':
