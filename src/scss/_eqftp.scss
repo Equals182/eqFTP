@@ -413,6 +413,8 @@
         }
       }
       &Name {
+        display: flex;
+        align-items: center;
         min-width: 0px;
         max-width: 100%;
       }
@@ -554,7 +556,7 @@
     position: relative;
     display: flex;
     align-content: flex-start;
-    align-items: center;
+    align-items: flex-start;
     flex-wrap: wrap;
     height: calc(100% - 64px - 26px);
     width: 100%;
