@@ -549,7 +549,7 @@ maxerr: 50, node: true */
                         }
                       });
                       cb(err);
-                      obj._current[id].close();
+                      eqftp.connections[id].close();
                     });
                     obj._current[id]._server.on('progress', function (data) {
                       _domainManager.emitEvent("eqFTP", "event", {
@@ -570,10 +570,10 @@ maxerr: 50, node: true */
                         settings.privateKey = connectionDetails.rsa;
                     }
                     obj._current[id]._server.connect(settings);
-                  }
+                  };
                   break;
                 case 'close':
-                  return function (id) {
+                  return function () {
                     if (obj._current && obj._current[id] && obj._current[id]._server) {
                       if (obj._all[id]._watch) {
                         obj._all[id]._watch.close();
@@ -581,7 +581,7 @@ maxerr: 50, node: true */
                       return obj._current[id]._server.close();
                     }
                     return true;
-                  }
+                  };
                   break;
                 case 'resolveLocalpath':
                   return function (remotepath) {
