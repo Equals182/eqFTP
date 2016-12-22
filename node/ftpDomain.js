@@ -215,6 +215,9 @@ maxerr: 50, node: true */
                       })
                       .on('change', function (path, stats) {
                         path = utils.normalize(path);
+                        if (!/^\//.test(path)) {
+                          path = utils.normalize(obj._all[id].localpath + '/' + path);
+                        }
                         var rd = _.findIndex(eqftp.connections._recently_downloaded, {id: id, localpath: path});
                         if (rd > -1) {
                           eqftp.connections._recently_downloaded.splice(rd, 1);
