@@ -84,6 +84,7 @@ maxerr: 50, node: true */
   }();
   var eqftp = {};
   eqftp.commands = _commands.get;
+  eqftp.cache = {};
   eqftp.settings = new function () {
     var self = this;
     self.settings = false;
@@ -145,7 +146,7 @@ maxerr: 50, node: true */
         }
         settingsFile = fs.realpathSync(settingsFile);
         self.settings = self._process(fs.readFileSync(settingsFile, {encoding: 'UTF-8'}), 'fromJSON', password);
-        eqftp.connections.init(self.settings.connections);
+        eqftp.connections._set(self.settings.connections);
       }
       if (!self.settings) {
         throw new Error('No settings loaded');
@@ -173,453 +174,469 @@ maxerr: 50, node: true */
         connection = _.defaults(_c, connection, defaults);
       }
       self.settings.connections[connection.id] = connection;
-      eqftp.connections.init(self.settings.connections);
+      eqftp.connections._set(self.settings.connections);
       console.log(self._process(self.settings, 'toJSON', ''));
     };
   }();
-  eqftp.connections = new Proxy({
-    _current: {},
-    _all: {},
-    _c_settings: {},
-    _c_tmp: {},
-    _tmp_downloaded: [],
-    _recently_downloaded: []
-  }, {
-    get: function (obj, action) {
-      if (action in obj) {
-        return obj[action];
+  eqftp.connections = new function () {
+    var self = this;
+    self._ = {}; // with methods
+    self.$ = {}; // pure settings
+    self.t = {}; // only temporary
+    self.a = {}; // pure settings + temporary
+    
+    self.event_update = _.debounce(function () {
+      _domainManager.emitEvent("eqFTP", "event", {
+        action: 'connection:update',
+        data: self.a
+      });
+    }, 1000);
+    self.newTmp = function (params, callback) {
+      if (!_.isObject(params)) {
+        if (_.isString(params)) {
+          params = utils.parseConnectionString(params);
+          if (!params) {
+            callback('Passed argument[1] is not a valid connection string', {});
+            return false;
+          }
+        } else {
+          callback('Passed argument[1] is not an connection object', {});
+          return false;
+        }
       }
-      switch (action) {
-        case 'init':
-          return function (connections) {
-            _.forOwn(obj._current, function (connection, id) {
-              eqftp.connections[id].close();
-            });
-            obj._c_settings = _.clone(connections);
-            obj._all = _.defaults(obj._c_settings, obj._c_tmp, _.isEqualConnections);
-            _.forOwn(obj._all, function (connection, id) {
-              if (!obj._all[id].isTmp) {
-                if (!obj._all[id]._watch) {
-                  obj._all[id]._watch = chokidar.watch(obj._all[id].localpath, {
-                    ignored: obj._all[id].ignore_list.splitIgnores(),
-                    persistent: true,
-                    awaitWriteFinish: true,
-                    cwd: obj._all[id].localpath,
-                    ignoreInitial: true
-                  });
-                  _.delay(function() {
-                    obj._all[id]._watch
-                      .on('add', function (path, stats) {
-                        path = utils.normalize(path);
-                        console.log('add', path, stats);
-                      })
-                      .on('change', function (path, stats) {
-                        path = utils.normalize(path);
-                        if (!/^\//.test(path)) {
-                          path = utils.normalize(obj._all[id].localpath + '/' + path);
-                        }
-                        var rd = _.findIndex(eqftp.connections._recently_downloaded, {id: id, localpath: path});
-                        if (rd > -1) {
-                          eqftp.connections._recently_downloaded.splice(rd, 1);
-                          return false;
-                        }
-                        eqftp.connections[id].upload(path, function () {}, function () {});
-                      })
-                      .on('unlink', function (path, stats) {
-                        path = utils.normalize(path);
-                        console.log('unlink', path, stats);
-                      });
-                  }, 500);
-                }
+      if (_.isConnection) {
+        if (!_.isConnection(params)) {
+          params.id = utils.uniq();
+          params.localpath = eqftp.settings.get().main.projects_folder;
+        }
+        if (!_.isConnection(params)) {
+          callback('Passed argument[1] is not an connection object', {});
+        }
+      }
+      params.name = params.login + '@' + params.server;
+      params.isTmp = true;
+      if (!_.findKey(self.t, function (o) {
+        return _.isEqualConnections(o, params);
+      })) {
+        self.t[params.id] = _.cloneDeep(params);
+        self._set(params.id, self.t[params.id]);
+        self.a = _.defaultsDeep(self.$, self.t);
+        self.event_update();
+      }
+      callback(null, params);
+    };
+    self._set = function (id, settings) {
+      if (_.isUndefined(settings) && _.isObject(id)) {
+        // bulk resetting
+        _.forOwn(self._, function (c, id) {
+          c.close();
+        });
+        self._ = {};
+        self.$ = {};
+        _.forOwn(id, function (c, id) {
+          self._set(id, c);
+        });
+      } else {
+        // setting by one
+        if (self._[id]) {
+          self._[id].close();
+        }
+        self.$[id] = _.cloneDeep(settings);
+        self._[id] = new Proxy(
+          _.defaultsDeep(settings, {
+            isBusy: false,
+            _watch: function () {
+              if (settings.isTmp) {
+                return undefined;
               }
-            });
-            _domainManager.emitEvent("eqFTP", "event", {
-              action: 'connection:update',
-              data: obj._all
-            });
-            eqftp.queue = new function () {
-              var self = this;
-              if (!_.isObject(eqftp.connections._current)) {
-                return [];
-              }
-              self.q = [];
-              
-              self.get = function (id) {
-                if (id && eqftp.connections._current[id]) {
-                  return eqftp.connections._current[id]._queue;
+              var w = chokidar.watch(settings.localpath, {
+                ignored: settings.ignore_list.splitIgnores(),
+                persistent: true,
+                awaitWriteFinish: true,
+                cwd: settings.localpath,
+                ignoreInitial: true
+              });
+              w.on('add', function (path, stats) {
+                path = utils.normalize(path);
+                console.log('add', path, stats);
+              })
+              .on('change', function (path, stats) {
+                console.log('change', path, stats);
+                path = utils.normalize(path);
+                if (!/^\//.test(path)) {
+                  path = utils.normalize(settings.localpath + '/' + path);
                 }
-                self.q = [];
-                _.forOwn(eqftp.connections._current, function (connection, id) {
-                  if (connection._queue && _.isArray(connection._queue)) {
-                    connection._queue.forEach(function (queuer) {
-                      self.q.push({
-                        id: queuer.id,
-                        qid: queuer.qid,
-                        args: _.filter(queuer.args, _.negate(_.isFunction)),
-                        act: queuer.act,
-                        queue: queuer.queue
-                      });
-                    });
-                  }
-                });
-                return self.q;
-              };
-            }();
-          };
-        case 'tmp':
-          return function (params, callback) {
-            if (!_.isObject(params)) {
-              if (_.isString(params)) {
-                params = utils.parseConnectionString(params);
-                if (!params) {
-                  callback('Passed argument[1] is not a valid connection string', {});
+                if (!eqftp.cache._recently_downloaded) {
+                  eqftp.cache._recently_downloaded = [];
+                }
+                var rd = _.findIndex(eqftp.cache._recently_downloaded, {id: id, localpath: path});
+                if (rd > -1) {
+                  eqftp.cache._recently_downloaded.splice(rd, 1);
                   return false;
                 }
-              } else {
-                callback('Passed argument[1] is not an connection object', {});
-                return false;
-              }
-            }
-            if (_.isConnection) {
-              if (!_.isConnection(params)) {
-                params.id = utils.uniq();
-                params.localpath = eqftp.settings.get().main.projects_folder;
-              }
-              if (!_.isConnection(params)) {
-                callback('Passed argument[1] is not an connection object', {});
-              }
-            }
-            params.name = params.login + '@' + params.server;
-            params.isTmp = true;
-            if (!_.findKey(obj._c_tmp, function (o) {
-              return _.isEqualConnections(o, params);
-            })) {
-              obj._c_tmp[params.id] = params;
-              obj._all = _.merge(obj._c_settings, obj._c_tmp);
-              _domainManager.emitEvent("eqFTP", "event", {
-                action: 'connection:update',
-                data: obj._all
+                self._[id].upload(path, function () {}, function () {});
+              })
+              .on('unlink', function (path, stats) {
+                path = utils.normalize(path);
+                console.log('unlink', path, stats);
               });
-            }
-            callback(null, params);
-          };
-          break;
-        case 'getByLocalpath':
-          return function (localpath, callback) {
-            var tmp = _.findIndex(eqftp.connections._tmp_downloaded, {params: {localpath: localpath}});
-            if (tmp > -1) {
-              callback(null, eqftp.connections._tmp_downloaded[tmp].connection.id);
-              return eqftp.connections._tmp_downloaded[tmp].connection.id;
-            } else {
-              var deepest = 0,
-                  сonn = '';
-              _.forOwn(eqftp.connections._c_settings, function (connection, id) {
-                var r = RegExp('^' + utils.escapeRegExp(connection.localpath));
-                if (r.test(localpath) && connection.localpath.levels() > deepest) {
-                  deepest = connection.localpath.levels();
-                  сonn = id;
+              return w;
+            }(),
+            _queue: [],
+            queue: new function () {
+              var queue = this;
+              queue.q = [];
+              
+              queue.get = function () {
+                return queue.q;
+              };
+              queue.add = function (queuer, prepend) {
+                if (!queue.q) {
+                  queue.q = [];
                 }
-              });
-              if (deepest > 0) {
-                callback(null, сonn);
-                return сonn;
-              }
-            }
-            callback('Can\'t find related connection to given path: ' + localpath, {});
-          };
-          break;
-      }
-      if (action in obj._all) {
-        //we have it in settings, action is id
-        return (function (id) {
-          var p = new Proxy(obj._all[id], {
-            get: function (connection, act) {
-              if (act in connection) {
-                return connection[act];
-              }
-              switch (act) {
-                case 'ls':
-                case 'upload':
-                case 'download':
-                case 'pwd':
-                  var d = function () {
-                    var prepend = false;
-                    if (['upload', 'download'].indexOf(act) < 0) {
-                      // for everything except downloads and uploads
-                      prepend = true;
-                    }
-                    var args = [...arguments],
-                        callback = _.nth(args, -2),
-                        progress = _.nth(args, -1),
-                        qid = utils.uniq();
-                    
-                    // PRE-HOOKS
-                    switch(act) {
+                if (!queuer.qid) {
+                  queuer.qid = utils.uniq();
+                }
+                if (prepend) {
+                  queue.q.unshift(queuer);
+                } else {
+                  queue.q.push(queuer);
+                }
+                _domainManager.emitEvent("eqFTP", "event", {
+                  action: 'queue:update',
+                  data: eqftp.queue.get()
+                });
+                queue.next();
+              };
+              queue.next = function () {
+                if (queue.q && queue.q.length > 0) {
+                  var f = _.findIndex(queue.q, {queue: 'a'});
+                  if (f < 0) {
+                    return false;
+                  }
+                  var queuer = (_.pullAt(queue.q, f))[0];
+                  if (!self._[id].isBusy) {
+                    self._[id].isBusy = true;
+                  } else {
+                    // not going anywhere were busy
+                    return false;
+                  }
+                  var args = queuer.args,
+                      callback = _.nth(args, -2),
+                      progress = _.nth(args, -1);
+
+                  var cb = function (err, data) {
+                    // POST-HOOKS
+                    switch(queuer.act) {
+                      case 'ls':
+                        if (!err) {
+                          var path = args[0];
+                          if (!/^\//.test(path)) {
+                            path = self._[id]._server.getRealRemotePath(path);
+                          }
+                          var d = [],
+                              f = [];
+                          data.forEach(function (v, i) {
+                            data[i].id = queuer.id;
+                            data[i].fullPath = utils.normalize(path + '/' + v.name);
+
+                            switch (v.type) {
+                              case 'f':
+                                f.push(data[i]);
+                                break;
+                              case 'd':
+                                d.push(data[i]);
+                                break;
+                            }
+                          });
+                          d = _.orderBy(d, ['name', 'asc']);
+                          f = _.orderBy(f, ['name', 'asc']);
+                          data = _.concat(d, f);
+                        }
+                        break;
                       case 'download':
-                        args[0] = {
-                          qid: qid,
-                          remotepath: args[0],
-                          localpath: eqftp.connections[id].resolveLocalpath(args[0])
-                        };
-                        break;
-                      case 'upload':
-                        args[0] = {
-                          qid: qid,
-                          localpath: args[0],
-                          remotepath: eqftp.connections[id].resolveRemotepath(args[0])
-                        };
+                        if (!err) {
+                          eqftp.cache._recently_downloaded = _.unionWith(eqftp.cache._recently_downloaded, [{
+                            id: id,
+                            localpath: args[0].localpath,
+                            remotepath: args[0].remotepath
+                          }], function (a, b) {
+                            return (a.id === b.id && a.localpath === b.localpath);
+                          });
+                          if (self._[id].isTmp) {
+                            if (!eqftp.cache._tmp_downloaded) {
+                              eqftp.cache._tmp_downloaded = [];
+                            }
+                            eqftp.cache._tmp_downloaded.push({
+                              params: args[0],
+                              connection: self.$[id]
+                            });
+                            if (!self._[id]._watch) {
+                              self._[id]._watch = chokidar.watch(args[0].localpath);
+                              self._[id]._watch
+                                .on('change', function (path) {
+                                  console.log('change tmp', path, arguments);
+                                });
+                            } else {
+                              self._[id]._watch.add(args[0].localpath);
+                            }
+                          }
+                        }
                         break;
                     }
-                    
-                    eqftp.connections[id].queue.add({
-                      qid: qid,
-                      id: id,
-                      act: act,
-                      args: args,
-                      queue: 'a'
-                    }, prepend);
+
+                    self._[id].isBusy = false;
+                    if (err) {
+                      queuer.queue = 'f';
+                      queuer.err = err;
+                      queue.add(queuer, true);
+                    }
+
+                    _domainManager.emitEvent("eqFTP", "event", {
+                      action: 'connection:' + queuer.act,
+                      data: queuer
+                    });
+                    queue.next();
+                    callback(err, data);
                   };
-                  return function () {
-                    var args = [...arguments];
-                    if (!obj._current[id]) {
-                      eqftp.connections[id].new(function (err, id) {
-                        d(...args);
-                      });
+                  var pr = function (err, data) {
+                    progress(err, data);
+                  };
+
+                  args.splice(-2, 2, cb, pr);
+                  self._[id].open(function (err) {
+                    if (!err) {
+                      self._[id]._server[queuer.act](...args);
                     } else {
-                      d(...args);
-                    }
-                  };
-                  break;
-                case 'queue':
-                  return {
-                    add: function (queuer, prepend) {
-                      if (!obj._current[id]._queue) {
-                        obj._current[id]._queue = [];
-                      }
-                      if (!queuer.qid) {
-                        queuer.qid = utils.uniq();
-                      }
-                      if (prepend) {
-                        obj._current[id]._queue.unshift(queuer);
-                      } else {
-                        obj._current[id]._queue.push(queuer);
-                      }
-                      _domainManager.emitEvent("eqFTP", "event", {
-                        action: 'queue:update',
-                        data: eqftp.queue.get()
-                      });
-                      eqftp.connections[id].queue.next();
-                    },
-                    next: function () {
-                      if (obj._current[id]._queue && obj._current[id]._queue.length > 0) {
-                        var f = _.findIndex(obj._current[id]._queue, {queue: 'a'});
-                        if (f < 0) {
-                          return false;
-                        }
-                        var queuer = (_.pullAt(obj._current[id]._queue, f))[0];
-                        if (!obj._current[id].isBusy) {
-                          obj._current[id].isBusy = true;
-                        }
-                        var args = queuer.args,
-                            callback = _.nth(args, -2),
-                            progress = _.nth(args, -1);
-                        var cb = function (err, data) {
-                          // POST-HOOKS
-                          
-                          switch(queuer.act) {
-                            case 'ls':
-                              if (!err) {
-                                var path = args[0];
-                                if (!/^\//.test(path)) {
-                                  path = obj._current[queuer.id]._server.getRealRemotePath(path);
-                                }
-                                var d = [],
-                                    f = [];
-                                data.forEach(function (v, i) {
-                                  data[i].id = queuer.id;
-                                  data[i].fullPath = utils.normalize(path + '/' + v.name);
+                      self._[id].isBusy = false;
+                      queuer.queue = 'f';
+                      queuer.err = err;
+                      queue.add(queuer, true);
 
-                                  switch (v.type) {
-                                    case 'f':
-                                      f.push(data[i]);
-                                      break;
-                                    case 'd':
-                                      d.push(data[i]);
-                                      break;
-                                  }
-                                });
-                                d = _.orderBy(d, ['name', 'asc']);
-                                f = _.orderBy(f, ['name', 'asc']);
-                                data = _.concat(d, f);
-                              }
-                              break;
-                            case 'download':
-                              if (!err) {
-                                eqftp.connections._recently_downloaded = _.unionWith(eqftp.connections._recently_downloaded, [{
-                                  id: id,
-                                  localpath: args[0].localpath,
-                                  remotepath: args[0].remotepath
-                                }], function (a, b) {
-                                  return (a.id === b.id && a.localpath === b.localpath);
-                                });
-                                if (obj._current[queuer.id].isTmp) {
-                                  if (!eqftp.connections._tmp_downloaded) {
-                                    eqftp.connections._tmp_downloaded = [];
-                                  }
-                                  eqftp.connections._tmp_downloaded.push({
-                                    params: args[0],
-                                    connection: obj._all[queuer.id]
-                                  });
-                                  if (!obj._all[id]._watch) {
-                                    obj._all[id]._watch = chokidar.watch(args[0].localpath);
-                                    obj._all[id]._watch
-                                      .on('change', function (path) {
-                                        console.log('change tmp', path, arguments);
-                                      });
-                                  } else {
-                                    obj._all[id]._watch.add(args[0].localpath);
-                                  }
-                                }
-                              }
-                              break;
-                          }
-                          
-                          obj._current[queuer.id].isBusy = false;
-                          if (err) {
-                            queuer.queue = 'f';
-                            queuer.err = err;
-                            eqftp.connections[queuer.id].queue.add(queuer, true);
-                          }
-                          
-                          _domainManager.emitEvent("eqFTP", "event", {
-                            action: 'queue:update',
-                            data: eqftp.queue.get()
-                          });
-                          _domainManager.emitEvent("eqFTP", "event", {
-                            action: 'connection:' + queuer.act,
-                            data: queuer
-                          });
-                          callback(err, data);
-                        };
-                        var pr = function (err, data) {
-                          progress(err, data);
-                        };
-                        
-                        args.splice(-2, 2, cb, pr);
-                        obj._current[queuer.id]._server[queuer.act](...args);
-                      }
-                    }
-                  };
-                  break;
-                case 'new':
-                  return function (cb) {
-                    if (_.isFunction(cb)) {
-                      cb = _.once(cb);
-                    }
-                    var connectionDetails = utils.parseConnectionString(id);
-                    if (!connectionDetails) {
-                      connectionDetails = connection;
-                    }
-                    if (obj._current[id]) {
-                      cb(null, id);
-                      return id;
-                    }
-                    obj._current[id] = _.cloneDeep(connectionDetails);
-                    obj._current[id]._server = new EFTP();
-
-                    obj._current[id]._server.on('ready', function () {
-                      obj._current[id]._startpath = obj._current[id]._server.currentPath;
                       _domainManager.emitEvent("eqFTP", "event", {
-                        action: 'connection:ready',
-                        data: connectionDetails
+                        action: 'connection:' + queuer.act,
+                        data: queuer
                       });
-                      cb(null, id);
-                    });
-                    obj._current[id]._server.on('close', function () {
-                      _domainManager.emitEvent("eqFTP", "event", {
-                        action: 'connection:close',
-                        data: connectionDetails
-                      });
-                      cb('Forced connection closing');
-                      _.unset(obj._current, id);
-                    });
-                    obj._current[id]._server.on('error', function (err) {
-                      _domainManager.emitEvent("eqFTP", "event", {
-                        action: 'connection:error',
-                        data: {
-                          connection: connectionDetails,
-                          error: err
-                        }
-                      });
-                      cb(err);
-                      eqftp.connections[id].close();
-                    });
-                    obj._current[id]._server.on('progress', function (data) {
-                      _domainManager.emitEvent("eqFTP", "event", {
-                        action: 'queue:progress',
-                        data: data
-                      });
-                    });
-
-                    var settings = {
-                        host: connectionDetails.server,
-                        type: connectionDetails.protocol,
-                        port: connectionDetails.port || 21,
-                        username: connectionDetails.login,
-                        password: connectionDetails.password,
-                        debugMode: true
-                    };
-                    if (connectionDetails.rsa) {
-                        settings.privateKey = connectionDetails.rsa;
+                      queue.next();
+                      callback(err.code);
                     }
-                    obj._current[id]._server.connect(settings);
-                  };
-                  break;
-                case 'close':
-                  return function () {
-                    if (obj._current && obj._current[id] && obj._current[id]._server) {
-                      if (obj._all[id]._watch) {
-                        obj._all[id]._watch.close();
-                      }
-                      return obj._current[id]._server.close();
-                    }
-                    return true;
-                  };
-                  break;
-                case 'resolveLocalpath':
-                  return function (remotepath) {
-                    var filename = remotepath.replace(RegExp("^" + (obj._current[id].remotepath || obj._current[id]._startpath || '')), '');
-                    console.log('resolving localpath', filename, obj._current[id]._startpath);
-                    if (obj._current[id].isTmp) {
-                      var tmp = _.findIndex(eqftp.connections._tmp_downloaded, {params: {remotepath: remotepath}, connection: {id: id}});
-                      if (tmp > -1) {
-                        filename = utils.getNamepart(eqftp.connections._tmp_downloaded[tmp].params.localpath);
-                      } else {
-                        filename = id + '.' + utils.uniq() + '.' + utils.getNamepart(filename, 'filename');
-                      }
-                    }
-                    return utils.normalize(obj._current[id].localpath + '/' + filename);
-                  };
-                  break;
-                case 'resolveRemotepath':
-                  return function (localpath) {
-                    if (obj._current[id].isTmp) {
-                      var tmp = _.findIndex(eqftp.connections._tmp_downloaded, {params: {localpath: localpath}, connection: {id: id}});
-                      if (tmp > -1) {
-                        return eqftp.connections._tmp_downloaded[tmp].params.remotepath;
-                      }
-                    }
-                    return utils.normalize((obj._current[id].remotepath || obj._current[id]._startpath) + '/' + localpath.replace(RegExp("^" + (obj._current[id].localpath || '')), ''));
-                  };
-                  break;
+                  });
+                }
+              };
+            }(),
+            open: function (cb) {
+              if (_.isFunction(cb)) {
+                cb = _.once(cb);
               }
+              if (self._[id]._server) {
+                cb(null, id);
+                return true;
+              }
+              self._[id]._server = new EFTP();
+
+              self._[id]._server.on('ready', function () {
+                self._[id]._startpath = self._[id]._server.currentPath;
+                _domainManager.emitEvent("eqFTP", "event", {
+                  action: 'connection:ready',
+                  data: self.a[id]
+                });
+                cb(null, id);
+              });
+              self._[id]._server.on('close', function () {
+                _domainManager.emitEvent("eqFTP", "event", {
+                  action: 'connection:close',
+                  data: self.a[id]
+                });
+                cb('Forced connection closing');
+                _.unset(self._[id], '_server');
+              });
+              self._[id]._server.on('error', function (err) {
+                _domainManager.emitEvent("eqFTP", "event", {
+                  action: 'connection:error',
+                  data: {
+                    connection: self.a[id],
+                    error: err
+                  }
+                });
+                cb(err);
+                self._[id].close();
+              });
+              self._[id]._server.on('progress', function (data) {
+                _domainManager.emitEvent("eqFTP", "event", {
+                  action: 'queue:progress',
+                  data: data
+                });
+              });
+
+              var settings = {
+                  host: self.a[id].server,
+                  type: self.a[id].protocol,
+                  port: self.a[id].port || 21,
+                  username: self.a[id].login,
+                  password: self.a[id].password,
+                  debugMode: true
+              };
+              if (self.a[id].rsa) {
+                  settings.privateKey = self.a[id].rsa;
+              }
+              self._[id]._server.connect(settings);
+            },
+            close: function () {
+              if (self._[id]) {
+                if (self._[id]._watch) {
+                  self._[id]._watch.close();
+                }
+                if (self._[id]._server) {
+                  self._[id]._server.close();
+                }
+              }
+              return true;
+            },
+            resolveLocalpath: function (remotepath) {
+              var filename = remotepath.replace(RegExp("^" + (self._[id].remotepath || self._[id]._startpath || '')), '');
+              if (self._[id].isTmp) {
+                if (!eqftp.cache._tmp_downloaded) {
+                  eqftp.cache._tmp_downloaded = [];
+                }
+                var tmp = _.findIndex(eqftp.cache._tmp_downloaded, {params: {remotepath: remotepath}, connection: {id: id}});
+                if (tmp > -1) {
+                  filename = utils.getNamepart(eqftp.cache._tmp_downloaded[tmp].params.localpath);
+                } else {
+                  filename = id + '.' + utils.uniq() + '.' + utils.getNamepart(filename, 'filename');
+                }
+              }
+              return utils.normalize(self._[id].localpath + '/' + filename);
+            },
+            resolveRemotepath: function (localpath) {
+              if (!eqftp.cache._tmp_downloaded) {
+                eqftp.cache._tmp_downloaded = [];
+              }
+              if (self._[id].isTmp) {
+                var tmp = _.findIndex(eqftp.cache._tmp_downloaded, {params: {localpath: localpath}, connection: {id: id}});
+                if (tmp > -1) {
+                  return eqftp.cache._tmp_downloaded[tmp].params.remotepath;
+                }
+              }
+              return utils.normalize((self._[id].remotepath || self._[id]._startpath) + '/' + localpath.replace(RegExp("^" + (self._[id].localpath || '')), ''));
             }
-          });
-          return p;
-        })(action);
+          }),
+        {
+          get: function (o, method) {
+            if (method in o) {
+              return o[method];
+            }
+            switch (method) {
+              case 'ls':
+              case 'download':
+              case 'upload':
+              case 'pwd':
+                return function () {
+                  var prepend = false;
+                  if (['upload', 'download'].indexOf(method) < 0) {
+                    // for everything except downloads and uploads
+                    prepend = true;
+                  }
+                  var args = [...arguments],
+                      callback = _.nth(args, -2),
+                      progress = _.nth(args, -1),
+                      qid = utils.uniq();
+
+                  // PRE-HOOKS
+                  switch(method) {
+                    case 'download':
+                      args[0] = {
+                        qid: qid,
+                        remotepath: args[0],
+                        localpath: self._[id].resolveLocalpath(args[0])
+                      };
+                      break;
+                    case 'upload':
+                      args[0] = {
+                        qid: qid,
+                        localpath: args[0],
+                        remotepath: self._[id].resolveRemotepath(args[0])
+                      };
+                      break;
+                  }
+
+                  self._[id].queue.add({
+                    qid: qid,
+                    id: id,
+                    act: method,
+                    args: args,
+                    queue: 'a'
+                  }, prepend);
+                };
+                break;
+            }
+          }
+        });
+        self.a = _.defaultsDeep(self.$, self.t);
+        self.event_update();
       }
+    };
+    self._get = function (id) {
+      if (!id) {
+        return self._; // giving nothing at all returning all saved connections WITH methods
+      } else if (id === true) {
+        return self.a; // giving true as argument returning all saved connections without methods
+      } else {
+        return self._[id];
+      }
+    };
+    self._getByLocalpath = function (localpath, callback) {
+      if (!callback) {
+        callback = function () {};
+      }
+      var tmp = _.findIndex(eqftp.cache._tmp_downloaded, {params: {localpath: localpath}});
+      if (tmp > -1) {
+        callback(null, eqftp.cache._tmp_downloaded[tmp].connection.id);
+        return eqftp.cache._tmp_downloaded[tmp].connection.id;
+      } else {
+        var deepest = 0,
+            сonn = '';
+        _.forOwn(self.$, function (connection, id) {
+          var r = RegExp('^' + utils.escapeRegExp(connection.localpath));
+          if (r.test(localpath) && connection.localpath.levels() > deepest) {
+            deepest = connection.localpath.levels();
+            сonn = id;
+          }
+        });
+        if (deepest > 0) {
+          callback(null, сonn);
+          return сonn;
+        }
+      }
+      callback('Can\'t find related connection to given path: ' + localpath, {});
+      return false;
+    };
+    /*
+    return function (id, settings) {
+      if (!settings) {
+        return self._get(id);
+      } else {
+        return self._set(id, settings);
+      }
+    };
+    */
+  }();
+  eqftp.queue = {
+    get: function () {
+      var r = [];
+      _.forOwn(eqftp.connections._get(), function (c, id) {
+        c.queue.get().forEach(function (queuer) {
+          r.push({
+            id: queuer.id,
+            qid: queuer.qid,
+            args: _.filter(queuer.args, _.negate(_.isFunction)),
+            act: queuer.act,
+            queue: queuer.queue
+          });
+        });
+      });
+      return r;
     }
-  });
+  };
 
   function init(DomainManager) {
     if (!DomainManager.hasDomain("eqFTP")) {
@@ -665,17 +682,32 @@ maxerr: 50, node: true */
         cmd: function () {
           var args = [...arguments],
               path = args.shift(),
-              passing = args,
-              callback = _.nth(args, -2),
-              progress = _.nth(args, -1);
-          var f = _.get(eqftp.connections, path, false);
-          if (!f) {
-            callback(true, f);
-          }
-          if (_.isFunction(f)) {
-            f(...passing);
+              cb = _.nth(args, -2),
+              pr = _.nth(args, -1);
+          if (path < 1) {
+            var all = eqftp.connections._get();
+            if (_.isFunction(cb)) {
+              cb(null, all);
+            }
+            return all;
           } else {
-            callback(undefined, f);
+            if (eqftp.connections._get(path[0])) {
+              // we have such connection
+              var f = _.get(eqftp.connections._get(path[0]), _.tail(path));
+              if (f) {
+                f(...args);
+                return true;
+              }
+            } else {
+              var f = _.get(eqftp.connections, path);
+              if (f) {
+                f(...args);
+                return true;
+              }
+            }
+          }
+          if (_.isFunction(cb)) {
+            cb('No such connection or method', {});
           }
         }
       }

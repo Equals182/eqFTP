@@ -257,7 +257,7 @@ define(function (require, exports, module) {
       });
     });
     if (_.isObject(id)) {
-      eqftp.connections.tmp(id).done(function (connection) {
+      eqftp.connections.newTmp(id).done(function (connection) {
         id = connection.id;
         cb();
       }).fail(function (err) {
@@ -307,7 +307,7 @@ define(function (require, exports, module) {
     });
   };
   eqftp.upload = function (localpath) {
-    eqftp.connections.getByLocalpath(localpath).done(function (id) {
+    eqftp.connections._getByLocalpath(localpath).done(function (id) {
       var args = [...arguments];
       eqftp.connections[id].upload(localpath).done(function (data) {
         //success
