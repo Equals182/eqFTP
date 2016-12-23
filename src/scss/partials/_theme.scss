@@ -1,3 +1,71 @@
+.eqftp {
+  &-connectionsSettings {
+    background-color: $c13;
+  }
+  &-menu {
+    background-color: $c40;
+    &__item {
+      color: $c01;
+    }
+  }
+  &__icon,
+  &__button {
+    & .material-icons {
+      color: rgba(0, 0, 0, 0.38);
+    }
+    &:hover {
+      & .material-icons {
+        color: rgba(0, 0, 0, 0.87);
+      }
+    }
+    &_inversion {
+      & .material-icons {
+        color: rgba(255, 255, 255, 0.5);
+      }
+      &:hover {
+        & .material-icons {
+          color: $c01;
+        }
+      }
+    }
+    &Rectangle {
+      color: rgba(0, 0, 0, 0.38);
+      background-color: $c30;
+      &:hover,
+      &:focus {
+        color: rgba(0, 0, 0, 0.54);
+        background-color: $c31;
+      }
+      &:active {
+        color: rgba(0, 0, 0, 0.87);
+        background-color: $c32;
+      }
+      &_nobg {
+        background-color: transparent;
+        &:hover,
+        &:focus {
+          background-color: transparent;
+        }
+        &:active {
+          background-color: transparent;
+        }
+      }
+    }
+  }
+  &__label {
+    color: rgba(0, 0, 0, 0.38);
+  }
+  &__title {
+    color: $c02;
+    &_inversion {
+      color: $c01;
+    }
+  }
+  &__subheader {
+    color: rgba(0, 0, 0, 0.38);
+  }
+}
+
 .dark {
   .eqftp {
     background-color: $c04;
@@ -6,6 +74,14 @@
       &__search {
         &Holder {
           background-color: #fafafa;
+        }
+      }
+    }
+    &-menu {
+      background-color: $c30;
+      &__item {
+        & .eqftp__title {
+          color: $c02;
         }
       }
     }
@@ -68,67 +144,5 @@
     &__subheader {
       color: rgba(255, 255, 255, 0.5);
     }
-  }
-}
-
-.eqftp {
-  &-connectionsSettings {
-    background-color: $c13;
-  }
-  &__icon,
-  &__button {
-    & .material-icons {
-      color: rgba(0, 0, 0, 0.38);
-    }
-    &:hover {
-      & .material-icons {
-        color: rgba(0, 0, 0, 0.87);
-      }
-    }
-    &_inversion {
-      & .material-icons {
-        color: rgba(255, 255, 255, 0.5);
-      }
-      &:hover {
-        & .material-icons {
-          color: $c01;
-        }
-      }
-    }
-    &Rectangle {
-      color: rgba(0, 0, 0, 0.38);
-      background-color: $c30;
-      &:hover,
-      &:focus {
-        color: rgba(0, 0, 0, 0.54);
-        background-color: $c31;
-      }
-      &:active {
-        color: rgba(0, 0, 0, 0.87);
-        background-color: $c32;
-      }
-      &_nobg {
-        background-color: transparent;
-        &:hover,
-        &:focus {
-          background-color: transparent;
-        }
-        &:active {
-          background-color: transparent;
-        }
-      }
-    }
-  }
-  &__label {
-    color: rgba(0, 0, 0, 0.38);
-  }
-  &__title {
-    color: $c02;
-    &_inversion {
-      color: $c01;
-    }
-  }
-  &__subheader {
-    color: rgba(0, 0, 0, 0.38);
   }
 }
