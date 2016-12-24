@@ -646,21 +646,24 @@
     }
   }
   &-toast {
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    margin-right: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    padding-right: 0;
+    list-style: none;
     position: absolute;
     bottom: $i4;
     right: $i4;
-    display: flex;
-    align-content: flex-end;
-    align-items: flex-end;
-    flex-wrap: wrap;
-    min-height: $i12;
-    min-width: 288px;
-    max-width: 568px;
     z-index: 2;
     &__item {
       margin-top: $i2;
       padding-left: $i6;
       padding-right: $i6;
+      list-style-type: none;
       background-color: #323232;
       border-radius: 2px;
       box-sizing: border-box;
@@ -669,7 +672,9 @@
       align-items: center;
       animation-name: slideInUp;
       animation-duration: $time-fast;
-      width: 100%;
+      min-height: $i12;
+      min-width: 288px;
+      max-width: 568px;
     }
     &__text {
       font-family: $font-family;
@@ -677,6 +682,8 @@
       font-style: normal;
       font-weight: 400;
       color: $c01;
+      animation-name: fadeIn;
+      animation-duration: $time-fast;
     }
     &__action {
       padding-left: $i6;
@@ -688,6 +695,8 @@
       color: $c01;
       cursor: pointer;
       box-sizing: border-box;
+      animation-name: fadeIn;
+      animation-duration: $time-fast;
     }
   }
   &__row {
