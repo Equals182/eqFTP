@@ -269,18 +269,19 @@ panel.find(elements.logElementholder)
 
 $('#generate').replaceWith(panel);
 
-panel.find(elements.menuHolder).show();
-panel.find(elements.menuHolder).append(tpls['menuElement']({
+var menu = $(document).find(elements.menuHolder);
+menu.show();
+menu.append(tpls['menuElement']({
   text: 'Menu item',
   attrs: 'onclick="console.log(\'test\')"',
   icon: 'android'
 }));
-panel.find(elements.menuHolder).append(tpls['menuElement']({
+menu.append(tpls['menuElement']({
   text: 'Menu item ver long as fuck man so long item menu item item',
   attrs: 'onclick="console.log(\'test 2\')"',
   icon: ''
 }));
-panel.find(elements.menuHolder).append(tpls['menuElement']({
+menu.append(tpls['menuElement']({
   text: 'Menu item ver long as fuck man so ',
   attrs: 'onclick="console.log(\'test 3\')"',
   icon: 'arrow-upward'
