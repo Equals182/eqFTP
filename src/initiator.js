@@ -287,7 +287,7 @@ menu.append(tpls['menuElement']({
   shortcut: 'Alt+Ctrl+F'
 }));
 
-$('body').append(tpls['toasts']({
+$('body').append(tpls['toast']({
   text: 'Toast text',
   action: 'ACTION'
 }));
