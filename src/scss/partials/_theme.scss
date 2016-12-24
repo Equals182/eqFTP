@@ -3,9 +3,9 @@
     background-color: $c13;
   }
   &-menu {
-    background-color: $c40;
+    background-color: $c30;
     &__item {
-      color: $c01;
+      color: $c02;
     }
   }
   &__icon,
@@ -78,10 +78,10 @@
       }
     }
     &-menu {
-      background-color: $c30;
+      background-color: $c40;
       &__item {
         & .eqftp__title {
-          color: $c02;
+          color: $c01;
         }
       }
     }

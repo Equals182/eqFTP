@@ -612,6 +612,7 @@
       cursor: pointer;
       list-style-type: none;
       display: flex;
+      justify-content: space-between;
       align-items: center;
       min-height: $i9;
       max-height: $i9;
@@ -619,6 +620,9 @@
       width: 100%;
       &:hover {
         background-color: rgba(0, 0, 0, 0.1);
+      }
+      &__icon {
+        margin-left: $i2;
       }
     }
   }
