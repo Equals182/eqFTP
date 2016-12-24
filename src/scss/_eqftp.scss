@@ -645,6 +645,31 @@
       align-items: center;
     }
   }
+  &-toast {
+    padding-left: $i6;
+    padding-right: $i6;
+    background-color: #323232;
+    border-radius: 2px;
+    box-sizing: border-box;
+    position: absolute;
+    bottom: $i4;
+    right: $i4;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    animation-name: slideInUp;
+    animation-duration: $time-fast;
+    min-height: $i12;
+    min-width: 288px;
+    max-width: 568px;
+    z-index: 2;
+    &__text {
+
+    }
+    &__action {
+
+    }
+  }
   &__row {
     display: flex;
     align-items: stretch;
