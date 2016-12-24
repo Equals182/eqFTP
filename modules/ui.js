@@ -50,6 +50,7 @@ define(function (require, exports, module) {
           $("#main-toolbar .buttons").append(eqUI.toolbarIcon.get());
           // Appending eqFTP panel after content
           $("body > .main-view > .content").after(eqUI.panel.get());
+          $("body").prepend(eqUI.context.get());
           if (eqUI.ps) {
             eqUI.ps.initialize($('.eqftp-content__page_file-tree')[0]);
             eqUI.ps.initialize($('.eqftp-content__page_queue')[0]);
@@ -93,9 +94,10 @@ define(function (require, exports, module) {
   
   eqUI.panel = new function () {
     var self = this;
-    var width = 360;
+    var width = 360,
+        panel = $(Mustache.render(require("text!htmlContent/panel.html"), strings));
     self.state = 'closed';
-    self.tpl = $(Mustache.render(require("text!htmlContent/panel.html"), strings)).filter('.eqftp');
+    self.tpl = panel.filter('.eqftp');
     self.tpl.css('right', (width * -1) + 'px').width(width);
     
     self.open = function () {
@@ -133,9 +135,20 @@ define(function (require, exports, module) {
       }
     };
     self.switchTo = function (tab) {
-      $('.eqftp-header__navigation').children('.eqftp-header__navigationTab_'+tab).addClass('eqftp-header__navigationTab_active').siblings().removeClass('eqftp-header__navigationTab_active');
-      $('.eqftp-content').children('.eqftp-content__page_'+tab).addClass('eqftp-content__page_active').siblings().removeClass('eqftp-content__page_active');
+      $('.eqftp-header__navigation').children('.eqftp-header__navigationTab_' + tab).addClass('eqftp-header__navigationTab_active').siblings().removeClass('eqftp-header__navigationTab_active');
+      $('.eqftp-content').children('.eqftp-content__page_' + tab).addClass('eqftp-content__page_active').siblings().removeClass('eqftp-content__page_active');
     };
+    
+    self.get = function () {
+      return self.tpl;
+    };
+  }();
+  
+  eqUI.context = new function () {
+    var self = this;
+    
+    var panel = $(Mustache.render(require("text!htmlContent/panel.html"), strings));
+    self.tpl = panel.filter('.eqftp-menu');
     
     self.get = function () {
       return self.tpl;
@@ -455,6 +468,7 @@ define(function (require, exports, module) {
     var self = this;
     self.tpl = eqUI.panel.tpl.find('.eqftp-queue');
     self.have = [];
+    self.queueElements = {};
     
     self._gen = function (v) {
       return $(Mustache.render(require("text!htmlContent/queueElement.html"), _.defaults(_.clone(strings), {
@@ -497,33 +511,36 @@ define(function (require, exports, module) {
       
       remove.forEach(function (v, i) {
         if (v.act === 'download' || v.act === 'upload') {
-          $('#eqftp-queue-' + v.qid).remove();
+          (self.queueElements[v.qid] || $('#eqftp-queue-' + v.qid)).remove();
+          _.unset(self.queueElements, v.qid);
         }
       });
       add.forEach(function (v, i) {
         if (v.act === 'download' || v.act === 'upload') {
           self.tpl.append(self._gen(v));
+          _.set(self.queueElements, v.qid, $('#eqftp-queue-' + v.qid));
         }
       });
       change.forEach(function (v, i) {
         if (!_.isEqual(self.have[_.findIndex(self.have, { qid: v.qid })], v)) {
           $('#eqftp-queue-' + v.qid).replaceWith(self._gen(v));
+          _.set(self.queueElements, v.qid, $('#eqftp-queue-' + v.qid));
         }
       });
       self.have = items;
     };
-    var o = false;
+    self._setTotal = false;
     self.progress = function (data) {
-      if (!o) {
-        o = _.once(function (el, s) {
-          el.find('.eqftp-placeholder-size').text(utils.filesize_format(s, 1, localeSizes));
-        });
+      if (!self._setTotal) {
+        self._setTotal = _.throttle(function (data) {
+          var el = (self.queueElements[data.queuer.qid] || $('#eqftp-queue-' + data.queuer.qid));
+          el.find('.eqftp-placeholder-size').text(utils.filesize_format(data.total, 1, localeSizes));
+        }, 5000);
       }
-      var el = $('#eqftp-queue-' + data.queuer.qid),
-          p = Math.floor(data.percents * 100),
-          s = data.total;
+      var el = (self.queueElements[data.queuer.qid] || $('#eqftp-queue-' + data.queuer.qid)),
+          p = Math.floor(data.percents * 100);
       el.find('.eqftp__progressBar:first').css('width', p + '%');
-      o(el, s);
+      self._setTotal(data);
     };
     
     self.get = function () {
