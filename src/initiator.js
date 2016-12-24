@@ -65,7 +65,7 @@ var tpls = {};
 $.ajaxSetup({
   async: false
 });
-['connectionElement', 'dropdownElement', 'fileTreeElement-file', 'fileTreeElement-folder', 'panel', 'queueElement', 'logElement'].forEach(function (tpl) {
+['connectionElement', 'dropdownElement', 'fileTreeElement-file', 'fileTreeElement-folder', 'panel', 'queueElement', 'logElement', 'menuElement'].forEach(function (tpl) {
   $.get('htmlContent/' + tpl + '.html', function (t, status, resp) {
     tpls[tpl] = function (params) {
       return $(Mustache.render(resp.responseText, ($.extend(strings, (params || {})))));
@@ -80,10 +80,28 @@ var elements = {
   fileTreeElementholder: '.eqftp-fileTree',
   logElementholder: '.eqftp-footer__list',
   footer: '.eqftp-footer',
+  menuHolder: '.eqftp-menu',
   queueElementholder: '.eqftp-queue'
 };
 
 var panel = tpls['panel']();
+
+panel.find(elements.menuHolder).show();
+panel.find(elements.menuHolder).append(tpls['menuElement']({
+  text: 'Menu item',
+  attrs: 'onclick="console.log(\'test\')"',
+  icon: 'android'
+}));
+panel.find(elements.menuHolder).append(tpls['menuElement']({
+  text: 'Menu item ver long as fuck man so long item menu item item',
+  attrs: 'onclick="console.log(\'test 2\')"',
+  icon: ''
+}));
+panel.find(elements.menuHolder).append(tpls['menuElement']({
+  text: 'Menu item ver long as fuck man so ',
+  attrs: 'onclick="console.log(\'test 3\')"',
+  icon: 'arrow-upward'
+}));
 
 panel.find(elements.dropdownElementholder).append(tpls['dropdownElement']({
   id: 'abc123',
@@ -122,6 +140,20 @@ var connection_error = function () { return tpls['connectionElement']({
 panel.find(elements.connectionsElementholder).append(connection_idle());
 panel.find(elements.connectionsElementholder).append(connection_connected());
 panel.find(elements.connectionsElementholder).append(connection_idle());
+panel.find(elements.connectionsElementholder).append(connection_idle());
+panel.find(elements.connectionsElementholder).append(connection_idle());
+panel.find(elements.connectionsElementholder).append(connection_connected());
+panel.find(elements.connectionsElementholder).append(connection_error());
+panel.find(elements.connectionsElementholder).append(connection_error());
+panel.find(elements.connectionsElementholder).append(connection_connected());
+panel.find(elements.connectionsElementholder).append(connection_connected());
+panel.find(elements.connectionsElementholder).append(connection_idle());
+panel.find(elements.connectionsElementholder).append(connection_idle());
+panel.find(elements.connectionsElementholder).append(connection_connected());
+panel.find(elements.connectionsElementholder).append(connection_connected());
+panel.find(elements.connectionsElementholder).append(connection_error());
+panel.find(elements.connectionsElementholder).append(connection_error());
+panel.find(elements.connectionsElementholder).append(connection_connected());
 
 panel.find(elements.queueElementholder).append(tpls['queueElement']({
   class: '',
@@ -157,6 +189,39 @@ var queue_element = function () { return tpls['queueElement']({
   percents: '0%'
 }); };
 panel.find(elements.queueElementholder)
+  .append(queue_element())
+  .append(queue_element())
+  .append(queue_element())
+  .append(queue_element())
+  .append(queue_element())
+  .append(queue_element())
+  .append(queue_element())
+  .append(queue_element())
+  .append(queue_element())
+  .append(queue_element())
+  .append(queue_element())
+  .append(queue_element())
+  .append(queue_element())
+  .append(queue_element())
+  .append(queue_element())
+  .append(queue_element())
+  .append(queue_element())
+  .append(queue_element())
+  .append(queue_element())
+  .append(queue_element())
+  .append(queue_element())
+  .append(queue_element())
+  .append(queue_element())
+  .append(queue_element())
+  .append(queue_element())
+  .append(queue_element())
+  .append(queue_element())
+  .append(queue_element())
+  .append(queue_element())
+  .append(queue_element())
+  .append(queue_element())
+  .append(queue_element())
+  .append(queue_element())
   .append(queue_element())
   .append(queue_element())
   .append(queue_element())
@@ -245,6 +310,64 @@ panel.find(elements.fileTreeElementholder)
   .append(_file_long())
   .append(_file_long())
   .append(_file_long())
+  .append(_file_short())
+  .append(_file_short())
+  .append(_file_short())
+  .append(_file_short())
+  .append(_file_short())
+  .append(_file_short())
+  .append(_file_short())
+  .append(_file_short())
+  .append(_file_short())
+  .append(_file_short())
+  .append(_file_short())
+  .append(_file_short())
+  .append(_file_short())
+  .append(_file_short())
+  .append(_file_short())
+  .append(_file_short())
+  .append(_file_short())
+  .append(_file_short())
+  .append(_file_short())
+  .append(_file_short())
+  .append(_file_short())
+  .append(_file_short())
+  .append(_file_short())
+  .append(_file_short())
+  .append(_file_short())
+  .append(_file_short())
+  .append(_file_short())
+  .append(_file_short())
+  .append(_file_short())
+  .append(_file_short())
+  .append(_file_short())
+  .append(_file_short())
+  .append(_file_short())
+  .append(_file_short())
+  .append(_file_short())
+  .append(_file_short())
+  .append(_file_short())
+  .append(_file_short())
+  .append(_file_short())
+  .append(_file_short())
+  .append(_file_short())
+  .append(_file_short())
+  .append(_file_short())
+  .append(_file_short())
+  .append(_file_short())
+  .append(_file_short())
+  .append(_file_short())
+  .append(_file_short())
+  .append(_file_short())
+  .append(_file_short())
+  .append(_file_short())
+  .append(_file_short())
+  .append(_file_short())
+  .append(_file_short())
+  .append(_file_short())
+  .append(_file_short())
+  .append(_file_short())
+  .append(_file_short())
   .append(_file_short());
 
 panel.find(elements.logElementholder)
@@ -265,6 +388,262 @@ panel.find(elements.logElementholder)
     time: '22:10:05',
     text: 'lol -content__page eqftp-content__page_blank',
     type: 'material-icons_ok'
+  }))
+  .append(tpls['logElement']({
+    icon: 'done',
+    time: '22:10:05',
+    text: 'lol -content__page eqftp-content__page_blank ps-container ps-theme-default" data-ps-id="e67da67e-19b2-9f31-8913-f8f5b6ddbbd8',
+    type: 'material-icons_info'
+  })).append(tpls['logElement']({
+    icon: 'done',
+    time: '22:10:05',
+    text: 'lol -content__page eqftp-content__page_blank ps-container ps-theme-default" data-ps-id="e67da67e-19b2-9f31-8913-f8f5b6ddbbd8',
+    type: 'material-icons_info'
+  })).append(tpls['logElement']({
+    icon: 'done',
+    time: '22:10:05',
+    text: 'lol -content__page eqftp-content__page_blank ps-container ps-theme-default" data-ps-id="e67da67e-19b2-9f31-8913-f8f5b6ddbbd8',
+    type: 'material-icons_info'
+  })).append(tpls['logElement']({
+    icon: 'done',
+    time: '22:10:05',
+    text: 'lol -content__page eqftp-content__page_blank ps-container ps-theme-default" data-ps-id="e67da67e-19b2-9f31-8913-f8f5b6ddbbd8',
+    type: 'material-icons_info'
+  })).append(tpls['logElement']({
+    icon: 'done',
+    time: '22:10:05',
+    text: 'lol -content__page eqftp-content__page_blank ps-container ps-theme-default" data-ps-id="e67da67e-19b2-9f31-8913-f8f5b6ddbbd8',
+    type: 'material-icons_info'
+  })).append(tpls['logElement']({
+    icon: 'done',
+    time: '22:10:05',
+    text: 'lol -content__page eqftp-content__page_blank ps-container ps-theme-default" data-ps-id="e67da67e-19b2-9f31-8913-f8f5b6ddbbd8',
+    type: 'material-icons_info'
+  })).append(tpls['logElement']({
+    icon: 'done',
+    time: '22:10:05',
+    text: 'lol -content__page eqftp-content__page_blank ps-container ps-theme-default" data-ps-id="e67da67e-19b2-9f31-8913-f8f5b6ddbbd8',
+    type: 'material-icons_info'
+  })).append(tpls['logElement']({
+    icon: 'done',
+    time: '22:10:05',
+    text: 'lol -content__page eqftp-content__page_blank ps-container ps-theme-default" data-ps-id="e67da67e-19b2-9f31-8913-f8f5b6ddbbd8',
+    type: 'material-icons_info'
+  })).append(tpls['logElement']({
+    icon: 'done',
+    time: '22:10:05',
+    text: 'lol -content__page eqftp-content__page_blank ps-container ps-theme-default" data-ps-id="e67da67e-19b2-9f31-8913-f8f5b6ddbbd8',
+    type: 'material-icons_info'
+  })).append(tpls['logElement']({
+    icon: 'done',
+    time: '22:10:05',
+    text: 'lol -content__page eqftp-content__page_blank ps-container ps-theme-default" data-ps-id="e67da67e-19b2-9f31-8913-f8f5b6ddbbd8',
+    type: 'material-icons_info'
+  })).append(tpls['logElement']({
+    icon: 'done',
+    time: '22:10:05',
+    text: 'lol -content__page eqftp-content__page_blank ps-container ps-theme-default" data-ps-id="e67da67e-19b2-9f31-8913-f8f5b6ddbbd8',
+    type: 'material-icons_info'
+  })).append(tpls['logElement']({
+    icon: 'done',
+    time: '22:10:05',
+    text: 'lol -content__page eqftp-content__page_blank ps-container ps-theme-default" data-ps-id="e67da67e-19b2-9f31-8913-f8f5b6ddbbd8',
+    type: 'material-icons_info'
+  })).append(tpls['logElement']({
+    icon: 'done',
+    time: '22:10:05',
+    text: 'lol -content__page eqftp-content__page_blank ps-container ps-theme-default" data-ps-id="e67da67e-19b2-9f31-8913-f8f5b6ddbbd8',
+    type: 'material-icons_info'
+  })).append(tpls['logElement']({
+    icon: 'done',
+    time: '22:10:05',
+    text: 'lol -content__page eqftp-content__page_blank ps-container ps-theme-default" data-ps-id="e67da67e-19b2-9f31-8913-f8f5b6ddbbd8',
+    type: 'material-icons_info'
+  })).append(tpls['logElement']({
+    icon: 'done',
+    time: '22:10:05',
+    text: 'lol -content__page eqftp-content__page_blank ps-container ps-theme-default" data-ps-id="e67da67e-19b2-9f31-8913-f8f5b6ddbbd8',
+    type: 'material-icons_info'
+  })).append(tpls['logElement']({
+    icon: 'done',
+    time: '22:10:05',
+    text: 'lol -content__page eqftp-content__page_blank ps-container ps-theme-default" data-ps-id="e67da67e-19b2-9f31-8913-f8f5b6ddbbd8',
+    type: 'material-icons_info'
+  })).append(tpls['logElement']({
+    icon: 'done',
+    time: '22:10:05',
+    text: 'lol -content__page eqftp-content__page_blank ps-container ps-theme-default" data-ps-id="e67da67e-19b2-9f31-8913-f8f5b6ddbbd8',
+    type: 'material-icons_info'
+  })).append(tpls['logElement']({
+    icon: 'done',
+    time: '22:10:05',
+    text: 'lol -content__page eqftp-content__page_blank ps-container ps-theme-default" data-ps-id="e67da67e-19b2-9f31-8913-f8f5b6ddbbd8',
+    type: 'material-icons_info'
+  })).append(tpls['logElement']({
+    icon: 'done',
+    time: '22:10:05',
+    text: 'lol -content__page eqftp-content__page_blank ps-container ps-theme-default" data-ps-id="e67da67e-19b2-9f31-8913-f8f5b6ddbbd8',
+    type: 'material-icons_info'
+  })).append(tpls['logElement']({
+    icon: 'done',
+    time: '22:10:05',
+    text: 'lol -content__page eqftp-content__page_blank ps-container ps-theme-default" data-ps-id="e67da67e-19b2-9f31-8913-f8f5b6ddbbd8',
+    type: 'material-icons_info'
+  })).append(tpls['logElement']({
+    icon: 'done',
+    time: '22:10:05',
+    text: 'lol -content__page eqftp-content__page_blank ps-container ps-theme-default" data-ps-id="e67da67e-19b2-9f31-8913-f8f5b6ddbbd8',
+    type: 'material-icons_info'
+  })).append(tpls['logElement']({
+    icon: 'done',
+    time: '22:10:05',
+    text: 'lol -content__page eqftp-content__page_blank ps-container ps-theme-default" data-ps-id="e67da67e-19b2-9f31-8913-f8f5b6ddbbd8',
+    type: 'material-icons_info'
+  })).append(tpls['logElement']({
+    icon: 'done',
+    time: '22:10:05',
+    text: 'lol -content__page eqftp-content__page_blank ps-container ps-theme-default" data-ps-id="e67da67e-19b2-9f31-8913-f8f5b6ddbbd8',
+    type: 'material-icons_info'
+  })).append(tpls['logElement']({
+    icon: 'done',
+    time: '22:10:05',
+    text: 'lol -content__page eqftp-content__page_blank ps-container ps-theme-default" data-ps-id="e67da67e-19b2-9f31-8913-f8f5b6ddbbd8',
+    type: 'material-icons_info'
+  })).append(tpls['logElement']({
+    icon: 'done',
+    time: '22:10:05',
+    text: 'lol -content__page eqftp-content__page_blank ps-container ps-theme-default" data-ps-id="e67da67e-19b2-9f31-8913-f8f5b6ddbbd8',
+    type: 'material-icons_info'
+  })).append(tpls['logElement']({
+    icon: 'done',
+    time: '22:10:05',
+    text: 'lol -content__page eqftp-content__page_blank ps-container ps-theme-default" data-ps-id="e67da67e-19b2-9f31-8913-f8f5b6ddbbd8',
+    type: 'material-icons_info'
+  })).append(tpls['logElement']({
+    icon: 'done',
+    time: '22:10:05',
+    text: 'lol -content__page eqftp-content__page_blank ps-container ps-theme-default" data-ps-id="e67da67e-19b2-9f31-8913-f8f5b6ddbbd8',
+    type: 'material-icons_info'
+  })).append(tpls['logElement']({
+    icon: 'done',
+    time: '22:10:05',
+    text: 'lol -content__page eqftp-content__page_blank ps-container ps-theme-default" data-ps-id="e67da67e-19b2-9f31-8913-f8f5b6ddbbd8',
+    type: 'material-icons_info'
+  })).append(tpls['logElement']({
+    icon: 'done',
+    time: '22:10:05',
+    text: 'lol -content__page eqftp-content__page_blank ps-container ps-theme-default" data-ps-id="e67da67e-19b2-9f31-8913-f8f5b6ddbbd8',
+    type: 'material-icons_info'
+  })).append(tpls['logElement']({
+    icon: 'done',
+    time: '22:10:05',
+    text: 'lol -content__page eqftp-content__page_blank ps-container ps-theme-default" data-ps-id="e67da67e-19b2-9f31-8913-f8f5b6ddbbd8',
+    type: 'material-icons_info'
+  })).append(tpls['logElement']({
+    icon: 'done',
+    time: '22:10:05',
+    text: 'lol -content__page eqftp-content__page_blank ps-container ps-theme-default" data-ps-id="e67da67e-19b2-9f31-8913-f8f5b6ddbbd8',
+    type: 'material-icons_info'
+  })).append(tpls['logElement']({
+    icon: 'done',
+    time: '22:10:05',
+    text: 'lol -content__page eqftp-content__page_blank ps-container ps-theme-default" data-ps-id="e67da67e-19b2-9f31-8913-f8f5b6ddbbd8',
+    type: 'material-icons_info'
+  })).append(tpls['logElement']({
+    icon: 'done',
+    time: '22:10:05',
+    text: 'lol -content__page eqftp-content__page_blank ps-container ps-theme-default" data-ps-id="e67da67e-19b2-9f31-8913-f8f5b6ddbbd8',
+    type: 'material-icons_info'
+  })).append(tpls['logElement']({
+    icon: 'done',
+    time: '22:10:05',
+    text: 'lol -content__page eqftp-content__page_blank ps-container ps-theme-default" data-ps-id="e67da67e-19b2-9f31-8913-f8f5b6ddbbd8',
+    type: 'material-icons_info'
+  })).append(tpls['logElement']({
+    icon: 'done',
+    time: '22:10:05',
+    text: 'lol -content__page eqftp-content__page_blank ps-container ps-theme-default" data-ps-id="e67da67e-19b2-9f31-8913-f8f5b6ddbbd8',
+    type: 'material-icons_info'
+  })).append(tpls['logElement']({
+    icon: 'done',
+    time: '22:10:05',
+    text: 'lol -content__page eqftp-content__page_blank ps-container ps-theme-default" data-ps-id="e67da67e-19b2-9f31-8913-f8f5b6ddbbd8',
+    type: 'material-icons_info'
+  })).append(tpls['logElement']({
+    icon: 'done',
+    time: '22:10:05',
+    text: 'lol -content__page eqftp-content__page_blank ps-container ps-theme-default" data-ps-id="e67da67e-19b2-9f31-8913-f8f5b6ddbbd8',
+    type: 'material-icons_info'
+  })).append(tpls['logElement']({
+    icon: 'done',
+    time: '22:10:05',
+    text: 'lol -content__page eqftp-content__page_blank ps-container ps-theme-default" data-ps-id="e67da67e-19b2-9f31-8913-f8f5b6ddbbd8',
+    type: 'material-icons_info'
+  })).append(tpls['logElement']({
+    icon: 'done',
+    time: '22:10:05',
+    text: 'lol -content__page eqftp-content__page_blank ps-container ps-theme-default" data-ps-id="e67da67e-19b2-9f31-8913-f8f5b6ddbbd8',
+    type: 'material-icons_info'
+  })).append(tpls['logElement']({
+    icon: 'done',
+    time: '22:10:05',
+    text: 'lol -content__page eqftp-content__page_blank ps-container ps-theme-default" data-ps-id="e67da67e-19b2-9f31-8913-f8f5b6ddbbd8',
+    type: 'material-icons_info'
+  })).append(tpls['logElement']({
+    icon: 'done',
+    time: '22:10:05',
+    text: 'lol -content__page eqftp-content__page_blank ps-container ps-theme-default" data-ps-id="e67da67e-19b2-9f31-8913-f8f5b6ddbbd8',
+    type: 'material-icons_info'
+  })).append(tpls['logElement']({
+    icon: 'done',
+    time: '22:10:05',
+    text: 'lol -content__page eqftp-content__page_blank ps-container ps-theme-default" data-ps-id="e67da67e-19b2-9f31-8913-f8f5b6ddbbd8',
+    type: 'material-icons_info'
+  })).append(tpls['logElement']({
+    icon: 'done',
+    time: '22:10:05',
+    text: 'lol -content__page eqftp-content__page_blank ps-container ps-theme-default" data-ps-id="e67da67e-19b2-9f31-8913-f8f5b6ddbbd8',
+    type: 'material-icons_info'
+  })).append(tpls['logElement']({
+    icon: 'done',
+    time: '22:10:05',
+    text: 'lol -content__page eqftp-content__page_blank ps-container ps-theme-default" data-ps-id="e67da67e-19b2-9f31-8913-f8f5b6ddbbd8',
+    type: 'material-icons_info'
+  })).append(tpls['logElement']({
+    icon: 'done',
+    time: '22:10:05',
+    text: 'lol -content__page eqftp-content__page_blank ps-container ps-theme-default" data-ps-id="e67da67e-19b2-9f31-8913-f8f5b6ddbbd8',
+    type: 'material-icons_info'
+  })).append(tpls['logElement']({
+    icon: 'done',
+    time: '22:10:05',
+    text: 'lol -content__page eqftp-content__page_blank ps-container ps-theme-default" data-ps-id="e67da67e-19b2-9f31-8913-f8f5b6ddbbd8',
+    type: 'material-icons_info'
+  })).append(tpls['logElement']({
+    icon: 'done',
+    time: '22:10:05',
+    text: 'lol -content__page eqftp-content__page_blank ps-container ps-theme-default" data-ps-id="e67da67e-19b2-9f31-8913-f8f5b6ddbbd8',
+    type: 'material-icons_info'
+  })).append(tpls['logElement']({
+    icon: 'done',
+    time: '22:10:05',
+    text: 'lol -content__page eqftp-content__page_blank ps-container ps-theme-default" data-ps-id="e67da67e-19b2-9f31-8913-f8f5b6ddbbd8',
+    type: 'material-icons_info'
+  })).append(tpls['logElement']({
+    icon: 'done',
+    time: '22:10:05',
+    text: 'lol -content__page eqftp-content__page_blank ps-container ps-theme-default" data-ps-id="e67da67e-19b2-9f31-8913-f8f5b6ddbbd8',
+    type: 'material-icons_info'
+  })).append(tpls['logElement']({
+    icon: 'done',
+    time: '22:10:05',
+    text: 'lol -content__page eqftp-content__page_blank ps-container ps-theme-default" data-ps-id="e67da67e-19b2-9f31-8913-f8f5b6ddbbd8',
+    type: 'material-icons_info'
+  })).append(tpls['logElement']({
+    icon: 'done',
+    time: '22:10:05',
+    text: 'lol -content__page eqftp-content__page_blank ps-container ps-theme-default" data-ps-id="e67da67e-19b2-9f31-8913-f8f5b6ddbbd8',
+    type: 'material-icons_info'
   }))
   .append(tpls['logElement']({
     icon: 'not_interested',
