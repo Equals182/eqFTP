@@ -8,6 +8,7 @@
   overflow: hidden;
   height: 100%;
   width: 360px;
+  z-index: 1;
   &-toolbar {
     &__icon {
       padding-top: 1px;
@@ -595,35 +596,52 @@
     animation-name: fadeIn;
     animation-duration: $time-fast;
     position: absolute;
-    top: 0;
-    left: 0;
     display: none;
     list-style: none;
     box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-    max-width: 100%;
-    z-index: 1;
+    max-width: 300px;
+    z-index: 2;
     &_active {
       display: block;
     }
     &__item {
-      padding-left: $i4;
-      padding-right: $i4;
+      padding-left: $i6;
+      padding-right: $i6;
       box-sizing: border-box;
       cursor: pointer;
       list-style-type: none;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      min-height: $i9;
-      max-height: $i9;
-      height: $i9;
+      min-height: $i8;
       width: 100%;
       &:hover {
         background-color: rgba(0, 0, 0, 0.1);
       }
-      &__icon {
-        margin-left: $i2;
-      }
+    }
+    &__text {
+      padding-top: $i2;
+      padding-bottom: $i2;
+      font-family: $font-family;
+      font-size: 15px;
+      font-weight: 400;
+      font-style: normal;
+      line-height: 16px;
+      box-sizing: border-box;
+    }
+    &__shortcut {
+      padding-top: $i2;
+      padding-bottom: $i2;
+      padding-left: $i2;
+      font-family: $font-family;
+      font-size: 15px;
+      font-weight: 400;
+      font-style: normal;
+      line-height: 16px;
+      box-sizing: border-box;
+      display: flex;
+      justify-content: right;
+      align-items: center;
     }
   }
   &__row {

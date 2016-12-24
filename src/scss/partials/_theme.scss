@@ -4,7 +4,8 @@
   }
   &-menu {
     background-color: $c30;
-    &__item {
+    &__text,
+    &__shortcut {
       color: $c02;
     }
   }
@@ -79,10 +80,9 @@
     }
     &-menu {
       background-color: $c40;
-      &__item {
-        & .eqftp__title {
-          color: $c01;
-        }
+      &__text,
+      &__shortcut {
+        color: $c01;
       }
     }
     &-connectionsSettings {
