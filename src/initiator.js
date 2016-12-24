@@ -65,7 +65,7 @@ var tpls = {};
 $.ajaxSetup({
   async: false
 });
-['connectionElement', 'dropdownElement', 'fileTreeElement-file', 'fileTreeElement-folder', 'panel', 'queueElement', 'logElement', 'menuElement', 'toast'].forEach(function (tpl) {
+['connectionElement', 'dropdownElement', 'fileTreeElement-file', 'fileTreeElement-folder', 'panel', 'queueElement', 'logElement', 'menuElement', 'toastElement'].forEach(function (tpl) {
   $.get('htmlContent/' + tpl + '.html', function (t, status, resp) {
     tpls[tpl] = function (params) {
       return $(Mustache.render(resp.responseText, ($.extend(strings, (params || {})))));
@@ -81,6 +81,7 @@ var elements = {
   logElementholder: '.eqftp-footer__list',
   footer: '.eqftp-footer',
   menuHolder: '.eqftp-menu',
+  toastHolder: '.eqftp-toast',
   queueElementholder: '.eqftp-queue'
 };
 
@@ -287,9 +288,18 @@ menu.append(tpls['menuElement']({
   shortcut: 'Alt+Ctrl+F'
 }));
 
-$('body').append(tpls['toast']({
-  text: 'Toast text',
-  action: 'ACTION'
+var toast = $(document).find(elements.toastHolder);
+toast.append(tpls['toast']({
+  text: 'File index.php uploaded',
+  action: ''
+}));
+toast.append(tpls['toast']({
+  text: 'File downloaded (12)',
+  action: ''
+}));
+toast.append(tpls['toast']({
+  text: 'Rename file on server?',
+  action: 'RENAME'
 }));
 
 /* Dummies below to avoid errors */
