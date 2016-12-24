@@ -697,6 +697,9 @@
       box-sizing: border-box;
       animation-name: fadeIn;
       animation-duration: $time-fast;
+      &:hover {
+        color: $c21;
+      }
     }
   }
   &__row {
