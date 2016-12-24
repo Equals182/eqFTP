@@ -289,15 +289,15 @@ menu.append(tpls['menuElement']({
 }));
 
 var toast = $(document).find(elements.toastHolder);
-toast.append(tpls['toast']({
+toast.append(tpls['toastElement']({
   text: 'File index.php uploaded',
   action: ''
 }));
-toast.append(tpls['toast']({
+toast.append(tpls['toastElement']({
   text: 'File downloaded (12)',
   action: ''
 }));
-toast.append(tpls['toast']({
+toast.append(tpls['toastElement']({
   text: 'Rename file on server?',
   action: 'RENAME'
 }));
