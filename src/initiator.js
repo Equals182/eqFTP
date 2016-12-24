@@ -65,7 +65,7 @@ var tpls = {};
 $.ajaxSetup({
   async: false
 });
-['connectionElement', 'dropdownElement', 'fileTreeElement-file', 'fileTreeElement-folder', 'panel', 'queueElement', 'logElement', 'menuElement'].forEach(function (tpl) {
+['connectionElement', 'dropdownElement', 'fileTreeElement-file', 'fileTreeElement-folder', 'panel', 'queueElement', 'logElement', 'menuElement', 'toast'].forEach(function (tpl) {
   $.get('htmlContent/' + tpl + '.html', function (t, status, resp) {
     tpls[tpl] = function (params) {
       return $(Mustache.render(resp.responseText, ($.extend(strings, (params || {})))));
@@ -285,6 +285,11 @@ menu.append(tpls['menuElement']({
   text: 'Menu item ver long as fuck man so ',
   attrs: 'onclick="console.log(\'test 3\')"',
   shortcut: 'Alt+Ctrl+F'
+}));
+
+$('body').append(tpls['toasts']({
+  text: 'Toast text',
+  action: 'ACTION'
 }));
 
 /* Dummies below to avoid errors */
