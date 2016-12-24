@@ -95,7 +95,7 @@ define(function (require, exports, module) {
     var self = this;
     var width = 360;
     self.state = 'closed';
-    self.tpl = $(Mustache.render(require("text!htmlContent/panel.html"), strings));
+    self.tpl = $(Mustache.render(require("text!htmlContent/panel.html"), strings)).filter('.eqftp');
     self.tpl.css('right', (width * -1) + 'px').width(width);
     
     self.open = function () {

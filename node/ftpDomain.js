@@ -295,7 +295,7 @@ maxerr: 50, node: true */
                   queue.q = [];
                 }
                 if (!queuer.qid) {
-                  queuer.qid = utils.uniq();
+                  queuer.qid = utils.uniq() + '-' + _.uniqueId();
                 }
                 if (prepend) {
                   queue.q.unshift(queuer);
@@ -310,21 +310,41 @@ maxerr: 50, node: true */
               };
               queue.next = function () {
                 if (queue.q && queue.q.length > 0) {
-                  var f = _.findIndex(queue.q, {queue: 'a'});
-                  if (f < 0) {
-                    return false;
-                  }
-                  var queuer = (_.pullAt(queue.q, f))[0];
                   if (!self._[id].isBusy) {
                     self._[id].isBusy = true;
                   } else {
                     // not going anywhere were busy
                     return false;
                   }
-                  var args = queuer.args,
+                  var f = _.findIndex(queue.q, {queue: 'a'});
+                  if (f < 0) {
+                    return false;
+                  }
+                  var queuer = _.nth(queue.q, f),
+                      args = queuer.args,
                       callback = _.nth(args, -2),
                       progress = _.nth(args, -1);
 
+                  var finisher = function (err, data) {
+                    var i = _.findIndex(queue.q, {qid: queuer.qid});
+                    if (i > -1) {
+                      queuer = (_.pullAt(queue.q, i))[0];
+                      if (err) {
+                        queuer.queue = 'f';
+                        queuer.err = err;
+                        queue.add(queuer, true);
+                      }
+                    }
+                    self._[id].isBusy = false;
+                    if (!err) {
+                      _domainManager.emitEvent("eqFTP", "event", {
+                        action: 'queue:update',
+                        data: eqftp.queue.get()
+                      });
+                    }
+                    queue.next();
+                    callback(err, data);
+                  };
                   var cb = function (err, data) {
                     // POST-HOOKS
                     switch(queuer.act) {
@@ -385,19 +405,12 @@ maxerr: 50, node: true */
                         break;
                     }
 
-                    self._[id].isBusy = false;
-                    if (err) {
-                      queuer.queue = 'f';
-                      queuer.err = err;
-                      queue.add(queuer, true);
-                    }
-
                     _domainManager.emitEvent("eqFTP", "event", {
                       action: 'connection:' + queuer.act,
                       data: queuer
                     });
-                    queue.next();
-                    callback(err, data);
+
+                    finisher(err, data);
                   };
                   var pr = function (err, data) {
                     progress(err, data);
@@ -408,17 +421,7 @@ maxerr: 50, node: true */
                     if (!err) {
                       self._[id]._server[queuer.act](...args);
                     } else {
-                      self._[id].isBusy = false;
-                      queuer.queue = 'f';
-                      queuer.err = err;
-                      queue.add(queuer, true);
-
-                      _domainManager.emitEvent("eqFTP", "event", {
-                        action: 'connection:' + queuer.act,
-                        data: queuer
-                      });
-                      queue.next();
-                      callback(err.code);
+                      finisher(err);
                     }
                   });
                 }
@@ -539,7 +542,7 @@ maxerr: 50, node: true */
                   var args = [...arguments],
                       callback = _.nth(args, -2),
                       progress = _.nth(args, -1),
-                      qid = utils.uniq();
+                      qid = utils.uniq() + '-' + _.uniqueId();
 
                   // PRE-HOOKS
                   switch(method) {
@@ -622,9 +625,11 @@ maxerr: 50, node: true */
   }();
   eqftp.queue = {
     get: function () {
-      var r = [];
-      _.forOwn(eqftp.connections._get(), function (c, id) {
-        c.queue.get().forEach(function (queuer) {
+      var r = [],
+          connections = eqftp.connections._get();
+      _.forOwn(connections, function (c, id) {
+        var cq = c.queue.get();
+        cq.forEach(function (queuer) {
           r.push({
             id: queuer.id,
             qid: queuer.qid,
