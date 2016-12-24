@@ -274,7 +274,7 @@ menu.show();
 menu.append(tpls['menuElement']({
   text: 'Menu item',
   attrs: 'onclick="console.log(\'test\')"',
-  icon: 'android'
+  icon: '⌘+F'
 }));
 menu.append(tpls['menuElement']({
   text: 'Menu item ver long as fuck man so long item menu item item',
@@ -284,7 +284,7 @@ menu.append(tpls['menuElement']({
 menu.append(tpls['menuElement']({
   text: 'Menu item ver long as fuck man so ',
   attrs: 'onclick="console.log(\'test 3\')"',
-  icon: 'arrow-upward'
+  icon: 'Alt+Ctrl+F'
 }));
 
 /* Dummies below to avoid errors */
