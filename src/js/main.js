@@ -78,8 +78,3 @@ function showLog() {
   'use strict';
   $('.eqftp-footer').toggleClass('eqftp-footer_active');
 }
-
-function showMenu(element) {
-  $('.eqftp-menu').removeClass('eqftp-menu_active');
-  $(element).next('.eqftp-menu').toggleClass('eqftp-menu_active');
-}
