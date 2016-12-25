@@ -176,7 +176,7 @@
     &_active {
       display: flex;
     }
-    &_password {
+    &_welcome {
       display: flex;
     }
     &__content {
@@ -980,12 +980,16 @@
     }
     &_medium {
       font-size: $i5;
+      font-weight: 500;
     }
     &_big {
       font-size: $i6;
     }
     &_biggest {
       font-size: $i7;
+    }
+    &_display1 {
+      font-size: 34px;
     }
     &_black {
       color: $c00;
