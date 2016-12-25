@@ -4,6 +4,14 @@ define({
  "eqftp__context__upload": "Upload",
  
  /**
+ * PASSWORD WINDOW
+ */
+ "eqftp__paswd__window_title": "Decrypt settings",
+ "eqftp__paswd__input_label": "Master password",
+ "eqftp__paswd__input_placeholder": "Your password",
+ "eqftp__paswd__button": "Decrypt",
+ 
+ /**
  * CONNECTION'S SETTINGS WINDOW
  */
  "eqftp__cs__window_title": "Edit connection",
@@ -23,6 +31,18 @@ define({
  "eqftp__cs__c_ignore_list_placeholder": "Use .gitignore syntax",
  
  /**
+  * GENERAL SETTINGS
+  */
+ "eqftp__gs__setting_file_label": "Settings file",
+ "eqftp__gs__setting_file_placeholder": "Path to settings file",
+ "eqftp__gs__encrypt_label": "Encrypt settings file",
+ "eqftp__gs__folder_for_projects_label": "Folder for project",
+ "eqftp__gs__folder_for_projects_placeholder": "Path to folder",
+ "eqftp__gs__timestamp_format_label": "Timestamp format",
+ "eqftp__gs__timestamp_format_placeholder": "Preferable timestamp format",
+ "eqftp__gs__debug_label": "Debug",
+ 
+ /**
  * LOGS
  */
  "eqftp__log__download_success": "File {{filename}} successfuly downloaded",
@@ -37,6 +57,8 @@ define({
  
  "eqftp__log__settings_load_success": "Settings file {{filename}} loaded",
  "eqftp__log__settings_load_error": "There was an error loading settings file {{filename}}",
+ "eqftp__log__settings_save_success": "Settings saved to {{filename}} file",
+ "eqftp__log__settings_save_error": "There was an error saving settings to {{filename}}",
  
  /**
  * CONTROLS
