@@ -147,6 +147,7 @@
   }
   & input[type="checkbox"]:checked {
     &+label {
+      color: $c02;
       &:before {
         content: '\E834';
         font-family: 'Material Icons';
@@ -202,6 +203,7 @@
     }
     & input[type="checkbox"]:checked {
       &+label {
+        color: $c01;
         &:before {
           color: $c21;
         }
