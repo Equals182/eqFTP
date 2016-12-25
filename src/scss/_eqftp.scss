@@ -30,6 +30,15 @@
       }
     }
   }
+  &-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: $i12;
+    max-height: $i12;
+    height: $i12;
+    width: 100%;
+  }
   &-header {
     display: flex;
     justify-content: flex-start;
@@ -38,15 +47,6 @@
     flex-wrap: wrap;
     width: 100%;
     z-index: 300;
-    &__title {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      min-height: $i12;
-      max-height: $i12;
-      height: $i12;
-      width: 100%;
-    }
     &__search {
       padding-top: 6px;
       padding-bottom: 6px;
@@ -57,7 +57,7 @@
       justify-content: center;
       align-items: center;
       animation-name: fadeIn;
-      animation-duration: 0.2s;
+      animation-duration: $time-fast;
       position: absolute;
       top: 0;
       left: 0;
@@ -84,7 +84,7 @@
       border-top: 1px solid $c11;
       box-sizing: border-box;
       animation-name: fadeIn;
-      animation-duration: 0.2s;
+      animation-duration: $time-fast;
       animation-direction: alternate;
       position: relative;
       display: none;
@@ -109,7 +109,7 @@
         align-content: center;
         align-items: center;
         flex-wrap: wrap;
-        transition: background-color 0.2s, border 0.2s;
+        transition: background-color $time-fast, border $time-fast;
         cursor: pointer;
         min-height: $i12;
         max-height: $i12;
@@ -159,6 +159,45 @@
       }
     }
   }
+  &-modal {
+    position: absolute;
+    top: 0;
+    left: 0;
+    animation-name: bounceInUp;
+    animation-duration: $time-normal;
+    display: none;
+    align-content: flex-start;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    height: 100%;
+    width: 100%;
+    z-index: 500;
+    &_active {
+      display: flex;
+    }
+    &_welcome {
+      display: flex;
+    }
+    &__content {
+      display: flex;
+      flex-wrap: wrap;
+      height: 100%;
+      &_padding {
+        padding-top: $i4;
+        padding-bottom: $i4;
+        padding-left: $i4;
+        padding-right: $i4;
+      }
+      &_start {
+        align-content: flex-start;
+        align-items: flex-start;
+      }
+      &_center {
+        align-content: center;
+        align-items: center;
+      }
+    }
+  }
   &-connectionsSettings {
     position: absolute;
     top: 0;
@@ -173,15 +212,6 @@
     z-index: 500;
     &_active {
       display: flex;
-    }
-    &__title {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      min-height: $i12;
-      max-height: $i12;
-      height: $i12;
-      width: 100%;
     }
     &__content {
       margin-left: $i4;
@@ -202,7 +232,7 @@
     z-index: 100;
     &__page {
       animation-name: fadeInRight;
-      animation-duration: 0.2s;
+      animation-duration: $time-fast;
       display: none;
       justify-content: center;
       position: relative;
@@ -244,7 +274,7 @@
     overflow: hidden;
     height: 26px;
     width: 100%;
-    z-index: 500;
+    z-index: 400;
     &_active {
       padding-top: $i2;
       box-sizing: border-box;
@@ -784,7 +814,7 @@
         position: absolute;
         bottom: 0;
         right: 0;
-        transition: transform 0.2s;
+        transition: transform $time-fast;
         min-height: 26px;
         max-height: 26px;
         height: 26px;
@@ -921,15 +951,6 @@
       align-items: flex-end;
     }
   }
-  &__hello {
-    margin-top: 40px;
-    margin-bottom: 40px;
-    @include font($font-family, 20px, 900, normal, $c07, center, normal, uppercase);
-    width: 100%;
-    span {
-      font-size: 40px;
-    }
-  }
   &__title {
     font-size: 14px;
     font-family: $font-family;
@@ -941,6 +962,10 @@
     min-width: 0px;
     max-width: 100%;
     width: 100%;
+    &_center {
+      text-align: center;
+      justify-content: center;
+    }
     &_smallest {
       font-size: $i3;
     }
@@ -993,7 +1018,7 @@
   &__close {
     font-size: $i6;
     color: $c09;
-    transition: color 0.2s;
+    transition: color $time-fast;
     display: flex;
     justify-content: center;
     align-items: center;

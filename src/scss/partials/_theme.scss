@@ -1,5 +1,6 @@
 .eqftp {
-  &-connectionsSettings {
+  &-connectionsSettings,
+  &-modal {
     background-color: $c13;
   }
   &-menu {
@@ -85,7 +86,8 @@
         color: $c01;
       }
     }
-    &-connectionsSettings {
+    &-connectionsSettings,
+    &-modal {
       background-color: $c03;
     }
     &__icon,

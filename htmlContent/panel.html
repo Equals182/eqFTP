@@ -3,8 +3,8 @@
   <!-- HEADER -->
   <div class="eqftp-header shadow-smallest">
 
-    <!-- TITLE -->
-    <div class="eqftp-header__title">
+    <!-- HEAD -->
+    <div class="eqftp-head">
       <div class="eqftp__button eqftp__buttonCube eqftp__buttonCube_medium" onclick="eqftp.ui.search.toggle();">
         <i class="material-icons">search</i>
       </div>
@@ -13,7 +13,7 @@
         <i class="material-icons">clear</i>
       </div>
     </div>
-    <!-- /TITLE -->
+    <!-- /HEAD -->
 
     <!-- /SEARCH -->
     <div class="eqftp-header__search">
@@ -52,11 +52,69 @@
   </div>
   <!-- /HEADER -->
 
-  <!-- CONNECTIONS SETTINGS -->
-  <div class="eqftp-connectionsSettings">
+  <!-- WELCOME PAGE -->
+  <div class="eqftp-modal eqftp-modal_welcome">
 
-    <!-- TITLE -->
-    <div class="eqftp-connectionsSettings__title">
+    <!-- HEAD -->
+    <div class="eqftp-head">
+      <div class="eqftp__icon eqftp__icon_medium">
+        <i class="material-icons">folder_special</i>
+      </div>
+      <div class="eqftp__title eqftp__title_full eqftp__title_medium"><span class="eqftp__titleNowrap">Welcome</span></div>
+      <div class="eqftp__button eqftp__buttonCube eqftp__buttonCube_medium">
+        <i class="material-icons">clear</i>
+      </div>
+    </div>
+    <!-- /HEAD -->
+
+    <!-- CONTENT -->
+    <div class="eqftp-modal__content eqftp-modal__content_center eqftp-modal__content_padding">
+      <div class="eqftp__title eqftp__title_center eqftp__title_biggest">eqFTP</div>
+      <div class="eqftp__row eqftp__row_between">
+        <div class="eqftp__button eqftp__button_blue eqftp__buttonRectangle">Load setting</div>
+        <div class="eqftp__button eqftp__button_blue eqftp__buttonRectangle">New setting</div>
+      </div>
+    </div>
+    <!-- /CONTENT -->
+
+  </div>
+  <!-- /WELCOME PAGE -->
+
+  <!-- PASSWORD PAGE -->
+  <div class="eqftp-modal eqftp-modal_password">
+
+    <!-- HEAD -->
+    <div class="eqftp-head">
+      <div class="eqftp__icon eqftp__icon_medium">
+        <i class="material-icons">account_circle</i>
+      </div>
+      <div class="eqftp__title eqftp__title_full eqftp__title_medium"><span class="eqftp__titleNowrap">Password</span></div>
+      <div class="eqftp__button eqftp__buttonCube eqftp__buttonCube_medium">
+        <i class="material-icons">clear</i>
+      </div>
+    </div>
+    <!-- /HEAD -->
+
+    <!-- CONTENT -->
+    <div class="eqftp-modal__content eqftp-modal__content_center eqftp-modal__content_padding">
+      <div class="eqftp__holder eqftp__holder_input">
+        <label class="eqftp__label" for="eqftpPassword">Password</label>
+        <input type="password" name="password" id="eqftpPassword" class="eqftp__input eqftp__inputText eqftp__inputText_underline eqftp__inputText_labelIn" placeholder="Password" />
+      </div>
+      <div class="eqftp__row eqftp__row_center">
+        <div class="eqftp__button eqftp__button_blue eqftp__buttonRectangle">Login</div>
+      </div>
+    </div>
+    <!-- /CONTENT -->
+
+  </div>
+  <!-- /PASSWORD PAGE -->
+
+  <!-- CONNECTIONS SETTINGS -->
+  <div class="eqftp-modal eqftp-modal_connectionsSettings">
+
+    <!-- HEAD -->
+    <div class="eqftp-head">
       <div class="eqftp__icon eqftp__icon_medium">
         <i class="material-icons">power</i>
       </div>
@@ -65,9 +123,10 @@
         <i class="material-icons">clear</i>
       </div>
     </div>
-    <!-- /TITLE -->
+    <!-- /HEAD -->
 
-    <div class="eqftp-connectionsSettings__content">
+    <!-- CONTENT -->
+    <div class="eqftp-modal__content eqftp-modal__content_start eqftp-modal__content_padding">
 
       <!-- SUBHEADER -->
       <div class="eqftp__subheader">
@@ -144,6 +203,7 @@
       <!-- /ADDITIONAL SETTINGS -->
 
     </div>
+    <!-- /CONTENT -->
 
     <div class="eqftp__row eqftp__row_end">
       <div class="eqftp__button eqftp__buttonRectangle eqftp__buttonRectangle_nobg">{{eqftp__controls__delete}}</div>
@@ -155,14 +215,6 @@
 
   <!-- CONTENT -->
   <div class="eqftp-content">
-
-    <!-- PAGE BLANK -->
-    <div class="eqftp-content__page eqftp-content__page_blank">
-      <div class="eqftp__hello">Hello, world!<br/><br/><span>( ^_^ )</span></div>
-      <div class="eqftp__button eqftp__button_big eqftp__button_cube">New connection</div>
-      <div class="eqftp__button eqftp__button_big eqftp__button_cube">Settings</div>
-    </div>
-    <!-- /PAGE BLANK -->
 
     <!-- PAGE FILE TREE -->
     <div class="eqftp-content__page eqftp-content__page_file-tree">
