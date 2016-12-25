@@ -24,6 +24,64 @@ define(function (require, exports, module) {
         strings.eqftp__filesize_yottabytes
       ];
   
+  function getInputNameValue (input) {
+    var name = false,
+        value = false;
+    if (input.is('[type=checkbox]')) {
+      name = input.attr('name');
+      value = !!input.is(':checked');
+    } else if (input.is('[type=radio]')) {
+      name = input.attr('name');
+      value = input.val();
+    } else if (input.is('textarea')) {
+      name = input.attr('name');
+      value = input.val();
+    } else if (input.is('select')) {
+      name = input.attr('name');
+      value = input.val();
+    } else {
+      name = input.attr('name');
+      value = input.val() || '';
+    }
+    if (!name) {
+      return false;
+    } else {
+      return {name: name, value: value};
+    }
+  };
+  
+  function setInputNameValue (input, value) {
+    if (!input || !input.length) {
+      return false;
+    }
+    if (!value) {
+      if (input.is('[type=checkbox]')) {
+        input.prop('checked', false);
+      } else if (input.is('[type=radio]')) {
+        input.prop('checked', false);
+      } else if (input.is('textarea')) {
+        input.val('');
+      } else if (input.is('select')) {
+        input.find('option:selected').prop('selected', false);
+      } else {
+        input.val('');
+      }
+    } else {
+      if (input.is('[type=checkbox]')) {
+        input.prop('checked', !!value);
+      } else if (input.is('[type=radio]')) {
+        input.find('[value="' + value + '"]').prop('checked', true);
+      } else if (input.is('textarea')) {
+        input.val(value);
+      } else if (input.is('select')) {
+        input.find('[value="' + value + '"]').prop('selected', true);
+      } else {
+        input.val((value || ''));
+      }
+    }
+    input.change();
+  };
+  
   eqUI.eqftp = function (e) {
     if (!eqFTP) {
       eqFTP = e;
@@ -199,6 +257,14 @@ define(function (require, exports, module) {
       dropdownItemsHolder.append(self.getItem(item));
       eqUI.ps.update(dropdown[0]);
     };
+    self.dropdown.setItems = function (items) {
+      if (_.isArray(items)) {
+        self.dropdown.resetItems();
+        items.forEach(function (item) {
+          self.dropdown.addItem(item);
+        });
+      }
+    }
     
     self._autoclose = function (e) {
       console.log(!$(e.target).is('.eqftp-header__search'));
@@ -556,7 +622,7 @@ define(function (require, exports, module) {
     self.editor = new function () {
       var connections = self,
           self = this;
-      self.tpl = eqUI.panel.tpl.find('.eqftp-connectionsSettings');
+      self.tpl = eqUI.panel.tpl.find('.eqftp-modal_connectionsSettings');
       self.state = 'closed';
       var activeClass = 'eqftp-connectionsSettings_active';
       
@@ -585,41 +651,16 @@ define(function (require, exports, module) {
       self.reset = function () {
         self.tpl.find('[name="id"]').remove();
         self.tpl.find('input, select, textarea').each(function () {
-          if ($(this).is('[type=checkbox]')) {
-            $(this).prop('checked', false);
-          } else if ($(this).is('[type=radio]')) {
-            $(this).prop('checked', false);
-          } else if ($(this).is('textarea')) {
-            $(this).val('');
-          } else if ($(this).is('select')) {
-            $(this).find('option:selected').prop('selected', false);
-          } else {
-            $(this).val('');
-          }
+          setInputNameValue($(this));
         });
       };
       self.read = function () {
         var r = {};
         self.tpl.find('input, select, textarea').each(function () {
-          var name = false,
-              value = false;
-          if ($(this).is('[type=checkbox]')) {
-            name = $(this).attr('name');
-            value = !!$(this).is(':checked');
-          } else if ($(this).is('[type=radio]')) {
-            name = $(this).attr('name');
-            value = $(this).val();
-          } else if ($(this).is('textarea')) {
-            name = $(this).attr('name');
-            value = $(this).val();
-          } else if ($(this).is('select')) {
-            name = $(this).attr('name');
-            value = $(this).val();
-          } else {
-            name = $(this).attr('name');
-            value = $(this).val();
+          var p = getInputNameValue($(this));
+          if (p) {
+            r[p.name] = p.value;
           }
-          r[name] = value;
         });
         return r;
       };
@@ -638,21 +679,9 @@ define(function (require, exports, module) {
           }
           _.forOwn(connection, function (value, name) {
             var c = self.tpl.find('[name="' + name + '"]');
-            if (c.length > 0) {
-              if (c.is('[type=checkbox]')) {
-                c.prop('checked', !!value);
-              } else if (c.is('[type=radio]')) {
-                c.find('[value="' + value + '"]').prop('checked', true);
-              } else if (c.is('textarea')) {
-                c.val(value);
-              } else if (c.is('select')) {
-                c.find('[value="' + value + '"]').prop('selected', true);
-              } else {
-                c.val(value);
-              }
-            }
+            setInputNameValue(c, value);
           });
-          self.tpl.append('<input name="id" type="hidden" value="' + connection.id + '"/>');
+          self.tpl.append('<input name="id" type="hidden" value="' + (connection.id || '') + '"/>');
         }
         self.open();
       };
@@ -719,6 +748,98 @@ define(function (require, exports, module) {
       return self.tpl;
     };
   };
+  
+  eqUI.settings = new function () {
+    var self = this;
+    self.tpl = eqUI.panel.tpl.find('.eqftp-content__page_settings');
+    self.masterPassword = self.tpl.find('#eqftpMasterPasswordHolder');
+    self.masterPassword.hide();
+    self.tpl.find('#eqftpSettingFileEncrypt').on('change', function () {
+      if ($(this).is(':checked')) {
+        self.masterPassword.show();
+      } else {
+        self.masterPassword.hide();
+      }
+    });
+    
+    self.set = function (settings) {
+      if (!_.isObject(settings)) {
+        return false;
+      }
+      _.forOwn(settings, function (value, name) {
+        var el = self.tpl.find('[name="' + name + '"]');
+        setInputNameValue(el, value);
+      });
+    };
+    self.get = function () {
+      var r = {};
+      self.tpl.find('[name]').each(function () {
+        var _r = getInputNameValue($(this));
+        if (_r) {
+          _.set(r, _r.name, _r.value);
+        }
+      });
+      return r;
+    };
+  }();
+  
+  eqUI.password = new function () {
+    var self = this;
+    self.tpl = eqUI.panel.tpl.find('.eqftp-modal_password');
+    var pass = self.tpl.find('[name="password"]');
+    self.tpl.hide();
+    self.state = 'hidden';
+    
+    self.show = function (callback) {
+      if (self.state === 'hidden') {
+        self.tpl.show();
+        self.state = 'shown';
+      }
+      var _on = function () {
+        var p = pass.val();
+        pass.val('');
+        self.hide();
+        if (_.isFunction(callback)) {
+          callback(p);
+        }
+        self.tpl.find('#eqftpDecrypt').off('click', _on);
+      };
+      self.tpl.find('#eqftpDecrypt').on('click', _on);
+    };
+    self.hide = function () {
+      if (self.state === 'shown') {
+        self.tpl.hide();
+        self.state = 'hidden';
+      }
+    };
+  }();
+  
+  eqUI.welcome = new function () {
+    var self = this;
+    self.tpl = eqUI.panel.tpl.find('.eqftp-modal_welcome');
+    self.tpl.hide();
+    self.state = 'hidden';
+    
+    self.show = function () {
+      if (self.state === 'hidden') {
+        self.tpl.show();
+        self.state = 'shown';
+      }
+    };
+    self.hide = function () {
+      if (self.state === 'shown') {
+        self.tpl.hide();
+        self.state = 'hidden';
+      }
+    };
+    self.toggle = function () {
+      if (self.state === 'hidden') {
+        self.tpl.show();
+      } else {
+        self.tpl.hide();
+      }
+    };
+  }();
   
   /*
   eqUI.dropdown = new function () {

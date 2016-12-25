@@ -87,10 +87,12 @@ maxerr: 50, node: true */
   eqftp.cache = {};
   eqftp.settings = new function () {
     var self = this;
+    self.password = undefined;
+    self.currentSettingsFile = false;
     self.settings = false;
 
     self._process = function (data, direction, password) {
-      if (!direction || !data) {
+      if (!direction || !data || _.isError(data)) {
         return new Error('Data or direction is empty');
       }
       data = _.cloneDeep(data);
@@ -98,22 +100,25 @@ maxerr: 50, node: true */
       switch (direction) {
         case 'fromJSON':
           if (!_.isString(data)) {
-            return new Error('Passed data is not a string');
+            return new Error('NOTASTRING');
           } else {
             if (!_.isJSON(data)) {
-              return new Error('Passed data is not a valid JSON');
+              return new Error('NOTAJSON');
             } else {
               data = JSON.parse(data);
               if (data.misc.encrypted === true) {
-                if (_.isUndefined(password)) {
-                  return new Error('Password was not passed');
+                if (!password) {
+                  password = self.password;
+                }
+                if (!password) {
+                  return new Error('NEEDPASSWORD');
                 }
                 data.connections = AES.decrypt(data.connections, password);
                 if (_.isJSON(data.connections)) {
                   data.connections = JSON.parse(data.connections);
                   return data;
                 } else {
-                  return new Error('Decrypted data is not a valid JSON');
+                  return new Error('DECRYPTEDNOTAJSON');
                 }
               } else {
                 return data;
@@ -122,16 +127,19 @@ maxerr: 50, node: true */
           }
         case 'toJSON':
           if (!_.isObject(data)) {
-            return new Error('Passed data is not an object');
+            return new Error('NOTANOBJECT');
           } else {
             if (data.misc.encrypted === true) {
-              if (_.isUndefined(password)) {
-                return new Error('Password was not passed');
+              if (!password) {
+                password = self.password;
+              }
+              if (!password) {
+                return new Error('NEEDPASSWORD');
               }
               data.connections = AES.encrypt(data.connections, password);
-              data = JSON.stringify(data);
+              data = JSON.stringify(data, null, 4);
             } else {
-              data = JSON.stringify(data);
+              data = JSON.stringify(data, null, 4);
             }
           }
           break;
@@ -139,19 +147,63 @@ maxerr: 50, node: true */
       return data;
     };
     self.get = function (settingsFile, password) {
+      if (password === null) {
+        password = undefined;
+      }
+      self.password = password;
       if (settingsFile) {
         settingsFile = utils.normalize(settingsFile);
         if (!fs.existsSync(settingsFile)) {
-          throw new Error('Passed file does not exists');
+          throw new Error('FILENOTEXIST');
         }
         settingsFile = fs.realpathSync(settingsFile);
         self.settings = self._process(fs.readFileSync(settingsFile, {encoding: 'UTF-8'}), 'fromJSON', password);
+        if (_.isError(self.settings)) {
+          throw new Error(self.settings);
+        }
         eqftp.connections._set(self.settings.connections);
+        self.currentSettingsFile = settingsFile;
       }
       if (!self.settings) {
-        throw new Error('No settings loaded');
+        throw new Error('NOSETTINGS');
       }
       return self.settings;
+    };
+    self.set = function (settings, password) {
+      settings = _.defaultsDeep(settings, _.cloneDeep(self.settings), {
+        main: {
+          // TODO!!
+        }
+      });
+      _.unset(settings, ['settings_file', 'master_password']);
+      var settingsFile = utils.normalize(self.currentSettingsFile);
+      /*
+      if (!fs.existsSync(settingsFile)) {
+        throw new Error('Passed file does not exists');
+      }
+      */
+      settingsFile = fs.realpathSync(settingsFile);
+      settings = self._process(settings, 'toJSON', password);
+      fs.writeFile(settingsFile, settings, {encoding: 'UTF-8'}, function (err, data) {
+        if (err) {
+          _domainManager.emitEvent("eqFTP", "event", {
+            action: 'settings:save:fail',
+            data: {
+              file: utils.normalize(settingsFile),
+              err: err
+            }
+          });
+        } else {
+          _domainManager.emitEvent("eqFTP", "event", {
+            action: 'settings:save:success',
+            data: {
+              file: utils.normalize(settingsFile),
+              data: data
+            }
+          });
+        }
+      });
+      return true;
     };
     self.setConnection = function (connection) {
       var defaults = {
@@ -160,22 +212,35 @@ maxerr: 50, node: true */
         autoupload: true,
         check_difference: true
       };
+      console.log(connection);
       if (!_.isObject(connection)) {
-        throw new Error('Passed connection is not an object');
+        throw new Error('NOTANOBJECT');
       }
       if (!connection.id) {
         connection.id = utils.uniq();
         connection = _.defaults(connection, defaults);
       } else {
-        var _c = _.get(eqftp, ['connections', '_all', connection.id]);
+        var _c = _.get(eqftp, ['connections', 'a', connection.id]);
         if (!_c) {
-          throw new Error('Passed connection\'s id doesn\'t exist');
+          throw new Error('CONNECTIONIDNOTEXIST');
         }
-        connection = _.defaults(_c, connection, defaults);
+        connection = _.defaults(connection, _c, defaults);
       }
+      if (!_.isConnection(connection)) {
+        throw new Error('NOTACONNECTIONOBJECT');
+      }
+      eqftp.connections._set(connection.id, connection);
       self.settings.connections[connection.id] = connection;
-      eqftp.connections._set(self.settings.connections);
-      console.log(self._process(self.settings, 'toJSON', ''));
+      
+      self.settings.localpaths = {};
+      _.forOwn(self.settings.connections, function (connection, id) {
+        self.settings.localpaths[id] = connection.localpath;
+      });
+      
+      if (self.currentSettingsFile) {
+        self.set(self.currentSettingsFile, self.settings, self.password);
+      }
+      return connection;
     };
   }();
   eqftp.connections = new function () {
@@ -185,12 +250,15 @@ maxerr: 50, node: true */
     self.t = {}; // only temporary
     self.a = {}; // pure settings + temporary
     
-    self.event_update = _.debounce(function () {
+    self.event_update = _.throttle(function () {
       _domainManager.emitEvent("eqFTP", "event", {
         action: 'connection:update',
         data: self.a
       });
-    }, 1000);
+    }, 1000, {
+      leading: false,
+      trailing: true
+    });
     self.newTmp = function (params, callback) {
       if (!_.isObject(params)) {
         if (_.isString(params)) {
@@ -243,7 +311,7 @@ maxerr: 50, node: true */
         }
         self.$[id] = _.cloneDeep(settings);
         self._[id] = new Proxy(
-          _.defaultsDeep(settings, {
+          _.defaultsDeep(_.cloneDeep(settings), {
             isBusy: false,
             _watch: function () {
               if (settings.isTmp) {
@@ -674,6 +742,29 @@ maxerr: 50, node: true */
         ],
         returns: [
           { name: "settings", type: "object", description: "Settings object" }
+        ]
+      },
+      {
+        command: "settings.set",
+        async: false,
+        description: 'Saves given settings to a loaded file',
+        parameters: [
+          { name: "settings", type: "object", description: "Settings object" },
+          { name: "password", type: "string", description: "Password to decrypt settings file. Optional." }
+        ],
+        returns: [
+          { name: "settings", type: "object", description: "Settings object" }
+        ]
+      },
+      {
+        command: "settings.setConnection",
+        async: false,
+        description: 'Saves given connection to internal cache and to current settings file',
+        parameters: [
+          { name: "connection", type: "object", description: "Stardart connection object" }
+        ],
+        returns: [
+          { name: "connection", type: "object", description: "Connection object" }
         ]
       },
       {

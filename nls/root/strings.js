@@ -36,6 +36,8 @@ define({
  "eqftp__gs__setting_file_label": "Settings file",
  "eqftp__gs__setting_file_placeholder": "Path to settings file",
  "eqftp__gs__encrypt_label": "Encrypt settings file",
+ "eqftp__gs__master_password_label": "Master password",
+ "eqftp__gs__master_password_placeholder": "Leave blank to keep current",
  "eqftp__gs__folder_for_projects_label": "Folder for project",
  "eqftp__gs__folder_for_projects_placeholder": "Path to folder",
  "eqftp__gs__timestamp_format_label": "Timestamp format",

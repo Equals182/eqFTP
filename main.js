@@ -134,61 +134,94 @@ define(function (require, exports, module) {
                 openFolder: eqftp.openFolder,
                 download: eqftp.download,
                 upload: eqftp.upload,
-                setConnection: eqftp.setConnection
-              };
-              var file = eqftp.preferences.get('misc.last_settings_file');
-              eqftp.settings.get(file).done(function (settings) {
-                eqftp.settings = settings;
-                _.forOwn(eqftp.settings.connections, function (connection, id) {
-                  ui.search.dropdown.addItem({
-                    title: connection.name,
-                    host: connection.server,
-                    user: connection.login,
-                    id: id
-                  });                  
-                });
-                // Proxy helps making easy requests like eqftp.connections['connection_id'].ls('/path'/);
-                eqftp.connections = new Proxy({
-                  __do: eqftp.connections
-                }, {
-                  get: function(connections, prop, receiver) {
-                    if (prop in connections) {
-                      return connections[prop];
-                    } else if (prop in eqftp.settings.connections) {
-                      // prop is id;
-                      return (function (id) {
-                        var p = new Proxy(eqftp.settings.connections[id], {
-                          get: function (connection, prop, receiver) {
-                            if (prop in connection) {
-                              return connection[prop];
-                            } else if (['ls', 'upload', 'download'].indexOf(prop) > -1) {
-                              return function (params) {
-                                return eqftp.connections.__do([id, prop], ...arguments);
-                              }
-                            }
-                            return connection[prop];
-                          }
-                        });
-                        return p;
-                      })(prop);
-                    } else {
-                      return function (params) {
-                        return eqftp.connections.__do([prop], ...arguments);
-                      }
-                    }
-                    return {};
+                settings: {
+                  setConnection: eqftp.settings.setConnection,
+                  set: function (settings) {
+                    var master_password = _.get(settings, 'master_password');
+                    _.unset(settings, 'master_password');
+                    eqftp.settings.set(settings, master_password).fail(function () {
+                      eqftp.log(ui.m(strings.eqftp__log__settings_save_fail, {
+                        filename: utils.getNamepart(event.data.file, 'filename')
+                      }), 'error');
+                    });
                   }
-                });
-                eqftp.log(ui.m(strings.eqftp__log__settings_load_success, {
-                  filename: utils.getNamepart(file, 'filename')
-                }), 'info');
-              }).fail(function (err) {
-                eqftp.log(ui.m(strings.eqftp__log__settings_load_error, {
-                  filename: utils.getNamepart(file, 'filename')
-                }), 'error');
-              }).always(function () {
-                console.log(arguments);
-              });
+                }
+              };
+              var file = eqftp.preferences.get('misc.last_settings_file'),
+                  load = function (file, password) {
+                    eqftp.settings.get(file, password).done(function (settings) {
+                      eqftp._settings = settings;
+                      var _s = {};
+                      [
+                        "main.projects_folder",
+                        "main.date_format",
+                        "main.debug",
+                        "main.open_project_connection",
+                        "misc.encrypted"
+                      ].forEach(function (s) {
+                        _s[s] = _.get(eqftp._settings, s);
+                      });
+                      _s['settings_file'] = file;
+                      ui.settings.set(_s);
+                      // Proxy helps making easy requests like eqftp.connections['connection_id'].ls('/path'/);
+                      eqftp.connections = new Proxy({
+                        __do: eqftp.connections
+                      }, {
+                        get: function(connections, prop, receiver) {
+                          if (prop in connections) {
+                            return connections[prop];
+                          } else if (prop in eqftp._settings.connections) {
+                            // prop is id;
+                            return (function (id) {
+                              var p = new Proxy(eqftp._settings.connections[id], {
+                                get: function (connection, prop, receiver) {
+                                  if (prop in connection) {
+                                    return connection[prop];
+                                  } else if (['ls', 'upload', 'download'].indexOf(prop) > -1) {
+                                    return function (params) {
+                                      return eqftp.connections.__do([id, prop], ...arguments);
+                                    }
+                                  }
+                                  return connection[prop];
+                                }
+                              });
+                              return p;
+                            })(prop);
+                          } else {
+                            return function (params) {
+                              return eqftp.connections.__do([prop], ...arguments);
+                            }
+                          }
+                          return {};
+                        }
+                      });
+                      eqftp.log(ui.m(strings.eqftp__log__settings_load_success, {
+                        filename: utils.getNamepart(file, 'filename')
+                      }), 'info');
+                    }).fail(function (err) {
+                      switch (err) {
+                        case 'Error: NEEDPASSWORD':
+                          ui.password.show(function (password) {
+                            load(file, password);
+                          });
+                          break;
+                        case 'Error: NOTAJSON':
+                          ui.welcome.show();
+                          break;
+                        default:
+                          console.log(err);
+                          eqftp.log(ui.m(strings.eqftp__log__settings_load_error, {
+                            filename: utils.getNamepart(file, 'filename')
+                          }), 'error');
+                          break;
+                      }
+                    });
+                  };
+              if (!file) {
+                ui.welcome.show();
+              } else {
+                load(file);
+              }
             }
           });
           break;
@@ -212,8 +245,17 @@ define(function (require, exports, module) {
           }), 'info');
           break;
         case 'connection:update':
-          eqftp.settings.connections = event.data;
-          console.log(event);
+          eqftp._settings.connections = event.data;
+          var items = [];
+          _.forOwn(eqftp._settings.connections, function (connection, id) {
+            items.push({
+              title: connection.name,
+              host: connection.server,
+              user: connection.login,
+              id: id
+            });
+          });
+          ui.search.dropdown.setItems(items);
           break;
         case 'connection:download':
           var status = (event.data.queue === 'a' ? 'success' : 'error');
@@ -229,6 +271,16 @@ define(function (require, exports, module) {
           break;
         case 'settings:reload':
           console.log(event);
+          break;
+        case 'settings:save:success':
+          eqftp.log(ui.m(strings.eqftp__log__settings_save_success, {
+            filename: utils.getNamepart(event.data.file, 'filename')
+          }), 'info');
+          break;
+        case 'settings:save:fail':
+          eqftp.log(ui.m(strings.eqftp__log__settings_save_fail, {
+            filename: utils.getNamepart(event.data.file, 'filename')
+          }), 'error');
           break;
       }
     }
@@ -317,9 +369,6 @@ define(function (require, exports, module) {
     }).fail(function (err) {
       // cant find connection related to this file
     });
-  };
-  eqftp.setConnection = function () {
-    
   };
 
   // Adding eqftp + listener to ui so we could keep entities separately

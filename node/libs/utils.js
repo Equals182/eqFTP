@@ -175,6 +175,7 @@ maxerr: 50, node: true */
       if (!_.isString(filename)) {
         return filename;
       }
+      filename = eqUtils.normalize(filename);
       var m = filename.match(/((\/?.*?\/)*)((.*?)((\.)(.*))?)$/);
       if (!m) {
         return filename;

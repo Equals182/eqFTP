@@ -104,7 +104,7 @@
         <input type="password" name="password" id="eqftpPassword" class="eqftp__input eqftp__inputText eqftp__inputText_underline eqftp__inputText_labelIn" placeholder="{{eqftp__paswd__input_placeholder}}" />
       </div>
       <div class="eqftp__row eqftp__row_center">
-        <div class="eqftp__button eqftp__button_blue eqftp__buttonRectangle">{{eqftp__paswd__button}}</div>
+        <div id="eqftpDecrypt" class="eqftp__button eqftp__button_blue eqftp__buttonRectangle">{{eqftp__paswd__button}}</div>
       </div>
     </div>
     <!-- /CONTENT -->
@@ -261,26 +261,30 @@
     <div class="eqftp-content__page eqftp-content__page_settings">
       <div class="eqftp__holder eqftp__holder_input">
         <label class="eqftp__label" for="eqftpSettingFile">{{eqftp__gs__setting_file_label}}</label>
-        <input type="text" name="eqftpSettingFile" id="eqftpSettingFile" class="eqftp__input eqftp__inputText eqftp__inputText_underline eqftp__inputText_labelIn" placeholder="{{eqftp__gs__setting_file_placeholder}}" />
+        <input type="text" name="settings_file" id="eqftpSettingFile" class="eqftp__input eqftp__inputText eqftp__inputText_underline eqftp__inputText_labelIn" placeholder="{{eqftp__gs__setting_file_placeholder}}" />
       </div>
       <div class="eqftp__holder">
-        <input type="checkbox" name="eqftpSettingFileEncrypt" id="eqftpSettingFileEncrypt" />
+        <input type="checkbox" name="misc.encrypted" id="eqftpSettingFileEncrypt" />
         <label for="eqftpSettingFileEncrypt" class="eqftp__label">{{eqftp__gs__encrypt_label}}</label>
+      </div>
+      <div id="eqftpMasterPasswordHolder" class="eqftp__holder eqftp__holder_input">
+        <label class="eqftp__label" for="eqftpMasterPassword">{{eqftp__gs__master_password_label}}</label>
+        <input type="text" name="master_password" id="eqftpMasterPassword" class="eqftp__input eqftp__inputText eqftp__inputText_underline eqftp__inputText_labelIn" placeholder="{{eqftp__gs__master_password_placeholder}}" />
       </div>
       <div class="eqftp__holder eqftp__holder_input">
         <label class="eqftp__label" for="eqftpProjectsFolder">{{eqftp__gs__folder_for_projects_label}}</label>
-        <input type="text" name="eqftpProjectsFolder" id="eqftpProjectsFolder" class="eqftp__input eqftp__inputText eqftp__inputText_underline eqftp__inputText_labelIn" placeholder="{{eqftp__gs__folder_for_projects_placeholder}}" />
+        <input type="text" name="main.projects_folder" id="eqftpProjectsFolder" class="eqftp__input eqftp__inputText eqftp__inputText_underline eqftp__inputText_labelIn" placeholder="{{eqftp__gs__folder_for_projects_placeholder}}" />
       </div>
       <div class="eqftp__holder eqftp__holder_input">
         <label class="eqftp__label" for="eqftpTimestamp">{{eqftp__gs__timestamp_format_label}}</label>
-        <input type="text" name="eqftpTimestamp" id="eqftpTimestamp" class="eqftp__input eqftp__inputText eqftp__inputText_underline eqftp__inputText_labelIn" placeholder="{{eqftp__gs__timestamp_format_placeholder}}" />
+        <input type="text" name="main.date_format" id="eqftpTimestamp" class="eqftp__input eqftp__inputText eqftp__inputText_underline eqftp__inputText_labelIn" placeholder="{{eqftp__gs__timestamp_format_placeholder}}" />
       </div>
       <div class="eqftp__holder">
-        <input type="checkbox" name="eqftpDebug" id="eqftpDebug" />
+        <input type="checkbox" name="main.debug" id="eqftpDebug" />
         <label for="eqftpDebug" class="eqftp__label">{{eqftp__gs__debug_label}}</label>
       </div>
       <div class="eqftp__row eqftp__row_end">
-        <div class="eqftp__button eqftp__button_marginRightReset eqftp__button_blue eqftp__buttonRectangle">{{eqftp__controls__save}}</div>
+        <div class="eqftp__button eqftp__button_marginRightReset eqftp__button_blue eqftp__buttonRectangle" onclick="eqftp.settings.set(eqftp.ui.settings.get());">{{eqftp__controls__save}}</div>
       </div>
     </div>
     <!-- /PAGE SETTINGS -->
