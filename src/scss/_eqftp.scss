@@ -34,6 +34,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    user-select: none;
     min-height: $i12;
     max-height: $i12;
     height: $i12;
@@ -175,10 +176,14 @@
     &_active {
       display: flex;
     }
+    &_password {
+      display: flex;
+    }
     &__content {
+      box-sizing: border-box;
       display: flex;
       flex-wrap: wrap;
-      height: 100%;
+      height: calc(100% - 48px);
       &_padding {
         padding-top: $i4;
         padding-bottom: $i4;

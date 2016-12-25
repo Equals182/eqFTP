@@ -271,7 +271,7 @@ panel.find(elements.logElementholder)
 $('#generate').replaceWith(panel);
 
 var menu = $(document).find(elements.menuHolder);
-menu.show();
+//menu.show();
 menu.append(tpls['menuElement']({
   text: 'Menu item',
   attrs: 'onclick="console.log(\'test\')"',
