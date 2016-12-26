@@ -22,6 +22,9 @@
       box-sizing: border-box;
       height: 26px;
       width: 26px;
+      &_disable {
+        opacity: 0.5;
+      }
       &:hover {
         background-color: $c04;
       }
