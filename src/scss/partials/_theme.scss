@@ -10,26 +10,31 @@
       color: $c02;
     }
   }
+  &-hint {
+    &__text {
+      color: $c001;
+    }
+  }
   &__icon,
   &__button {
     & .material-icons {
-      color: rgba(0, 0, 0, 0.38);
+      color: $c001;
     }
     &:hover {
       & .material-icons {
-        color: rgba(0, 0, 0, 0.87);
+        color: $c003;
       }
     }
     &_nohover {
       &:hover {
         & .material-icons {
-          color: rgba(0, 0, 0, 0.38);
+          color: $c001;
         }
       }
     }
     &_inversion {
       & .material-icons {
-        color: rgba(255, 255, 255, 0.5);
+        color: $c011;
       }
       &:hover {
         & .material-icons {
@@ -38,15 +43,15 @@
       }
     }
     &Rectangle {
-      color: rgba(0, 0, 0, 0.38);
+      color: $c001;
       background-color: $c30;
       &:hover,
       &:focus {
-        color: rgba(0, 0, 0, 0.54);
+        color: $c002;
         background-color: $c31;
       }
       &:active {
-        color: rgba(0, 0, 0, 0.87);
+        color: $c003;
         background-color: $c32;
       }
       &_nobg {
@@ -62,7 +67,7 @@
     }
   }
   &__label {
-    color: rgba(0, 0, 0, 0.38);
+    color: $c001;
   }
   &__title {
     color: $c02;
@@ -71,7 +76,7 @@
     }
   }
   &__subheader {
-    color: rgba(0, 0, 0, 0.38);
+    color: $c001;
   }
 }
 
@@ -82,7 +87,7 @@
       background-color: $c07;
       &__search {
         &Holder {
-          background-color: #fafafa;
+          background-color: $c13;
         }
       }
     }
@@ -97,10 +102,15 @@
     &-modal {
       background-color: $c03;
     }
+    &-hint {
+      &__text {
+        color: $c011;
+      }
+    }
     &__icon,
     &__button {
       & .material-icons {
-        color: rgba(255, 255, 255, 0.5);
+        color: $c011;
       }
       &:hover {
         & .material-icons {
@@ -110,26 +120,26 @@
       &_nohover {
         &:hover {
           & .material-icons {
-            color: rgba(255, 255, 255, 0.5);
+            color: $c011;
           }
         }
       }
       &_inversion {
         & .material-icons {
-          color: rgba(0, 0, 0, 0.38);
+          color: $c001;
         }
         &:hover {
           & .material-icons {
-            color: rgba(0, 0, 0, 0.87);
+            color: $c003;
           }
         }
       }
       &Rectangle {
-        color: rgba(255, 255, 255, 0.5);
+        color: $c011;
         background-color: $c40;
         &:hover,
         &:focus {
-          color: rgba(255, 255, 255, 0.7);
+          color: $c012;
           background-color: $c41;
         }
         &:active {
@@ -149,7 +159,7 @@
       }
     }
     &__label {
-      color: rgba(255, 255, 255, 0.5);
+      color: $c011;
     }
     &__title {
       color: $c01;
@@ -158,7 +168,7 @@
       }
     }
     &__subheader {
-      color: rgba(255, 255, 255, 0.5);
+      color: $c011;
     }
   }
 }
