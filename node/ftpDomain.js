@@ -11,6 +11,7 @@ maxerr: 50, node: true */
     fs = require('fs'),
     CryptoJS = require("crypto-js"),
     chokidar = require('chokidar'),
+    os = require('os'),
     _ = require("lodash");
 
   var _domainManager;
@@ -87,6 +88,7 @@ maxerr: 50, node: true */
   eqftp.cache = {};
   eqftp.settings = new function () {
     var self = this;
+    self._version = '1.0.0';
     self.password = undefined;
     self.currentSettingsFile = false;
     self.settings = false;
@@ -169,14 +171,24 @@ maxerr: 50, node: true */
       }
       return self.settings;
     };
-    self.set = function (settings, password) {
+    self.set = function (settings, password, path) {
       settings = _.defaultsDeep(settings, _.cloneDeep(self.settings), {
         main: {
-          // TODO!!
-        }
+          projects_folder: (path ? utils.normalize(utils.getNamepart(path, 'parentPath') + '/eqftp') : utils.normalize(os.homedir() + '/eqftp')),
+          date_format: "d.m.Y",
+          debug: false,
+          open_project_connection: false
+        },
+        misc: {
+          version: self._version,
+          encrypted: false
+        },
+        localpaths: {},
+        connections_data: {},
+        connections: {}
       });
       _.unset(settings, ['settings_file', 'master_password']);
-      var settingsFile = utils.normalize(self.currentSettingsFile);
+      var settingsFile = utils.normalize((path || self.currentSettingsFile));
       /*
       if (!fs.existsSync(settingsFile)) {
         throw new Error('Passed file does not exists');

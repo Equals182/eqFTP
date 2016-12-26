@@ -4,6 +4,15 @@ define({
  "eqftp__context__upload": "Upload",
  
  /**
+ * WELCOME SCREEN
+ */
+ "eqftp__wlcm__welcome_headline": "Welcome",
+ "eqftp__wlcm__welcome_text": "We couldn't find your settings file<br/>Locate it or create new one",
+ "eqftp__wlcm__welcome_button_locate": "Locate",
+ "eqftp__wlcm__welcome_button_create": "Create",
+ "eqftp__wlcm__welcome_saveFile_title": "Save settings file",
+ 
+ /**
  * PASSWORD WINDOW
  */
  "eqftp__paswd__window_title": "Decrypt settings",
@@ -40,6 +49,7 @@ define({
  "eqftp__gs__master_password_placeholder": "Leave blank to keep current",
  "eqftp__gs__folder_for_projects_label": "Folder for project",
  "eqftp__gs__folder_for_projects_placeholder": "Path to folder",
+ "eqftp__gs__folder_for_projects_explorer_title": "Choose folder to store your downloaded files",
  "eqftp__gs__timestamp_format_label": "Timestamp format",
  "eqftp__gs__timestamp_format_placeholder": "Preferable timestamp format",
  "eqftp__gs__debug_label": "Debug",

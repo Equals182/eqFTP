@@ -6,6 +6,7 @@ maxerr: 50, node: true */
 define(function (require, exports, module) {
   "use strict";
   var Mustache = brackets.getModule("thirdparty/mustache/mustache"),
+      FileSystem = brackets.getModule("filesystem/FileSystem"),
       strings = require("strings"),
       eqUI = this,
       _ = false,
@@ -838,6 +839,41 @@ define(function (require, exports, module) {
       } else {
         self.tpl.hide();
       }
+    };
+  }();
+  
+  eqUI.explorer = new function () {
+    var self = this;
+    self.saveFile = function (title, start, filename, callback) {
+      FileSystem.showSaveDialog(title, start, filename, callback);
+    };
+    self.openFile = function (title, start, callback) {
+      FileSystem.showOpenDialog(false, false, title, start, null, function (error, result) {
+        if (error) {
+          // Error / Cancel
+          callback(error, result);
+        } else {
+          // Okay
+          if (_.isArray(result)) {
+            result = result[0];
+          }
+          callback(error, result);
+        }
+      });
+    };
+    self.openFolder = function (title, start, callback) {
+      FileSystem.showOpenDialog(false, true, title, start, null, function (error, result) {
+        if (error) {
+          // Error / Cancel
+          callback(error, result);
+        } else {
+          // Okay
+          if (_.isArray(result)) {
+            result = result[0];
+          }
+          callback(error, result);
+        }
+      });
     };
   }();
   
