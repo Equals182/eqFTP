@@ -85,7 +85,8 @@
     &__dropdown {
       padding-top: 6px;
       padding-bottom: 6px;
-      border-top: 1px solid $c11;
+      border-top-width: 1px;
+      border-top-style: solid;
       box-sizing: border-box;
       animation-name: fadeIn;
       animation-duration: $time-fast;
@@ -113,25 +114,25 @@
         align-content: center;
         align-items: center;
         flex-wrap: wrap;
-        transition: background-color $time-fast, border $time-fast;
         cursor: pointer;
         min-height: $i12;
         max-height: $i12;
         height: $i12;
         width: 100%;
         &:hover {
-          background-color: $c09;
-          & .eqftp__titleNowrap {
-            &+* {
-              border-left: 1px solid $c12;
+            & .eqftp__titleNowrap {
+              &+* {
+                border-left-width: 1px;
+                border-left-style: solid;
+              }
             }
           }
-        }
         & .eqftp__titleNowrap {
           &+* {
             margin-left: $i1;
             padding-left: $i1;
-            border-left: 1px solid $c09;
+            border-left-width: 1px;
+            border-left-style: solid;
             line-height: 10px;
           }
         }
@@ -142,7 +143,6 @@
       justify-content: space-between;
       width: 100%;
       &Tab {
-        color: rgba(255, 255, 255, 0.5);
         border-bottom: 2px solid transparent;
         display: flex;
         justify-content: center;
@@ -150,9 +150,6 @@
         cursor: pointer;
         height: $i12;
         width: 25%;
-        &:hover {
-          color: rgba(255, 255, 255, 0.7);
-        }
         &_active {
           border-bottom: 2px solid $c20;
           color: $c20;
@@ -265,7 +262,6 @@
     }
   }
   &-footer {
-    background-color: $c08;
     transition: height $time-fast;
     position: absolute;
     bottom: 0;

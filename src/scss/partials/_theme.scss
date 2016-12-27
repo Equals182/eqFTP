@@ -1,7 +1,47 @@
 .eqftp {
-  &-connectionsSettings,
+  background-color: $gray50;
+  &-head {
+    background-color: $gray100;
+  }
+  &-header {
+    background-color: $gray100;
+    &__search {
+      &Holder {
+        background-color: $gray800;
+      }
+    }
+    &__dropdown {
+      border-top-color: $gray700;
+      &Item {
+        &:hover {
+          background-color: rgba(0, 0, 0, 0.1);
+          & .eqftp__titleNowrap {
+            &+* {
+              border-left-color: $gray300;
+            }
+          }
+        }
+        & .eqftp__titleNowrap {
+          &+* {
+            border-left-color: $gray300;
+          }
+        }
+      }
+    }
+    &__navigation {
+      &Tab {
+        color: $c001;
+        &:hover {
+          color: $c002;
+        }
+      }
+    }
+  }
   &-modal {
-    background-color: $c13;
+    background-color: $gray50;
+  }
+  &-footer {
+    background-color: $gray300;
   }
   &-menu {
     background-color: $c30;
@@ -70,9 +110,9 @@
     color: $c001;
   }
   &__title {
-    color: $c02;
+    color: $c003;
     &_inversion {
-      color: $c01;
+      color: $c013;
     }
   }
   &__subheader {
@@ -82,17 +122,49 @@
 
 .dark {
   .eqftp {
-    background-color: $c41;
+    background-color: $c14;
     &-head {
-      background-color: $c42;
+      background-color: $gray900;
     }
     &-header {
-      background-color: $c42;
+      background-color: $gray900;
       &__search {
         &Holder {
-          background-color: $c13;
+          background-color: $gray50;
         }
       }
+      &__dropdown {
+        border-top-color: $gray300;
+        &Item {
+          &:hover {
+            background-color: $gray400;
+            & .eqftp__titleNowrap {
+              &+* {
+                border-left-color: $gray500;
+              }
+            }
+          }
+          & .eqftp__titleNowrap {
+            &+* {
+              border-left-color: $gray400;
+            }
+          }
+        }
+      }
+      &__navigation {
+        &Tab {
+          color: $c011;
+          &:hover {
+            color: $c012
+          }
+        }
+      }
+    }
+    &-modal {
+      background-color: $c14;
+    }
+    &-footer {
+      background-color: $c08;
     }
     &-menu {
       background-color: $c40;
@@ -100,10 +172,6 @@
       &__shortcut {
         color: $c01;
       }
-    }
-    &-connectionsSettings,
-    &-modal {
-      background-color: $c41;
     }
     &-hint {
       &__text {
@@ -165,9 +233,9 @@
       color: $c011;
     }
     &__title {
-      color: $c01;
+      color: $c013;
       &_inversion {
-        color: $c02;
+        color: $c003;
       }
     }
     &__subheader {
