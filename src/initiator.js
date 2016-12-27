@@ -2,7 +2,7 @@ var strings = {
  "eqftp__toolbar__title" : "Open eqFTP",
 
  "eqftp__context__upload": "Upload",
- 
+
  /**
  * WELCOME SCREEN
  */
@@ -11,7 +11,7 @@ var strings = {
  "eqftp__wlcm__welcome_button_locate": "Locate",
  "eqftp__wlcm__welcome_button_create": "Create",
  "eqftp__wlcm__welcome_saveFile_title": "Save settings file",
- 
+
  /**
  * PASSWORD WINDOW
  */
@@ -19,7 +19,7 @@ var strings = {
  "eqftp__paswd__input_label": "Master password",
  "eqftp__paswd__input_placeholder": "Your password",
  "eqftp__paswd__button": "Decrypt",
- 
+
  /**
  * CONNECTION'S SETTINGS WINDOW
  */
@@ -38,7 +38,7 @@ var strings = {
  "eqftp__cs__c_autoupload": "Automatically upload changes",
  "eqftp__cs__c_ignore_list": "Ignore list",
  "eqftp__cs__c_ignore_list_placeholder": "Use .gitignore syntax",
- 
+
  /**
   * GENERAL SETTINGS
   */
@@ -53,7 +53,7 @@ var strings = {
  "eqftp__gs__timestamp_format_label": "Timestamp format",
  "eqftp__gs__timestamp_format_placeholder": "Preferable timestamp format",
  "eqftp__gs__debug_label": "Debug",
- 
+
  /**
  * LOGS
  */
@@ -61,24 +61,24 @@ var strings = {
  "eqftp__log__download_error": "There was an error downloading {{filename}}: {{err}}",
  "eqftp__log__upload_success": "File {{filename}} uploaded",
  "eqftp__log__upload_error": "There was an error uploading {{filename}}: {{err}}",
- 
+
  "eqftp__log__connection_ready": "Connection {{name}} opened",
  "eqftp__log__connection_error": "There was an error on {{name}} connection: {{error}}",
  "eqftp__log__connection_close": "Connection {{name}} closed",
  "eqftp__log__connection_tmp_error": "Can't create temporary connection: {{error}}",
- 
+
  "eqftp__log__settings_load_success": "Settings file {{filename}} loaded",
  "eqftp__log__settings_load_error": "There was an error loading settings file {{filename}}",
  "eqftp__log__settings_save_success": "Settings saved to {{filename}}",
  "eqftp__log__settings_save_error": "There was an error saving settings to {{filename}}",
- 
+
  /**
  * CONTROLS
  */
  "eqftp__controls__save": "Save",
  "eqftp__controls__delete": "Remove",
  "eqftp__controls__cancel": "Cancel",
- 
+
  /**
  * FILESIZES
  */
@@ -361,14 +361,14 @@ window.eqftp = {
     },
     connections: {
       new: function () {
-        $('.eqftp-connectionsSettings').toggleClass('eqftp-connectionsSettings_active');
+        $('.eqftp-modal_connectionsSettings').toggleClass('eqftp-connectionsSettings_active');
       },
       edit: function () {
-        $('.eqftp-connectionsSettings').toggleClass('eqftp-connectionsSettings_active');
+        $('.eqftp-modal_connectionsSettings').toggleClass('eqftp-modal_connectionsSettings_active');
       },
       editor: {
         close: function () {
-          $('.eqftp-connectionsSettings').toggleClass('eqftp-connectionsSettings_active');
+          $('.eqftp-modal_connectionsSettings').toggleClass('eqftp-modal_connectionsSettings_active');
         }
       }
     }
