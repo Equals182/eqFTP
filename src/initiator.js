@@ -1,98 +1,98 @@
 var strings = {
- "eqftp__toolbar__title" : "Open eqFTP",
+  "eqftp__toolbar__title": "Open eqFTP",
 
- "eqftp__context__upload": "Upload",
+  "eqftp__context__upload": "Upload",
 
- /**
- * WELCOME SCREEN
- */
- "eqftp__wlcm__welcome_headline": "Welcome",
- "eqftp__wlcm__welcome_text": "We couldn't find your settings file<br/>Locate it or create new one",
- "eqftp__wlcm__welcome_button_locate": "Locate",
- "eqftp__wlcm__welcome_button_create": "Create",
- "eqftp__wlcm__welcome_saveFile_title": "Save settings file",
+  /**
+   * WELCOME SCREEN
+   */
+  "eqftp__wlcm__welcome_headline": "Welcome",
+  "eqftp__wlcm__welcome_text": "We couldn't find your settings file<br/>Locate it or create new one",
+  "eqftp__wlcm__welcome_button_locate": "Locate",
+  "eqftp__wlcm__welcome_button_create": "Create",
+  "eqftp__wlcm__welcome_saveFile_title": "Save settings file",
 
- /**
- * PASSWORD WINDOW
- */
- "eqftp__paswd__window_title": "Decrypt settings",
- "eqftp__paswd__input_label": "Master password",
- "eqftp__paswd__input_placeholder": "Your password",
- "eqftp__paswd__button": "Decrypt",
+  /**
+   * PASSWORD WINDOW
+   */
+  "eqftp__paswd__window_title": "Decrypt settings",
+  "eqftp__paswd__input_label": "Master password",
+  "eqftp__paswd__input_placeholder": "Your password",
+  "eqftp__paswd__button": "Decrypt",
 
- /**
- * CONNECTION'S SETTINGS WINDOW
- */
- "eqftp__cs__window_title": "Edit connection",
- "eqftp__cs__basic_settings": "Basic settings",
- "eqftp__cs__additional_settings": "Additional settings",
- "eqftp__cs__c_name": "Connection name",
- "eqftp__cs__c_protocol": "Protocol",
- "eqftp__cs__c_server": "IP address or domain name",
- "eqftp__cs__c_port": "Port",
- "eqftp__cs__c_login": "Login",
- "eqftp__cs__c_password": "Password",
- "eqftp__cs__c_localpath": "Local path",
- "eqftp__cs__c_remotepath": "Remote path",
- "eqftp__cs__c_check_difference": "Check difference between files",
- "eqftp__cs__c_autoupload": "Automatically upload changes",
- "eqftp__cs__c_ignore_list": "Ignore list",
- "eqftp__cs__c_ignore_list_placeholder": "Use .gitignore syntax",
+  /**
+   * CONNECTION'S SETTINGS WINDOW
+   */
+  "eqftp__cs__window_title": "Edit connection",
+  "eqftp__cs__basic_settings": "Basic settings",
+  "eqftp__cs__additional_settings": "Additional settings",
+  "eqftp__cs__c_name": "Connection name",
+  "eqftp__cs__c_protocol": "Protocol",
+  "eqftp__cs__c_server": "IP address or domain name",
+  "eqftp__cs__c_port": "Port",
+  "eqftp__cs__c_login": "Login",
+  "eqftp__cs__c_password": "Password",
+  "eqftp__cs__c_localpath": "Local path",
+  "eqftp__cs__c_remotepath": "Remote path",
+  "eqftp__cs__c_check_difference": "Check difference between files",
+  "eqftp__cs__c_autoupload": "Automatically upload changes",
+  "eqftp__cs__c_ignore_list": "Ignore list",
+  "eqftp__cs__c_ignore_list_placeholder": "Use .gitignore syntax",
 
- /**
-  * GENERAL SETTINGS
-  */
- "eqftp__gs__setting_file_label": "Settings file",
- "eqftp__gs__setting_file_placeholder": "Path to settings file",
- "eqftp__gs__encrypt_label": "Encrypt settings",
- "eqftp__gs__master_password_label": "Master password",
- "eqftp__gs__master_password_placeholder": "Leave blank to keep current",
- "eqftp__gs__folder_for_projects_label": "Folder for project",
- "eqftp__gs__folder_for_projects_placeholder": "Path to folder",
- "eqftp__gs__folder_for_projects_explorer_title": "Choose folder to store your downloaded files",
- "eqftp__gs__timestamp_format_label": "Timestamp format",
- "eqftp__gs__timestamp_format_placeholder": "Preferable timestamp format",
- "eqftp__gs__debug_label": "Debug",
+  /**
+   * GENERAL SETTINGS
+   */
+  "eqftp__gs__setting_file_label": "Settings file",
+  "eqftp__gs__setting_file_placeholder": "Path to settings file",
+  "eqftp__gs__encrypt_label": "Encrypt settings",
+  "eqftp__gs__master_password_label": "Master password",
+  "eqftp__gs__master_password_placeholder": "Leave blank to keep current",
+  "eqftp__gs__folder_for_projects_label": "Folder for project",
+  "eqftp__gs__folder_for_projects_placeholder": "Path to folder",
+  "eqftp__gs__folder_for_projects_explorer_title": "Choose folder to store your downloaded files",
+  "eqftp__gs__timestamp_format_label": "Timestamp format",
+  "eqftp__gs__timestamp_format_placeholder": "Preferable timestamp format",
+  "eqftp__gs__debug_label": "Debug",
 
- /**
- * LOGS
- */
- "eqftp__log__download_success": "File {{filename}} downloaded",
- "eqftp__log__download_error": "There was an error downloading {{filename}}: {{err}}",
- "eqftp__log__upload_success": "File {{filename}} uploaded",
- "eqftp__log__upload_error": "There was an error uploading {{filename}}: {{err}}",
+  /**
+   * LOGS
+   */
+  "eqftp__log__download_success": "File {{filename}} downloaded",
+  "eqftp__log__download_error": "There was an error downloading {{filename}}: {{err}}",
+  "eqftp__log__upload_success": "File {{filename}} uploaded",
+  "eqftp__log__upload_error": "There was an error uploading {{filename}}: {{err}}",
 
- "eqftp__log__connection_ready": "Connection {{name}} opened",
- "eqftp__log__connection_error": "There was an error on {{name}} connection: {{error}}",
- "eqftp__log__connection_close": "Connection {{name}} closed",
- "eqftp__log__connection_tmp_error": "Can't create temporary connection: {{error}}",
+  "eqftp__log__connection_ready": "Connection {{name}} opened",
+  "eqftp__log__connection_error": "There was an error on {{name}} connection: {{error}}",
+  "eqftp__log__connection_close": "Connection {{name}} closed",
+  "eqftp__log__connection_tmp_error": "Can't create temporary connection: {{error}}",
 
- "eqftp__log__settings_load_success": "Settings file {{filename}} loaded",
- "eqftp__log__settings_load_error": "There was an error loading settings file {{filename}}",
- "eqftp__log__settings_save_success": "Settings saved to {{filename}}",
- "eqftp__log__settings_save_error": "There was an error saving settings to {{filename}}",
+  "eqftp__log__settings_load_success": "Settings file {{filename}} loaded",
+  "eqftp__log__settings_load_error": "There was an error loading settings file {{filename}}",
+  "eqftp__log__settings_save_success": "Settings saved to {{filename}}",
+  "eqftp__log__settings_save_error": "There was an error saving settings to {{filename}}",
 
- /**
- * CONTROLS
- */
- "eqftp__controls__save": "Save",
- "eqftp__controls__delete": "Remove",
- "eqftp__controls__cancel": "Cancel",
+  /**
+   * CONTROLS
+   */
+  "eqftp__controls__save": "Save",
+  "eqftp__controls__delete": "Remove",
+  "eqftp__controls__cancel": "Cancel",
 
- /**
- * FILESIZES
- */
- "eqftp__filesize_bytes" : "bytes",
- "eqftp__filesize_kilobytes" : "kb",
- "eqftp__filesize_megabytes" : "mb",
- "eqftp__filesize_gigabytes" : "gb",
- "eqftp__filesize_terabytes" : "tb",
- "eqftp__filesize_petabytes" : "pt",
- "eqftp__filesize_exabytes" : "eb",
- "eqftp__filesize_zettabytes" : "zb",
- "eqftp__filesize_yottabytes" : "yb",
+  /**
+   * FILESIZES
+   */
+  "eqftp__filesize_bytes": "bytes",
+  "eqftp__filesize_kilobytes": "kb",
+  "eqftp__filesize_megabytes": "mb",
+  "eqftp__filesize_gigabytes": "gb",
+  "eqftp__filesize_terabytes": "tb",
+  "eqftp__filesize_petabytes": "pt",
+  "eqftp__filesize_exabytes": "eb",
+  "eqftp__filesize_zettabytes": "zb",
+  "eqftp__filesize_yottabytes": "yb",
 
- "eqftp_dummy" : "dummy" // Not used anywhere, just leave it.
+  "eqftp_dummy": "dummy" // Not used anywhere, just leave it.
 };
 
 var tpls = {};
@@ -134,27 +134,33 @@ panel.find(elements.dropdownElementholder).append(tpls['dropdownElement']({
   host: 'ftp.pretty-long-websitename.com.ua.ru'
 }));
 
-var connection_idle = function () { return tpls['connectionElement']({
-  id: 'test123',
-  status: 'idle',
-  name: 'Connection Name Pretty Long I guess',
-  login: 'veeeerylongnameprettylong',
-  host: '111.222.333.444'
-}); };
-var connection_connected = function () { return tpls['connectionElement']({
-  id: '123test',
-  status: 'connected',
-  name: 'Test',
-  login: 'root',
-  host: 'kappa.com'
-}); };
-var connection_error = function () { return tpls['connectionElement']({
-  id: '123test123',
-  status: 'error',
-  name: 'WOOOOW',
-  login: 'anonymous',
-  host: 'test.com'
-}); };
+var connection_idle = function () {
+  return tpls['connectionElement']({
+    id: 'test123',
+    status: 'idle',
+    name: 'Connection Name Pretty Long I guess',
+    login: 'veeeerylongnameprettylong',
+    host: '111.222.333.444'
+  });
+};
+var connection_connected = function () {
+  return tpls['connectionElement']({
+    id: '123test',
+    status: 'connected',
+    name: 'Test',
+    login: 'root',
+    host: 'kappa.com'
+  });
+};
+var connection_error = function () {
+  return tpls['connectionElement']({
+    id: '123test123',
+    status: 'error',
+    name: 'WOOOOW',
+    login: 'anonymous',
+    host: 'test.com'
+  });
+};
 panel.find(elements.connectionsElementholder).append(connection_idle());
 panel.find(elements.connectionsElementholder).append(connection_connected());
 
@@ -180,21 +186,22 @@ panel.find(elements.queueElementholder).append(tpls['queueElement']({
   size: '999 bytes',
   percents: '20%'
 }));
-var queue_element = function () { return tpls['queueElement']({
-  class: '',
-  icon: 'file_download',
-  error_text: '',
-  localpath: 'C:\programfiles\foo\bar\whatever.js',
-  localname: '.okay',
-  remotepath: '/var/www/html/whatever.js',
-  remotename: '.htaccess?',
-  size: '666 TB',
-  percents: '0%'
-}); };
+var queue_element = function () {
+  return tpls['queueElement']({
+    class: '',
+    icon: 'file_download',
+    error_text: '',
+    localpath: 'C:\programfiles\foo\bar\whatever.js',
+    localname: '.okay',
+    remotepath: '/var/www/html/whatever.js',
+    remotename: '.htaccess?',
+    size: '666 TB',
+    percents: '0%'
+  });
+};
 panel.find(elements.queueElementholder)
   .append(queue_element())
-  .append(queue_element())
-;
+  .append(queue_element());
 
 var _file_short = function () {
     return tpls['fileTreeElement-file']({
