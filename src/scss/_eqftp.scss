@@ -282,9 +282,7 @@
       box-sizing: border-box;
       height: 100%;
       & .eqftp-footer__list {
-        max-height: 100%;
         & .eqftp-footer__listItem {
-          align-items: flex-start;
           height: auto;
           &+.eqftp-footer__listItem {
             margin-top: $i1;
@@ -312,9 +310,10 @@
       width: 100%;
       z-index: 1;
       &Item {
+        padding-top: 6px;
         box-sizing: border-box;
         display: flex;
-        align-items: center;
+        align-items: flex-start;
         min-height: 26px;
         height: 26px;
         width: 100%;
@@ -595,25 +594,36 @@
     height: calc(100% - 64px - 26px);
     width: 100%;
     &__item {
+      overflow: hidden;
       position: relative;
       display: flex;
       align-items: center;
       cursor: pointer;
-      overflow: hidden;
       width: 100%;
       &+.eqftp-connections__item {
         border-top: 1px solid $c08;
       }
       &Name {
-        width: 100%;
-        & .material-icons {
-          font-size: 24px;
-          color: $c09;
-        }
+        width: calc(100% - 48px);
       }
       &:hover {
         background-color: rgba(0, 0, 0, 0.1);
+        & .eqftp-connections__menu {
+          display: flex;
+        }
       }
+    }
+    &__menu {
+      position: absolute;
+      top: 0;
+      right: 0;
+      animation-name: fadeInRight;
+      animation-duration: $time-fast;
+      display: none;
+      justify-content: center;
+      align-items: center;
+      height: $i12;
+      width: $i12;
     }
   }
   &-menu {
