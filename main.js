@@ -136,7 +136,7 @@ define(function (require, exports, module) {
             });
             _.set(eqftp, 'settings.open', function () {
               eqftp.ui.explorer.openFile(strings.eqftp__wlcm__welcome_saveFile_title, eqftp._home, function (err, path) {
-                if (!err) {
+                if (!err && path) {
                   ui.welcome.hide();
                   eqftp.settings.load(path);
                 }
