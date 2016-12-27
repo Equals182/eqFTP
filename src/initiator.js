@@ -368,14 +368,14 @@ window.eqftp = {
     },
     connections: {
       new: function () {
-        $('.eqftp-modal_connectionsSettings').toggleClass('eqftp-connectionsSettings_active');
+        $('.eqftp-modal_connectionsSettings').toggleClass('eqftp-modal_active');
       },
       edit: function () {
-        $('.eqftp-modal_connectionsSettings').toggleClass('eqftp-modal_connectionsSettings_active');
+        $('.eqftp-modal_connectionsSettings').toggleClass('eqftp-modal_active');
       },
       editor: {
         close: function () {
-          $('.eqftp-modal_connectionsSettings').toggleClass('eqftp-modal_connectionsSettings_active');
+          $('.eqftp-modal_connectionsSettings').toggleClass('eqftp-modal_active');
         }
       }
     }
