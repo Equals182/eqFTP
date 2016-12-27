@@ -228,6 +228,9 @@ define(function (require, exports, module) {
                 download: eqftp.download,
                 upload: eqftp.upload,
                 settings: {
+                  removeConnection: function () {
+                    eqftp.settings.removeConnection();
+                  },
                   setConnection: eqftp.settings.setConnection,
                   set: function (settings) {
                     var master_password = _.get(settings, 'master_password');
