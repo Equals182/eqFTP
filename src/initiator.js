@@ -1,7 +1,16 @@
 var strings = {
- "eqftp__toolbar__title" : "Open eqFTP Panel",
+ "eqftp__toolbar__title" : "Open eqFTP",
 
  "eqftp__context__upload": "Upload",
+ 
+ /**
+ * WELCOME SCREEN
+ */
+ "eqftp__wlcm__welcome_headline": "Welcome",
+ "eqftp__wlcm__welcome_text": "We couldn't find your settings file<br/>Locate it or create new one",
+ "eqftp__wlcm__welcome_button_locate": "Locate",
+ "eqftp__wlcm__welcome_button_create": "Create",
+ "eqftp__wlcm__welcome_saveFile_title": "Save settings file",
  
  /**
  * PASSWORD WINDOW
@@ -35,9 +44,12 @@ var strings = {
   */
  "eqftp__gs__setting_file_label": "Settings file",
  "eqftp__gs__setting_file_placeholder": "Path to settings file",
- "eqftp__gs__encrypt_label": "Encrypt settings file",
+ "eqftp__gs__encrypt_label": "Encrypt settings",
+ "eqftp__gs__master_password_label": "Master password",
+ "eqftp__gs__master_password_placeholder": "Leave blank to keep current",
  "eqftp__gs__folder_for_projects_label": "Folder for project",
  "eqftp__gs__folder_for_projects_placeholder": "Path to folder",
+ "eqftp__gs__folder_for_projects_explorer_title": "Choose folder to store your downloaded files",
  "eqftp__gs__timestamp_format_label": "Timestamp format",
  "eqftp__gs__timestamp_format_placeholder": "Preferable timestamp format",
  "eqftp__gs__debug_label": "Debug",
@@ -45,9 +57,9 @@ var strings = {
  /**
  * LOGS
  */
- "eqftp__log__download_success": "File {{filename}} successfuly downloaded",
+ "eqftp__log__download_success": "File {{filename}} downloaded",
  "eqftp__log__download_error": "There was an error downloading {{filename}}: {{err}}",
- "eqftp__log__upload_success": "File {{filename}} successfuly uploaded",
+ "eqftp__log__upload_success": "File {{filename}} uploaded",
  "eqftp__log__upload_error": "There was an error uploading {{filename}}: {{err}}",
  
  "eqftp__log__connection_ready": "Connection {{name}} opened",
@@ -57,14 +69,14 @@ var strings = {
  
  "eqftp__log__settings_load_success": "Settings file {{filename}} loaded",
  "eqftp__log__settings_load_error": "There was an error loading settings file {{filename}}",
- "eqftp__log__settings_save_success": "Settings saved to {{filename}} file",
+ "eqftp__log__settings_save_success": "Settings saved to {{filename}}",
  "eqftp__log__settings_save_error": "There was an error saving settings to {{filename}}",
  
  /**
  * CONTROLS
  */
  "eqftp__controls__save": "Save",
- "eqftp__controls__delete": "Delete",
+ "eqftp__controls__delete": "Remove",
  "eqftp__controls__cancel": "Cancel",
  
  /**
