@@ -82,9 +82,12 @@
 
 .dark {
   .eqftp {
-    background-color: $c04;
+    background-color: $c41;
+    &-head {
+      background-color: $c42;
+    }
     &-header {
-      background-color: $c07;
+      background-color: $c42;
       &__search {
         &Holder {
           background-color: $c13;
@@ -100,7 +103,7 @@
     }
     &-connectionsSettings,
     &-modal {
-      background-color: $c03;
+      background-color: $c41;
     }
     &-hint {
       &__text {
