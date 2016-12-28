@@ -9,7 +9,7 @@
   overflow: hidden;
   height: 100%;
   width: 360px;
-  z-index: 1;
+  z-index: 6;
   &-toolbar {
     &__icon {
       padding-top: 1px;
@@ -640,7 +640,7 @@
     list-style: none;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
     max-width: 300px;
-    z-index: 2;
+    z-index: 8;
     &_active {
       display: block;
     }
@@ -697,7 +697,7 @@
     position: absolute;
     bottom: $i4;
     right: $i4;
-    z-index: 2;
+    z-index: 7;
     &__item {
       margin-top: $i2;
       padding-left: $i6;
