@@ -4,42 +4,27 @@
 $font-family: 'Roboto';
 $icon: 'Material Icons';
 
-$font-size-base: 22px;
+$fs-display-4: 112px;
+$fs-display-3: 56px;
+$fs-display-2: 45px;
+$fs-display-1: 34px;
+$fs-headline: 24px;
+$fs-title: 20px;
+$fs-subheading: 15px;
+$fs-body-2: 13px;
+$fs-body-1: 13px;
+$fs-caption: 12px;
+$fs-button: 14px;
 
-$font-size-1: 14px;
-$font-size-2: 16px;
-$font-size-3: 18px;
-$font-size-4: 22px;
-$font-size-5: 26px;
-$font-size-6: 32px;
-$font-size-7: 38px;
-$font-size-8: 46px;
-$font-size-9: 52px;
-$font-size-10: 62px;
-$font-size-11: 72px;
-
-$font-sizes:
-  $font-size-1,
-  $font-size-2,
-  $font-size-3,
-  $font-size-4,
-  $font-size-5,
-  $font-size-6,
-  $font-size-7,
-  $font-size-8,
-  $font-size-9,
-  $font-size-10,
-  $font-size-11;
-
-$font-weight-thin: 100;
-$font-weight-extra-light: 200;
-$font-weight-light: 300;
-$font-weight-regular: 400;
-$font-weight-medium: 500;
-$font-weight-semibold: 600;
-$font-weight-bold: 700;
-$font-weight-extra-bold: 800;
-$font-weight-black: 900;
+$fw-thin: 100;
+$fw-extra-light: 200;
+$fw-light: 300;
+$fw-regular: 400;
+$fw-medium: 500;
+$fw-semibold: 600;
+$fw-bold: 700;
+$fw-extra-bold: 800;
+$fw-black: 900;
 
 $line-height: 18px;
 

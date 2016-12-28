@@ -2,9 +2,7 @@
   line-height: normal;
   position: absolute;
   display: flex;
-  justify-content: flex-start;
   align-content: flex-start;
-  align-items: stretch;
   flex-wrap: wrap;
   overflow: hidden;
   height: 100%;
@@ -45,7 +43,6 @@
   }
   &-header {
     display: flex;
-    justify-content: flex-start;
     align-content: flex-start;
     align-items: flex-start;
     flex-wrap: wrap;
@@ -140,9 +137,12 @@
     &__navigation {
       display: flex;
       justify-content: space-between;
+      user-select: none;
       width: 100%;
       &Tab {
-        border-bottom: 2px solid transparent;
+        border-bottom-width: 2px;
+        border-bottom-style: solid;
+        border-bottom-color: transparent;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -150,7 +150,7 @@
         height: $i12;
         width: 25%;
         &_active {
-          border-bottom: 2px solid $c20;
+          border-bottom-color: $c20;
           color: $c20;
           &:hover {
             color: $c20;
@@ -193,6 +193,69 @@
       &_center {
         align-content: center;
         align-items: center;
+      }
+    }
+  }
+  &-dialogs {
+    padding-left: $i9;
+    padding-right: $i9;
+    box-sizing: border-box;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    z-index: 900;
+    &_active {
+      display: flex;
+    }
+    &__holder {
+      border-radius: 2px;
+      box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+      display: flex;
+      align-content: flex-start;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      min-width: 280px;
+    }
+    &__title {
+      padding-top: $i6;
+      padding-bottom: $i6;
+      padding-left: $i6;
+      padding-right: $i6;
+      font-family: $font-family;
+      font-size: $fs-title;
+      font-weight: $fw-medium;
+      font-style: normal;
+      box-sizing: border-box;
+      width: 100%;
+    }
+    &__content {
+      padding-left: $i6;
+      padding-right: $i6;
+      font-family: $font-family;
+      font-size: $fs-body-1;
+      font-weight: $fw-regular;
+      font-style: normal;
+      box-sizing: border-box;
+      width: 100%;
+    }
+    &__actions {
+      padding-top: $i6;
+      box-sizing: border-box;
+      display: flex;
+      justify-content: flex-end;
+      width: 100%;
+      & .eqftp__button {
+        color: $c20;
+        &:hover {
+          color: $c21;
+        }
       }
     }
   }
@@ -923,8 +986,8 @@
       padding-right: $i2;
       border-radius: 2px;
       font-family: $font-family;
-      font-size: 14px;
-      font-weight: 700;
+      font-size: $fs-button;
+      font-weight: $fw-medium;
       font-style: normal;
       text-transform: uppercase;
       min-height: $i9;

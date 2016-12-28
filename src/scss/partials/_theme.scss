@@ -40,6 +40,18 @@
   &-modal {
     background-color: $gray50;
   }
+  &-dialogs {
+    background-color: rgba(0, 0, 0, 0.4);
+    &__holder {
+      background-color: $c01;
+    }
+    &__title {
+      color: $gray900;
+    }
+    &__content {
+      color: $gray300;
+    }
+  }
   &-footer {
     background-color: #ffffff;
     border-top-color: #e8e8e8;
@@ -177,6 +189,18 @@
     }
     &-modal {
       background-color: $c14;
+    }
+    &-dialogs {
+      background-color: rgba(0, 0, 0, 0.8);
+      &__holder {
+        background-color: $gray900;
+      }
+      &__title {
+        color: $c013;
+      }
+      &__content {
+        color: $c011;
+      }
     }
     &-footer {
       background-color: #1c1c1e;
