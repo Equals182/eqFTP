@@ -120,20 +120,19 @@
         height: $i12;
         width: 100%;
         &:hover {
-            & .eqftp__titleNowrap {
-              &+* {
-                border-left-width: 1px;
-                border-left-style: solid;
-              }
+          & .eqftp__titleNowrap {
+            &+* {
+              border-left-width: 1px;
+              border-left-style: solid;
             }
           }
+        }
         & .eqftp__titleNowrap {
           &+* {
             margin-left: $i1;
             padding-left: $i1;
             border-left-width: 1px;
             border-left-style: solid;
-            line-height: 10px;
           }
         }
       }
@@ -523,7 +522,8 @@
       max-width: 100%;
       width: 100%;
       &+.eqftp-queue__item {
-        border-top: 1px solid $c08;
+        border-top-width: 1px;
+        border-top-style: solid;
       }
       &_error {
         background-color: rgba(192, 57, 43, 0.1);
@@ -597,7 +597,8 @@
       cursor: pointer;
       width: 100%;
       &+.eqftp-connections__item {
-        border-top: 1px solid $c08;
+        border-top-width: 1px;
+        border-top-style: solid;
       }
       &Name {
         width: calc(100% - 48px);
@@ -942,7 +943,7 @@
         box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
       }
       &:active {
-        box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
       }
     }
     &_medium {
@@ -1076,24 +1077,6 @@
     max-height: $i12;
     height: $i12;
     width: 100%;
-  }
-  &__close {
-    font-size: $i6;
-    color: $c09;
-    transition: color $time-fast;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    min-height: $i12;
-    max-height: $i12;
-    height: $i12;
-    min-width: $i12;
-    max-width: $i12;
-    width: $i12;
-    &:hover {
-      color: $c01;
-    }
   }
   &__icon {
     display: flex;

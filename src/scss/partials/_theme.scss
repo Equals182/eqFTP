@@ -43,6 +43,20 @@
   &-footer {
     background-color: $gray300;
   }
+  &-connections {
+    &__item {
+      &+.eqftp-connections__item {
+        border-top-color: $gray200;
+      }
+    }
+  }
+  &-queue {
+    &__item {
+      &+.eqftp-queue__item {
+        border-top-color: $gray200;
+      }
+    }
+  }
   &-menu {
     background-color: $c30;
     &__text,
@@ -165,6 +179,20 @@
     }
     &-footer {
       background-color: $c08;
+    }
+    &-connections {
+      &__item {
+        &+.eqftp-connections__item {
+          border-top-color: $gray800;
+        }
+      }
+    }
+    &-queue {
+      &__item {
+        &+.eqftp-queue__item {
+          border-top-color: $gray800;
+        }
+      }
     }
     &-menu {
       background-color: $c40;
