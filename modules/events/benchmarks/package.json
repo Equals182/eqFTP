@@ -1,0 +1,21 @@
+{
+  "name": "benchmarks",
+  "version": "0.0.0",
+  "description": "eventemitter3 benchmarks",
+  "main": "index.js",
+  "scripts": {
+    "benchmark": "find run -name '*.js' -exec ./start.sh {} \\;"
+  },
+  "repository": "primus/eventemitter3",
+  "author": "Arnout Kazemier",
+  "license": "MIT",
+  "dependencies": {
+    "benchmark": "2.1.x",
+    "contra": "latest",
+    "drip": "latest",
+    "event-emitter": "latest",
+    "eventemitter2": "latest",
+    "eventemitter3": "0.1.6",
+    "fastemitter": "latest"
+  }
+}

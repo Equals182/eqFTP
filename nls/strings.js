@@ -11,18 +11,5 @@ define(function (require, exports, module) {
     // TODO: dynamically populate the local prefix list below?
     module.exports = {
         root:     true,
-        "de":     true,
-        "ru":     true,
-        "it":     true,
-        "pt-br":  true,
-        "fr":     true,
-        "tr":     true,
-        "uk":     true,
-        "es":     true,
-        "nl":     true,
-        "hu":     true,
-        "cs":     true,
-        "ja":     true,
-        "ko":     true
     };
 });

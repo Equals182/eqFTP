@@ -1,0 +1,213 @@
+.eqftp {
+  & #{$all-text-inputs} {
+    &.eqftp {
+      &__input {
+        margin-top: 0;
+        margin-bottom: 0;
+        margin-left: 0;
+        margin-right: 0;
+        padding-top: 0;
+        padding-bottom: 0;
+        padding-left: 0;
+        padding-right: 0;
+        line-height: normal;
+        background-color: transparent;
+        border-radius: 0;
+        border: none;
+        box-sizing: border-box;
+        box-shadow: none;
+        display: flex;
+        vertical-align: middle;
+        transition: all 0s;
+        resize: none;
+        outline: none;
+        height: auto;
+        width: 100%;
+        &_short {
+          width: 33.3%;
+        }
+        &_half {
+          width: 50%;
+        }
+        &_long {
+          width: 66.6%;
+        }
+        &_full {
+          width: 100%;
+        }
+        &_margin {
+          &Left {
+            margin-left: $i4;
+          }
+          &Right {
+            margin-right: $i4;
+          }
+        }
+        &Text {
+          @include placeholder {
+            color: rgba(0, 0, 0, 0.38);
+          }
+          font-family: $font-family;
+          font-size: 16px;
+          font-weight: 400;
+          font-style: normal;
+          color: $c00;
+          text-align: left;
+          display: flex;
+          align-items: flex-end;
+          vertical-align: bottom;
+          &_labelIn {
+            margin-bottom: $i2;
+            padding-top: $i2;
+            padding-bottom: 7px;
+          }
+          &_labelOut {
+            margin-bottom: $i2;
+            padding-top: $i4;
+            padding-bottom: 7px;
+            min-height: $i12;
+            max-height: $i12;
+            height: $i12;
+          }
+          &_underline {
+            border-bottom: 1px solid $c09;
+          }
+          &_inversion {
+            color: $c01;
+            @include placeholder {
+              color: rgba(255,255,255,0.5);
+            }
+          }
+        }
+      }
+    }
+  }
+  & #{$all-text-inputs-hover} {
+    &.eqftp {
+      &__input {
+        background-color: transparent;
+        border: none;
+        box-shadow: none;
+        &Text {
+          @include placeholder {
+            color: rgba(0, 0, 0, 0.54);
+          }
+          &_underline {
+            border-bottom: 1px solid $c09;
+          }
+          &_inversion {
+            @include placeholder {
+              color: rgba(255, 255, 255, 0.7)
+            }
+          }
+        }
+      }
+    }
+  }
+  & #{$all-text-inputs-focus} {
+    &.eqftp {
+      &__input {
+        background-color: transparent;
+        border: none;
+        box-shadow: none;
+        &Text {
+          @include placeholder {
+            color: rgba(0, 0, 0, 0.87);
+          }
+          &_underline {
+            padding-bottom: 6px;
+            border-bottom: 2px solid $c20;
+          }
+          &_inversion {
+            @include placeholder {
+              color: $c01;
+            }
+          }
+        }
+      }
+    }
+  }
+  & input[type="checkbox"] {
+    display: none;
+    &+label {
+      font-size: 16px;
+      &:before {
+        content: '\E835';
+        margin-right: $i4;
+        font-family: 'Material Icons';
+        font-size: 24px;
+        color: rgba(0, 0, 0, 0.87);
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        height: $i12;
+        width: $i6;
+      }
+    }
+  }
+  & input[type="checkbox"]:checked {
+    &+label {
+      color: $c02;
+      &:before {
+        content: '\E834';
+        font-family: 'Material Icons';
+        color: $c21;
+      }
+    }
+  }
+}
+
+.dark {
+  .eqftp {
+    & #{$all-text-inputs} {
+      &.eqftp {
+        &__input {
+          &Text {
+            @include placeholder {
+              color: rgba(255, 255, 255, 0.5);
+            }
+            color: $c01;
+            &_inversion {
+              color: $c00;
+              @include placeholder {
+                color: rgba(0, 0, 0, 0.38);
+              }
+            }
+          }
+        }
+      }
+    }
+    & #{$all-text-inputs-hover},
+    & #{$all-text-inputs-focus} {
+      &.eqftp {
+        &__input {
+          &Text {
+            @include placeholder {
+              color: rgba(255, 255, 255, 0.7);
+            }
+            &_inversion {
+              @include placeholder {
+                color: rgba(0, 0, 0, 0.54);
+              }
+            }
+          }
+        }
+      }
+    }
+    & input[type="checkbox"] {
+      &+label {
+        &:before {
+          color: rgba(255, 255, 255, 0.7);
+        }
+      }
+    }
+    & input[type="checkbox"]:checked {
+      &+label {
+        color: $c01;
+        &:before {
+          color: $c21;
+        }
+      }
+    }
+  }
+}

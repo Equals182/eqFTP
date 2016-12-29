@@ -1,0 +1,296 @@
+<div class="eqftp shadow-smallest">
+
+  <!-- HEADER -->
+  <div class="eqftp-header shadow-smallest">
+
+    <!-- HEAD -->
+    <div class="eqftp-head">
+      <div class="eqftp__button eqftp__buttonCube eqftp__buttonCube_medium" onclick="eqftp.ui.search.toggle();"><i class="material-icons">search</i></div>
+      <div class="eqftp__title eqftp__title_full eqftp__title_medium"><span class="eqftp__titleNowrap">eqFTP</span></div>
+      <div class="eqftp__button eqftp__buttonCube eqftp__buttonCube_medium" onclick="eqftp.ui.panel.close();"><i class="material-icons">clear</i></div>
+    </div>
+    <!-- /HEAD -->
+
+    <!-- /SEARCH -->
+    <div class="eqftp-header__search">
+      <div class="eqftp-header__searchHolder shadow-small">
+        <div class="eqftp__button eqftp__button_inversion eqftp__button_light eqftp__buttonCube eqftp__buttonCube_small" onclick="eqftp.ui.search.toggle();"><i class="material-icons">arrow_back</i></div>
+        <input type="text" name="eqftpSearch" class="eqftp__input eqftp__inputText eqftp__inputText_inversion" placeholder="Search or connect directly..." onkeyup="eqftp.ui.search.filter($(this).val(), event);" />
+        <div class="eqftp__button eqftp__button_inversion eqftp__button_light eqftp__buttonCube eqftp__buttonCube_small"><i class="material-icons">flash_on</i></div>
+        <div class="eqftp-header__dropdown">
+          <div class="eqftp-header__dropdownList"></div>
+        </div>
+      </div>
+    </div>
+    <!-- /SEARCH -->
+
+    <!-- NAVIGATION -->
+    <div class="eqftp-header__navigation">
+      <div class="eqftp-header__navigationTab eqftp-header__navigationTab_file-tree" onclick="eqftp.ui.panel.switchTo('file-tree');"><i class="material-icons">folder</i></div>
+      <div class="eqftp-header__navigationTab eqftp-header__navigationTab_queue" onclick="eqftp.ui.panel.switchTo('queue');"><i class="material-icons">playlist_add_check</i></div>
+      <div class="eqftp-header__navigationTab eqftp-header__navigationTab_connections" onclick="eqftp.ui.panel.switchTo('connections');"><i class="material-icons">power</i></div>
+      <div class="eqftp-header__navigationTab eqftp-header__navigationTab_settings" onclick="eqftp.ui.panel.switchTo('settings');"><i class="material-icons">settings</i></div>
+    </div>
+    <!-- /NAVIGATION -->
+
+  </div>
+  <!-- /HEADER -->
+
+  <!-- DIALOGS -->
+  <div class="eqftp-dialogs">
+    <div class="eqftp-dialogs__holder">
+      <div class="eqftp-dialogs__title">Title title title title title title title title</div>
+      <div class="eqftp-dialogs__content">Content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content</div>
+      <div class="eqftp-dialogs__actions">
+        <div class="eqftp__button eqftp__button_marginRightReset eqftp__buttonRectangle eqftp__buttonRectangle_nobg">action 1</div>
+        <div class="eqftp__button eqftp__buttonRectangle eqftp__buttonRectangle_nobg">action 2</div>
+      </div>
+    </div>
+  </div>
+  <!-- /DIALOGS -->
+
+  <!-- WELCOME PAGE -->
+  <div class="eqftp-modal eqftp-modal_welcome">
+
+    <!-- HEAD -->
+    <div class="eqftp-head shadow-smallest">
+      <div class="eqftp__icon eqftp__icon_medium eqftp__icon_nohover"><i class="material-icons">folder_special</i></div>
+      <div class="eqftp__title eqftp__title_full eqftp__title_medium"><span class="eqftp__titleNowrap">eqFTP</span></div>
+      <div class="eqftp__button eqftp__buttonCube eqftp__buttonCube_medium"><i class="material-icons">clear</i></div>
+    </div>
+    <!-- /HEAD -->
+
+    <!-- CONTENT -->
+    <div class="eqftp-modal__content eqftp-modal__content_center eqftp-modal__content_padding">
+      <div class="eqftp__title eqftp__title_display1">{{eqftp__wlcm__welcome_headline}}</div>
+      <div class="eqftp__title">{{{eqftp__wlcm__welcome_text}}}</div>
+      <div class="eqftp__row eqftp__row_end">
+        <div class="eqftp__button eqftp__buttonRectangle eqftp__buttonRectangle_nobg" onclick="eqftp.settings.open();">{{eqftp__wlcm__welcome_button_locate}}</div>
+        <div class="eqftp__button eqftp__button_blue eqftp__buttonRectangle" onclick="eqftp.settings.create();">{{eqftp__wlcm__welcome_button_create}}</div>
+      </div>
+    </div>
+    <!-- /CONTENT -->
+
+  </div>
+  <!-- /WELCOME PAGE -->
+
+  <!-- PASSWORD PAGE -->
+  <div class="eqftp-modal eqftp-modal_password">
+
+    <!-- HEAD -->
+    <div class="eqftp-head shadow-smallest">
+      <div class="eqftp__icon eqftp__icon_medium eqftp__icon_nohover"><i class="material-icons">vpn_key</i></div>
+      <div class="eqftp__title eqftp__title_full eqftp__title_medium"><span class="eqftp__titleNowrap">{{eqftp__paswd__window_title}}</span></div>
+      <div class="eqftp__button eqftp__buttonCube eqftp__buttonCube_medium"><i class="material-icons">clear</i></div>
+    </div>
+    <!-- /HEAD -->
+
+    <!-- CONTENT -->
+    <div class="eqftp-modal__content eqftp-modal__content_center eqftp-modal__content_padding">
+      <div class="eqftp__holder eqftp__holder_input">
+        <label class="eqftp__label" for="eqftpPassword">{{eqftp__paswd__input_label}}</label>
+        <input type="password" name="password" id="eqftpPassword" class="eqftp__input eqftp__inputText eqftp__inputText_underline eqftp__inputText_labelIn" placeholder="{{eqftp__paswd__input_placeholder}}" />
+      </div>
+      <div class="eqftp__row eqftp__row_center">
+        <div id="eqftpDecrypt" class="eqftp__button eqftp__button_blue eqftp__buttonRectangle">{{eqftp__paswd__button}}</div>
+      </div>
+    </div>
+    <!-- /CONTENT -->
+
+  </div>
+  <!-- /PASSWORD PAGE -->
+
+  <!-- CONNECTIONS SETTINGS -->
+  <div class="eqftp-modal eqftp-modal_connectionsSettings">
+
+    <!-- HEAD -->
+    <div class="eqftp-head shadow-smallest">
+      <div class="eqftp__icon eqftp__icon_medium"><i class="material-icons">power</i></div>
+      <div class="eqftp__title eqftp__title_full eqftp__title_medium"><span class="eqftp__titleNowrap">{{eqftp__cs__window_title}}</span></div>
+      <div class="eqftp__button eqftp__buttonCube eqftp__buttonCube_medium" onclick="eqftp.ui.connections.editor.close();"><i class="material-icons">clear</i></div>
+    </div>
+    <!-- /HEAD -->
+
+    <!-- CONTENT -->
+    <div class="eqftp-modal__content eqftp-modal__content_start eqftp-modal__content_padding">
+
+      <!-- SUBHEADER -->
+      <div class="eqftp__subheader">
+        <span class="eqftp__titleNowrap">{{eqftp__cs__basic_settings}}</span>
+      </div>
+      <!-- /SUBHEADER -->
+
+      <!-- BASIC SETTINGS -->
+      <input type="text" name="name" class="eqftp__input eqftp__inputText eqftp__inputText_underline eqftp__inputText_labelOut" placeholder="{{eqftp__cs__c_name}}" />
+      <div class="eqftp__holder">
+        <select name="protocol" class="eqftp__select">
+          <option value="ftp">FTP</option>
+          <option value="sftp">SFTP</option>
+        </select>
+      </div>
+      <div class="eqftp__row eqftp__row_between">
+        <div class="eqftp__col eqftp__col_longest eqftp__col_paddingRight">
+          <div class="eqftp__holder eqftp__holder_input">
+            <label class="eqftp__label" for="eqftpConnectionIp">{{eqftp__cs__c_server}}</label>
+            <input type="text" name="server" id="eqftpConnectionIp" class="eqftp__input eqftp__inputText eqftp__inputText_underline eqftp__inputText_labelIn" placeholder="{{eqftp__cs__c_server}}" />
+          </div>
+        </div>
+        <div class="eqftp__col eqftp__col_shortest">
+          <div class="eqftp__holder eqftp__holder_input">
+            <label class="eqftp__label" for="eqftpConnectionPort">{{eqftp__cs__c_port}}</label>
+            <input type="text" name="port" id="eqftpConnectionPort" class="eqftp__input eqftp__inputText eqftp__inputText_underline eqftp__inputText_labelIn" placeholder="21" />
+          </div>
+        </div>
+      </div>
+      <div class="eqftp__row eqftp__row_between">
+        <div class="eqftp__col eqftp__col_half eqftp__col_paddingRight">
+          <div class="eqftp__holder eqftp__holder_input">
+            <label class="eqftp__label" for="eqftpConnectionServerLogin">{{eqftp__cs__c_login}}</label>
+            <input type="text" name="login" id="eqftpConnectionServerLogin" class="eqftp__input eqftp__inputText eqftp__inputText_underline eqftp__inputText_labelIn" placeholder="{{eqftp__cs__c_login}} to server" />
+          </div>
+        </div>
+        <div class="eqftp__col eqftp__col_half">
+          <div class="eqftp__holder eqftp__holder_input">
+            <label class="eqftp__label" for="eqftpConnectionServerPassword">{{eqftp__cs__c_password}}</label>
+            <input type="password" name="password" id="eqftpConnectionServerPassword" class="eqftp__input eqftp__inputText eqftp__inputText_underline eqftp__inputText_labelIn" placeholder="{{eqftp__cs__c_password}}" />
+          </div>
+        </div>
+      </div>
+
+      <div class="eqftp__holder eqftp__holder_input">
+        <label class="eqftp__label" for="eqftpConnectionLocalPath">{{eqftp__cs__c_localpath}}</label>
+        <input type="text" name="localpath" id="eqftpConnectionLocalPath" class="eqftp__input eqftp__inputText eqftp__inputText_underline eqftp__inputText_labelIn" placeholder="{{eqftp__cs__c_localpath}}" />
+      </div>
+      <div class="eqftp__holder eqftp__holder_input">
+        <label class="eqftp__label" for="eqftpConnectionRemotePath">{{eqftp__cs__c_remotepath}}</label>
+        <input type="text" name="remotepath" id="eqftpConnectionRemotePath" class="eqftp__input eqftp__inputText eqftp__inputText_underline eqftp__inputText_labelIn" placeholder="{{eqftp__cs__c_remotepath}}" />
+      </div>
+      <!-- /BASIC SETTINGS -->
+
+      <!-- SUBHEADER -->
+      <div class="eqftp__subheader">
+        <span class="eqftp__titleNowrap">{{eqftp__cs__additional_settings}}</span>
+      </div>
+      <!-- /SUBHEADER -->
+
+      <!-- ADDITIONAL SETTINGS -->
+      <div class="eqftp__holder">
+        <input type="checkbox" name="check_difference" id="eqftpConnectionCheckDifference" />
+        <label for="eqftpConnectionCheckDifference" class="eqftp__label">{{eqftp__cs__c_check_difference}}</label>
+      </div>
+      <div class="eqftp__holder">
+        <input type="checkbox" name="autoupload" id="eqftpConnectionAutoUpload" />
+        <label for="eqftpConnectionAutoUpload" class="eqftp__label">{{eqftp__cs__c_autoupload}}</label>
+      </div>
+      <div class="eqftp__holder eqftp__holder_input">
+        <label class="eqftp__label" for="eqftpConnectionIgnoreList">{{eqftp__cs__c_ignore_list}}</label>
+        <textarea name="ignore_list" id="eqftpConnectionIgnoreList" class="eqftp__input eqftp__inputText eqftp__inputText_underline eqftp__inputText_labelIn eqftp__textarea" placeholder="{{eqftp__cs__c_ignore_list_placeholder}}"></textarea>
+      </div>
+      <!-- /ADDITIONAL SETTINGS -->
+
+      <!-- ACTIONS -->
+      <div class="eqftp__row eqftp__row_end">
+        <div class="eqftp__button eqftp__buttonRectangle eqftp__buttonRectangle_nobg">{{eqftp__controls__delete}}</div>
+        <div class="eqftp__button eqftp__button_marginRightReset eqftp__button_blue eqftp__buttonRectangle" onclick="eqftp.settings.setConnection(eqftp.ui.connections.editor.read());">{{eqftp__controls__save}}</div>
+      </div>
+      <!-- /ACTIONS -->
+
+    </div>
+    <!-- /CONTENT -->
+
+  </div>
+  <!-- /CONNECTIONS SETTINGS -->
+
+  <!-- CONTENT -->
+  <div class="eqftp-content">
+
+    <!-- PAGE FILE TREE -->
+    <div class="eqftp-content__page eqftp-content__page_file-tree">
+      <div class="eqftp-fileTree">
+        <!-- fileTreeElement-file.html | fileTreeElement-folder.html -->
+      </div>
+    </div>
+    <!-- /PAGE FILE TREE -->
+
+    <!-- PAGE QUEUE -->
+    <div class="eqftp-content__page eqftp-content__page_queue">
+      <div class="eqftp-queue">
+        <!-- queueElement.html -->
+      </div>
+    </div>
+    <!-- /PAGE QUEUE -->
+
+    <!-- PAGE CONNECTIONS -->
+    <div class="eqftp-content__page eqftp-content__page_connections">
+
+      <!-- NEW CONNECTION -->
+      <div class="eqftp__button eqftp__button_blue eqftp__buttonRound shadow-smallest" onclick="eqftp.ui.connections.new();"><i class="material-icons">add</i></div>
+      <!-- /NEW CONNECTION -->
+
+      <!-- SEARCH CONNECTION -->
+      <div class="eqftp__holder eqftp__holder_searchConnection">
+        <div class="eqftp__button eqftp__buttonCube eqftp__buttonCube_middle"><i class="material-icons">search</i></div>
+        <input type="text" placeholder="Connection's name" class="eqftp__input eqftp__inputText eqftp__inputText_underline eqftp__inputText_labelOut" id="searchConnections" onkeyup="eqftp.ui.connections.filter($(this).val(), event);">
+      </div>
+      <!-- /SEARCH CONNECTION -->
+
+      <!-- CONNECTIONS -->
+      <div class="eqftp-connections">
+        <!-- connectionsElements.html -->
+      </div>
+      <!-- /CONNECTIONS -->
+
+    </div>
+    <!-- /PAGE CONNECTIONS -->
+
+    <!-- PAGE SETTINGS -->
+    <div class="eqftp-content__page eqftp-content__page_settings">
+      <div class="eqftp__holder eqftp__holder_input">
+        <label class="eqftp__label" for="eqftpSettingFile">{{eqftp__gs__setting_file_label}}</label>
+        <input type="text" name="settings_file" id="eqftpSettingFile" class="eqftp__input eqftp__inputText eqftp__inputText_underline eqftp__inputText_labelIn" placeholder="{{eqftp__gs__setting_file_placeholder}}" onclick="eqftp.settings.open();" />
+      </div>
+      <div class="eqftp__holder">
+        <input type="checkbox" name="misc.encrypted" id="eqftpSettingFileEncrypt" />
+        <label for="eqftpSettingFileEncrypt" class="eqftp__label">{{eqftp__gs__encrypt_label}}</label>
+      </div>
+      <div id="eqftpMasterPasswordHolder" class="eqftp__holder eqftp__holder_input">
+        <label class="eqftp__label" for="eqftpMasterPassword">{{eqftp__gs__master_password_label}}</label>
+        <input type="text" name="master_password" id="eqftpMasterPassword" class="eqftp__input eqftp__inputText eqftp__inputText_underline eqftp__inputText_labelIn" placeholder="{{eqftp__gs__master_password_placeholder}}" />
+      </div>
+      <div class="eqftp__holder eqftp__holder_input">
+        <label class="eqftp__label" for="eqftpProjectsFolder">{{eqftp__gs__folder_for_projects_label}}</label>
+        <input type="text" name="main.projects_folder" id="eqftpProjectsFolder" class="eqftp__input eqftp__inputText eqftp__inputText_underline eqftp__inputText_labelIn" placeholder="{{eqftp__gs__folder_for_projects_placeholder}}" onclick="eqftp.ui.explorer.openFolder('{{eqftp__gs__folder_for_projects_explorer_title}}', eqftp._home, function (err, path) { if (!err && path) { $('#eqftpProjectsFolder').val(path); } });" />
+      </div>
+      <div class="eqftp__holder eqftp__holder_input">
+        <label class="eqftp__label" for="eqftpTimestamp">{{eqftp__gs__timestamp_format_label}}</label>
+        <input type="text" name="main.date_format" id="eqftpTimestamp" class="eqftp__input eqftp__inputText eqftp__inputText_underline eqftp__inputText_labelIn" placeholder="{{eqftp__gs__timestamp_format_placeholder}}" />
+      </div>
+      <div class="eqftp__holder">
+        <input type="checkbox" name="main.debug" id="eqftpDebug" />
+        <label for="eqftpDebug" class="eqftp__label">{{eqftp__gs__debug_label}}</label>
+      </div>
+      <div class="eqftp__row eqftp__row_end">
+        <div class="eqftp__button eqftp__button_marginRightReset eqftp__button_blue eqftp__buttonRectangle" onclick="eqftp.settings.set(eqftp.ui.settings.get());">{{eqftp__controls__save}}</div>
+      </div>
+    </div>
+    <!-- /PAGE SETTINGS -->
+
+  </div>
+  <!-- /CONTENT -->
+
+  <!-- /FOOTER -->
+  <div class="eqftp-footer">
+    <div class="eqftp-footer__list"></div>
+    <div class="eqftp__button eqftp__buttonCube eqftp__buttonCube_footer" onclick="eqftp.ui.log.toggle();"><i class="material-icons">keyboard_arrow_up</i></div>
+  </div>
+  <!-- /FOOTER -->
+
+</div>
+
+<!-- EQFTP MENU -->
+<ul class="eqftp-menu"></ul>
+<!-- /EQFTP MENU -->
+
+<!-- EQFTP TOAST -->
+<ul class="eqftp-toast"></ul>
+<!-- /EQFTP TOAST -->

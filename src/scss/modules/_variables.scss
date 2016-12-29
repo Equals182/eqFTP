@@ -1,0 +1,71 @@
+$r1: 320px;
+$r2: 480px;
+$r3: 640px;
+$r4: 768px;
+$r5: 800px;
+$r6: 960px;
+$r7: 1024px;
+$r8: 1280px;
+$r9: 1366px;
+$r10: 1680px;
+$r11: 1920px;
+$r12: 2560px;
+
+$resolutions:
+  $r1,
+  $r2,
+  $r3,
+  $r4,
+  $r5,
+  $r6,
+  $r7,
+  $r8,
+  $r9,
+  $r10,
+  $r11,
+  $r12;
+
+$i1: 4px;
+$i2: 8px;
+$i3: 12px;
+$i4: 16px;
+$i5: 20px;
+$i6: 24px;
+$i7: 28px;
+$i8: 32px;
+$i9: 36px;
+$i10: 40px;
+$i11: 44px;
+$i12: 48px;
+$i13: 52px;
+$i14: 56px;
+$i15: 60px;
+$i16: 64px;
+$i17: 68px;
+$i18: 72px;
+
+$indents:
+  $i1,
+  $i2,
+  $i3,
+  $i4,
+  $i5,
+  $i6,
+  $i7,
+  $i8,
+  $i9,
+  $i10,
+  $i11,
+  $i12;
+
+$wrap: $r6;
+$timing-function: cubic-bezier(1, 1, 1, 1);
+
+$time-fast: 166ms;
+$time-normal: 332ms;
+$time-long: 498ms;
+
+$width-short: 33.3%;
+$width-half: 50%;
+$width-long: 66.6%;
+$width-full: 100%;

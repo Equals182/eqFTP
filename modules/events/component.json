@@ -1,0 +1,22 @@
+{
+  "name": "eventemitter3",
+  "repository": "primus/eventemitter3",
+  "description": "eventemitter3 focuses on performance while maintaining a Node.js AND browser compatible interface.",
+  "version": "2.0.2",
+  "keywords": [
+    "addEventListener",
+    "addListener",
+    "emit",
+    "emits",
+    "emitter",
+    "event",
+    "EventEmitter",
+    "events",
+    "once"
+  ],
+  "main": "index.js",
+  "scripts": [
+    "index.js"
+  ],
+  "license": "MIT"
+}

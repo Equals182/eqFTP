@@ -1,7 +1,7 @@
 {
-	"name": "equals182.eqftp",
-	"title": "eqFTP",
-	"version": "0.7.3",
+	"name": "equals182.eqftp-new",
+	"title": "eqFTP-new",
+	"version": "0.8.0",
 	"description": "FTP/SFTP client for Brackets. Please restart Brackets manually after update.",
 	"homepage": "http://equals182.github.io/eqFTP/",
 	"author": "Alexander <equals182@gmail.com>",
@@ -9,26 +9,14 @@
 	"categories": ["livedev","external"],
 	"keywords": ["FTP", "SFTP"],
 	"engines": {
-		"brackets": ">=1.8.0"
+		"brackets": ">=1.4.0"
 	},
     "i18n": [
-        "cs", "de", "en", "es", "fr", "hu", "it", "nl", "pt-br", "ru", "tr", "uk", "ja", "ko"
+        "en"
     ],
     "package-i18n": {
         "en": {
             "description": "FTP/SFTP client for Brackets. Please restart Brackets manually after update."
-        },
-        "ru": {
-            "description": "FTP/SFTP клиент для Brackets. Пожалуйста, перезагрузите Brackets вручную после обновления."
-        },
-        "ja": {
-            "description": "Brackets 用 FTP クライアント。更新後は Brackets の再起動が必要です。"
-        },
-        "ko": {
-            "description": "Brackets 용 FTP/SFTP 클라이언트입니다. 업데이트 설치 후 재시작해 주세요."
-        },
-        "it": {
-            "description": "Client FTP/SFTP per Brackets. Riavvia manualmente Brackets dopo l'aggiornamento"
         }
     }
 }

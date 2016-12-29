@@ -1,1 +1,0 @@
-module.exports = require('./compat/index.js');

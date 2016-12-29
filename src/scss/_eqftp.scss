@@ -1,0 +1,1209 @@
+.eqftp {
+  line-height: normal;
+  position: absolute;
+  display: flex;
+  align-content: flex-start;
+  flex-wrap: wrap;
+  overflow: hidden;
+  height: 100%;
+  width: 360px;
+  z-index: 6;
+  &-toolbar {
+    &__icon {
+      padding-top: 1px;
+      padding-bottom: 1px;
+      padding-left: 1px;
+      padding-right: 1px;
+      background-image: url(images/toolbar__icon.svg);
+      background-size: contain;
+      border-radius: 2px;
+      box-sizing: border-box;
+      height: 26px;
+      width: 26px;
+      &_disable {
+        opacity: 0.5;
+      }
+      &:hover {
+        background-color: $c04;
+      }
+      &:active {
+        background-color: $c05;
+      }
+    }
+  }
+  &-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    user-select: none;
+    min-height: $i12;
+    max-height: $i12;
+    height: $i12;
+    width: 100%;
+  }
+  &-header {
+    display: flex;
+    align-content: flex-start;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    width: 100%;
+    z-index: 300;
+    &__search {
+      padding-top: 6px;
+      padding-bottom: 6px;
+      padding-left: 6px;
+      padding-right: 6px;
+      box-sizing: border-box;
+      display: none;
+      justify-content: center;
+      align-items: center;
+      animation-name: fadeIn;
+      animation-duration: $time-fast;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      &_active {
+        display: flex;
+      }
+      &Holder {
+        border-radius: 2px;
+        display: flex;
+        justify-content: space-between;
+        align-content: flex-start;
+        align-items: stretch;
+        flex-wrap: wrap;
+        width: 100%;
+        & .eqftp__inputText {
+          width: calc(100% - 36px - 36px) !important;
+        }
+      }
+    }
+    &__dropdown {
+      padding-top: 6px;
+      padding-bottom: 6px;
+      border-top-width: 1px;
+      border-top-style: solid;
+      box-sizing: border-box;
+      animation-name: fadeIn;
+      animation-duration: $time-fast;
+      animation-direction: alternate;
+      position: relative;
+      display: none;
+      max-height: 480px;
+      width: 100%;
+      &_active {
+        display: flex;
+        justify-content: flex-start;
+        align-content: flex-start;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+      &List {
+        width: 100%;
+      }
+      &Item {
+        padding-left: $i9;
+        padding-right: $i3;
+        box-sizing: border-box;
+        display: flex;
+        justify-content: flex-start;
+        align-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        cursor: pointer;
+        min-height: $i12;
+        max-height: $i12;
+        height: $i12;
+        width: 100%;
+        &:hover {
+          & .eqftp__titleNowrap {
+            &+* {
+              border-left-width: 1px;
+              border-left-style: solid;
+            }
+          }
+        }
+        & .eqftp__titleNowrap {
+          &+* {
+            margin-left: $i1;
+            padding-left: $i1;
+            border-left-width: 1px;
+            border-left-style: solid;
+          }
+        }
+      }
+    }
+    &__navigation {
+      display: flex;
+      justify-content: space-between;
+      user-select: none;
+      width: 100%;
+      &Tab {
+        border-bottom-width: 2px;
+        border-bottom-style: solid;
+        border-bottom-color: transparent;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        height: $i12;
+        width: 25%;
+        &_active {
+          border-bottom-color: $c20;
+          color: $c20;
+          &:hover {
+            color: $c20;
+          }
+        }
+      }
+    }
+  }
+  &-modal {
+    position: absolute;
+    top: 0;
+    left: 0;
+    animation-name: bounceInUp;
+    animation-duration: $time-normal;
+    display: none;
+    align-content: flex-start;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    height: 100%;
+    width: 100%;
+    z-index: 500;
+    &_active {
+      display: flex;
+    }
+    &__content {
+      box-sizing: border-box;
+      display: flex;
+      flex-wrap: wrap;
+      height: calc(100% - 48px);
+      &_padding {
+        padding-top: $i4;
+        padding-bottom: $i4;
+        padding-left: $i4;
+        padding-right: $i4;
+      }
+      &_start {
+        align-content: flex-start;
+        align-items: flex-start;
+      }
+      &_center {
+        align-content: center;
+        align-items: center;
+      }
+    }
+  }
+  &-dialogs {
+    padding-left: $i9;
+    padding-right: $i9;
+    box-sizing: border-box;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    z-index: 900;
+    &_active {
+      display: flex;
+    }
+    &__holder {
+      border-radius: 2px;
+      box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+      display: flex;
+      align-content: flex-start;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      min-width: 280px;
+    }
+    &__title {
+      padding-top: $i6;
+      padding-bottom: $i6;
+      padding-left: $i6;
+      padding-right: $i6;
+      font-family: $font-family;
+      font-size: $fs-title;
+      font-weight: $fw-medium;
+      font-style: normal;
+      box-sizing: border-box;
+      width: 100%;
+    }
+    &__content {
+      padding-left: $i6;
+      padding-right: $i6;
+      font-family: $font-family;
+      font-size: $fs-body-1;
+      font-weight: $fw-regular;
+      font-style: normal;
+      box-sizing: border-box;
+      width: 100%;
+    }
+    &__actions {
+      padding-top: $i6;
+      box-sizing: border-box;
+      display: flex;
+      justify-content: flex-end;
+      width: 100%;
+      & .eqftp__button {
+        color: $c20;
+        &:hover {
+          color: $c21;
+        }
+      }
+    }
+  }
+  &-connectionsSettings {
+    position: absolute;
+    top: 0;
+    left: 0;
+    animation-name: bounceInUp;
+    animation-duration: $time-normal;
+    display: none;
+    align-content: flex-start;
+    flex-wrap: wrap;
+    height: 100%;
+    width: 100%;
+    z-index: 500;
+    &_active {
+      display: flex;
+    }
+    &__content {
+      margin-left: $i4;
+      margin-right: $i4;
+      box-sizing: border-box;
+      width: 100%;
+    }
+  }
+  &-content {
+    display: flex;
+    justify-content: flex-start;
+    align-content: flex-start;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    max-height: calc(100% - 122px);
+    height: 100%;
+    width: 100%;
+    z-index: 100;
+    &__page {
+      animation-name: fadeInRight;
+      animation-duration: $time-fast;
+      display: none;
+      justify-content: center;
+      position: relative;
+      height: 100%;
+      width: 100%;
+      &_active {
+        display: flex;
+      }
+      &_connections {
+        align-content: flex-start;
+        flex-wrap: wrap;
+        & .eqftp__buttonRound {
+          position: absolute;
+          bottom: $i4;
+          right: $i4;
+          z-index: 1;
+        }
+      }
+      &_settings {
+        padding-top: $i4;
+        padding-bottom: $i4;
+        padding-left: $i4;
+        padding-right: $i4;
+        box-sizing: border-box;
+        align-content: flex-start;
+        flex-wrap: wrap;
+      }
+    }
+  }
+  &-footer {
+    transition: height $time-fast;
+    border-top-width: 1px;
+    border-top-style: solid;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    overflow: hidden;
+    height: 25px;
+    width: 100%;
+    z-index: 400;
+    &_active {
+      padding-top: $i2;
+      box-sizing: border-box;
+      height: 100%;
+      & .eqftp-footer__list {
+        & .eqftp-footer__listItem {
+          height: auto;
+          &+.eqftp-footer__listItem {
+            margin-top: $i1;
+          }
+          & .eqftp-footer__listItemInfo {
+            span {
+              text-overflow: none;
+              overflow: visible;
+              white-space: normal;
+              max-width: none;
+            }
+          }
+        }
+      }
+      & .eqftp__buttonCube_footer {
+        transform: rotate(180deg);
+      }
+    }
+    &__list {
+      position: relative;
+      display: flex;
+      align-content: flex-start;
+      align-items: center;
+      flex-wrap: wrap;
+      width: 100%;
+      z-index: 1;
+      &Item {
+        padding-top: 5px;
+        box-sizing: border-box;
+        display: flex;
+        align-items: flex-start;
+        min-height: 25px;
+        height: 25px;
+        width: 100%;
+        &_success {
+          & .eqftp-footer__listItemIcon {
+            & .material-icons {
+              &:before {
+                content: '\E86C';
+                color: $green;
+              }
+            }
+          }
+        }
+        &_error {
+          & .eqftp-footer__listItemIcon {
+            & .material-icons {
+              &:before {
+                content: '\E000';
+                color: $red;
+              }
+            }
+          }
+        }
+        &_warning {
+          & .eqftp-footer__listItemIcon {
+            & .material-icons {
+              &:before {
+                content: '\E002';
+                color: $red;
+              }
+            }
+          }
+        }
+        &_info {
+          & .eqftp-footer__listItemIcon {
+            & .material-icons {
+              &:before {
+                content: '\E88E';
+                color: $blue;
+              }
+            }
+          }
+        }
+        &Icon {
+          display: flex;
+          justify-content: center;
+          min-width: 25px;
+          max-width: 25px;
+          width: 25px;
+          & .material-icons {
+            font-size: 16px;
+          }
+        }
+        &Date {
+          opacity: 0.4;
+          min-width: $i11;
+          max-width: $i11;
+          width: $i11;
+        }
+        &Info {
+          margin-left: $i2;
+          min-width: 0px;
+          max-width: calc(100% - 25px - 50px - 25px);
+          span {
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+            max-width: 100%;
+          }
+        }
+      }
+    }
+  }
+  &-fileTree {
+    padding-top: $i2;
+    box-sizing: border-box;
+    user-select: none;
+    height: calc(100% - 8px);
+    width: 100%;
+    &__item {
+      padding-left: $i1;
+      padding-right: $i1;
+      position: relative;
+      box-sizing: border-box;
+      transition: background-color $time-fast;
+      cursor: default;
+      display: flex;
+      max-width: 100%;
+      width: 100%;
+      &:hover {
+        background-color: rgba(0, 0, 0, 0.1);
+      }
+      &_file {
+        align-items: center;
+        min-height: $i6;
+        max-height: $i6;
+        height: $i6;
+      }
+      &_folder {
+        justify-content: flex-start;
+        align-content: flex-start;
+        align-items: flex-start;
+        flex-wrap: wrap;
+        width: 100%;
+      }
+      &Element {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        max-width: 100%;
+        width: 100%;
+      }
+      &Info {
+        min-width: 0px;
+        width: calc(100% - 120px);
+      }
+      &Icon {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: $i6;
+        max-height: $i6;
+        height: $i6;
+        min-width: $i6;
+        max-width: $i6;
+        width: $i6;
+        & .material-icons {
+          font-size: 16px;
+          color: $c09;
+        }
+      }
+      &Name {
+        display: flex;
+        align-items: center;
+        min-width: 0px;
+        max-width: 100%;
+      }
+      &Size {
+        padding-left: $i1;
+        opacity: 0.4;
+        box-sizing: border-box;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        min-width: 0px;
+        max-width: 100%;
+      }
+      &Date {
+        padding-left: $i1;
+        box-sizing: border-box;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        min-width: 50px;
+        max-width: 120px;
+        width: auto;
+        & .eqftp__title {
+          text-align: right;
+        }
+      }
+      &Wrap {
+        padding-left: $i1;
+        box-sizing: border-box;
+        max-width: 100%;
+        width: 100%;
+      }
+      &Children {
+        padding-left: $i2;
+        box-sizing: border-box;
+        display: none;
+        width: 100%;
+        & .eqftp-fileTree__item {
+          padding-left: 0;
+          padding-right: 0;
+        }
+      }
+    }
+  }
+  &-queue {
+    display: flex;
+    align-content: flex-start;
+    flex-wrap: wrap;
+    height: 100%;
+    width: 100%;
+    &__direction {
+      transition: opacity $time-fast;
+    }
+    &__info {
+      display: flex;
+      align-items: center;
+      max-width: calc(100% - 36px - 4px);
+      width: 100%;
+    }
+    &__menu {
+      position: absolute;
+      top: 0;
+      left: 0;
+      animation-name: fadeInLeft;
+      animation-duration: $time-fast;
+      display: none;
+      justify-content: center;
+      align-items: center;
+    }
+    &__item {
+      position: relative;
+      display: flex;
+      align-items: center;
+      min-height: $i9;
+      max-height: $i9;
+      height: $i9;
+      max-width: 100%;
+      width: 100%;
+      &+.eqftp-queue__item {
+        border-top-width: 1px;
+        border-top-style: solid;
+      }
+      &_error {
+        background-color: rgba(192, 57, 43, 0.1);
+        & .eqftp-queue__direction {
+          & .material-icons {
+            color: $red;
+          }
+        }
+        & .eqftp-queue__itemSize {
+          display: none;
+        }
+        & .eqftp-queue__itemError {
+          display: block;
+        }
+      }
+      &Local {
+        min-width: 43%;
+        max-width: 43%;
+      }
+      &Remote {
+        margin-left: $i1;
+        min-width: 43%;
+        max-width: 43%;
+      }
+      &Size {
+        display: flex;
+        justify-content: flex-end;
+        min-width: 14%;
+        max-width: 14%;
+      }
+      &Error {
+        display: none;
+        min-width: 14%;
+        max-width: 14%;
+      }
+      &Progress {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        height: 2px;
+        width: 100%;
+      }
+      &:hover {
+        background-color: rgba(0, 0, 0, 0.1);
+        &.eqftp-queue__item_error {
+          background-color: rgba(192, 57, 43, 0.3);
+        }
+        & .eqftp-queue__direction {
+          opacity: 0;
+        }
+        & .eqftp-queue__menu {
+          display: flex;
+        }
+      }
+    }
+  }
+  &-connections {
+    box-sizing: border-box;
+    position: relative;
+    display: flex;
+    align-content: flex-start;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    height: calc(100% - 64px - 26px);
+    width: 100%;
+    &__item {
+      overflow: hidden;
+      position: relative;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      width: 100%;
+      &+.eqftp-connections__item {
+        border-top-width: 1px;
+        border-top-style: solid;
+      }
+      &Name {
+        width: calc(100% - 48px);
+      }
+      &:hover {
+        background-color: rgba(0, 0, 0, 0.1);
+        & .eqftp-connections__menu {
+          display: flex;
+        }
+      }
+    }
+    &__menu {
+      position: absolute;
+      top: 0;
+      right: 0;
+      animation-name: fadeInRight;
+      animation-duration: $time-fast;
+      display: none;
+      justify-content: center;
+      align-items: center;
+      height: $i12;
+      width: $i12;
+    }
+  }
+  &-menu {
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    margin-right: 0;
+    padding-top: $i2;
+    padding-bottom: $i2;
+    padding-left: 0;
+    padding-right: 0;
+    border-radius: 2px;
+    animation-name: fadeIn;
+    animation-duration: $time-fast;
+    position: absolute;
+    display: none;
+    list-style: none;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    max-width: 300px;
+    z-index: 8;
+    &_active {
+      display: block;
+    }
+    &__item {
+      padding-left: $i6;
+      padding-right: $i6;
+      box-sizing: border-box;
+      cursor: pointer;
+      list-style-type: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      min-height: $i8;
+      width: 100%;
+      &:hover {
+        background-color: rgba(0, 0, 0, 0.1);
+      }
+    }
+    &__text {
+      padding-top: $i2;
+      padding-bottom: $i2;
+      font-family: $font-family;
+      font-size: 15px;
+      font-weight: 400;
+      font-style: normal;
+      line-height: 16px;
+      box-sizing: border-box;
+    }
+    &__shortcut {
+      padding-top: $i2;
+      padding-bottom: $i2;
+      padding-left: $i2;
+      font-family: $font-family;
+      font-size: 15px;
+      font-weight: 400;
+      font-style: normal;
+      line-height: 16px;
+      box-sizing: border-box;
+      display: flex;
+      justify-content: right;
+      align-items: center;
+    }
+  }
+  &-toast {
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    margin-right: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    padding-right: 0;
+    list-style: none;
+    position: absolute;
+    bottom: $i4;
+    right: $i4;
+    z-index: 7;
+    &__item {
+      margin-top: $i2;
+      padding-left: $i6;
+      padding-right: $i6;
+      list-style-type: none;
+      background-color: #323232;
+      border-radius: 2px;
+      box-sizing: border-box;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      animation-name: slideInUp;
+      animation-duration: $time-fast;
+      min-height: $i12;
+      min-width: 288px;
+      max-width: 568px;
+    }
+    &__text {
+      font-family: $font-family;
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 400;
+      color: $c01;
+      animation-name: fadeIn;
+      animation-duration: $time-fast;
+    }
+    &__action {
+      padding-left: $i6;
+      font-family: $font-family;
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 500;
+      text-transform: uppercase;
+      color: $c20;
+      cursor: pointer;
+      box-sizing: border-box;
+      animation-name: fadeIn;
+      animation-duration: $time-fast;
+      &:hover {
+        color: $c21;
+      }
+    }
+  }
+  &-hint {
+    display: flex;
+    align-items: center;
+    user-select: none;
+    min-height: $i12;
+    max-height: $i12;
+    height: $i12;
+    width: 100%;
+    &__icon {
+      padding-top: 12px;
+      padding-bottom: 12px;
+      padding-left: 12px;
+      padding-right: 12px;
+      font-family: $font-family;
+      font-size: 20px;
+      font-weight: 400;
+      font-style: normal;
+      color: $c01;
+      background-color: $c10;
+      border-radius: 50%;
+      box-sizing: border-box;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 24px;
+      width: 24px;
+      &:before {
+        margin-left: -1px;
+        content: '';
+        background-color: $c10;
+        position: absolute;
+        top: -20px;
+        left: 50%;
+        height: 20px;
+        width: 2px;
+      }
+    }
+    &__text {
+      padding-left: $i4;
+      font-family: $font-family;
+      font-size: 14px;
+      font-weight: 400;
+      font-style: normal;
+    }
+  }
+  &__row {
+    display: flex;
+    align-items: stretch;
+    max-width: 100%;
+    width: 100%;
+    &_between {
+      justify-content: space-between;
+    }
+    &_center {
+      justify-content: center;
+    }
+    &_start {
+      justify-content: flex-start;
+    }
+    &_end {
+      justify-content: flex-end;
+    }
+  }
+  &__col {
+    display: flex;
+    align-items: center;
+    max-width: 100%;
+    &_shortest {
+      width: 25%;
+    }
+    &_short {
+      width: 33.3%;
+    }
+    &_half {
+      width: 50%;
+    }
+    &_long {
+      width: 66.6%;
+    }
+    &_longest {
+      width: 75%;
+    }
+    &_full {
+      width: 100%;
+    }
+    &_fix {
+      width: 150px;
+    }
+    &_end {
+      justify-content: flex-end;
+    }
+    &_padding {
+      &Right {
+        padding-right: $i4;
+      }
+      &Left {
+        padding-left: $i4;
+      }
+    }
+  }
+  &__button {
+    box-sizing: border-box;
+    transition: background-color $time-fast, box-shadow $time-fast;
+    cursor: pointer;
+    user-select: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    &Round {
+      border-radius: 50%;
+      min-height: $i14;
+      max-height: $i14;
+      height: $i14;
+      min-width: $i14;
+      max-width: $i14;
+      width: $i14;
+    }
+    &Cube {
+      min-height: $i12;
+      max-height: $i12;
+      height: $i12;
+      min-width: $i12;
+      max-width: $i12;
+      width: $i12;
+      &_footer {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        transition: transform $time-fast;
+        min-height: 25px;
+        max-height: 25px;
+        height: 25px;
+        min-width: 25px;
+        max-width: 25px;
+        width: 25px;
+        z-index: 2;
+      }
+      &_smallest {
+        min-height: $i6;
+        max-height: $i6;
+        height: $i6;
+        min-width: $i6;
+        max-width: $i6;
+        width: $i6;
+      }
+      &_small {
+        min-height: $i9;
+        max-height: $i9;
+        height: $i9;
+        min-width: $i9;
+        max-width: $i9;
+        width: $i9;
+      }
+      &_medium {
+        min-height: $i12;
+        max-height: $i12;
+        height: $i12;
+        min-width: $i12;
+        max-width: $i12;
+        width: $i12;
+      }
+      &_big {
+        min-height: $i15;
+        max-height: $i15;
+        height: $i15;
+        min-width: $i15;
+        max-width: $i15;
+        width: $i15;
+      }
+    }
+    &Rectangle {
+      margin-top: $i2;
+      margin-bottom: $i2;
+      margin-left: $i2;
+      margin-right: $i2;
+      padding-left: $i2;
+      padding-right: $i2;
+      border-radius: 2px;
+      font-family: $font-family;
+      font-size: $fs-button;
+      font-weight: $fw-medium;
+      font-style: normal;
+      text-transform: uppercase;
+      min-height: $i9;
+      max-height: $i9;
+      height: $i9;
+      min-width: 88px;
+      max-width: 100%;
+    }
+    &_blue {
+      color: $c01 !important;
+      background-color: $c20 !important;
+      & .material-icons {
+        color: $c01 !important;
+      }
+      &:hover,
+      &:focus {
+        background-color: $c21 !important;
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+      }
+      &:active {
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+      }
+    }
+    &_medium {
+      min-height: $i12;
+      max-height: $i12;
+      height: $i12;
+    }
+    &_full {
+      width: $width-full;
+    }
+    &_margin {
+      &Reset {
+        margin: 0;
+      }
+      &Left {
+        margin-left: $i4;
+        &Reset {
+          margin-left: 0;
+        }
+      }
+      &Right {
+        margin-right: $i4;
+        &Reset {
+          margin-right: 0;
+        }
+      }
+    }
+  }
+  &__label {
+    margin-top: 16px;
+    margin-bottom: 0;
+    margin-left: 0;
+    margin-right: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    padding-right: 0;
+    font-family: $font-family;
+    font-size: 12px;
+    font-weight: 400;
+    text-align: left;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    user-select: none;
+    transition: all 0s;
+  }
+  &__textarea {
+    min-height: 100px;
+  }
+  &__holder {
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    &_searchConnection {
+      padding-top: $i4;
+      padding-bottom: $i4;
+      padding-right: $i4;
+    }
+    &_input {
+      flex-wrap: wrap;
+      align-content: flex-end;
+      align-items: flex-end;
+    }
+  }
+  &__title {
+    font-size: 14px;
+    font-family: $font-family;
+    font-weight: 400;
+    font-style: normal;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    min-width: 0px;
+    max-width: 100%;
+    width: 100%;
+    &_center {
+      text-align: center;
+      justify-content: center;
+    }
+    &_smallest {
+      font-size: $i3;
+    }
+    &_small {
+      font-size: $i4;
+    }
+    &_medium {
+      font-size: $i5;
+      font-weight: 500;
+    }
+    &_big {
+      font-size: $i6;
+    }
+    &_biggest {
+      font-size: $i7;
+    }
+    &_display1 {
+      font-size: 34px;
+    }
+    &_black {
+      color: $c00;
+    }
+    &_white {
+      color: $c01;
+    }
+    &_gray {
+      color: $c02;
+    }
+    &_right {
+      text-align: right;
+    }
+    &Nowrap {
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+      max-width: 100%;
+      &_half {
+        max-width: 50%;
+      }
+    }
+  }
+  &__subheader {
+    font-family: $font-family;
+    font-size: 14px;
+    font-weight: 500;
+    font-style: normal;
+    display: flex;
+    align-items: center;
+    min-height: $i12;
+    max-height: $i12;
+    height: $i12;
+    width: 100%;
+  }
+  &__icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: $i12;
+    max-height: $i12;
+    height: $i12;
+    min-width: $i12;
+    max-width: $i12;
+    width: $i12;
+    &_smallest {
+      min-height: $i6;
+      max-height: $i6;
+      height: $i6;
+      min-width: $i6;
+      max-width: $i6;
+      width: $i6;
+    }
+    &_small {
+      min-height: $i9;
+      max-height: $i9;
+      height: $i9;
+      min-width: $i9;
+      max-width: $i9;
+      width: $i9;
+    }
+    &_medium {
+      min-height: $i12;
+      max-height: $i12;
+      height: $i12;
+      min-width: $i12;
+      max-width: $i12;
+      width: $i12;
+    }
+    &_big {
+      min-height: $i15;
+      max-height: $i15;
+      height: $i15;
+      min-width: $i15;
+      max-width: $i15;
+      width: $i15;
+    }
+    &_biggest {
+      min-height: $i18;
+      max-height: $i18;
+      height: $i18;
+      min-width: $i18;
+      max-width: $i18;
+      width: $i18;
+    }
+  }
+  &__progress {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    &Bar {
+      background-color: $c20;
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+    }
+  }
+}

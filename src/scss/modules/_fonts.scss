@@ -1,0 +1,67 @@
+@import 'https://fonts.googleapis.com/css?family=Roboto:400,500,700&amp;subset=cyrillic,cyrillic-ext,latin-ext';
+@import 'https://fonts.googleapis.com/icon?family=Material+Icons';
+
+$font-family: 'Roboto';
+$icon: 'Material Icons';
+
+$fs-display-4: 112px;
+$fs-display-3: 56px;
+$fs-display-2: 45px;
+$fs-display-1: 34px;
+$fs-headline: 24px;
+$fs-title: 20px;
+$fs-subheading: 15px;
+$fs-body-2: 13px;
+$fs-body-1: 13px;
+$fs-caption: 12px;
+$fs-button: 14px;
+
+$fw-thin: 100;
+$fw-extra-light: 200;
+$fw-light: 300;
+$fw-regular: 400;
+$fw-medium: 500;
+$fw-semibold: 600;
+$fw-bold: 700;
+$fw-extra-bold: 800;
+$fw-black: 900;
+
+$line-height: 18px;
+
+.material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  display: inline-block;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+  &_success {
+    &:before {
+      content: '\E86C';
+      color: $green;
+    }
+  }
+  &_error {
+    &:before {
+      content: '\E000';
+      color: $red;
+    }
+  }
+  &_warning {
+    &:before {
+      content: '\E002';
+      color: $red;
+    }
+  }
+  &_info {
+    &:before {
+      content: '\E88E';
+      color: $blue;
+    }
+  }
+}

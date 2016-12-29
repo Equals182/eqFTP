@@ -1,0 +1,102 @@
+.ps-container {
+  touch-action: auto;
+  overflow: hidden !important;
+  &.ps-active-x>.ps-scrollbar-x-rail,
+  &.ps-active-y>.ps-scrollbar-y-rail {
+    display: block;
+    background-color: transparent;
+  }
+  &.ps-in-scrolling {
+    &.ps-x>.ps-scrollbar-x-rail {
+      opacity: 0.8;
+      >.ps-scrollbar-x {
+        background-color: #f8f8f2;
+      }
+    }
+    &.ps-y>.ps-scrollbar-y-rail {
+      opacity: 0.8;
+      >.ps-scrollbar-y {
+        background-color: #f8f8f2;
+      }
+    }
+  }
+  > {
+    .ps-scrollbar-x-rail {
+      display: none;
+      position: absolute;
+      opacity: 0;
+      transition: background-color .2s linear, opacity .2s linear;
+      bottom: 0;
+      height: 12px;
+      >.ps-scrollbar-x {
+        position: absolute;
+        background-color: #f8f8f2;
+        transition: background-color .2s linear, height .2s linear, width .2s ease-in-out, border-radius .2s ease-in-out;
+        bottom: 0;
+        height: 12px;
+      }
+    }
+    .ps-scrollbar-y-rail {
+      display: none;
+      position: absolute;
+      opacity: 0;
+      transition: background-color .2s linear, opacity .2s linear;
+      right: 0;
+      width: 12px;
+      >.ps-scrollbar-y {
+        position: absolute;
+        background-color: #f8f8f2;
+        transition: background-color .2s linear, height .2s linear, width .2s ease-in-out, border-radius .2s ease-in-out;
+        right: 0;
+        width: 12px;
+      }
+    }
+  }
+  &:hover {
+    &.ps-in-scrolling {
+      &.ps-x>.ps-scrollbar-x-rail {
+        opacity: 0.8;
+        >.ps-scrollbar-x {
+          background-color: #f8f8f2;
+        }
+      }
+      &.ps-y>.ps-scrollbar-y-rail {
+        opacity: 0.8;
+        >.ps-scrollbar-y {
+          background-color: #f8f8f2;
+        }
+      }
+    }
+    > {
+      .ps-scrollbar-x-rail,
+      .ps-scrollbar-y-rail {
+        opacity: 0.2;
+      }
+      .ps-scrollbar-x-rail:hover {
+        opacity: 0.8;
+        >.ps-scrollbar-x {
+          background-color: #f8f8f2;
+        }
+      }
+      .ps-scrollbar-y-rail:hover {
+        opacity: 0.8;
+        >.ps-scrollbar-y {
+          background-color: #f8f8f2;
+        }
+      }
+    }
+  }
+}
+
+@supports (-ms-overflow-style: none) {
+  .ps-container {
+    overflow: auto !important;
+  }
+}
+
+@media screen and (-ms-high-contrast: active),
+(-ms-high-contrast: none) {
+  .ps-container {
+    overflow: auto !important;
+  }
+}
