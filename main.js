@@ -202,6 +202,7 @@ define(function (require, exports, module) {
                     break;
                   case 'FILENOTEXIST':
                   case 'Error: NOTAJSON':
+                  case 'Error: NOTANOBJECT':
                     ui.welcome.show();
                     break;
                   default:
