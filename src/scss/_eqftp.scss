@@ -151,8 +151,7 @@
         width: 25%;
         &_active {
           border-bottom-color: $c20;
-          color: $c20;
-          &:hover {
+          & .material-icons {
             color: $c20;
           }
         }
@@ -449,13 +448,13 @@
   }
   &-fileTree {
     padding-top: $i2;
+    padding-bottom: $i2;
     box-sizing: border-box;
     user-select: none;
-    height: calc(100% - 8px);
+    height: calc(100% - 8px - 8px);
     width: 100%;
     &__item {
-      padding-left: $i1;
-      padding-right: $i1;
+      padding-right: $i2;
       position: relative;
       box-sizing: border-box;
       transition: background-color $time-fast;
