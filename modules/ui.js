@@ -136,15 +136,15 @@ define(function (require, exports, module) {
     var self = this;
     self.tpl = $(Mustache.render(require("text!htmlContent/toolbarIcon.html"), strings));
     self.tpl.on('click', function () {
-      if (!$(this).hasClass('disabled')) {
+      if (!$(this).hasClass('eqftp-toolbar__icon_disable')) {
         eqUI.panel.toggle();
       }
     });
     self.activate = function () {
-      self.tpl.removeClass('disabled');
+      self.tpl.removeClass('eqftp-toolbar__icon_disable');
     };
     self.deactivate = function () {
-      self.tpl.addClass('disabled');
+      self.tpl.addClass('eqftp-toolbar__icon_disable');
     };
     self.get = function () {
       return self.tpl;
