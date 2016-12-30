@@ -232,7 +232,28 @@ define(function (require, exports, module) {
                   removeConnection: function () {
                     eqftp.settings.removeConnection();
                   },
-                  setConnection: eqftp.settings.setConnection,
+                  setConnection: function () {
+                    eqftp.settings.setConnection(...arguments).done(function (connection) {
+                      console.log('yay', connection);
+                      eqftp.ui.connections.editor.close();
+                      eqftp.log(ui.m(strings.eqftp__log__settings_connection_save_success, {
+                        name: connection.name
+                      }), 'info');
+                    }).fail(function (err) {
+                      if (err) {
+                        switch(err) {
+                          case 'NOSERVERSET':
+                            eqftp.log(ui.m(strings.eqftp__log__settings_connection_save_error, {
+                              err: strings['eqftp__ERR__' + err]
+                            }), 'error');
+                            break;
+                          default:
+                            console.error(err);
+                            break;
+                        }
+                      }
+                    });
+                  },
                   set: function (settings) {
                     var master_password = _.get(settings, 'master_password');
                     _.unset(settings, 'master_password');

@@ -1,3 +1,14 @@
+/**
+ * =====================
+ * BEFORE YOU START
+ * =====================
+ * There are some placeholders available to use, you can see examples below
+ * Try to avoid unescaped ' and " symbols
+ * Sometimes you may need to use HTML in text.
+ * If some special characters display wrong - contact developer, send string's name and your text.
+ * Sometimes you may need to escape the escape character itself (see "eqftp__cs__c_localpath__explorer_title") to avoid bugs
+ * Please, test features that you translate to see if everything keeps working fine
+ */
 define({
  "eqftp__toolbar__title" : "Open eqFTP",
 
@@ -7,7 +18,7 @@ define({
  * WELCOME SCREEN
  */
  "eqftp__wlcm__welcome_headline": "Welcome",
- "eqftp__wlcm__welcome_text": "We couldn't find your settings file<br/>Locate it or create new one",
+ "eqftp__wlcm__welcome_text": "We couldn\'t find your settings file<br/>Locate it or create new one",
  "eqftp__wlcm__welcome_button_locate": "Locate",
  "eqftp__wlcm__welcome_button_create": "Create",
  "eqftp__wlcm__welcome_saveFile_title": "Save settings file",
@@ -33,6 +44,7 @@ define({
  "eqftp__cs__c_login": "Login",
  "eqftp__cs__c_password": "Password",
  "eqftp__cs__c_localpath": "Local path",
+ "eqftp__cs__c_localpath__explorer_title": "Choose folder for project\\'s files",
  "eqftp__cs__c_remotepath": "Remote path",
  "eqftp__cs__c_check_difference": "Check difference between files",
  "eqftp__cs__c_autoupload": "Automatically upload changes",
@@ -72,6 +84,9 @@ define({
  "eqftp__log__settings_save_success": "Settings saved to {{filename}}",
  "eqftp__log__settings_save_error": "There was an error saving settings to {{filename}}",
  
+ "eqftp__log__settings_connection_save_success": "Connection {{name}} saved",
+ "eqftp__log__settings_connection_save_error": "There was an error saving connection: {{{err}}}",
+ 
  /**
  * CONTROLS
  */
@@ -82,15 +97,20 @@ define({
  /**
  * FILESIZES
  */
- "eqftp__filesize_bytes" : "bytes",
- "eqftp__filesize_kilobytes" : "kb",
- "eqftp__filesize_megabytes" : "mb",
- "eqftp__filesize_gigabytes" : "gb",
- "eqftp__filesize_terabytes" : "tb",
- "eqftp__filesize_petabytes" : "pt",
- "eqftp__filesize_exabytes" : "eb",
- "eqftp__filesize_zettabytes" : "zb",
- "eqftp__filesize_yottabytes" : "yb",
+ "eqftp__filesize_bytes": "bytes",
+ "eqftp__filesize_kilobytes": "kb",
+ "eqftp__filesize_megabytes": "mb",
+ "eqftp__filesize_gigabytes": "gb",
+ "eqftp__filesize_terabytes": "tb",
+ "eqftp__filesize_petabytes": "pt",
+ "eqftp__filesize_exabytes": "eb",
+ "eqftp__filesize_zettabytes": "zb",
+ "eqftp__filesize_yottabytes": "yb",
+ 
+ /**
+ * ERRORS
+ */
+ "eqftp__ERR__NOSERVERSET": "Parameter \"Server\" is empty",
 
  "eqftp_dummy" : "dummy" // Not used anywhere, just leave it.
 });

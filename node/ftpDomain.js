@@ -90,27 +90,88 @@ maxerr: 50, node: true */
     var self = this;
     self._watching = {};
     
-    self.add = function (id, localpath, chokidar) {
-      if (!self._watching[id] && localpath && chokidar) {
-        self._watching[id] = {
-          chokidar: chokidar,
-          localpath: localpath
-        };
+    self.add = function (connection, localpath) {
+      if (!connection) {
+        return false;
+      }
+      if (!localpath) {
+        localpath = connection.localpath;
+      }
+      if (localpath) {
+        if (!connection.isTmp) {
+          if (!_.has(self._watching, connection.id)) {
+            var w = chokidar.watch(localpath, {
+              ignored: (connection.ignore_list || '').splitIgnores(),
+              persistent: true,
+              awaitWriteFinish: true,
+              cwd: localpath,
+              ignoreInitial: true
+            });
+            w.on('add', function (path, stats) {
+              path = utils.normalize(path);
+              console.log('add', path, stats);
+            })
+            .on('change', function (path, stats) {
+              console.log('change', path, stats);
+              path = utils.normalize(path);
+              if (!/^\//.test(path)) {
+                path = utils.normalize(connection.localpath + '/' + path);
+              }
+              if (!eqftp.cache._recently_downloaded) {
+                eqftp.cache._recently_downloaded = [];
+              }
+              var rd = _.findIndex(eqftp.cache._recently_downloaded, {id: connection.id, localpath: path});
+              if (rd > -1) {
+                eqftp.cache._recently_downloaded.splice(rd, 1);
+                return false;
+              }
+              self._[connection.id].upload(path, function () {}, function () {});
+            })
+            .on('unlink', function (path, stats) {
+              path = utils.normalize(path);
+              console.log('unlink', path, stats);
+            });
+            self._watching[connection.id] = {
+              chokidar: w,
+              localpaths: [localpath]
+            };
+          } else if (self._watching[connection.id].localpaths.indexOf(localpath) < 0) {
+            self._watching[connection.id].chokidar.add(localpath);
+            self._watching[connection.id].localpaths.push(localpath);
+          }
+          return true;
+        } else {
+          if (!_.has(self._watching, connection.id)) {
+            var w = chokidar.watch(localpath);
+            w.on('change', function (path) {
+              console.log('change tmp', path, arguments);
+            });
+            self._watching[connection.id] = {
+              chokidar: w,
+              localpaths: [localpath]
+            };
+          } else if (self._watching[connection.id].localpaths.indexOf(localpath) < 0) {
+            self._watching[connection.id].chokidar.add(localpath);
+            self._watching[connection.id].localpaths.push(localpath);
+          }
+          return true;
+        }
+      } else {
+        return false;
       }
     };
-    self.remove = function (id) {
-      if (_.isUndefined(id)) {
-        _.forOwn(self._watching, function (w, id) {
-          if (w.chokidar) {
-            w.chokidar.close();
-          }
-          _.unset(self._watching, id);
-        });
-      } else if (self._watching[id]) {
-        if (self._watching[id].chokidar) {
-          self._watching[id].chokidar.close();
+    self.remove = function (id, localpath) {
+      if (id && _.has(self._watching, id)) {
+        if (localpath) {
+          self._watching[id].chokidar.unwatch(localpath);
+          _.pull(self._watching[id].localpaths, localpath);
         }
-        _.unset(self._watching, id);
+        if (!localpath || self._watching[id].localpaths.length < 1) {
+          self._watching[id].chokidar.stop();
+          _.unset(self._watching, id);
+        }
+      } else {
+        return false;
       }
     };
   }();
@@ -220,6 +281,9 @@ maxerr: 50, node: true */
       });
       _.unset(settings, ['settings_file', 'master_password']);
       var settingsFile = utils.normalize((path || self.currentSettingsFile));
+      if (!settingsFile) {
+        throw new Error('NOSETTINGSPATHPASSED');
+      }
       /*
       if (!fs.existsSync(settingsFile)) {
         throw new Error('Passed file does not exists');
@@ -249,15 +313,22 @@ maxerr: 50, node: true */
       return true;
     };
     self.setConnection = function (connection) {
+      var uniq = utils.uniq();
       var defaults = {
         protocol: 'ftp',
         port: 21,
         autoupload: true,
-        check_difference: true
+        check_difference: true,
+        name: uniq,
+        localpath: utils.normalize(eqftp.settings.get().main.projects_folder + '/' + (connection.name || uniq)),
+        ignore_list: ''
       };
-      console.log(connection);
+      connection = _.omitBy(connection, _.isEmpty);
       if (!_.isObject(connection)) {
         throw new Error('NOTANOBJECT');
+      }
+      if (!connection.server) {
+        throw new Error('NOSERVERSET');
       }
       if (!connection.id) {
         connection.id = utils.uniq();
@@ -266,6 +337,8 @@ maxerr: 50, node: true */
         var _c = _.get(eqftp, ['connections', 'a', connection.id]);
         if (!_c) {
           throw new Error('CONNECTIONIDNOTEXIST');
+        } else {
+          _c = _.omitBy(_c, _.isEmpty);
         }
         connection = _.defaults(connection, _c, defaults);
       }
@@ -276,43 +349,12 @@ maxerr: 50, node: true */
       self.settings.connections[connection.id] = connection;
       
       self.settings.localpaths[connection.id] = connection.localpath;
-      if (!connection.isTmp && !_.has(eqftp.watch._watching, connection.id)) {
-        var w = chokidar.watch(connection.localpath, {
-          ignored: connection.ignore_list.splitIgnores(),
-          persistent: true,
-          awaitWriteFinish: true,
-          cwd: connection.localpath,
-          ignoreInitial: true
-        });
-        w.on('add', function (path, stats) {
-          path = utils.normalize(path);
-          console.log('add', path, stats);
-        })
-        .on('change', function (path, stats) {
-          console.log('change', path, stats);
-          path = utils.normalize(path);
-          if (!/^\//.test(path)) {
-            path = utils.normalize(connection.localpath + '/' + path);
-          }
-          if (!eqftp.cache._recently_downloaded) {
-            eqftp.cache._recently_downloaded = [];
-          }
-          var rd = _.findIndex(eqftp.cache._recently_downloaded, {id: connection.id, localpath: path});
-          if (rd > -1) {
-            eqftp.cache._recently_downloaded.splice(rd, 1);
-            return false;
-          }
-          self._[connection.id].upload(path, function () {}, function () {});
-        })
-        .on('unlink', function (path, stats) {
-          path = utils.normalize(path);
-          console.log('unlink', path, stats);
-        });
-        eqftp.watch.add(connection.id, connection.localpath, w);
+      if (!connection.isTmp) {
+        eqftp.watch.add(connection);
       }
       
       if (self.currentSettingsFile) {
-        self.set(self.currentSettingsFile, self.settings, self.password);
+        self.set(self.settings, self.password, self.currentSettingsFile);
       }
       return connection;
     };
@@ -496,15 +538,7 @@ maxerr: 50, node: true */
                               params: args[0],
                               connection: self.$[id]
                             });
-                            if (!self._[id]._watch) {
-                              self._[id]._watch = chokidar.watch(args[0].localpath);
-                              self._[id]._watch
-                                .on('change', function (path) {
-                                  console.log('change tmp', path, arguments);
-                                });
-                            } else {
-                              self._[id]._watch.add(args[0].localpath);
-                            }
+                            eqftp.watch.add(self.t[id], args[0].localpath);
                           }
                         }
                         break;
@@ -591,7 +625,7 @@ maxerr: 50, node: true */
             },
             close: function () {
               if (self._[id]) {
-                eqftp.watch.remove(self._[id].localpath);
+                eqftp.watch.remove(id);
                 if (self._[id]._server) {
                   self._[id]._server.close();
                 }
