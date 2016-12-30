@@ -660,12 +660,20 @@
       display: flex;
       align-items: center;
       cursor: pointer;
+      min-height: $i12;
+      max-height: $i12;
+      height: $i12;
       width: 100%;
       &+.eqftp-connections__item {
         border-top-width: 1px;
         border-top-style: solid;
       }
       &Name {
+        display: flex;
+        align-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        height: 100%;
         width: calc(100% - 48px);
       }
       &:hover {
