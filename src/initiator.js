@@ -260,7 +260,7 @@ var _file_short = function () {
     });
   };
 var k = kidsful();
-k.find('.eqftp-fileTree__itemChildren')
+k.find('.eqftp-fileTree__children')
   .append(_folder_long())
   .append(_folder_long())
   .append(_folder_short())
@@ -270,10 +270,10 @@ k.find('.eqftp-fileTree__itemChildren')
   .append(_file_long());
 var nk = false;
 nk = k.clone();
-nk.find('.eqftp-fileTree__itemChildren').prepend(k);
+nk.find('.eqftp-fileTree__children').prepend(k);
 k = nk;
 nk = k.clone();
-nk.find('.eqftp-fileTree__itemChildren').prepend(k);
+nk.find('.eqftp-fileTree__children').prepend(k);
 k = nk;
 
 panel.find(elements.fileTreeElementholder)
@@ -387,6 +387,6 @@ window.eqftp = {
     } else {
       $(element).find('.material-icons').text('keyboard_arrow_right');
     }
-    $(element).next('.eqftp-fileTree__itemChildren').slideToggle(100);
+    $(element).next('.eqftp-fileTree__children').slideToggle(100);
   },
 }

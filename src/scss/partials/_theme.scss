@@ -56,6 +56,13 @@
     background-color: #ffffff;
     border-top-color: #e8e8e8;
   }
+  &-fileTree {
+    &__icon {
+      & .material-icons {
+        color: $gray600;
+      }
+    }
+  }
   &-connections {
     &__item {
       &+.eqftp-connections__item {
@@ -205,6 +212,13 @@
     &-footer {
       background-color: #1c1c1e;
       border-top-color: #343434;
+    }
+    &-fileTree {
+      &__icon {
+        & .material-icons {
+          color: $gray300;
+        }
+      }
     }
     &-connections {
       &__item {

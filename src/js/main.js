@@ -71,7 +71,7 @@ function showChildren(element) {
   } else {
     $(element).find('.material-icons').text('keyboard_arrow_right');
   }
-  $(element).next('.eqftp-fileTree__itemChildren').slideToggle(100);
+  $(element).next('.eqftp-fileTree__children').slideToggle(100);
 }
 
 function showLog() {

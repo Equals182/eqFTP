@@ -472,82 +472,66 @@
         height: $i6;
       }
       &_folder {
-        justify-content: flex-start;
         align-content: flex-start;
         align-items: flex-start;
         flex-wrap: wrap;
-        width: 100%;
       }
-      &Element {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        max-width: 100%;
-        width: 100%;
+    }
+    &__element {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+    }
+    &__info {
+      display: flex;
+      align-items: center;
+      min-width: 0px;
+      width: calc(100% - 120px);
+    }
+    &__icon {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: $i6;
+      max-height: $i6;
+      height: $i6;
+      min-width: $i6;
+      max-width: $i6;
+      width: $i6;
+      & .material-icons {
+        font-size: 16px;
       }
-      &Info {
-        min-width: 0px;
-        width: calc(100% - 120px);
+    }
+    &__size {
+      padding-left: $i1;
+      opacity: 0.4;
+      box-sizing: border-box;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      min-width: 0px;
+      max-width: 100%;
+    }
+    &__date {
+      padding-left: $i1;
+      box-sizing: border-box;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      min-width: 50px;
+      max-width: 120px;
+      & .eqftp__title {
+        text-align: right;
       }
-      &Icon {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        min-height: $i6;
-        max-height: $i6;
-        height: $i6;
-        min-width: $i6;
-        max-width: $i6;
-        width: $i6;
-        & .material-icons {
-          font-size: 16px;
-          color: $c09;
-        }
-      }
-      &Name {
-        display: flex;
-        align-items: center;
-        min-width: 0px;
-        max-width: 100%;
-      }
-      &Size {
-        padding-left: $i1;
-        opacity: 0.4;
-        box-sizing: border-box;
-        display: flex;
-        justify-content: flex-end;
-        align-items: center;
-        min-width: 0px;
-        max-width: 100%;
-      }
-      &Date {
-        padding-left: $i1;
-        box-sizing: border-box;
-        display: flex;
-        justify-content: flex-end;
-        align-items: center;
-        min-width: 50px;
-        max-width: 120px;
-        width: auto;
-        & .eqftp__title {
-          text-align: right;
-        }
-      }
-      &Wrap {
-        padding-left: $i1;
-        box-sizing: border-box;
-        max-width: 100%;
-        width: 100%;
-      }
-      &Children {
-        padding-left: $i2;
-        box-sizing: border-box;
-        display: none;
-        width: 100%;
-        & .eqftp-fileTree__item {
-          padding-left: 0;
-          padding-right: 0;
-        }
+    }
+    &__children {
+      padding-left: $i2;
+      box-sizing: border-box;
+      display: none;
+      width: 100%;
+      & .eqftp-fileTree__item {
+        padding-right: 0;
       }
     }
   }

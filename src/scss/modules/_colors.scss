@@ -1,56 +1,56 @@
-$c00: rgba(000, 000, 000, 1.0);
-$c001: rgba(0, 0, 0, 0.38);
-$c002: rgba(0, 0, 0, 0.54);
-$c003: rgba(0, 0, 0, 0.87);
-$c01: rgba(255, 255, 255, 1.0);
-$c011: rgba(255, 255, 255, 0.5);
-$c012: rgba(255, 255, 255, 0.7);
-$c013: rgba(255, 255, 255, 1.0);
-$c02: rgba(051, 051, 051, 1.0);
+$c00:      rgba(000, 000, 000, 1.0);
+$c001:     rgba(000, 000, 000, 0.38);
+$c002:     rgba(000, 000, 000, 0.54);
+$c003:     rgba(000, 000, 000, 0.87);
+$c01:      rgba(255, 255, 255, 1.0);
+$c011:     rgba(255, 255, 255, 0.5);
+$c012:     rgba(255, 255, 255, 0.7);
+$c013:     rgba(255, 255, 255, 1.0);
+$c02:      rgba(051, 051, 051, 1.0);
 
-$c03: rgba(036, 036, 036, 1.0); //#242424 main view
-$c04: rgba(071, 072, 073, 1.0); //#474849 hover icon & file tree
-$c05: rgba(047, 048, 049, 1.0); //#2f3031 active icon
-$c06: rgba(094, 095, 096, 1.0); //#5e5f60 toolbar
-$c07: rgba(088, 089, 090, 1.0); //#58595a header
-$c08: rgba(056, 057, 058, 1.0); //#38393a footer
-$c09: rgba(204, 204, 204, 1.0); //#cccccc font color
-$c10: rgba(121, 121, 121, 1.0); //#797979
-$c11: rgba(230, 230, 230, 1.0); //#e6e6e6
-$c12: rgba(170, 170, 170, 1.0);
-$c13: rgba(250, 250, 250, 1.0); //#fafafa
-$c14: rgba(048, 048, 048, 1.0); //#303030
+$c03:      rgba(036, 036, 036, 1.0); //#242424 main view
+$c04:      rgba(071, 072, 073, 1.0); //#474849 hover icon & file tree
+$c05:      rgba(047, 048, 049, 1.0); //#2f3031 active icon
+$c06:      rgba(094, 095, 096, 1.0); //#5e5f60 toolbar
+$c07:      rgba(088, 089, 090, 1.0); //#58595a header
+$c08:      rgba(056, 057, 058, 1.0); //#38393a footer
+$c09:      rgba(204, 204, 204, 1.0); //#cccccc font color
+$c10:      rgba(121, 121, 121, 1.0); //#797979
+$c11:      rgba(230, 230, 230, 1.0); //#e6e6e6
+$c12:      rgba(170, 170, 170, 1.0);
+$c13:      rgba(250, 250, 250, 1.0); //#fafafa
+$c14:      rgba(048, 048, 048, 1.0); //#303030
 
 // GENERAL THEME COLORS
 
-$gray50: rgba(250, 250, 250, 1.0); //#FAFAFA
-$gray100: rgba(245, 245, 245, 1.0); //#F5F5F5
-$gray200: rgba(238, 238, 238, 1.0); //#EEEEEE
-$gray300: rgba(224, 224, 224, 1.0); //#E0E0E0
-$gray400: rgba(189, 189, 189, 1.0); //#BDBDBD
-$gray500: rgba(158, 158, 158, 1.0); //#9E9E9E
-$gray600: rgba(117, 117, 117, 1.0); //#757575
-$gray700: rgba(097, 097, 097, 1.0); //#616161
-$gray800: rgba(066, 066, 066, 1.0); //#424242
-$gray900: rgba(033, 033, 033, 1.0); //#212121
+$gray50:   rgba(250, 250, 250, 1.0); //#FAFAFA
+$gray100:  rgba(245, 245, 245, 1.0); //#F5F5F5
+$gray200:  rgba(238, 238, 238, 1.0); //#EEEEEE
+$gray300:  rgba(224, 224, 224, 1.0); //#E0E0E0
+$gray400:  rgba(189, 189, 189, 1.0); //#BDBDBD
+$gray500:  rgba(158, 158, 158, 1.0); //#9E9E9E
+$gray600:  rgba(117, 117, 117, 1.0); //#757575
+$gray700:  rgba(097, 097, 097, 1.0); //#616161
+$gray800:  rgba(066, 066, 066, 1.0); //#424242
+$gray900:  rgba(033, 033, 033, 1.0); //#212121
 
 // ACCENT COLORS
 
-$c20: rgba(033, 150, 243, 1.0); //#2196F3 normal/active
-$c21: rgba(026, 119, 201, 1.0); //#1A77C9 focus/hover
+$c20:      rgba(033, 150, 243, 1.0); //#2196F3 normal/active
+$c21:      rgba(026, 119, 201, 1.0); //#1A77C9 focus/hover
 
 // BUTTON COLORS
 
-$c30: rgba(238, 238, 238, 1.0); //#EEEEEE background-color
-$c31: rgba(221, 221, 221, 1.0); //#DDDDDD focus/hover
-$c32: rgba(204, 204, 204, 1.0); //#CCCCCC normal/active
+$c30:      rgba(238, 238, 238, 1.0); //#EEEEEE background-color
+$c31:      rgba(221, 221, 221, 1.0); //#DDDDDD focus/hover
+$c32:      rgba(204, 204, 204, 1.0); //#CCCCCC normal/active
 
-$c40: rgba(051, 051, 051, 1.0); //#333333 background-color
-$c41: rgba(074, 074, 074, 1.0); //#4A4A4A focus/hover
-$c42: rgba(089, 089, 089, 1.0); //#595959 normal/active
+$c40:      rgba(051, 051, 051, 1.0); //#333333 background-color
+$c41:      rgba(074, 074, 074, 1.0); //#4A4A4A focus/hover
+$c42:      rgba(089, 089, 089, 1.0); //#595959 normal/active
 
 // OTHER COLORS
 
-$red: rgba(192, 57, 43, 1.0);
-$green: rgba(39, 174, 96, 1.0);
-$blue: rgba(41, 128, 185, 1.0);
+$red:      rgba(192, 057, 043, 1.0);
+$green:    rgba(039, 174, 096, 1.0);
+$blue:     rgba(041, 128, 185, 1.0);

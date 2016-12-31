@@ -6,14 +6,14 @@ maxerr: 50, node: true */
 define(function (require, exports, module) {
   "use strict";
   var Mustache = brackets.getModule("thirdparty/mustache/mustache"),
-      FileSystem = brackets.getModule("filesystem/FileSystem"),
-      strings = require("strings"),
-      eqUI = this,
-      _ = false,
-      eqFTP = false,
-      utils = false,
-      
-      localeSizes = [
+    FileSystem = brackets.getModule("filesystem/FileSystem"),
+    strings = require("strings"),
+    eqUI = this,
+    _ = false,
+    eqFTP = false,
+    utils = false,
+
+    localeSizes = [
         strings.eqftp__filesize_bytes,
         strings.eqftp__filesize_kilobytes,
         strings.eqftp__filesize_megabytes,
@@ -24,10 +24,10 @@ define(function (require, exports, module) {
         strings.eqftp__filesize_zettabytes,
         strings.eqftp__filesize_yottabytes
       ];
-  
-  function getInputNameValue (input) {
+
+  function getInputNameValue(input) {
     var name = false,
-        value = false;
+      value = false;
     if (input.is('[type=checkbox]')) {
       name = input.attr('name');
       value = !!input.is(':checked');
@@ -47,11 +47,14 @@ define(function (require, exports, module) {
     if (!name) {
       return false;
     } else {
-      return {name: name, value: value};
+      return {
+        name: name,
+        value: value
+      };
     }
   };
-  
-  function setInputNameValue (input, value) {
+
+  function setInputNameValue(input, value) {
     if (!input || !input.length) {
       return false;
     }
@@ -82,7 +85,7 @@ define(function (require, exports, module) {
     }
     input.change();
   };
-  
+
   eqUI.eqftp = function (e) {
     if (!eqFTP) {
       eqFTP = e;
@@ -97,7 +100,7 @@ define(function (require, exports, module) {
     return eqFTP;
   };
   eqUI.m = Mustache.render;
-  
+
   eqUI.events = function (event) {
     if (!event) {
       return false;
@@ -131,8 +134,8 @@ define(function (require, exports, module) {
       }
     }
   };
-  
-  eqUI.toolbarIcon = new function() {
+
+  eqUI.toolbarIcon = new function () {
     var self = this;
     self.tpl = $(Mustache.render(require("text!htmlContent/toolbarIcon.html"), strings));
     self.tpl.on('click', function () {
@@ -150,15 +153,15 @@ define(function (require, exports, module) {
       return self.tpl;
     };
   }();
-  
+
   eqUI.panel = new function () {
     var self = this;
     var width = 360,
-        panel = $(Mustache.render(require("text!htmlContent/panel.html"), strings));
+      panel = $(Mustache.render(require("text!htmlContent/panel.html"), strings));
     self.state = 'closed';
     self.tpl = panel.filter('.eqftp');
     self.tpl.css('right', (width * -1) + 'px').width(width);
-    
+
     self.open = function () {
       if (self.state === 'closed') {
         self.tpl.show();
@@ -197,23 +200,23 @@ define(function (require, exports, module) {
       $('.eqftp-header__navigation').children('.eqftp-header__navigationTab_' + tab).addClass('eqftp-header__navigationTab_active').siblings().removeClass('eqftp-header__navigationTab_active');
       $('.eqftp-content').children('.eqftp-content__page_' + tab).addClass('eqftp-content__page_active').siblings().removeClass('eqftp-content__page_active');
     };
-    
+
     self.get = function () {
       return self.tpl;
     };
   }();
-  
+
   eqUI.context = new function () {
     var self = this;
-    
+
     var panel = $(Mustache.render(require("text!htmlContent/panel.html"), strings));
     self.tpl = panel.filter('.eqftp-menu');
-    
+
     self.get = function () {
       return self.tpl;
     };
   }();
-  
+
   eqUI.search = new function () {
     var self = this;
     self.tpl = eqUI.panel.tpl.find('.eqftp-header__search');
@@ -266,7 +269,7 @@ define(function (require, exports, module) {
         });
       }
     }
-    
+
     self._autoclose = function (e) {
       console.log(!$(e.target).is('.eqftp-header__search'));
       console.log($(e.target).closest('.eqftp-header__search'), $(e.target).closest('.eqftp-header__search').length);
@@ -287,7 +290,7 @@ define(function (require, exports, module) {
         self.state = 'opened';
         self.tpl.find('input[name="eqftpSearch"]').focus();
         self.dropdown.open();
-        
+
         _.delay(function () {
           $('body').on('click', self._autoclose);
         }, 50);
@@ -298,7 +301,7 @@ define(function (require, exports, module) {
         self.tpl.removeClass('eqftp-header__search_active');
         self.state = 'closed';
         self.dropdown.close();
-        
+
         $('body').off('click', self._autoclose);
       }
     };
@@ -315,7 +318,7 @@ define(function (require, exports, module) {
           keyword = utils.escapeRegExp(keyword);
         }
         var r = new RegExp('.*?' + keyword + '.*?'),
-            shown = 0;
+          shown = 0;
         self.items.forEach(function (v, i) {
           if (!r.test(v.text())) {
             v.hide();
@@ -364,10 +367,10 @@ define(function (require, exports, module) {
       if (!_.isArray(object)) {
         object = [object];
       }
-      
+
       var parent = false;
       if (!_.isEmpty(self._rendered)) {
-        parent = self.tpl.find('div[id="'+path+'"] .eqftp-fileTree__itemChildren');
+        parent = self.tpl.find('div[id="' + path + '"] .eqftp-fileTree__children');
         if (parent.length === 0) {
           if ((((_.keys(self._rendered)).sort(utils.byLevels))[0]).levels() < path.levels()) {
             console.log("YEA");
@@ -382,7 +385,7 @@ define(function (require, exports, module) {
         parent = $('.eqftp-fileTree');
       }
       self._rendered[path] = object;
-      
+
       parent.html('');
       object.forEach(function (element, i) {
         if (['f', 'd'].indexOf(element.type) < 0) {
@@ -413,20 +416,20 @@ define(function (require, exports, module) {
             return utils.getNamepart(element.name, 'ext');
           },
           cmd_download: function () {
-            return 'eqftp.download(\''+element.id+'\', \''+element.fullPath+'\', true, [...arguments][0]);';
+            return 'eqftp.download(\'' + element.id + '\', \'' + element.fullPath + '\', true, [...arguments][0]);';
           },
           cmd_openFolder: function () {
-            return 'eqftp.openFolder(\''+element.id+'\', \''+element.fullPath+'\');';
+            return 'eqftp.openFolder(\'' + element.id + '\', \'' + element.fullPath + '\');';
           }
         }))));
       });
       self.itemOpen(path);
     };
     self.itemOpen = function (path) {
-      var el = self.tpl.find('div[id="'+path+'"]'),
-          ch = el.find('.eqftp-fileTree__itemChildren:first');
+      var el = self.tpl.find('div[id="' + path + '"]'),
+        ch = el.find('.eqftp-fileTree__children:first');
       if (!ch.is(':visible')) {
-        el.find('.eqftp-fileTree__itemInfo:first .eqftp-fileTree__itemIcon .material-icons').text('keyboard_arrow_down');
+        el.find('.eqftp-fileTree__info:first .eqftp-fileTree__icon .material-icons').text('keyboard_arrow_down');
         ch.slideDown(200, function () {
           if (eqUI.ps) {
             eqUI.ps.update($('.eqftp-content__page_file-tree')[0]);
@@ -435,10 +438,10 @@ define(function (require, exports, module) {
       }
     };
     self.itemClose = function (path) {
-      var el = self.tpl.find('div[id="'+path+'"]'),
-          ch = el.find('.eqftp-fileTree__itemChildren:first');
+      var el = self.tpl.find('div[id="' + path + '"]'),
+        ch = el.find('.eqftp-fileTree__children:first');
       if (ch.is(':visible')) {
-        el.find('.eqftp-fileTree__itemInfo:first .eqftp-fileTree__itemIcon .material-icons').text('keyboard_arrow_right');
+        el.find('.eqftp-fileTree__info:first .eqftp-fileTree__icon .material-icons').text('keyboard_arrow_right');
         ch.slideUp(200, function () {
           if (eqUI.ps) {
             eqUI.ps.update($('.eqftp-content__page_file-tree')[0]);
@@ -447,17 +450,17 @@ define(function (require, exports, module) {
       }
     };
     self.itemToggle = function (path) {
-      var el = self.tpl.find('div[id="'+path+'"]'),
-          ch = el.find('.eqftp-fileTree__itemChildren:first');
+      var el = self.tpl.find('div[id="' + path + '"]'),
+        ch = el.find('.eqftp-fileTree__children:first');
       if (ch.is(':visible')) {
-        el.find('.eqftp-fileTree__itemInfo:first .eqftp-fileTree__itemIcon .material-icons').text('keyboard_arrow_right');
+        el.find('.eqftp-fileTree__info:first .eqftp-fileTree__icon .material-icons').text('keyboard_arrow_right');
         ch.slideUp(200, function () {
           if (eqUI.ps) {
             eqUI.ps.update($('.eqftp-content__page_file-tree')[0]);
           }
         });
       } else {
-        el.find('.eqftp-fileTree__itemInfo:first .eqftp-fileTree__itemIcon .material-icons').text('keyboard_arrow_down');
+        el.find('.eqftp-fileTree__info:first .eqftp-fileTree__icon .material-icons').text('keyboard_arrow_down');
         ch.slideDown(200, function () {
           if (eqUI.ps) {
             eqUI.ps.update($('.eqftp-content__page_file-tree')[0]);
@@ -473,14 +476,14 @@ define(function (require, exports, module) {
       self._rendered = {};
     };
   }();
-  
+
   eqUI.log = new function () {
     var self = this;
     self.tpl = eqUI.panel.tpl.find('.eqftp-footer__list');
     self.footer = eqUI.panel.tpl.find('.eqftp-footer');
     self.state = 'closed';
     self._hasPs = false;
-    
+
     self.toggle = function () {
       if (self.state === 'opened') {
         self.close();
@@ -525,25 +528,25 @@ define(function (require, exports, module) {
         eqUI.ps.update(self.tpl[0]);
       }
     };
-    
+
     self.get = function () {
       return self.tpl;
     };
   }();
-  
+
   eqUI.queue = new function () {
     var self = this;
     self.tpl = eqUI.panel.tpl.find('.eqftp-queue');
     self.have = [];
     self.queueElements = {};
-    
+
     self._gen = function (v) {
       return $(Mustache.render(require("text!htmlContent/queueElement.html"), _.defaults(_.clone(strings), {
         id: function () {
           return 'eqftp-queue-' + v.qid;
         },
         class: function () {
-          return ( (v.queue === 'f') ? 'eqftp-queue__item_error' : '' );
+          return ((v.queue === 'f') ? 'eqftp-queue__item_error' : '');
         },
         icon: function () {
           switch (v.queue) {
@@ -573,9 +576,9 @@ define(function (require, exports, module) {
     };
     self.render = function (items) {
       var add = _.differenceBy(items, self.have, 'qid'),
-          remove = _.differenceBy(self.have, items, 'qid'),
-          change = _.intersectionBy(items, self.have, 'qid');
-      
+        remove = _.differenceBy(self.have, items, 'qid'),
+        change = _.intersectionBy(items, self.have, 'qid');
+
       remove.forEach(function (v, i) {
         if (v.act === 'download' || v.act === 'upload') {
           (self.queueElements[v.qid] || $('#eqftp-queue-' + v.qid)).remove();
@@ -589,7 +592,9 @@ define(function (require, exports, module) {
         }
       });
       change.forEach(function (v, i) {
-        if (!_.isEqual(self.have[_.findIndex(self.have, { qid: v.qid })], v)) {
+        if (!_.isEqual(self.have[_.findIndex(self.have, {
+            qid: v.qid
+          })], v)) {
           $('#eqftp-queue-' + v.qid).replaceWith(self._gen(v));
           _.set(self.queueElements, v.qid, $('#eqftp-queue-' + v.qid));
         }
@@ -605,28 +610,28 @@ define(function (require, exports, module) {
         }, 5000);
       }
       var el = (self.queueElements[data.queuer.qid] || $('#eqftp-queue-' + data.queuer.qid)),
-          p = Math.floor(data.percents * 100);
+        p = Math.floor(data.percents * 100);
       el.find('.eqftp__progressBar:first').css('width', p + '%');
       self._setTotal(data);
     };
-    
+
     self.get = function () {
       return self.tpl;
     };
   }();
-  
+
   eqUI.connections = new function () {
     var self = this;
     self.tpl = eqUI.panel.tpl.find('.eqftp-connections');
     self.items = [];
-    
+
     self.editor = new function () {
       var connections = self,
-          self = this;
+        self = this;
       self.tpl = eqUI.panel.tpl.find('.eqftp-modal_connectionsSettings');
       self.state = 'closed';
       var activeClass = 'eqftp-connectionsSettings_active';
-      
+
       self.open = function () {
         if (self.state === 'closed') {
           self.tpl.addClass(activeClass);
@@ -665,7 +670,7 @@ define(function (require, exports, module) {
         });
         return r;
       };
-      
+
       self.edit = function (connection) {
         self.reset();
         if (connection) {
@@ -693,7 +698,7 @@ define(function (require, exports, module) {
         });
       };
     }();
-    
+
     self._gen = function (connection) {
       return $(Mustache.render(require("text!htmlContent/connectionElement.html"), _.defaults(_.clone(strings), {
         host: connection.server
@@ -744,12 +749,12 @@ define(function (require, exports, module) {
     };
     self.edit = self.editor.edit;
     self.new = self.editor.new;
-    
+
     self.get = function () {
       return self.tpl;
     };
   };
-  
+
   eqUI.settings = new function () {
     var self = this;
     self.tpl = eqUI.panel.tpl.find('.eqftp-content__page_settings');
@@ -762,7 +767,7 @@ define(function (require, exports, module) {
         self.masterPassword.hide();
       }
     });
-    
+
     self.set = function (settings) {
       if (!_.isObject(settings)) {
         return false;
@@ -783,14 +788,14 @@ define(function (require, exports, module) {
       return r;
     };
   }();
-  
+
   eqUI.password = new function () {
     var self = this;
     self.tpl = eqUI.panel.tpl.find('.eqftp-modal_password');
     var pass = self.tpl.find('[name="password"]');
     self.tpl.hide();
     self.state = 'hidden';
-    
+
     self.show = function (callback) {
       if (self.state === 'hidden') {
         self.tpl.show();
@@ -814,13 +819,13 @@ define(function (require, exports, module) {
       }
     };
   }();
-  
+
   eqUI.welcome = new function () {
     var self = this;
     self.tpl = eqUI.panel.tpl.find('.eqftp-modal_welcome');
     self.tpl.hide();
     self.state = 'hidden';
-    
+
     self.show = function () {
       if (self.state === 'hidden') {
         self.tpl.show();
@@ -841,7 +846,7 @@ define(function (require, exports, module) {
       }
     };
   }();
-  
+
   eqUI.explorer = new function () {
     var self = this;
     self.saveFile = function (title, start, filename, callback) {
@@ -876,7 +881,7 @@ define(function (require, exports, module) {
       });
     };
   }();
-  
+
   /*
   eqUI.dropdown = new function () {
     var self = this;
@@ -886,6 +891,6 @@ define(function (require, exports, module) {
     }
   };
   */
-  
+
   return eqUI;
 });
