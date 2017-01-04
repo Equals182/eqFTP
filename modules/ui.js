@@ -656,6 +656,7 @@ define(function (require, exports, module) {
       };
       self.reset = function () {
         self.tpl.find('[name="id"]').remove();
+        self.tpl.find('[eqftp-remove]').hide();
         self.tpl.find('input, select, textarea').each(function () {
           setInputNameValue($(this));
         });
@@ -665,7 +666,7 @@ define(function (require, exports, module) {
         self.tpl.find('input, select, textarea').each(function () {
           var p = getInputNameValue($(this));
           if (p) {
-            r[p.name] = p.value;
+            _.set(r, p.name, p.value);
           }
         });
         return r;
@@ -687,7 +688,10 @@ define(function (require, exports, module) {
             var c = self.tpl.find('[name="' + name + '"]');
             setInputNameValue(c, value);
           });
-          self.tpl.append('<input name="id" type="hidden" value="' + (connection.id || '') + '"/>');
+          if (connection.id) {
+            self.tpl.append('<input name="id" type="hidden" value="' + (connection.id || '') + '"/>');
+            self.tpl.find('[eqftp-remove]').attr('eqftp-remove', (connection.id || '')).show();
+          }
         }
         self.open();
       };
@@ -708,6 +712,7 @@ define(function (require, exports, module) {
       if (_.isObject(connections)) {
         var _c = [];
         _.forOwn(connections, function (v, i) {
+          //_c.push(_.defaultsDeep(connections.settings[i], (connections.credentials[i] || {})));
           _c.push(v);
         });
         connections = _c;
@@ -795,22 +800,24 @@ define(function (require, exports, module) {
     var pass = self.tpl.find('[name="password"]');
     self.tpl.hide();
     self.state = 'hidden';
+    self._callback = function () {};
 
     self.show = function (callback) {
+      self.tpl.find('#eqftpDecrypt').off('click', self._callback);
       if (self.state === 'hidden') {
         self.tpl.show();
         self.state = 'shown';
       }
-      var _on = function () {
+      self._callback = function () {
         var p = pass.val();
         pass.val('');
         self.hide();
         if (_.isFunction(callback)) {
           callback(p);
         }
-        self.tpl.find('#eqftpDecrypt').off('click', _on);
+        self.tpl.find('#eqftpDecrypt').off('click', self._callback);
       };
-      self.tpl.find('#eqftpDecrypt').on('click', _on);
+      self.tpl.find('#eqftpDecrypt').on('click', self._callback);
     };
     self.hide = function () {
       if (self.state === 'shown') {
@@ -882,6 +889,34 @@ define(function (require, exports, module) {
     };
   }();
 
+  eqUI.dialog = new function () {
+    var self = this;
+    self.tpl = require("text!htmlContent/dialogElement.html");
+    
+    self.new = function (params, callback) {
+      if (!callback) {
+        callback = function () {};
+      }
+      var dialog = $(Mustache.render(self.tpl, _.defaults(params, {
+        action1: strings.eqftp__controls__ok,
+        action2: strings.eqftp__controls__cancel
+      })));
+      eqUI.panel.get().prepend(dialog);
+      var once = _.once(function (e) {
+        var action = $(this).attr('eqftp-button');
+        switch(action) {
+          case 'action1':
+            callback(true);
+            break;
+          case 'action2':
+            callback(false);
+            break;
+        }
+        dialog.remove();
+      });
+      dialog.find('[eqftp-button]').on('click', once);
+    };
+  }();
   /*
   eqUI.dropdown = new function () {
     var self = this;

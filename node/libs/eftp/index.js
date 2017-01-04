@@ -28,9 +28,25 @@ var v = process.version.replace(/^[^d]/, '');
   }
 });
 
+function EasyFTP() {
+  if (!this instanceof EasyFTP) { throw "must 'new EasyFTP()'"; }
+  EventEmitter.call(this);
+}
+util.inherits(EasyFTP, EventEmitter);
 
-FTPClient.prototype._emitProgress = function () {};
+var _progressEvent = function () {};
 
+FTPClient.prototype.setEmitProgress = function (queuer) {
+  FTPClient.prototype.emitProgress = function (data) {
+    _progressEvent({
+      queuer: queuer,
+      filename: data.filename,
+      action: data.action,
+      total: data.totalSize || (data.queuer ? data.queuer.size : undefined) || queuer.size || 0,
+      transferred: data.socket[data.action === 'get' ? 'bytesRead' : 'bytesWritten']
+    });
+  };
+};
 /**
  * Depending on the number of parameters, returns the content of the specified
  * file or directly saves a file into the specified destination. In the latter
@@ -45,6 +61,7 @@ FTPClient.prototype._get = function (queuer, callback) {
   var self = this;
   var finalCallback;
 
+  FTPClient.prototype.setEmitProgress(queuer);
   if (typeof queuer.localpath === 'function') {
     finalCallback = once(queuer.localpath || NOOP);
   } else {
@@ -59,9 +76,9 @@ FTPClient.prototype._get = function (queuer, callback) {
 
       if (_fix_version === '0.10.30') {
         socket.on('readable', function () {
-          self._emitProgress({
+          FTPClient.prototype.emitProgress({
             queuer: queuer,
-            action: 'download',
+            action: 'get',
             socket: socket
           });
         });
@@ -76,9 +93,9 @@ FTPClient.prototype._get = function (queuer, callback) {
 
       if (_fix_version === '6.3.2') {
         socket.on('data', function(data) {
-          self._emitProgress({
+          FTPClient.prototype.emitProgress({
             queuer: queuer,
-            action: 'download',
+            action: 'get',
             socket: socket
           });
         }).pipe(writeStream);
@@ -91,6 +108,62 @@ FTPClient.prototype._get = function (queuer, callback) {
   }
 
   this.getGetSocket(queuer.remotepath, finalCallback);
+};
+
+FTPClient.prototype._put = function (queuer, callback) {
+  FTPClient.prototype.setEmitProgress(queuer);
+  var self = this,
+      from = queuer.localpath,
+      to = queuer.remotepath;
+
+  function putReadable(from, to, totalSize, callback, bs) {
+    var transferred = 0;
+    from.on('readable', function() {
+      transferred += (bs || 0);
+      if (transferred) {
+        from.bytesWritten = transferred * 22;
+      }
+      self.emitProgress({
+        filename: to,
+        action: 'put',
+        socket: from,
+        totalSize: totalSize
+      });
+    });
+
+    self.getPutSocket(to, function(err, socket) {
+      if (!err) {
+        from.pipe(socket);
+      }
+    }, callback);
+  }
+
+  if (from instanceof Buffer) {
+    this.getPutSocket(to, function(err, socket) {
+      if (!err) {
+        socket.end(from);
+      }
+    }, callback);
+  } else if (typeof from === 'string') {
+    fs.stat(from, function(err, stats) {
+      if (err && err.code === 'ENOENT') {
+        return callback(new Error("Local file doesn't exist."));
+      }
+
+      if (stats.isDirectory()) {
+        return callback(new Error('Local path cannot be a directory'));
+      }
+
+      var totalSize = err ? 0 : stats.size;
+      var bs = 4 * 1024;
+      var localFileStream = fs.createReadStream(from, {
+        bufferSize: bs
+      });
+      putReadable(localFileStream, to, totalSize, callback, bs);
+    });
+  } else { // `from` is a readable stream
+    putReadable(from, to, from.size, callback);
+  }
 };
 
 function parsePasvList(data) {
@@ -141,12 +214,6 @@ function parsePasvList(data) {
   return arr;
 }
 
-function EasyFTP() {
-  if (!this instanceof EasyFTP) { throw "must 'new EasyFTP()'"; }
-  EventEmitter.call(this);
-}
-util.inherits(EasyFTP, EventEmitter);
-
 EasyFTP.prototype.init = function (config) {
   this.isConnect = false;
   this.isLoginFail = false;
@@ -189,6 +256,7 @@ EasyFTP.prototype.connect = function (config) {
       console.log('!!!error: ', arguments);
     },
     progress: _.throttle(function (data) {
+      console.log('!!!progress', data);
       self.emit('progress', {
         queuer: data.queuer,
         direction: data.direction,
@@ -198,6 +266,7 @@ EasyFTP.prototype.connect = function (config) {
       });
     }, 100)
   };
+  _progressEvent = self.events.progress;
   
   if (!config) {
     throw "must config param";
@@ -229,14 +298,6 @@ EasyFTP.prototype.connect = function (config) {
       this.client.connect(c);
       break;
     case 'ftp':
-      FTPClient.prototype._emitProgress = function (data) {
-        self.events.progress({
-          queuer: data.queuer,
-          direction: data.action,
-          total: data.totalSize || data.queuer.size,
-          transferred: data.socket[data.action === 'download' ? 'bytesRead' : 'bytesWritten']
-        });
-      };
       this.client = new FTPClient({
         host: config.host,
         port: config.port || 21,
@@ -527,7 +588,7 @@ EasyFTP.prototype.download = function (queuer, cb) {
   
   if (!this.isConnect) {
     this.waitConnect(function () {
-      self.download(queuer.localpath, queuer.remotepath, cb);
+      self.download(queuer, cb);
     });
   } else {
     switch (this.config.type) {
@@ -602,7 +663,7 @@ EasyFTP.prototype.upload = function (queuer, cb) {
   var self = this;
   if (!this.isConnect) {
     this.waitConnect(function () {
-      self.download(queuer.localpath, queuer.remotepath, cb);
+      self.upload(queuer, cb);
     });
   } else {
     var action = function () {
@@ -632,7 +693,7 @@ EasyFTP.prototype.upload = function (queuer, cb) {
           });
           break;
         case 'ftp':
-          self.client.put(queuer.localpath, queuer.remotepath, function (err) {
+          self.client._put(queuer, function (err) {
             if (err) {
               if (cb) {
                 cb(err);

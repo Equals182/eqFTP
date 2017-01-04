@@ -20,6 +20,10 @@ maxerr: 50, node: true */
     try { JSON.parse(input); } catch (e) { return false; }
     return true;
   };
+  
+  var debug = function () {
+    console.log('[eqFTP node]', ...arguments);
+  };
 
   var AES = {
     encrypt: function (input, passphrase) {
@@ -86,95 +90,7 @@ maxerr: 50, node: true */
   var eqftp = {};
   eqftp.commands = _commands.get;
   eqftp.cache = {};
-  eqftp.watch = new function () {
-    var self = this;
-    self._watching = {};
-    
-    self.add = function (connection, localpath) {
-      if (!connection) {
-        return false;
-      }
-      if (!localpath) {
-        localpath = connection.localpath;
-      }
-      if (localpath) {
-        if (!connection.isTmp) {
-          if (!_.has(self._watching, connection.id)) {
-            var w = chokidar.watch(localpath, {
-              ignored: (connection.ignore_list || '').splitIgnores(),
-              persistent: true,
-              awaitWriteFinish: true,
-              cwd: localpath,
-              ignoreInitial: true
-            });
-            w.on('add', function (path, stats) {
-              path = utils.normalize(path);
-              console.log('add', path, stats);
-            })
-            .on('change', function (path, stats) {
-              console.log('change', path, stats);
-              path = utils.normalize(path);
-              if (!/^\//.test(path)) {
-                path = utils.normalize(connection.localpath + '/' + path);
-              }
-              if (!eqftp.cache._recently_downloaded) {
-                eqftp.cache._recently_downloaded = [];
-              }
-              var rd = _.findIndex(eqftp.cache._recently_downloaded, {id: connection.id, localpath: path});
-              if (rd > -1) {
-                eqftp.cache._recently_downloaded.splice(rd, 1);
-                return false;
-              }
-              self._[connection.id].upload(path, function () {}, function () {});
-            })
-            .on('unlink', function (path, stats) {
-              path = utils.normalize(path);
-              console.log('unlink', path, stats);
-            });
-            self._watching[connection.id] = {
-              chokidar: w,
-              localpaths: [localpath]
-            };
-          } else if (self._watching[connection.id].localpaths.indexOf(localpath) < 0) {
-            self._watching[connection.id].chokidar.add(localpath);
-            self._watching[connection.id].localpaths.push(localpath);
-          }
-          return true;
-        } else {
-          if (!_.has(self._watching, connection.id)) {
-            var w = chokidar.watch(localpath);
-            w.on('change', function (path) {
-              console.log('change tmp', path, arguments);
-            });
-            self._watching[connection.id] = {
-              chokidar: w,
-              localpaths: [localpath]
-            };
-          } else if (self._watching[connection.id].localpaths.indexOf(localpath) < 0) {
-            self._watching[connection.id].chokidar.add(localpath);
-            self._watching[connection.id].localpaths.push(localpath);
-          }
-          return true;
-        }
-      } else {
-        return false;
-      }
-    };
-    self.remove = function (id, localpath) {
-      if (id && _.has(self._watching, id)) {
-        if (localpath) {
-          self._watching[id].chokidar.unwatch(localpath);
-          _.pull(self._watching[id].localpaths, localpath);
-        }
-        if (!localpath || self._watching[id].localpaths.length < 1) {
-          self._watching[id].chokidar.stop();
-          _.unset(self._watching, id);
-        }
-      } else {
-        return false;
-      }
-    };
-  }();
+
   eqftp.settings = new function () {
     var self = this;
     self._version = '1.0.0';
@@ -182,89 +98,134 @@ maxerr: 50, node: true */
     self.currentSettingsFile = false;
     self.settings = false;
 
-    self._process = function (data, direction, password) {
-      if (!direction || !data || _.isError(data)) {
-        return new Error('Data or direction is empty');
+    self.mutate = function (settings) {
+      // TODO: Mutate settings file with lower version to newer
+      return settings;
+    };
+    self._cc = function (act, source) {
+      // cc - convert connections
+      if (!source) {
+        source = _.cloneDeep(self.settings.connections);
       }
-      data = _.cloneDeep(data);
-
-      switch (direction) {
-        case 'fromJSON':
-          if (!_.isString(data)) {
-            return new Error('NOTASTRING');
-          } else {
-            if (!_.isJSON(data)) {
-              return new Error('NOTAJSON');
-            } else {
-              data = JSON.parse(data);
-              if (!_.isObject(data)) {
-                return new Error('NOTANOBJECT');
-              }
-              if (data.misc.encrypted === true) {
-                if (!password) {
-                  password = self.password;
-                }
-                if (!password) {
-                  return new Error('NEEDPASSWORD');
-                }
-                data.connections = AES.decrypt(data.connections, password);
-                if (_.isJSON(data.connections)) {
-                  data.connections = JSON.parse(data.connections);
-                  return data;
-                } else {
-                  return new Error('DECRYPTEDNOTAJSON');
-                }
-              } else {
-                return data;
-              }
-            }
-          }
-        case 'toJSON':
-          if (!_.isObject(data)) {
-            return new Error('NOTANOBJECT');
-          } else {
-            if (data.misc.encrypted === true) {
-              if (!password) {
-                password = self.password;
-              }
-              if (!password) {
-                return new Error('NEEDPASSWORD');
-              }
-              data.connections = AES.encrypt(data.connections, password);
-              data = JSON.stringify(data, null, 4);
-            } else {
-              data = JSON.stringify(data, null, 4);
-            }
-          }
+      if (!_.isObject(source)) {
+        return false;
+      }
+      switch (act) {
+        case 'split':
+          var cs = {}, cc = {};
+          _.forOwn(source, function (connection, id) {
+            _.set(cs, id, _.pick(connection, [
+              'id',
+              'name',
+              'localpath',
+              'remotepath',
+              'check_difference',
+              'autoupload',
+              'ignore_list'
+            ]));
+            _.set(cc, id, _.pick(connection, [
+              'protocol',
+              'server',
+              'port',
+              'login',
+              'password'
+            ]));
+          });
+          return {
+            settings: cs,
+            credentials: cc
+          };
+          break;
+        case 'join':
+        default:
+          var c = {};
+          _.forOwn(source.settings, function (connection, id) {
+            _.set(c, id, _.merge(source.settings[id], (source.credentials[id] || {}), {id: id}));
+          });
+          return c;
           break;
       }
-      return data;
     };
     self.get = function (settingsFile, password) {
-      if (password === null) {
-        password = undefined;
-      }
-      self.password = password;
+      //this function loads settings file or returns current loaded settings
+      debug('eqftp.settings.get fired', settingsFile, password);
+      
       if (settingsFile) {
+        if (password === null) {
+          password = undefined;
+        }
+        self.password = password;
+        debug('self.password is now', self.password);
+        
         settingsFile = utils.normalize(settingsFile);
         if (!fs.existsSync(settingsFile)) {
           throw new Error('FILENOTEXIST');
         }
+        
         settingsFile = fs.realpathSync(settingsFile);
-        self.settings = self._process(fs.readFileSync(settingsFile, {encoding: 'UTF-8'}), 'fromJSON', password);
-        if (_.isError(self.settings)) {
-          throw new Error(self.settings);
+        self.settings = false;
+        
+        debug('reading settings file');
+        var read = fs.readFileSync(settingsFile, {encoding: 'UTF-8'});
+        if (!_.isJSON(read)) {
+          throw new Error('NOTAJSON');
         }
-        eqftp.connections._set(self.settings.connections);
+        read = JSON.parse(read);
+        if (!_.isObject(read) || !_.has(read, 'misc.version')) {
+          throw new Error('NOTASETTINGSFILE');
+        }
+        debug('mutating settings file');
+        read = self.mutate(read);
+        self.settings = _.cloneDeep(read);
         self.currentSettingsFile = settingsFile;
+        
+        debug('joining connections objects', self.settings.connections);
+        var joined = self._cc('join', self.settings.connections);
+        debug('joined', joined);
+        
+        debug('is encrypted?', self.settings.misc.encrypted);
+        if (self.settings.misc.encrypted === true) {
+          if (!self.password) {
+            self.settings.connections = joined;
+            eqftp.connections._set(self.settings.connections);
+            throw new Error('NEEDPASSWORD');
+          }
+          debug('decrypting', self.settings.connections.credentials);
+          self.settings.connections.credentials = AES.decrypt(self.settings.connections.credentials, password);
+          debug('decrypted', self.settings.connections.credentials);
+          if (_.isJSON(self.settings.connections.credentials)) {
+            self.settings.connections.credentials = JSON.parse(self.settings.connections.credentials);
+            debug('joining connections objects2', self.settings.connections);
+            joined = self._cc('join', self.settings.connections);
+            debug('joined2', joined);
+          } else {
+            throw new Error('DECRYPTEDNOTAJSON');
+          }
+        }
+        self.settings.connections = joined;
+        debug('self.settings.connections', self.settings.connections);
+        debug('firing eqftp.connections._set');
+        eqftp.connections._set(self.settings.connections);
       }
+      
       if (!self.settings) {
         throw new Error('NOSETTINGS');
       }
+      
       return self.settings;
     };
     self.set = function (settings, password, path) {
-      settings = _.defaultsDeep(settings, _.cloneDeep(self.settings), {
+      debug('eqftp.settings.set fired', settings, password, path);
+      if (_.has(settings, 'connections')) {
+        settings.connections = self._cc('split', settings.connections);
+        debug('splitted', settings.connections);
+      }
+      var currentSettings = _.cloneDeep(self.settings);
+      if (_.has(currentSettings, 'connections') && !_.has(currentSettings, 'connections.settings')) {
+        currentSettings.connections = self._cc('split', currentSettings.connections);
+        debug('splitted2', settings.connections);
+      }
+      settings = _.defaultsDeep(settings, currentSettings, {
         main: {
           projects_folder: (path ? utils.normalize(utils.getNamepart(path, 'parentPath') + '/eqftp') : utils.normalize(os.homedir() + '/eqftp')),
           date_format: "d.m.Y",
@@ -275,12 +236,15 @@ maxerr: 50, node: true */
           version: self._version,
           encrypted: false
         },
-        localpaths: {},
-        connections_data: {},
-        connections: {}
+        connections: {
+          settings: {},
+          credentials: {}
+        }
       });
+      debug('defaulted', settings);
       _.unset(settings, ['settings_file', 'master_password']);
       var settingsFile = utils.normalize((path || self.currentSettingsFile));
+      debug('settingsFile', settingsFile);
       if (!settingsFile) {
         throw new Error('NOSETTINGSPATHPASSED');
       }
@@ -290,8 +254,22 @@ maxerr: 50, node: true */
       }
       */
       settingsFile = fs.realpathSync(settingsFile);
-      settings = self._process(settings, 'toJSON', password);
-      fs.writeFile(settingsFile, settings, {encoding: 'UTF-8'}, function (err, data) {
+      if (_.get(settings, 'misc.encrypted') === true) {
+        debug('needs encryption');
+        if (!password) {
+          password = self.password;
+        }
+        debug('password', password);
+        if (!password) {
+          throw new Error('NEEDPASSWORD');
+        }
+        /*if (_.isObject(settings.connections.credentials)) {
+          settings.connections.credentials = JSON.stringify(settings.connections.credentials);
+        }*/
+        debug('credentials', settings.connections.credentials);
+        settings.connections.credentials = AES.encrypt(settings.connections.credentials, password);
+      }
+      fs.writeFile(settingsFile, JSON.stringify(settings, null, 4), {encoding: 'UTF-8'}, function (err, data) {
         if (err) {
           _domainManager.emitEvent("eqFTP", "event", {
             action: 'settings:save:fail',
@@ -313,6 +291,7 @@ maxerr: 50, node: true */
       return true;
     };
     self.setConnection = function (connection) {
+      debug('eqftp.settings.setConnection fired', connection);
       var uniq = utils.uniq();
       var defaults = {
         protocol: 'ftp',
@@ -323,16 +302,19 @@ maxerr: 50, node: true */
         localpath: utils.normalize(eqftp.settings.get().main.projects_folder + '/' + (connection.name || uniq)),
         ignore_list: ''
       };
+      debug('defaults', defaults);
       connection = _.omitBy(connection, _.isEmpty);
+      debug('cleared connection', connection);
       if (!_.isObject(connection)) {
         throw new Error('NOTANOBJECT');
       }
       if (!connection.server) {
         throw new Error('NOSERVERSET');
       }
+      debug('connection.id is', connection.id);
       if (!connection.id) {
         connection.id = utils.uniq();
-        connection = _.defaults(connection, defaults);
+        connection = _.defaultsDeep(connection, defaults);
       } else {
         var _c = _.get(eqftp, ['connections', 'a', connection.id]);
         if (!_c) {
@@ -340,19 +322,23 @@ maxerr: 50, node: true */
         } else {
           _c = _.omitBy(_c, _.isEmpty);
         }
-        connection = _.defaults(connection, _c, defaults);
+        connection = _.defaultsDeep(connection, _c, defaults);
       }
+      debug('connection is a connection object?', _.isConnection(connection));
       if (!_.isConnection(connection)) {
         throw new Error('NOTACONNECTIONOBJECT');
       }
+      if (connection.localpath !== self.settings.connections[connection.id] && _.has(eqftp, ['connections', '_', connection.id, '_watch'])) {
+        debug('connection\'s localpath is different from what it was');
+        eqftp.connections._[connection.id]._watch.stop();
+        eqftp.connections._[connection.id]._watch = undefined;
+      }
+      debug('final connection object', connection);
       eqftp.connections._set(connection.id, connection);
       self.settings.connections[connection.id] = connection;
+      debug('eqftp.settings.settings', self.settings);
       
-      self.settings.localpaths[connection.id] = connection.localpath;
-      if (!connection.isTmp) {
-        eqftp.watch.add(connection);
-      }
-      
+      debug('do we have file to save settings to?', self.currentSettingsFile);
       if (self.currentSettingsFile) {
         self.set(self.settings, self.password, self.currentSettingsFile);
       }
@@ -410,9 +396,14 @@ maxerr: 50, node: true */
       callback(null, params);
     };
     self._set = function (id, settings) {
+      debug('eqftp.connections._set fired');
       if (_.isUndefined(settings) && _.isObject(id)) {
+        debug('bulk resetting');
         // bulk resetting
         _.forOwn(self._, function (c, id) {
+          if (_.has(self, ['_', id, '_watch'])) {
+            self._[id]._watch.close();
+          }
           c.close();
         });
         self._ = {};
@@ -421,23 +412,91 @@ maxerr: 50, node: true */
           self._set(id, c);
         });
       } else {
+        debug('setting by one', id, settings);
         // setting by one
         if (self._[id]) {
+          debug('closing existing connection', id);
+          if (_.has(self, ['_', id, '_watch'])) {
+            self._[id]._watch.close();
+          }
           self._[id].close();
         }
+        if (!settings) {
+          debug('getting connections by id', id);
+          settings = _.get(eqftp.settings.get(), ['connections', id]);
+          if (!settings) {
+            return false;
+          }
+        }
         self.$[id] = _.cloneDeep(settings);
+        debug('self.$', self.$[id]);
+        self.a = _.defaultsDeep(self.$, self.t);
+        debug('self.a', self.a[id]);
         self._[id] = new Proxy(
           _.defaultsDeep(_.cloneDeep(settings), {
-            isBusy: false,
+            _watch: function () {
+              if (!settings.isTmp && settings.localpath) {
+                var w = chokidar.watch(settings.localpath, {
+                  ignored: (settings.ignore_list || '').splitIgnores(),
+                  persistent: true,
+                  awaitWriteFinish: true,
+                  cwd: settings.localpath,
+                  ignoreInitial: true
+                });
+                debug('[watcher]', 'initialized', settings.localpath);
+                w.on('add', function (path, stats) {
+                  path = utils.normalize(path);
+                  debug('[watcher]', 'add', path, stats);
+                })
+                .on('change', function (path, stats) {
+                  debug('[watcher]', 'change', path, stats);
+                  path = utils.normalize(path);
+                  if (!/^\//.test(path)) {
+                    path = utils.normalize(settings.localpath + '/' + path);
+                  }
+                  debug('eqftp.cache._recently_downloaded', eqftp.cache._recently_downloaded);
+                  if (!eqftp.cache._recently_downloaded) {
+                    eqftp.cache._recently_downloaded = [];
+                  }
+                  var rd = _.findIndex(eqftp.cache._recently_downloaded, {id: id, localpath: path});
+                  if (rd > -1) {
+                    eqftp.cache._recently_downloaded.splice(rd, 1);
+                    return false;
+                  }
+                  eqftp.connections._[id].upload(path, function () {}, function () {});
+                })
+                .on('unlink', function (path, stats) {
+                  path = utils.normalize(path);
+                  debug('[watcher]', 'unlink', path, stats);
+                });
+                return w;
+              }
+              return undefined;
+            }(),
             _queue: [],
             queue: new function () {
               var queue = this;
+              queue.accept = true;
               queue.q = [];
+              queue.isBusy = false;
               
+              queue.reset = function (accept) {
+                queue.q = [];
+                queue.isBusy = false;
+                queue.accept = !!accept;
+                _domainManager.emitEvent("eqFTP", "event", {
+                  action: 'queue:update',
+                  data: eqftp.queue.get()
+                });
+              };
               queue.get = function () {
                 return queue.q;
               };
               queue.add = function (queuer, prepend) {
+                if (!queue.accept) {
+                  return false;
+                }
+                
                 if (!queue.q) {
                   queue.q = [];
                 }
@@ -449,21 +508,53 @@ maxerr: 50, node: true */
                 } else {
                   queue.q.push(queuer);
                 }
+                _.set(eqftp.cache, ['queue', id], queue.q);
+                debug('eqftp.cache.queue', id, eqftp.cache.queue[id]);
+                
                 _domainManager.emitEvent("eqFTP", "event", {
                   action: 'queue:update',
                   data: eqftp.queue.get()
                 });
+                
                 queue.next();
               };
               queue.next = function () {
+                debug('checking if password was entered');
+                var settings = eqftp.settings.get();
+                if (_.has(settings, 'misc.encrypted') &&
+                  (
+                    (!!_.get(settings, 'misc.encrypted')) === true &&
+                    !eqftp.settings.password
+                  ) ||
+                  (
+                    !_.has(eqftp.connections, ['_', id, 'server']) ||
+                    !_.has(eqftp.connections, ['_', id, 'login'])
+                  )
+                ) {
+                  debug('forcing password prompt');
+                  // Not decrypted yet, don't start queue
+                  _domainManager.emitEvent("eqFTP", "event", {
+                    action: 'settings:forcedneedpassword',
+                    data: ['connections', id, 'queue.next']
+                  });
+                  return false;
+                }
+                debug('cached queue', _.has(eqftp.cache, ['queue', id]), eqftp.cache.queue[id]);
+                if (!_.has(eqftp.cache, ['queue', id])) {
+                  _.set(eqftp.cache, ['queue', id], []);
+                }
+                queue.q = eqftp.cache.queue[id];
+                debug('our queue', queue.q);
                 if (queue.q && queue.q.length > 0) {
-                  if (!self._[id].isBusy) {
-                    self._[id].isBusy = true;
+                  debug('are we busy?', queue.isBusy);
+                  if (!queue.isBusy) {
+                    queue.isBusy = true;
                   } else {
                     // not going anywhere were busy
                     return false;
                   }
                   var f = _.findIndex(queue.q, {queue: 'a'});
+                  debug('do we have any a\'s?', f);
                   if (f < 0) {
                     return false;
                   }
@@ -473,16 +564,18 @@ maxerr: 50, node: true */
                       progress = _.nth(args, -1);
 
                   var finisher = function (err, data) {
+                    debug('firing finisher');
                     var i = _.findIndex(queue.q, {qid: queuer.qid});
                     if (i > -1) {
                       queuer = (_.pullAt(queue.q, i))[0];
+                      _.set(eqftp.cache, ['queue', id], queue.q);
                       if (err) {
                         queuer.queue = 'f';
                         queuer.err = err;
                         queue.add(queuer, true);
                       }
                     }
-                    self._[id].isBusy = false;
+                    queue.isBusy = false;
                     if (!err) {
                       _domainManager.emitEvent("eqFTP", "event", {
                         action: 'queue:update',
@@ -493,6 +586,7 @@ maxerr: 50, node: true */
                     callback(err, data);
                   };
                   var cb = function (err, data) {
+                    debug('firing callback', err, data);
                     // POST-HOOKS
                     switch(queuer.act) {
                       case 'ls':
@@ -530,15 +624,26 @@ maxerr: 50, node: true */
                           }], function (a, b) {
                             return (a.id === b.id && a.localpath === b.localpath);
                           });
+                          debug('eqftp.cache._recently_downloaded', eqftp.cache._recently_downloaded);
                           if (self._[id].isTmp) {
                             if (!eqftp.cache._tmp_downloaded) {
                               eqftp.cache._tmp_downloaded = [];
                             }
                             eqftp.cache._tmp_downloaded.push({
                               params: args[0],
-                              connection: self.$[id]
+                              connection: self.a[id]
                             });
-                            eqftp.watch.add(self.t[id], args[0].localpath);
+                            if (!self._[id]._watch) {
+                              var w = chokidar.watch(args[0].localpath, {
+                                ignoreInitial: true
+                              });
+                              w.on('change', function (path) {
+console.log('[watcher]', 'change tmp', path, arguments);
+                              });
+                              self._[id]._watch = w;
+                            } else {
+                              self._[id]._watch.add(args[0].localpath);
+                            }
                           }
                         }
                         break;
@@ -556,6 +661,7 @@ maxerr: 50, node: true */
                   };
 
                   args.splice(-2, 2, cb, pr);
+                  debug('opening connection', id);
                   self._[id].open(function (err) {
                     if (!err) {
                       self._[id]._server[queuer.act](...args);
@@ -567,13 +673,38 @@ maxerr: 50, node: true */
               };
             }(),
             open: function (cb) {
+              debug('eqftp.connections[id].open fired', id, cb);
               if (_.isFunction(cb)) {
                 cb = _.once(cb);
               }
+              debug('do we have _server?', !!self._[id]._server);
               if (self._[id]._server) {
                 cb(null, id);
                 return true;
               }
+
+              debug('my donor', self.a, self.a[id]);
+              var settings = {
+                  host: self.a[id].server,
+                  type: self.a[id].protocol,
+                  port: self.a[id].port || 21,
+                  username: self.a[id].login,
+                  password: self.a[id].password,
+                  debugMode: true
+              };
+              if (self.a[id].rsa) {
+                  settings.privateKey = self.a[id].rsa;
+              }
+              
+              debug('settings', settings);
+              if (
+                !settings.host ||
+                !settings.username
+              ) {
+                cb(new Error('NOHOSTORUSERNAMESET'));
+                return false;
+              }
+
               self._[id]._server = new EFTP();
 
               self._[id]._server.on('ready', function () {
@@ -610,22 +741,22 @@ maxerr: 50, node: true */
                 });
               });
 
-              var settings = {
-                  host: self.a[id].server,
-                  type: self.a[id].protocol,
-                  port: self.a[id].port || 21,
-                  username: self.a[id].login,
-                  password: self.a[id].password,
-                  debugMode: true
-              };
-              if (self.a[id].rsa) {
-                  settings.privateKey = self.a[id].rsa;
-              }
+              debug('connecting', settings)
               self._[id]._server.connect(settings);
+            },
+            remove: function () {
+              self._[id].queue.reset();
+              self._[id].close();
+              _.unset(self, ['_', id]);
+              _.unset(self, ['$', id]);
+              _.unset(self, ['a', id]);
+              _.unset(self, ['t', id]);
+              self.event_update();
+              _.unset(eqftp, ['settings', 'settings', 'connections', id]);
+              eqftp.settings.set(eqftp.settings.get());
             },
             close: function () {
               if (self._[id]) {
-                eqftp.watch.remove(id);
                 if (self._[id]._server) {
                   self._[id]._server.close();
                 }
@@ -657,7 +788,8 @@ maxerr: 50, node: true */
                   return eqftp.cache._tmp_downloaded[tmp].params.remotepath;
                 }
               }
-              return utils.normalize((self._[id].remotepath || self._[id]._startpath) + '/' + localpath.replace(RegExp("^" + (self._[id].localpath || '')), ''));
+              var startpath = (self._[id].remotepath || self._[id]._startpath || '');
+              return utils.normalize((startpath ? (startpath + '/') : '') + localpath.replace(RegExp("^" + (self._[id].localpath || '')), ''));
             }
           }),
         {
@@ -699,19 +831,20 @@ maxerr: 50, node: true */
                       break;
                   }
 
-                  self._[id].queue.add({
+                  var queuer = {
                     qid: qid,
                     id: id,
                     act: method,
                     args: args,
                     queue: 'a'
-                  }, prepend);
+                  };
+                  debug('adding to queue', queuer, prepend);
+                  self._[id].queue.add(queuer, prepend);
                 };
                 break;
             }
           }
         });
-        self.a = _.defaultsDeep(self.$, self.t);
         self.event_update();
       }
     };
@@ -725,6 +858,7 @@ maxerr: 50, node: true */
       }
     };
     self._getByLocalpath = function (localpath, callback) {
+      debug('eqftp._getByLocalpath fired');
       if (!callback) {
         callback = function () {};
       }
@@ -843,7 +977,7 @@ maxerr: 50, node: true */
         ]
       },
       {
-        command: "connections",
+        command: "_connections",
         async: true,
         description: 'Connects to server via id or credentials',
         parameters: [
@@ -851,26 +985,34 @@ maxerr: 50, node: true */
         ],
         returns: [],
         cmd: function () {
+          debug('called from outside', arguments);
           var args = [...arguments],
               path = args.shift(),
               cb = _.nth(args, -2),
               pr = _.nth(args, -1);
           if (path < 1) {
             var all = eqftp.connections._get();
+            debug('returning', all);
             if (_.isFunction(cb)) {
               cb(null, all);
             }
             return all;
           } else {
+            debug('checking eqftp.connections._get', path[0]);
             if (eqftp.connections._get(path[0])) {
+              debug('we have it');
               // we have such connection
+              debug('getting', eqftp.connections._get(path[0]), _.tail(path));
               var f = _.get(eqftp.connections._get(path[0]), _.tail(path));
+              debug('got', f.toString(), args);
               if (f) {
                 f(...args);
                 return true;
               }
             } else {
+              debug('we DONT have it');
               var f = _.get(eqftp.connections, path);
+              debug('got2', f.toString());
               if (f) {
                 f(...args);
                 return true;

@@ -36,19 +36,6 @@
   </div>
   <!-- /HEADER -->
 
-  <!-- DIALOGS -->
-  <div class="eqftp-dialogs">
-    <div class="eqftp-dialogs__holder">
-      <div class="eqftp-dialogs__title">Title title title title title title title title</div>
-      <div class="eqftp-dialogs__content">Content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content content</div>
-      <div class="eqftp-dialogs__actions">
-        <div class="eqftp__button eqftp__button_marginRightReset eqftp__buttonRectangle eqftp__buttonRectangle_nobg">action 1</div>
-        <div class="eqftp__button eqftp__buttonRectangle eqftp__buttonRectangle_nobg">action 2</div>
-      </div>
-    </div>
-  </div>
-  <!-- /DIALOGS -->
-
   <!-- WELCOME PAGE -->
   <div class="eqftp-modal eqftp-modal_welcome">
 
@@ -190,7 +177,7 @@
 
       <!-- ACTIONS -->
       <div class="eqftp__row eqftp__row_end">
-        <div class="eqftp__button eqftp__buttonRectangle eqftp__buttonRectangle_nobg">{{eqftp__controls__delete}}</div>
+        <div class="eqftp__button eqftp__buttonRectangle eqftp__buttonRectangle_nobg" eqftp-remove="" onclick="eqftp.connectionRemove($(event.target).attr('eqftp-remove'));">{{eqftp__controls__delete}}</div>
         <div class="eqftp__button eqftp__button_marginRightReset eqftp__button_blue eqftp__buttonRectangle" onclick="eqftp.settings.setConnection(eqftp.ui.connections.editor.read());">{{eqftp__controls__save}}</div>
       </div>
       <!-- /ACTIONS -->
