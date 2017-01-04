@@ -21,8 +21,11 @@ maxerr: 50, node: true */
     return true;
   };
   
+  var _debugState = true;
   var debug = function () {
-    console.log('[eqFTP node]', ...arguments);
+    if (_debugState === true) {
+      console.log('[eqFTP node]', ...arguments);
+    }
   };
 
   var AES = {
@@ -178,6 +181,7 @@ maxerr: 50, node: true */
         read = self.mutate(read);
         self.settings = _.cloneDeep(read);
         self.currentSettingsFile = settingsFile;
+        _debugState = !!_.get(self.settings, 'main.debug');
         
         debug('joining connections objects', self.settings.connections);
         var joined = self._cc('join', self.settings.connections);
@@ -241,6 +245,7 @@ maxerr: 50, node: true */
           credentials: {}
         }
       });
+      _debugState = !!_.get(settings, 'main.debug');
       debug('defaulted', settings);
       _.unset(settings, ['settings_file', 'master_password']);
       var settingsFile = utils.normalize((path || self.currentSettingsFile));

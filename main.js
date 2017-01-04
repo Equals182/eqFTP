@@ -64,9 +64,7 @@ define(function (require, exports, module) {
     ui: ui,
     utils: utils
   };
-  var debug = function () {
-    console.log('[eqFTP main]', ...arguments);
-  };
+  
   /**
    * Preferences object
    * eqftp.preferences.get(path) - returns preference
@@ -90,7 +88,8 @@ define(function (require, exports, module) {
       self.p.definePreference("eqFTP", "object", {
         misc: {
           first_start: true,
-          last_settings_file: ''
+          last_settings_file: '',
+          debug: false
         }
       });
       self._value = self.p.get("eqFTP");
@@ -99,6 +98,17 @@ define(function (require, exports, module) {
   }();
   // Initiating Brackets' preferences
   eqftp.preferences.init();
+  
+  /**
+   * debug function, helps turning debug on and off on fly
+   */
+  var _debugState = !!eqftp.preferences.get('misc.debug');
+  var debug = function () {
+    if (_debugState === true) {
+      console.log('[eqFTP main]', ...arguments);
+    }
+  };
+  
   /**
    * Log object - simple way to log things
    * eqftp.log(text, type) - where @text is a plain text and @type is [error|info|success]
@@ -198,6 +208,8 @@ define(function (require, exports, module) {
                 .done(function (settings) {
                   debug('got settings', settings);
                   eqftp._settings = settings;
+                  _debugState = !!_.get(settings, 'main.debug');
+                  eqftp.preferences.set('misc.debug', _debugState);
 
                   var _s = {};
                   [
@@ -301,7 +313,7 @@ define(function (require, exports, module) {
                   },
                   setConnection: function () {
                     eqftp.settings.setConnection(...arguments).done(function (connection) {
-                      console.log('yay', connection);
+                      debug('connection set', connection);
                       eqftp.ui.connections.editor.close();
                       eqftp.log(ui.m(strings.eqftp__log__settings_connection_save_success, {
                         name: connection.name
@@ -324,8 +336,11 @@ define(function (require, exports, module) {
                   set: function (settings) {
                     var master_password = _.get(settings, 'master_password');
                     _.unset(settings, 'master_password');
-                    eqftp.settings.set(settings, master_password).fail(function (err) {
-                      console.log(arguments);
+                    eqftp.settings.set(settings, master_password).done(function () {
+                      _debugState = !!_.get(settings, 'main.debug');
+                      eqftp.preferences.set('misc.debug', _debugState);
+                    }).fail(function (err) {
+                      debug('settings set', arguments);
                     });
                   },
                   create: eqftp.settings.create,
@@ -462,7 +477,6 @@ define(function (require, exports, module) {
         id = connection.id;
         cb();
       }).fail(function (err) {
-        console.log(err, arguments);
         eqftp.log(ui.m(strings.eqftp__log__connection_tmp_error, {
           error: err
         }), 'error');
@@ -594,7 +608,7 @@ define(function (require, exports, module) {
         
         // Adding listener to Node
         _node.on("eqFTP:event", function (event, params) {
-          console.log(params);
+          debug('eqFTP:event', params);
           eqftp.emit('event', params);
         });
       });
