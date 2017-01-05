@@ -633,7 +633,7 @@ define(function (require, exports, module) {
         self = this;
       self.tpl = eqUI.panel.tpl.find('.eqftp-modal_connectionsSettings');
       self.state = 'closed';
-      var activeClass = 'eqftp-connectionsSettings_active';
+      var activeClass = 'eqftp-modal_active';
 
       self._cached = {};
       self._cache = function () {
@@ -934,7 +934,7 @@ define(function (require, exports, module) {
   eqUI.dialog = new function () {
     var self = this;
     self.tpl = require("text!htmlContent/dialogElement.html");
-    
+
     self.new = function (params, callback) {
       if (!callback) {
         callback = function () {};
@@ -959,14 +959,14 @@ define(function (require, exports, module) {
       dialog.find('[eqftp-button]').on('click', once);
     };
   }();
-  
+
   eqUI.toast = new function () {
     var self = this;
     self.tpl = eqUI.panel.p.filter('.eqftp-toast');
     $('body').append(self.tpl);
     self.elementTpl = require("text!htmlContent/toastElement.html");
     self.current = {};
-    
+
     self._craft = function (_p) {
       if (!_p) {
         _p = {};
@@ -985,7 +985,7 @@ define(function (require, exports, module) {
             _p.callback();
           }
         });
-        
+
         toast.remove = function () {
           toast.clearTimeout();
           if (toast.element.length > 0) {
@@ -1031,15 +1031,15 @@ define(function (require, exports, module) {
         group = 'default';
       }
       params.id = 'eqftp-toast-' + utils.uniq();
-      
+
       var _p = {
         text: (strings[params.string] || params.string),
         num: 1
       };
-      
+
       var f = false,
           current = false;
-      
+
       if (group !== 'default' && type === 'info' && self.current[type]) {
         //stackacble
         f = _.findKey(self.current[type], ['group', group]);
@@ -1057,9 +1057,9 @@ define(function (require, exports, module) {
       }, params));
       _p.group = group;
       _p.type = type;
-      
+
       var toast = self._craft(_p);
-      
+
       if (type === 'info') {
         toast.btn.hide();
         if (current) {
@@ -1073,7 +1073,7 @@ define(function (require, exports, module) {
       }
     };
   }();
-  
+
   eqUI.animate = {
     _speed: 385,
     shutter: function (targetElement, fromElement) {
@@ -1149,7 +1149,7 @@ define(function (require, exports, module) {
       }, 10);
     }
   };
-  
+
   /*
   eqUI.dropdown = new function () {
     var self = this;
