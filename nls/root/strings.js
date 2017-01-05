@@ -74,6 +74,9 @@ define({
  "eqftp__dialog__connection_removing_title": "Remove {{name}}?",
  "eqftp__dialog__connection_removing_text": "This action cannot be undone",
  
+ "eqftp__dialog__connection_editing_unsaved_title": "Dismiss unsaved changes?",
+ "eqftp__dialog__connection_editing_unsaved_text": "All changes will be lost",
+ 
  /**
  * LOGS
  */
@@ -104,6 +107,7 @@ define({
  "eqftp__controls__cancel": "Cancel",
  "eqftp__controls__nothanks": "No thanks",
  "eqftp__controls__dismiss": "Dismiss",
+ "eqftp__controls__back": "Back",
  
  "eqftp__controls__gotit": "Got it",
  "eqftp__controls__ok": "OK",

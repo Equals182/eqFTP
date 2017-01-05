@@ -333,9 +333,13 @@ maxerr: 50, node: true */
       if (!_.isConnection(connection)) {
         throw new Error('NOTACONNECTIONOBJECT');
       }
-      if (connection.localpath !== self.settings.connections[connection.id] && _.has(eqftp, ['connections', '_', connection.id, '_watch'])) {
-        debug('connection\'s localpath is different from what it was');
-        eqftp.connections._[connection.id]._watch.stop();
+      debug('current settings', self.settings);
+      debug('is connection\'s localpath different from what it was?', connection, self.settings.connections[connection.id]);
+      if (connection.localpath !== _.get(self.settings, ['connections', connection.id, 'localpath']) && _.has(eqftp, ['connections', '_', connection.id, '_watch'])) {
+        debug('stopping watchers', eqftp.connections._[connection.id]._watch);
+        if (eqftp.connections._[connection.id]._watch) {
+          eqftp.connections._[connection.id]._watch.close();
+        }
         eqftp.connections._[connection.id]._watch = undefined;
       }
       debug('final connection object', connection);
@@ -406,7 +410,7 @@ maxerr: 50, node: true */
         debug('bulk resetting');
         // bulk resetting
         _.forOwn(self._, function (c, id) {
-          if (_.has(self, ['_', id, '_watch'])) {
+          if (_.get(self, ['_', id, '_watch'])) {
             self._[id]._watch.close();
           }
           c.close();
@@ -421,7 +425,7 @@ maxerr: 50, node: true */
         // setting by one
         if (self._[id]) {
           debug('closing existing connection', id);
-          if (_.has(self, ['_', id, '_watch'])) {
+          if (_.get(self, ['_', id, '_watch'])) {
             self._[id]._watch.close();
           }
           self._[id].close();

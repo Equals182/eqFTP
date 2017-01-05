@@ -632,6 +632,10 @@ define(function (require, exports, module) {
       self.state = 'closed';
       var activeClass = 'eqftp-connectionsSettings_active';
 
+      self._cached = {};
+      self._cache = function () {
+        self._cached = JSON.stringify(self.read());
+      };
       self.open = function (callback) {
         if (self.state === 'closed') {
           self.tpl.addClass(activeClass);
@@ -641,11 +645,30 @@ define(function (require, exports, module) {
           }
         }
       };
-      self.close = function () {
-        if (self.state === 'opened') {
-          self.tpl.removeClass(activeClass);
-          self.state = 'closed';
+      self.close = function (callback) {
+        var close = _.once(function () {
+              if (self.state === 'opened') {
+                self.tpl.removeClass(activeClass);
+                self.state = 'closed';
+              }
+              if (_.isFunction(callback)) {
+                callback();
+              }
+            });
+        if (JSON.stringify(self.read()) !== self._cached) {
+          eqUI.dialog.new({
+            title: strings.eqftp__dialog__connection_editing_unsaved_title,
+            text: strings.eqftp__dialog__connection_editing_unsaved_text,
+            action1: strings.eqftp__controls__dismiss,
+            action2: strings.eqftp__controls__back
+          },function (result) {
+            if (result) {
+              close();
+            }
+          });
+          return false;
         }
+        close();
       };
       self.toggle = function () {
         switch (self.state) {
@@ -701,6 +724,7 @@ define(function (require, exports, module) {
             self.tpl.find('[eqftp-id]').attr('eqftp-id', (connection.id || '')).show();
           }
         }
+        self._cache();
         self.open(openCallback);
       };
       self.new = function () {
