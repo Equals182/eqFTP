@@ -162,8 +162,6 @@
     position: absolute;
     top: 0;
     left: 0;
-    animation-name: bounceInUp;
-    animation-duration: $time-normal;
     display: none;
     align-content: flex-start;
     align-items: flex-start;
@@ -256,26 +254,6 @@
           color: $c21;
         }
       }
-    }
-  }
-  &-connectionsSettings {
-    position: absolute;
-    top: 0;
-    left: 0;
-    display: none;
-    align-content: flex-start;
-    flex-wrap: wrap;
-    height: 100%;
-    width: 100%;
-    z-index: 500;
-    &_active {
-      display: flex;
-    }
-    &__content {
-      margin-left: $i4;
-      margin-right: $i4;
-      box-sizing: border-box;
-      width: 100%;
     }
   }
   &-content {
