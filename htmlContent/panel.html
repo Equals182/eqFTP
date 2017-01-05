@@ -108,12 +108,15 @@
       <!-- /SUBHEADER -->
 
       <!-- BASIC SETTINGS -->
-      <input type="text" name="name" class="eqftp__input eqftp__inputText eqftp__inputText_underline eqftp__inputText_labelOut" placeholder="{{eqftp__cs__c_name}}" />
-      <div class="eqftp__holder">
-        <select name="protocol" class="eqftp__select">
-          <option value="ftp">FTP</option>
-          <option value="sftp">SFTP</option>
-        </select>
+      <div class="eqftp__row eqftp__row_between">
+        <div class="eqftp__col eqftp__col_longest eqftp__col_paddingRight">
+          <input type="text" name="name" class="eqftp__input eqftp__inputText eqftp__inputText_underline eqftp__inputText_labelOut" placeholder="{{eqftp__cs__c_name}}" />
+        </div>
+        <div class="eqftp__col eqftp__col_shortest">
+          <div class="eqftp__holder eqftp__holder_input">
+            <input type="text" name="protocol" class="eqftp__input eqftp__inputText eqftp__inputText_underline eqftp__inputText_labelOut" placeholder="Type" />
+          </div>
+        </div>
       </div>
       <div class="eqftp__row eqftp__row_between">
         <div class="eqftp__col eqftp__col_longest eqftp__col_paddingRight">
