@@ -76,7 +76,7 @@
     <div class="eqftp-modal__content eqftp-modal__content_center eqftp-modal__content_padding">
       <div class="eqftp__holder eqftp__holder_input">
         <label class="eqftp__label" for="eqftpPassword">{{eqftp__paswd__input_label}}</label>
-        <input type="password" name="password" id="eqftpPassword" class="eqftp__input eqftp__inputText eqftp__inputText_underline eqftp__inputText_labelIn" placeholder="{{eqftp__paswd__input_placeholder}}" />
+        <input type="password" name="password" id="eqftpPassword" class="eqftp__input eqftp__inputText eqftp__inputText_underline eqftp__inputText_labelIn" placeholder="{{eqftp__paswd__input_placeholder}}" onkeypress="if (event.keyCode === 13) { $('#eqftpDecrypt').click(); }" />
       </div>
       <div class="eqftp__row eqftp__row_center">
         <div id="eqftpDecrypt" class="eqftp__button eqftp__button_blue eqftp__buttonRectangle">{{eqftp__paswd__button}}</div>
@@ -92,7 +92,7 @@
 
     <!-- HEAD -->
     <div class="eqftp-head shadow-smallest">
-      <div class="eqftp__icon eqftp__icon_medium" eqftp-id="" onclick="eqftp.ui.connections.editor.close(function () { eqftp.connect($(this).attr('eqftp-id')); });"><i class="material-icons">power</i></div>
+      <div class="eqftp__icon eqftp__icon_medium" eqftp-id="" onclick="var id = $(this).attr('eqftp-id'); eqftp.ui.connections.editor.close(function () { eqftp.connect(id); });"><i class="material-icons">power</i></div>
       <div class="eqftp__title eqftp__title_full eqftp__title_medium"><span class="eqftp__titleNowrap">{{eqftp__cs__window_title}}</span></div>
       <div class="eqftp__button eqftp__buttonCube eqftp__buttonCube_medium" onclick="eqftp.ui.connections.editor.close();"><i class="material-icons">clear</i></div>
     </div>

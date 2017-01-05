@@ -169,6 +169,9 @@ define(function (require, exports, module) {
           right: (self.tpl.outerWidth() + 30) + 'px'
         }, 200, function () {
           self.state = 'opened';
+          if (eqUI.password.state === 'shown') {
+            eqUI.password._input.focus();
+          }
         });
         self.tpl.animate({
           right: '30px'
@@ -835,12 +838,17 @@ define(function (require, exports, module) {
     self.tpl.hide();
     self.state = 'hidden';
     self._callback = function () {};
+    self._button = self.tpl.find('#eqftpDecrypt');
+    self._input = self.tpl.find('#eqftpPassword');
 
     self.show = function (callback) {
-      self.tpl.find('#eqftpDecrypt').off('click', self._callback);
+      self._button.off('click', self._callback);
       if (self.state === 'hidden') {
         self.tpl.show();
         self.state = 'shown';
+      }
+      if (eqUI.panel.state === 'opened') {
+        self._input.focus();
       }
       self._callback = function () {
         var p = pass.val();
@@ -849,9 +857,9 @@ define(function (require, exports, module) {
         if (_.isFunction(callback)) {
           callback(p);
         }
-        self.tpl.find('#eqftpDecrypt').off('click', self._callback);
+        self._button.off('click', self._callback);
       };
-      self.tpl.find('#eqftpDecrypt').on('click', self._callback);
+      self._button.on('click', self._callback);
     };
     self.hide = function () {
       if (self.state === 'shown') {
