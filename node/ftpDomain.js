@@ -220,16 +220,20 @@ maxerr: 50, node: true */
     };
     self.set = function (settings, password, path) {
       debug('eqftp.settings.set fired', settings, password, path);
+      
+      var toSaveNew = _.cloneDeep(settings);
       if (_.has(settings, 'connections')) {
-        settings.connections = self._cc('split', settings.connections);
-        debug('splitted', settings.connections);
+        toSaveNew.connections = self._cc('split', toSaveNew.connections);
+        debug('splitted', toSaveNew.connections);
       }
-      var currentSettings = _.cloneDeep(self.settings);
-      if (_.has(currentSettings, 'connections') && !_.has(currentSettings, 'connections.settings')) {
-        currentSettings.connections = self._cc('split', currentSettings.connections);
-        debug('splitted2', settings.connections);
+      
+      var toSaveCurrent = _.cloneDeep(self.settings);
+      if (_.has(toSaveCurrent, 'connections') && !_.has(toSaveCurrent, 'connections.settings')) {
+        toSaveCurrent.connections = self._cc('split', toSaveCurrent.connections);
+        debug('splitted2', toSaveCurrent.connections);
       }
-      settings = _.defaultsDeep(settings, currentSettings, {
+      
+      var defaults = {
         main: {
           projects_folder: (path ? utils.normalize(utils.getNamepart(path, 'parentPath') + '/eqftp') : utils.normalize(os.homedir() + '/eqftp')),
           date_format: "d.m.Y",
@@ -239,15 +243,30 @@ maxerr: 50, node: true */
         misc: {
           version: self._version,
           encrypted: false
-        },
+        }
+      };
+      
+      var toSave = _.defaultsDeep(toSaveNew, toSaveCurrent, defaults, {
         connections: {
           settings: {},
           credentials: {}
         }
       });
-      _debugState = !!_.get(settings, 'main.debug');
-      debug('defaulted', settings);
-      _.unset(settings, ['settings_file', 'master_password']);
+      debug('toSave', toSave);
+      var toKeep = _.defaultsDeep(settings, self.settings, defaults, {
+        connections: {}
+      });
+      debug('toKeep', toKeep);
+      
+      [
+        'settings_file',
+        'master_password'
+      ].forEach(function (v) {
+        _.unset(toKeep, v);
+        _.unset(toSave, v);
+      });
+      
+      _debugState = !!_.get(toSave, 'main.debug');
       var settingsFile = utils.normalize((path || self.currentSettingsFile));
       debug('settingsFile', settingsFile);
       if (!settingsFile) {
@@ -259,7 +278,7 @@ maxerr: 50, node: true */
       }
       */
       settingsFile = fs.realpathSync(settingsFile);
-      if (_.get(settings, 'misc.encrypted') === true) {
+      if (_.get(toSave, 'misc.encrypted') === true) {
         debug('needs encryption');
         if (!password) {
           password = self.password;
@@ -268,13 +287,14 @@ maxerr: 50, node: true */
         if (!password) {
           throw new Error('NEEDPASSWORD');
         }
+        self.password = password;
         /*if (_.isObject(settings.connections.credentials)) {
           settings.connections.credentials = JSON.stringify(settings.connections.credentials);
         }*/
-        debug('credentials', settings.connections.credentials);
-        settings.connections.credentials = AES.encrypt(settings.connections.credentials, password);
+        debug('credentials', toSave.connections.credentials);
+        toSave.connections.credentials = AES.encrypt(toSave.connections.credentials, password);
       }
-      fs.writeFile(settingsFile, JSON.stringify(settings, null, 4), {encoding: 'UTF-8'}, function (err, data) {
+      fs.writeFile(settingsFile, JSON.stringify(toSave, null, 4), {encoding: 'UTF-8'}, function (err, data) {
         if (err) {
           _domainManager.emitEvent("eqFTP", "event", {
             action: 'settings:save:fail',
@@ -284,6 +304,7 @@ maxerr: 50, node: true */
             }
           });
         } else {
+          self.settings = toKeep;
           _domainManager.emitEvent("eqFTP", "event", {
             action: 'settings:save:success',
             data: {
