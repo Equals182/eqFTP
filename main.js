@@ -375,6 +375,17 @@ define(function (require, exports, module) {
             id: event.data.connection.id,
             error: event.data.error.code
           }), 'error');
+          ui.toast.new({
+            string: "eqftp__toast__connection_error",
+            name: event.data.connection.name,
+            button: {
+              text: strings.eqftp__controls__showlog,
+              callback: function () {
+                ui.panel.open();
+                ui.log.open();
+              }
+            }
+          }, event.action, 'request');
           break;
         case 'connection:close':
           eqftp.log(ui.m(strings.eqftp__log__connection_close, {
@@ -409,12 +420,24 @@ define(function (require, exports, module) {
           eqftp.log(ui.m(strings['eqftp__log__download_' + status], {
             filename: utils.getNamepart(event.data.args[0].localpath, 'filename')
           }), status);
+          if (ui.panel.state === 'closed') {
+            ui.toast.new({
+              string: "eqftp__toast__download_success",
+              filename: utils.getNamepart(event.data.args[0].localpath, 'filename')
+            }, event.action, 'info');
+          }
           break;
         case 'connection:upload':
           var status = (event.data.queue === 'a' ? 'success' : 'error');
           eqftp.log(ui.m(strings['eqftp__log__upload_' + status], {
             filename: utils.getNamepart(event.data.args[0].localpath, 'filename')
           }), status);
+          if (ui.panel.state === 'closed') {
+            ui.toast.new({
+              string: "eqftp__toast__upload_success",
+              filename: utils.getNamepart(event.data.args[0].localpath, 'filename')
+            }, event.action, 'info');
+          }
           break;
         case 'settings:reload':
           console.log(event);

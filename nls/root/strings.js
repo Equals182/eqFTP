@@ -100,6 +100,30 @@ define({
  "eqftp__log__settings_connection_save_error": "There was an error saving connection: {{{err}}}",
  
  /**
+  * TOASTS
+  * _m means multiple. You can use {{num}} to display stacked amount
+  */
+ "eqftp__toast__download_success": "File {{filename}} downloaded",
+ "eqftp__toast__download_success_m": "Files downloaded ({{num}})",
+ "eqftp__toast__download_error": "Can't download {{filename}}",
+ "eqftp__toast__download_error_m": "Can't download files ({{num}})",
+ 
+ "eqftp__toast__upload_success": "File {{filename}} uploaded",
+ "eqftp__toast__upload_success_m": "Files uploaded ({{num}})",
+ "eqftp__toast__upload_error": "Can't upload {{filename}}",
+ "eqftp__toast__upload_error_m": "Can't upload files ({{num}})",
+ 
+ "eqftp__toast__connection_error": "There was an error on {{name}} connection",
+ "eqftp__toast__files_difference": "File {{filename}} differs from remote copy",
+ 
+ "eqftp__toast__file_created_locally": "Create same file on server?",
+ "eqftp__toast__file_created_remotely": "Create same file on PC?",
+ "eqftp__toast__file_renamed_locally": "Rename same file on server?",
+ "eqftp__toast__file_renamed_remotely": "Rename same file on PC?",
+ "eqftp__toast__file_removed_locally": "Remove same file on server?",
+ "eqftp__toast__file_removed_remotely": "Remove same file on PC?",
+ 
+ /**
  * CONTROLS
  * Check this page if you have any questions about this part: https://material.io/guidelines/style/writing.html#writing-language
  * There's a table called "Text for buttons and related elements"
@@ -118,6 +142,10 @@ define({
  // Next strings are custom but translate them just like previous
  "eqftp__controls__save": "Save",
  "eqftp__controls__delete": "Remove",
+ "eqftp__controls__showlog": "Show log",
+ "eqftp__controls__resolve": "Resolve",
+ "eqftp__controls__create": "Create",
+ "eqftp__controls__rename": "Rename",
  
  /**
  * FILESIZES

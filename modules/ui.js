@@ -156,10 +156,10 @@ define(function (require, exports, module) {
 
   eqUI.panel = new function () {
     var self = this;
-    var width = 360,
-      panel = $(Mustache.render(require("text!htmlContent/panel.html"), strings));
+    var width = 360;
+    self.p = $(Mustache.render(require("text!htmlContent/panel.html"), strings));
     self.state = 'closed';
-    self.tpl = panel.filter('.eqftp');
+    self.tpl = self.p.filter('.eqftp');
     self.tpl.css('right', (width * -1) + 'px').width(width);
 
     self.open = function () {
@@ -949,6 +949,120 @@ define(function (require, exports, module) {
         dialog.remove();
       });
       dialog.find('[eqftp-button]').on('click', once);
+    };
+  }();
+  
+  eqUI.toast = new function () {
+    var self = this;
+    self.tpl = eqUI.panel.p.filter('.eqftp-toast');
+    $('body').append(self.tpl);
+    self.elementTpl = require("text!htmlContent/toastElement.html");
+    self.current = {};
+    
+    self._craft = function (_p) {
+      if (!_p) {
+        _p = {};
+      }
+      var toast = new function () {
+        var toast = this;
+        toast.element = $(Mustache.render(self.elementTpl, _.defaults(_p, strings)));
+        toast.btn = toast.element.find('.eqftp-toast__action');
+        toast.group = _p.group;
+        toast.type = _p.type;
+        toast.id = utils.uniq();
+        toast.num = _p.num;
+        toast.callback = _.once(function () {
+          toast.remove();
+          if (_.isFunction(_p.callback)) {
+            _p.callback();
+          }
+        });
+        
+        toast.remove = function () {
+          toast.clearTimeout();
+          if (toast.element.length > 0) {
+            toast.element.remove();
+          }
+          if (_.isFunction(_p.callback)) {
+            toast.btn.off('click', toast.callback);
+          }
+          _.unset(self.current, [toast.type, toast.id]);
+        };
+        toast.replaceWith = function (newToast) {
+          if (!_.isjQuery(newToast)) {
+            toast.element.replaceWith(newToast.element);
+          } else {
+            toast.element.replaceWith(newToast);
+          }
+          toast.remove();
+        };
+        toast.clearTimeout = function () {
+          if (toast._timeout) {
+            clearTimeout(toast._timeout);
+            toast._timeout = undefined;
+          }
+        };
+        toast._timeout = _.delay(toast.remove, 10000);
+      }();
+      _.set(self.current, [toast.type, toast.id], toast);
+      return toast;
+    }
+    // group - [connection|queue|etc...]
+    // type - [info|request]
+    self.new = function (params, group, type) {
+      if (!_.isObject(params)) {
+        return false;
+      }
+      if (!_.has(params, 'string')) {
+        return false;
+      }
+      if (['info', 'request'].indexOf(type) < 0) {
+        return false;
+      }
+      if (!group) {
+        group = 'default';
+      }
+      params.id = 'eqftp-toast-' + utils.uniq();
+      
+      var _p = {
+        text: (strings[params.string] || params.string),
+        num: 1
+      };
+      
+      var f = false,
+          current = false;
+      
+      if (group !== 'default' && type === 'info' && self.current[type]) {
+        //stackacble
+        f = _.findKey(self.current[type], ['group', group]);
+        if (f) {
+          current = self.current[type][f];
+          _p.text = (strings[params.string + '_m'] || params.string);
+          _p.num = (current.num || _p.num) + 1;
+        }
+      } else if (type === 'request') {
+        _p.action = strings[params.button.text] || params.button.text;
+        _p.callback = params.button.callback;
+      }
+      _p.text = Mustache.render(_p.text, _.defaults({
+        num: _p.num
+      }, params));
+      _p.group = group;
+      _p.type = type;
+      
+      var toast = self._craft(_p);
+      
+      if (type === 'info') {
+        toast.btn.hide();
+        if (current) {
+          current.replaceWith(toast);
+        } else {
+          self.tpl.append(toast.element);
+        }
+      } else if (type === 'request') {
+        toast.btn.on('click', toast.callback);
+        self.tpl.append(toast.element);
+      }
     };
   }();
   

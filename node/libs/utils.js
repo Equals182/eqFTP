@@ -23,6 +23,9 @@ maxerr: 50, node: true */
   if (!_) {
     _ = require("lodash");
   }
+  _.isjQuery = function (object) {
+    return !!(object instanceof jQuery);
+  };
   _.isConnection = function (connection) {
     if (!_.isObject(connection)) {
       return false;
