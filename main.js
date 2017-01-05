@@ -307,6 +307,7 @@ define(function (require, exports, module) {
                 download: eqftp.download,
                 upload: eqftp.upload,
                 connectionRemove: eqftp.connectionRemove,
+                contexts: eqftp.contexts,
                 settings: {
                   removeConnection: function () {
                     eqftp.settings.removeConnection();
@@ -573,6 +574,40 @@ define(function (require, exports, module) {
         eqftp.connections[id].remove();
       }
     });
+  };
+  eqftp.contexts = {
+    fileTreeElement: function () {
+      
+    },
+    connectionElement: function () {
+      var id = $(event.target).closest('.eqftp-connections__item').attr('id');
+      ui.context.open([
+        {
+          text: strings.eqftp__context__connectionElement__edit,
+          callback: function () {
+            ui.connections.edit(id);
+          },
+          shortcut: ""
+        },
+        {
+          text: strings.eqftp__context__connectionElement__connect,
+          callback: function () {
+            eqftp.connect(id);
+          },
+          shortcut: ""
+        },
+        {
+          text: strings.eqftp__context__connectionElement__remove,
+          callback: function () {
+            eqftp.connectionRemove(id);
+          },
+          shortcut: ""
+        }
+      ]);
+    },
+    queueElement: function () {
+      
+    }
   };
 
   // Adding eqftp + listener to ui so we could keep entities separately

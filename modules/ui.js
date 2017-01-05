@@ -212,9 +212,80 @@ define(function (require, exports, module) {
   eqUI.context = new function () {
     var self = this;
 
-    var panel = $(Mustache.render(require("text!htmlContent/panel.html"), strings));
-    self.tpl = panel.filter('.eqftp-menu');
+    self.tpl = eqUI.panel.p.filter('.eqftp-menu');
+    self.elementTemplate = require("text!htmlContent/menuElement.html");
+    self.current = {};
 
+    self._craft = function (text, callback, shortcut) {
+      var item = new function () {
+        var item = this;
+        item.id = utils.uniq();
+        item.element = $(Mustache.render(self.elementTemplate, _.defaults({
+          text: text,
+          shortcut: shortcut
+        }, strings)));
+        
+        item.remove = function () {
+          item.element.off('click', item.callback);
+          item.element.remove();
+          _.unset(self.current, item.id);
+        };
+        item.callback = _.once(function () {
+          self.close();
+          if (_.isFunction(callback)) {
+            callback(...arguments);
+          }
+        });
+        item.element.on('click', item.callback);
+        
+        _.set(self.current, item.id, item);
+      }();
+      return item;
+    };
+    self._reset = function () {
+      _.forOwn(self.current, function (item) {
+        item.remove();
+      });
+      self.current = {};
+      self.tpl.html('');
+    };
+    self._autoclose = function (e) {
+      if (!$(e.target).is(self.tpl) && $(e.target).closest(self.tpl).length < 1 && !$(e.target).is('.eqftp-connections__item .eqftp__button')) {
+        self.close();
+      }
+    };
+    self.close = function () {
+      self._reset();
+      self.tpl.hide();
+      $('body').off('click', self._autoclose);
+    };
+    self.open = function (items) {
+      self._reset();
+      if (_.isArray(items) && items.length > 0) {
+        items.forEach(function (item) {
+          item = self._craft(item.text, item.callback, item.shortcut);
+          self.tpl.append(item.element);
+        });
+        self.tpl.show();
+      }
+      if (event) {
+        var y = (event.screenY - 50),
+            x = event.screenX;
+        var mx = (eqUI.panel.tpl.width() + eqUI.panel.tpl.offset().left) - (self.tpl.width() + 15);
+        if (x > mx) {
+          x = mx;
+        }
+        var my = (eqUI.panel.tpl.height() + eqUI.panel.tpl.offset().top) - (self.tpl.height() + 15);
+        if (y > my) {
+          y = my;
+        }
+        self.tpl.css('top', y + 'px').css('left', x + 'px');
+      }
+      eqUI.animate.circle(self.tpl);
+      _.delay(function () {
+        $('body').on('click', self._autoclose);
+      }, 50);
+    };
     self.get = function () {
       return self.tpl;
     };
@@ -274,9 +345,7 @@ define(function (require, exports, module) {
     }
 
     self._autoclose = function (e) {
-      console.log(!$(e.target).is('.eqftp-header__search'));
-      console.log($(e.target).closest('.eqftp-header__search'), $(e.target).closest('.eqftp-header__search').length);
-      if (!$(e.target).is('.eqftp-header__search') && $(e.target).closest('.eqftp-header__search').length < 1) {
+      if (!$(e.target).is(self.tpl) && $(e.target).closest(self.tpl).length < 1) {
         self.close();
       }
     };
@@ -1075,11 +1144,37 @@ define(function (require, exports, module) {
   }();
 
   eqUI.animate = {
-    _speed: 385,
+    _speed: 250,
+    _speedRanges: [
+      {
+        max: 200,
+        speed: 80
+      },
+      {
+        max: 500,
+        speed: 160
+      },
+      {
+        max: 1000,
+        speed: 300
+      }
+    ],
+    _speedAdapt: function (size) {
+      var f = _.findIndex(eqUI.animate._speedRanges, function (o) {
+        return o.max > size;
+      });
+      if (f > -1) {
+        eqUI.animate._speed = eqUI.animate._speedRanges[f].speed;
+        console.log(size, eqUI.animate._speed);
+      }
+    },
     shutter: function (targetElement, fromElement) {
+      if (!targetElement || !fromElement) {
+        return false;
+      }
       fromElement = $(fromElement);
-      var x = fromElement.offset().left - eqUI.panel.get().offset().left,
-          y = fromElement.offset().top - eqUI.panel.get().offset().top,
+      var x = fromElement.offset().left - targetElement.offset().left,
+          y = fromElement.offset().top - targetElement.offset().top,
           fw = fromElement.width(),
           fh = fromElement.height(),
           w = targetElement.width(),
@@ -1093,13 +1188,39 @@ define(function (require, exports, module) {
       toCache.forEach(function (v) {
         cache[v] = targetElement.css(v);
       });
+      var x0 = 0,
+          y0 = (y + (fh / 2)),
+          x1 = fw,
+          y1 = (y + (fh / 2)),
+          x2 = fw,
+          y2 = (y + (fh / 2)),
+          x3 = 0,
+          y3 = (y + (fh / 2));
+      var nx0 = 0,
+          ny0 = 0,
+          nx1 = w,
+          ny1 = 0,
+          nx2 = w,
+          ny2 = h,
+          nx3 = 0,
+          ny3 = h;
+      var size = (ny3 - ny0) - (y3 - y0);
+      eqUI.animate._speedAdapt(size);
       targetElement
-        .css('-webkit-clip-path', 'polygon(0 ' + (y + (fh / 2)) + 'px, ' + fw + 'px ' + (y + (fh / 2)) + 'px, ' + fw + 'px ' + (y + (fh / 2)) + 'px, 0 ' + (y + (fh / 2)) + 'px)')
+        .css('-webkit-clip-path', 'polygon(' + x0 + 'px ' + y0 + 'px, ' + 
+                                               x1 + 'px ' + y1 + 'px, ' +
+                                               x2 + 'px ' + y2 + 'px, ' +
+                                               x3 + 'px ' + y3 + 'px)'
+            )
         .css('transition-timing-function', 'cubic-bezier(0.4, 0.0, 0.2, 1)')
         .css('transition', '-webkit-clip-path ' + (eqUI.animate._speed / 1000) + 's');
       _.delay(function () {
         targetElement
-          .css('-webkit-clip-path', 'polygon(0 0, ' + w + 'px 0, ' + w + 'px ' + h + 'px, 0 ' + h + 'px)');
+          .css('-webkit-clip-path', 'polygon(' + nx0 + 'px ' + ny0 + 'px, ' +
+                                                 nx1 + 'px ' + ny1 + 'px, ' +
+                                                 nx2 + 'px ' + ny2 + 'px, ' +
+                                                 nx3 + 'px ' + ny3 + 'px)'
+              );
         _.delay(function () {
           toCache.forEach(function (v) {
             targetElement.css(v, cache[v]);
@@ -1108,13 +1229,27 @@ define(function (require, exports, module) {
       }, 10);
     },
     circle: function (targetElement, fromElement) {
-      fromElement = $(fromElement);
-      var d = fromElement.width(),
-          x = fromElement.offset().left - eqUI.panel.get().offset().left + (d / 2),
-          y = fromElement.offset().top - eqUI.panel.get().offset().top + (d / 2),
-          w = targetElement.width(),
+      if (!targetElement) {
+        return false;
+      }
+      if (fromElement) {
+        fromElement = $(fromElement);
+        var d = fromElement.width(),
+            x = fromElement.offset().left - targetElement.offset().left + (d / 2),
+            y = fromElement.offset().top - targetElement.offset().top + (d / 2),
+            sc = fromElement.css('background-color');
+      } else if (event) {
+        var d = 10,
+            x = event.screenX - targetElement.offset().left,
+            y = (event.screenY - 50) - targetElement.offset().top;
+      } else {
+        return false;
+      }
+      var w = targetElement.width(),
           h = targetElement.height(),
-          sc = fromElement.css('background-color');
+          nd = ((w > h) ? w : h),
+          size = (nd - d);
+      eqUI.animate._speedAdapt(size);
       var filler = false;
       var cache = {};
       var toCache = [
@@ -1133,14 +1268,13 @@ define(function (require, exports, module) {
         .css('-webkit-clip-path', 'circle(' + d + 'px at ' + x + 'px ' + y + 'px)')
         .css('transition-timing-function', 'cubic-bezier(0.4, 0.0, 0.2, 1)')
         .css('transition', '-webkit-clip-path ' + (eqUI.animate._speed / 1000) + 's');
-      d = ((w > h) ? w : h);
       _.delay(function () {
         if (filler) {
           filler.fadeOut(eqUI.animate._speed, function () {
             filler.remove();
           });
         }
-        targetElement.css('-webkit-clip-path', 'circle(' + d + 'px at ' + x + 'px ' + y + 'px)');
+        targetElement.css('-webkit-clip-path', 'circle(' + nd + 'px at ' + x + 'px ' + y + 'px)');
         _.delay(function () {
           toCache.forEach(function (v) {
             targetElement.css(v, cache[v]);

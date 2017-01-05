@@ -124,6 +124,13 @@ define({
  "eqftp__toast__file_removed_remotely": "Remove same file on PC?",
  
  /**
+  * CONTEXT MENUS
+  */
+ "eqftp__context__connectionElement__connect": "Connect",
+ "eqftp__context__connectionElement__remove": "Remove",
+ "eqftp__context__connectionElement__edit": "Edit",
+ 
+ /**
  * CONTROLS
  * Check this page if you have any questions about this part: https://material.io/guidelines/style/writing.html#writing-language
  * There's a table called "Text for buttons and related elements"
