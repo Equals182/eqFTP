@@ -727,7 +727,7 @@
     padding-right: 0;
     list-style: none;
     position: absolute;
-    bottom: $i4;
+    bottom: 36px;
     right: $i4;
     z-index: 7;
     &__item {
@@ -738,6 +738,7 @@
       background-color: #323232;
       border-radius: 2px;
       box-sizing: border-box;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
       display: flex;
       justify-content: space-between;
       align-items: center;
