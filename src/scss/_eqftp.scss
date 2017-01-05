@@ -215,7 +215,7 @@
     }
     &__holder {
       border-radius: 2px;
-      box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+      box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
       display: flex;
       align-content: flex-start;
       align-items: flex-start;
@@ -262,8 +262,6 @@
     position: absolute;
     top: 0;
     left: 0;
-    animation-name: bounceInUp;
-    animation-duration: $time-normal;
     display: none;
     align-content: flex-start;
     flex-wrap: wrap;
