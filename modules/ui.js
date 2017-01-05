@@ -632,10 +632,13 @@ define(function (require, exports, module) {
       self.state = 'closed';
       var activeClass = 'eqftp-connectionsSettings_active';
 
-      self.open = function () {
+      self.open = function (callback) {
         if (self.state === 'closed') {
           self.tpl.addClass(activeClass);
           self.state = 'opened';
+          if (_.isFunction(callback)) {
+            callback();
+          }
         }
       };
       self.close = function () {
@@ -672,7 +675,12 @@ define(function (require, exports, module) {
         return r;
       };
 
-      self.edit = function (connection) {
+      self.edit = function (connection, openCallback) {
+        if (!openCallback && event) {
+          openCallback = function () {
+            eqUI.animate.shutter(self.tpl, $(event.target).closest('.eqftp-connections__item'));
+          }
+        }
         self.reset();
         if (connection) {
           if (_.isString(connection)) {
@@ -693,12 +701,14 @@ define(function (require, exports, module) {
             self.tpl.find('[eqftp-remove]').attr('eqftp-remove', (connection.id || '')).show();
           }
         }
-        self.open();
+        self.open(openCallback);
       };
       self.new = function () {
         return self.edit({
           autoupload: true,
           check_difference: true
+        }, function () {
+          eqUI.animate.circle(self.tpl, $(event.target).closest('.eqftp__button'));
         });
       };
     }();
@@ -917,6 +927,83 @@ define(function (require, exports, module) {
       dialog.find('[eqftp-button]').on('click', once);
     };
   }();
+  
+  eqUI.animate = {
+    _speed: 385,
+    shutter: function (targetElement, fromElement) {
+      fromElement = $(fromElement);
+      var x = fromElement.offset().left - eqUI.panel.get().offset().left,
+          y = fromElement.offset().top - eqUI.panel.get().offset().top,
+          fw = fromElement.width(),
+          fh = fromElement.height(),
+          w = targetElement.width(),
+          h = targetElement.height();
+      var cache = {};
+      var toCache = [
+        '-webkit-clip-path',
+        'transition-timing-function',
+        'transition'
+      ];
+      toCache.forEach(function (v) {
+        cache[v] = targetElement.css(v);
+      });
+      targetElement
+        .css('-webkit-clip-path', 'polygon(0 ' + (y + (fh / 2)) + 'px, ' + fw + 'px ' + (y + (fh / 2)) + 'px, ' + fw + 'px ' + (y + (fh / 2)) + 'px, 0 ' + (y + (fh / 2)) + 'px)')
+        .css('transition-timing-function', 'cubic-bezier(0.4, 0.0, 0.2, 1)')
+        .css('transition', '-webkit-clip-path ' + (eqUI.animate._speed / 1000) + 's');
+      _.delay(function () {
+        targetElement
+          .css('-webkit-clip-path', 'polygon(0 0, ' + w + 'px 0, ' + w + 'px ' + h + 'px, 0 ' + h + 'px)');
+        _.delay(function () {
+          toCache.forEach(function (v) {
+            targetElement.css(v, cache[v]);
+          });
+        }, eqUI.animate._speed);
+      }, 10);
+    },
+    circle: function (targetElement, fromElement) {
+      fromElement = $(fromElement);
+      var d = fromElement.width(),
+          x = fromElement.offset().left - eqUI.panel.get().offset().left + (d / 2),
+          y = fromElement.offset().top - eqUI.panel.get().offset().top + (d / 2),
+          w = targetElement.width(),
+          h = targetElement.height(),
+          sc = fromElement.css('background-color');
+      var filler = false;
+      var cache = {};
+      var toCache = [
+        '-webkit-clip-path',
+        'transition'
+      ];
+      toCache.forEach(function (v) {
+        cache[v] = targetElement.css(v);
+      });
+      if (sc) {
+        filler = $('<div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; z-index: 300;"></div>');
+        filler.css('background-color', sc);
+        targetElement.prepend(filler);
+      }
+      targetElement
+        .css('-webkit-clip-path', 'circle(' + d + 'px at ' + x + 'px ' + y + 'px)')
+        .css('transition-timing-function', 'cubic-bezier(0.4, 0.0, 0.2, 1)')
+        .css('transition', '-webkit-clip-path ' + (eqUI.animate._speed / 1000) + 's');
+      d = ((w > h) ? w : h);
+      _.delay(function () {
+        if (filler) {
+          filler.fadeOut(eqUI.animate._speed, function () {
+            filler.remove();
+          });
+        }
+        targetElement.css('-webkit-clip-path', 'circle(' + d + 'px at ' + x + 'px ' + y + 'px)');
+        _.delay(function () {
+          toCache.forEach(function (v) {
+            targetElement.css(v, cache[v]);
+          });
+        }, eqUI.animate._speed);
+      }, 10);
+    }
+  };
+  
   /*
   eqUI.dropdown = new function () {
     var self = this;
