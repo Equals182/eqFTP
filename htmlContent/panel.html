@@ -92,7 +92,7 @@
 
     <!-- HEAD -->
     <div class="eqftp-head shadow-smallest">
-      <div class="eqftp__icon eqftp__icon_medium"><i class="material-icons">power</i></div>
+      <div class="eqftp__icon eqftp__icon_medium" eqftp-id="" onclick="eqftp.ui.connections.editor.close(); eqftp.connect($(this).attr('eqftp-id'));"><i class="material-icons">power</i></div>
       <div class="eqftp__title eqftp__title_full eqftp__title_medium"><span class="eqftp__titleNowrap">{{eqftp__cs__window_title}}</span></div>
       <div class="eqftp__button eqftp__buttonCube eqftp__buttonCube_medium" onclick="eqftp.ui.connections.editor.close();"><i class="material-icons">clear</i></div>
     </div>
@@ -177,7 +177,7 @@
 
       <!-- ACTIONS -->
       <div class="eqftp__row eqftp__row_end">
-        <div class="eqftp__button eqftp__buttonRectangle eqftp__buttonRectangle_nobg" eqftp-remove="" onclick="eqftp.connectionRemove($(event.target).attr('eqftp-remove'));">{{eqftp__controls__delete}}</div>
+        <div class="eqftp__button eqftp__buttonRectangle eqftp__buttonRectangle_nobg" eqftp-id="" onclick="eqftp.connectionRemove($(event.target).attr('eqftp-id'));">{{eqftp__controls__delete}}</div>
         <div class="eqftp__button eqftp__button_marginRightReset eqftp__button_blue eqftp__buttonRectangle" onclick="eqftp.settings.setConnection(eqftp.ui.connections.editor.read());">{{eqftp__controls__save}}</div>
       </div>
       <!-- /ACTIONS -->

@@ -659,7 +659,7 @@ define(function (require, exports, module) {
       };
       self.reset = function () {
         self.tpl.find('[name="id"]').remove();
-        self.tpl.find('[eqftp-remove]').hide();
+        self.tpl.find('[eqftp-id]').hide();
         self.tpl.find('input, select, textarea').each(function () {
           setInputNameValue($(this));
         });
@@ -698,7 +698,7 @@ define(function (require, exports, module) {
           });
           if (connection.id) {
             self.tpl.append('<input name="id" type="hidden" value="' + (connection.id || '') + '"/>');
-            self.tpl.find('[eqftp-remove]').attr('eqftp-remove', (connection.id || '')).show();
+            self.tpl.find('[eqftp-id]').attr('eqftp-id', (connection.id || '')).show();
           }
         }
         self.open(openCallback);
