@@ -155,6 +155,9 @@
       }
     }
   }
+  & input[readonly] {
+    cursor: pointer;
+  }
 }
 
 .dark {
