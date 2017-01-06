@@ -591,6 +591,7 @@ EasyFTP.prototype.download = function (queuer, cb) {
       self.download(queuer, cb);
     });
   } else {
+    queuer.remotepath = this.getRealRemotePath(queuer.remotepath);
     switch (this.config.type) {
       case 'sftp':
         self.client.sftp(function (err, sftp) {
@@ -666,6 +667,7 @@ EasyFTP.prototype.upload = function (queuer, cb) {
       self.upload(queuer, cb);
     });
   } else {
+    queuer.remotepath = this.getRealRemotePath(queuer.remotepath);
     var action = function () {
       switch (self.config.type) {
         case 'sftp':
