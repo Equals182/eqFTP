@@ -7,7 +7,7 @@
   overflow: hidden;
   height: 100%;
   width: 360px;
-  z-index: 6;
+  z-index: 19;
   &-toolbar {
     &__icon {
       padding-top: 1px;
@@ -739,7 +739,7 @@
     position: absolute;
     bottom: 39px;
     right: 23px;
-    z-index: 7;
+    z-index: 21;
     &__item {
       margin-top: $i2;
       padding-left: $i6;
