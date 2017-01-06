@@ -10,6 +10,7 @@ var util = require('util'),
   FTPClient = require('jsftp'),
   SSHClient = require('ssh2').Client,
   FileUtil = require('./lib/FileUtil'),
+  utils = require('./../utils'),
   _ = require('lodash'),
   semver = require('semver');
 
@@ -722,7 +723,8 @@ EasyFTP.prototype.upload = function (queuer, cb) {
       if (result) {
         action();
       } else {
-        self.mkdir(queuer.remotepath, function (err, data) {
+        var parentPath = utils.getNamepart(queuer.remotepath, 'parentPath');
+        self.mkdir(parentPath, function (err, data) {
           if (!err) {
             action();
           } else {
