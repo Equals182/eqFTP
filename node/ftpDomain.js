@@ -607,6 +607,7 @@ maxerr: 50, node: true */
                       if (err) {
                         queuer.queue = 'f';
                         queuer.err = err;
+                        queue.isBusy = false;
                         queue.add(queuer, true);
                       }
                     }
