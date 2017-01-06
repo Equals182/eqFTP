@@ -684,6 +684,9 @@ console.log('[watcher]', 'change tmp', path, arguments);
                         break;
                     }
 
+                    if (err) {
+                      queuer.queue = 'f';
+                    }
                     _domainManager.emitEvent("eqFTP", "event", {
                       action: 'connection:' + queuer.act,
                       data: queuer
