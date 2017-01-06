@@ -7,7 +7,7 @@
   overflow: hidden;
   height: 100%;
   width: 360px;
-  z-index: 19;
+  z-index: 6;
   &-resize {
     position: absolute;
     top: 0;
@@ -748,7 +748,7 @@
     position: absolute;
     bottom: 39px;
     right: 23px;
-    z-index: 21;
+    z-index: 7;
     &__item {
       margin-top: $i2;
       padding-left: $i6;
