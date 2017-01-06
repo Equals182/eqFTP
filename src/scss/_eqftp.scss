@@ -8,6 +8,15 @@
   height: 100%;
   width: 360px;
   z-index: 19;
+  &-resize {
+    position: absolute;
+    top: 0;
+    left: 0;
+    cursor: w-resize;
+    height: 100%;
+    width: 2px;
+    z-index: 1000;
+  }
   &-toolbar {
     &__icon {
       padding-top: 1px;

@@ -51,6 +51,18 @@ $(document).ready(function () {
   $('.eqftp-header__searchHolder').click(function () {
     $('.eqftp-header__dropdown').toggleClass('eqftp-header__dropdown_active');
   });
+  $('.eqftp-resize').bind('mousedown', function (e) {
+    var eqftp = $('.eqftp');
+    var w = eqftp.width();
+    var y = e.clientY;
+    var move = function (e) {
+      eqftp.width(Math.max(20, e.clientY + w - y));
+    };
+    var up = function (e) {
+      eqftp.unbind('mousemove', move).unbind('mouseup', up);
+    };
+    eqftp.bind('mousemove', move).bind('mouseup', up);
+  });
 });
 
 function showConnectionsSettings() {
@@ -77,4 +89,24 @@ function showChildren(element) {
 function showLog() {
   'use strict';
   $('.eqftp-footer').toggleClass('eqftp-footer_active');
+}
+
+$.fn.eqftpResize = function () {
+  'use strict';
+  return this.each(function () {
+    var self = $(this);
+    self.after(
+      $('<div class="eqftp-resize"></div>').bind('mousedown', function (e) {
+        var w = self.width();
+        var y = e.clientY;
+        var moveHandler = function (e) {
+          self.width(Math.max(20, e.clientY + w - y));
+        };
+        var upHandler = function (e) {
+          $('html').unbind('mousemove', moveHandler).unbind('mouseup', upHandler);
+        };
+        $('html').bind('mousemove', moveHandler).bind('mouseup', upHandler);
+      })
+    );
+  });
 }
