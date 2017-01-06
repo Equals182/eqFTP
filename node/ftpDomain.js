@@ -801,6 +801,7 @@ console.log('[watcher]', 'change tmp', path, arguments);
             resolveLocalpath: function (remotepath) {
               debug('resolveLocalpath fired');
               debug('replacing remotepath or startpath', self._[id].remotepath, self._[id]._startpath);
+              debug('regex is', RegExp("^" + (self._[id].remotepath || self._[id]._startpath || '')));
               var filename = remotepath.replace(RegExp("^" + (self._[id].remotepath || self._[id]._startpath || '')), '');
               debug('remotepath is now', remotepath, filename);
               if (self._[id].isTmp) {
