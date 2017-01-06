@@ -485,8 +485,8 @@ define(function (require, exports, module) {
           date_formatted: function () {
             if (utils) {
               var format = 'H:i d/m';
-              if (_.has(eqFTP, 'settings.main.date_format')) {
-                format = eqFTP.settings.main.date_format;
+              if (_.has(eqFTP, '_settings.main.date_format')) {
+                format = eqFTP._settings.main.date_format;
               }
               return utils.date_format(new Date(element.date), format);
             } else {
