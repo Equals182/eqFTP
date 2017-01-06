@@ -317,6 +317,7 @@
       box-sizing: border-box;
       height: 100%;
       & .eqftp-footer__list {
+        padding-bottom: 4px;
         & .eqftp-footer__listItem {
           align-items: flex-start;
           height: auto;
