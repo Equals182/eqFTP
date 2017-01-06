@@ -131,6 +131,7 @@ maxerr: 50, node: true */
               'server',
               'port',
               'login',
+              'rsa',
               'password'
             ]));
           });
@@ -326,10 +327,14 @@ maxerr: 50, node: true */
         check_difference: true,
         name: uniq,
         localpath: utils.normalize(eqftp.settings.get().main.projects_folder + '/' + (connection.name || uniq)),
-        ignore_list: ''
+        ignore_list: '',
+        rsa: ''
       };
       debug('defaults', defaults);
-      connection = _.omitBy(connection, _.isEmpty);
+      connection = _.omitBy(connection, _.isUndefined);
+      if (!connection.localpath) {
+        _.unset(connection, 'localpath');
+      }
       debug('cleared connection', connection);
       if (!_.isObject(connection)) {
         throw new Error('NOTANOBJECT');

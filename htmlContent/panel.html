@@ -114,7 +114,7 @@
         </div>
         <div class="eqftp__col eqftp__col_shortest">
           <div class="eqftp__holder eqftp__holder_input">
-            <input type="text" name="protocol" class="eqftp__input eqftp__inputText eqftp__inputText_underline eqftp__inputText_labelOut" placeholder="Type" />
+            <input type="text" name="protocol" id="eqftpConnectionProtocol" readonly class="eqftp__input eqftp__inputText eqftp__inputText_underline eqftp__inputText_labelOut" placeholder="{{eqftp__cs__c_protocol}}" onclick="eqftp.ui.connections.editor.protocolSelector($(this));" />
           </div>
         </div>
       </div>
@@ -147,6 +147,12 @@
         </div>
       </div>
 
+      <div data-specific="sftp" class="eqftp__holder eqftp__holder_input">
+        <label class="eqftp__label" for="eqftpConnectionRSA">{{eqftp__cs__c_rsa}}</label>
+        <input type="text" name="rsa" id="eqftpConnectionRSA" class="eqftp__input eqftp__inputText eqftp__inputText_underline eqftp__inputText_labelIn" placeholder="{{eqftp__cs__c_rsa}}" onclick="eqftp.ui.explorer.openFile('{{eqftp__cs__c_rsa__explorer_title}}', eqftp._home, function (err, path) { if (!err && path) { $('#eqftpConnectionRSA').val(path); } });"/>
+      </div>
+      
+      
       <div class="eqftp__holder eqftp__holder_input">
         <label class="eqftp__label" for="eqftpConnectionLocalPath">{{eqftp__cs__c_localpath}}</label>
         <input type="text" name="localpath" id="eqftpConnectionLocalPath" class="eqftp__input eqftp__inputText eqftp__inputText_underline eqftp__inputText_labelIn" placeholder="{{eqftp__cs__c_localpath}}" onclick="eqftp.ui.explorer.openFolder('{{eqftp__cs__c_localpath__explorer_title}}', eqftp._home, function (err, path) { if (!err && path) { $('#eqftpConnectionLocalPath').val(path); } });"/>

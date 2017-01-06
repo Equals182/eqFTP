@@ -259,7 +259,7 @@ define(function (require, exports, module) {
       self.tpl.hide();
       $('body').off('click', self._autoclose);
     };
-    self.open = function (items) {
+    self.open = function (items, position) {
       self._reset();
       if (_.isArray(items) && items.length > 0) {
         items.forEach(function (item) {
@@ -268,19 +268,27 @@ define(function (require, exports, module) {
         });
         self.tpl.show();
       }
-      if (event) {
-        var y = (event.screenY - 50),
-            x = event.screenX;
-        var mx = (eqUI.panel.tpl.width() + eqUI.panel.tpl.offset().left) - (self.tpl.width() + 15);
-        if (x > mx) {
-          x = mx;
-        }
-        var my = (eqUI.panel.tpl.height() + eqUI.panel.tpl.offset().top) - (self.tpl.height() + 15);
-        if (y > my) {
-          y = my;
-        }
-        self.tpl.css('top', y + 'px').css('left', x + 'px');
+      var x = 0,
+          y = 0;
+      
+      if (position) {
+        x = position.x;
+        y = position.y;
+      } else if (event) {
+        y = (event.screenY - 50),
+        x = event.screenX;
       }
+      
+      var mx = (eqUI.panel.tpl.width() + eqUI.panel.tpl.offset().left) - (self.tpl.width() + 15);
+      if (x > mx) {
+        x = mx;
+      }
+      var my = (eqUI.panel.tpl.height() + eqUI.panel.tpl.offset().top) - (self.tpl.height() + 15);
+      if (y > my) {
+        y = my;
+      }
+      self.tpl.css('top', y + 'px').css('left', x + 'px');
+      
       eqUI.animate.circle(self.tpl);
       _.delay(function () {
         $('body').on('click', self._autoclose);
@@ -702,12 +710,55 @@ define(function (require, exports, module) {
         self = this;
       self.tpl = eqUI.panel.tpl.find('.eqftp-modal_connectionsSettings');
       self.state = 'closed';
+      self.protocolSelector = function (target) {
+        eqUI.context.open([
+          {
+            text: "FTP",
+            callback: function () {
+              if (_.isjQuery(target)) {
+                target.val('ftp').change();
+              }
+            },
+            shortcut: ""
+          },
+          {
+            text: "SFTP",
+            callback: function () {
+              if (_.isjQuery(target)) {
+                target.val('sftp').change();
+              }
+            },
+            shortcut: ""
+          }
+        ], {
+          x: (_.isjQuery(target) ? target.offset().left : 0),
+          y: (_.isjQuery(target) ? (target.offset().top + target.outerHeight()) : 0)
+        });
+      };
       var activeClass = 'eqftp-modal_active';
 
       self._cached = {};
       self._cache = function () {
         self._cached = JSON.stringify(self.read());
       };
+      
+      self.tpl.find('#eqftpConnectionProtocol').on('change', function () {
+        var protocol = $(this).val();
+        switch (protocol) {
+          case 'ftp':
+            $('[data-specific="sftp"]').hide();
+            $('[data-specific="ftp"]').show();
+            break;
+          case 'sftp':
+            $('[data-specific="ftp"]').hide();
+            $('[data-specific="sftp"]').show();
+            break;
+          default:
+            $('[data-specific="sftp"]').hide();
+            $('[data-specific="ftp"]').hide();
+            break;
+        }
+      });
       self.open = function (callback) {
         if (self.state === 'closed') {
           self.tpl.addClass(activeClass);

@@ -47,6 +47,8 @@ define({
  "eqftp__cs__c_password": "Password",
  "eqftp__cs__c_localpath": "Local path",
  "eqftp__cs__c_localpath__explorer_title": "Choose folder for project\\'s files",
+ "eqftp__cs__c_rsa": "RSA key path",
+ "eqftp__cs__c_rsa__explorer_title": "Select your RSA key",
  "eqftp__cs__c_remotepath": "Remote path",
  "eqftp__cs__c_check_difference": "Check difference between files",
  "eqftp__cs__c_autoupload": "Automatically upload changes",
