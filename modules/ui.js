@@ -7,6 +7,7 @@ define(function (require, exports, module) {
   "use strict";
   var Mustache = brackets.getModule("thirdparty/mustache/mustache"),
     FileSystem = brackets.getModule("filesystem/FileSystem"),
+    Resizer = brackets.getModule("utils/Resizer"),
     strings = require("strings"),
     eqUI = this,
     _ = false,
@@ -95,6 +96,7 @@ define(function (require, exports, module) {
     }
     if (!_) {
       _ = eqFTP.utils._;
+      eqUI.panel._resyncSizer = _.throttle(eqUI.panel._resyncSizer, 100);
     }
     eqUI.eqftp = eqFTP;
     return eqFTP;
@@ -112,6 +114,13 @@ define(function (require, exports, module) {
           $("#main-toolbar .buttons").append(eqUI.toolbarIcon.get());
           // Appending eqFTP panel after content
           $("body > .main-view > .content").after(eqUI.panel.get());
+          var resizer = eqUI.dragndrop.new(function (dx, dy, event) {
+            //moving
+            eqUI.panel.resize(-1 * dx);
+          }, function () {
+            //up
+          });
+          eqUI.panel.get().prepend(resizer);
           $("body").prepend(eqUI.context.get());
           if (eqUI.ps) {
             eqUI.ps.initialize($('.eqftp-content__page_file-tree')[0]);
@@ -156,22 +165,43 @@ define(function (require, exports, module) {
 
   eqUI.panel = new function () {
     var self = this;
-    var width = 360;
+    var width = 360,
+        m_width = width * 2;
+    var content = $("body > .main-view > .content");
     self.p = $(Mustache.render(require("text!htmlContent/panel.html"), strings));
     self.state = 'closed';
     self.tpl = self.p.filter('.eqftp');
     self.tpl.css('right', (width * -1) + 'px').width(width);
 
+    self._resyncSizer = function () {
+      Resizer.resyncSizer('#editor-holder #first-pane');
+    };
+    self.resize = function (plus) {
+      plus = parseInt(plus);
+      if (isNaN(plus)) {
+        plus = 0;
+      }
+      var nw = (self.tpl.width() + plus);
+      if (nw < width) {
+        nw = width;
+      } else if (nw > m_width) {
+        nw = m_width;
+      }
+      self.tpl.width(nw + 'px');
+      content.css('right', (self.tpl.outerWidth() + 30) + 'px');
+      self._resyncSizer();
+    };
     self.open = function () {
       if (self.state === 'closed') {
         self.tpl.show();
-        $("body > .main-view > .content").animate({
+        content.animate({
           right: (self.tpl.outerWidth() + 30) + 'px'
         }, 200, function () {
           self.state = 'opened';
           if (eqUI.password.state === 'shown') {
             eqUI.password._input.focus();
           }
+          self._resyncSizer();
         });
         self.tpl.animate({
           right: '30px'
@@ -180,10 +210,11 @@ define(function (require, exports, module) {
     };
     self.close = function () {
       if (self.state === 'opened') {
-        $("body > .main-view > .content").animate({
+        content.animate({
           right: '30px'
         }, 200, function () {
           self.state = 'closed';
+          self._resyncSizer();
         });
         self.tpl.animate({
           right: (self.tpl.outerWidth() * -1) + 'px'
@@ -1344,6 +1375,40 @@ define(function (require, exports, module) {
       }, 10);
     }
   };
+  
+  eqUI.dragndrop = new function () {
+    var self = this;
+    
+    self.new = function (moveCallback, upCallback, handler) {
+      var previousPosition = {};
+      var mcb = function (event) {
+        if (!_.isEmpty(previousPosition)) {
+          var dx = event.clientX - previousPosition.x;
+          var dy = event.clientY - previousPosition.y;
+          moveCallback(dx, dy, event);
+        }
+        previousPosition = {
+          x: event.clientX,
+          y: event.clientY
+        };
+      };
+      if (!upCallback || !_.isFunction(upCallback)) {
+        upCallback = mcb;
+      }
+      if (!handler || !_.isjQuery(handler)) {
+        handler = $('<div class="eqftp-resize"></div>');
+      }
+      handler.on('mousedown', function (event) {
+        var up = function (event) {
+          previousPosition = {};
+          upCallback(...arguments);
+          $('body').off('mousemove', mcb).off('mouseup', up);
+        };
+        $('body').on('mousemove', mcb).on('mouseup', up);
+      });
+      return handler;
+    };
+  }();
 
   /*
   eqUI.dropdown = new function () {
