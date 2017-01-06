@@ -581,16 +581,16 @@ maxerr: 50, node: true */
                 queue.q = eqftp.cache.queue[id];
                 debug('our queue', queue.q);
                 if (queue.q && queue.q.length > 0) {
+                  var f = _.findIndex(queue.q, {queue: 'a'});
+                  debug('do we have any a\'s?', f);
+                  if (f < 0) {
+                    return false;
+                  }
                   debug('are we busy?', queue.isBusy);
                   if (!queue.isBusy) {
                     queue.isBusy = true;
                   } else {
                     // not going anywhere were busy
-                    return false;
-                  }
-                  var f = _.findIndex(queue.q, {queue: 'a'});
-                  debug('do we have any a\'s?', f);
-                  if (f < 0) {
                     return false;
                   }
                   var queuer = _.nth(queue.q, f),
@@ -607,7 +607,6 @@ maxerr: 50, node: true */
                       if (err) {
                         queuer.queue = 'f';
                         queuer.err = err;
-                        queue.isBusy = false;
                         queue.add(queuer, true);
                       }
                     }
