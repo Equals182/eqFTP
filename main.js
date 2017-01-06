@@ -580,7 +580,8 @@ define(function (require, exports, module) {
       
     },
     connectionElement: function () {
-      var id = $(event.target).closest('.eqftp-connections__item').attr('id');
+      var el = $(event.target).closest('.eqftp-connections__item'),
+          id = el.attr('id');
       ui.context.open([
         {
           text: strings.eqftp__context__connectionElement__edit,
@@ -603,7 +604,7 @@ define(function (require, exports, module) {
           },
           shortcut: ""
         }
-      ]);
+      ], undefined, $(event.target));
     },
     queueElement: function () {
       

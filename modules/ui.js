@@ -249,8 +249,15 @@ define(function (require, exports, module) {
       self.current = {};
       self.tpl.html('');
     };
+    self.caller = false;
     self._autoclose = function (e) {
-      if (!$(e.target).is(self.tpl) && $(e.target).closest(self.tpl).length < 1 && !$(e.target).is('.eqftp-connections__item .eqftp__button')) {
+      if (!$(e.target).is(self.tpl) &&
+          $(e.target).closest(self.tpl).length < 1 &&
+          (
+            self.caller && _.isjQuery(self.caller) &&
+            !$(e.target).is(self.caller)
+          )
+      ) {
         self.close();
       }
     };
@@ -259,8 +266,11 @@ define(function (require, exports, module) {
       self.tpl.hide();
       $('body').off('click', self._autoclose);
     };
-    self.open = function (items, position) {
+    self.open = function (items, position, caller) {
       self._reset();
+      if (caller && _.isjQuery(caller)) {
+        self.caller = caller;
+      }
       if (_.isArray(items) && items.length > 0) {
         items.forEach(function (item) {
           item = self._craft(item.text, item.callback, item.shortcut);
@@ -733,7 +743,7 @@ define(function (require, exports, module) {
         ], {
           x: (_.isjQuery(target) ? target.offset().left : 0),
           y: (_.isjQuery(target) ? (target.offset().top + target.outerHeight()) : 0)
-        });
+        }, target);
       };
       var activeClass = 'eqftp-modal_active';
 
