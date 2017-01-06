@@ -724,11 +724,17 @@ EasyFTP.prototype.upload = function (queuer, cb) {
         action();
       } else {
         var parentPath = utils.getNamepart(queuer.remotepath, 'parentPath');
-        self.mkdir(parentPath, function (err, data) {
-          if (!err) {
+        self.exist(parentPath, function (result) {
+          if (result) {
             action();
           } else {
-            self.events.error(err);
+            self.mkdir(parentPath, function (err, data) {
+              if (!err) {
+                action();
+              } else {
+                self.events.error(err);
+              }
+            });
           }
         });
       }
