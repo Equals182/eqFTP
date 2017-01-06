@@ -219,6 +219,9 @@ maxerr: 50, node: true */
       if (!decimals) {
           decimals = 1;
       }
+      if (!_.isNumber(value) || !_.isFinite(value) || value < 0) {
+        value = 0;
+      }
       if (value === 0) { return '0 ' + sizes[0]; }
       var k = 1000, // or 1024 for binary
           dm = decimals + 1 || 3,
