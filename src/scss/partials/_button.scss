@@ -1,0 +1,148 @@
+.eqftp {
+  &__button {
+    font-family: $ff;
+    font-size: $fs-button;
+    font-weight: $fw-medium;
+    font-style: normal;
+    text-transform: uppercase;
+    box-sizing: border-box;
+    transition: background-color $time-fast;
+    cursor: pointer;
+    user-select: none;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    &Circle {
+      border-radius: 50%;
+      &_add {
+        min-height: $i14;
+        max-height: $i14;
+        height: $i14;
+        min-width: $i14;
+        max-width: $i14;
+        width: $i14;
+      }
+      &_smallest {
+        min-height: $i6;
+        max-height: $i6;
+        height: $i6;
+        min-width: $i6;
+        max-width: $i6;
+        width: $i6;
+      }
+      &_small {
+        min-height: $i9;
+        max-height: $i9;
+        height: $i9;
+        min-width: $i9;
+        max-width: $i9;
+        width: $i9;
+      }
+      &_medium {
+        min-height: $i12;
+        max-height: $i12;
+        height: $i12;
+        min-width: $i12;
+        max-width: $i12;
+        width: $i12;
+      }
+      &_big {
+        min-height: $i15;
+        max-height: $i15;
+        height: $i15;
+        min-width: $i15;
+        max-width: $i15;
+        width: $i15;
+      }
+      &_biggest {
+        min-height: $i18;
+        max-height: $i18;
+        height: $i18;
+        min-width: $i18;
+        max-width: $i18;
+        width: $i18;
+      }
+    }
+    &Square {
+      &_footer {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        transition: transform $time-fast;
+        min-height: 25px;
+        max-height: 25px;
+        height: 25px;
+        min-width: 25px;
+        max-width: 25px;
+        width: 25px;
+        z-index: 2;
+      }
+      &_smallest {
+        min-height: $i6;
+        max-height: $i6;
+        height: $i6;
+        min-width: $i6;
+        max-width: $i6;
+        width: $i6;
+      }
+      &_small {
+        min-height: $i9;
+        max-height: $i9;
+        height: $i9;
+        min-width: $i9;
+        max-width: $i9;
+        width: $i9;
+      }
+      &_medium {
+        min-height: $i12;
+        max-height: $i12;
+        height: $i12;
+        min-width: $i12;
+        max-width: $i12;
+        width: $i12;
+      }
+      &_big {
+        min-height: $i15;
+        max-height: $i15;
+        height: $i15;
+        min-width: $i15;
+        max-width: $i15;
+        width: $i15;
+      }
+      &_biggest {
+        min-height: $i18;
+        max-height: $i18;
+        height: $i18;
+        min-width: $i18;
+        max-width: $i18;
+        width: $i18;
+      }
+    }
+    &Rectangle {
+      margin-top: $i2;
+      margin-bottom: $i2;
+      margin-left: $i2;
+      margin-right: $i2;
+      padding-left: $i2;
+      padding-right: $i2;
+      border-radius: 2px;
+      min-height: $i9;
+      max-height: $i9;
+      height: $i9;
+      min-width: 88px;
+    }
+    &_shadow {
+      transition: box-shadow $time-fast;
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+      &:hover,
+      &:focus {
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+      }
+      &:active {
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+      }
+    }
+    @include _margin($i4);
+    @include _padding();
+  }
+}

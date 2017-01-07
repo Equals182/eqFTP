@@ -1,0 +1,98 @@
+@mixin _margin($margin) {
+  &_margin {
+    margin-top: $margin;
+    margin-bottom: $margin;
+    margin-left: $margin;
+    margin-right: $margin;
+    &Reset {
+      margin-top: 0;
+      margin-bottom: 0;
+      margin-left: 0;
+      margin-right: 0;
+      &Top {
+        margin-top: 0;
+      }
+      &Bottom {
+        margin-bottom: 0;
+      }
+      &Left {
+        margin-left: 0;
+      }
+      &Right {
+        margin-right: 0;
+      }
+    }
+    &Top {
+      margin-top: $margin;
+    }
+    &Bottom {
+      margin-bottom: $margin;
+    }
+    &Left {
+      margin-left: $margin;
+    }
+    &Right {
+      margin-right: $margin;
+    }
+  }
+}
+
+@mixin _padding($padding: 0) {
+  &_padding {
+    padding-top: $padding;
+    padding-bottom: $padding;
+    padding-left: $padding;
+    padding-right: $padding;
+    &Reset {
+      padding-top: 0;
+      padding-bottom: 0;
+      padding-left: 0;
+      padding-right: 0;
+      &Top {
+        padding-top: 0;
+      }
+      &Bottom {
+        padding-bottom: 0;
+      }
+      &Left {
+        padding-left: 0;
+      }
+      &Right {
+        padding-right: 0;
+      }
+    }
+    &Top {
+      padding-top: $padding;
+    }
+    &Bottom {
+      padding-bottom: $padding;
+    }
+    &Left {
+      padding-left: $padding;
+    }
+    &Right {
+      padding-right: $padding;
+    }
+  }
+}
+
+@mixin _width() {
+  &_shortest {
+    width: 25%;
+  }
+  &_short {
+    width: 33.3%;
+  }
+  &_half {
+    width: 50%;
+  }
+  &_long {
+    width: 66.6%;
+  }
+  &_longest {
+    width: 75%;
+  }
+  &_full {
+    width: 100%;
+  }
+}

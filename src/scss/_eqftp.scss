@@ -186,12 +186,7 @@
       display: flex;
       flex-wrap: wrap;
       height: calc(100% - 48px);
-      &_padding {
-        padding-top: $i4;
-        padding-bottom: $i4;
-        padding-left: $i4;
-        padding-right: $i4;
-      }
+      @include _padding($i4);
       &_start {
         align-content: flex-start;
         align-items: flex-start;
@@ -234,7 +229,7 @@
       padding-bottom: $i6;
       padding-left: $i6;
       padding-right: $i6;
-      font-family: $font-family;
+      font-family: $ff;
       font-size: $fs-title;
       font-weight: $fw-medium;
       font-style: normal;
@@ -244,7 +239,7 @@
     &__content {
       padding-left: $i6;
       padding-right: $i6;
-      font-family: $font-family;
+      font-family: $ff;
       font-size: $fs-body-1;
       font-weight: $fw-regular;
       font-style: normal;
@@ -267,9 +262,7 @@
   }
   &-content {
     display: flex;
-    justify-content: flex-start;
-    align-content: flex-start;
-    align-items: flex-start;
+    align-content: space-between;
     flex-wrap: wrap;
     max-height: calc(100% - 122px);
     height: 100%;
@@ -279,7 +272,6 @@
       animation-name: fadeInRight;
       animation-duration: $time-fast;
       display: none;
-      justify-content: center;
       position: relative;
       height: 100%;
       width: 100%;
@@ -289,7 +281,7 @@
       &_connections {
         align-content: flex-start;
         flex-wrap: wrap;
-        & .eqftp__buttonRound {
+        & .eqftp__buttonCircle {
           position: absolute;
           bottom: $i4;
           right: $i4;
@@ -347,7 +339,7 @@
           }
         }
       }
-      & .eqftp__buttonCube_footer {
+      & .eqftp__buttonSquare_footer {
         transform: rotate(180deg);
       }
     }
@@ -446,7 +438,7 @@
     padding-bottom: $i2;
     box-sizing: border-box;
     user-select: none;
-    height: calc(100% - 8px - 8px);
+    height: 100%;
     width: 100%;
     &__item {
       padding-right: $i2;
@@ -529,6 +521,17 @@
         padding-right: 0;
       }
     }
+    &__text {
+      &_folder {
+        opacity: 0.6;
+      }
+      &_dot {
+        opacity: 0.4;
+      }
+      &_extension {
+        opacity: 0.4;
+      }
+    }
   }
   &-queue {
     display: flex;
@@ -583,13 +586,8 @@
         }
       }
       &Local {
-        min-width: 43%;
-        max-width: 43%;
-      }
-      &Remote {
-        margin-left: $i1;
-        min-width: 43%;
-        max-width: 43%;
+        min-width: 86%;
+        max-width: 86%;
       }
       &Size {
         display: flex;
@@ -713,7 +711,7 @@
     &__text {
       padding-top: $i2;
       padding-bottom: $i2;
-      font-family: $font-family;
+      font-family: $ff;
       font-size: 15px;
       font-weight: 400;
       font-style: normal;
@@ -724,7 +722,7 @@
       padding-top: $i2;
       padding-bottom: $i2;
       padding-left: $i2;
-      font-family: $font-family;
+      font-family: $ff;
       font-size: 15px;
       font-weight: 400;
       font-style: normal;
@@ -747,7 +745,7 @@
     list-style: none;
     position: absolute;
     bottom: 39px;
-    right: 23px;
+    right: 53px;
     z-index: 7;
     &__item {
       margin-top: $i2;
@@ -768,7 +766,7 @@
       max-width: 568px;
     }
     &__text {
-      font-family: $font-family;
+      font-family: $ff;
       font-size: 14px;
       font-style: normal;
       font-weight: 400;
@@ -778,7 +776,7 @@
     }
     &__action {
       padding-left: $i6;
-      font-family: $font-family;
+      font-family: $ff;
       font-size: 14px;
       font-style: normal;
       font-weight: 500;
@@ -806,7 +804,7 @@
       padding-bottom: 12px;
       padding-left: 12px;
       padding-right: 12px;
-      font-family: $font-family;
+      font-family: $ff;
       font-size: 20px;
       font-weight: 400;
       font-style: normal;
@@ -833,11 +831,18 @@
     }
     &__text {
       padding-left: $i4;
-      font-family: $font-family;
+      font-family: $ff;
       font-size: 14px;
       font-weight: 400;
       font-style: normal;
     }
+  }
+  &-copyright {
+    padding-top: $i12;
+    padding-bottom: $i12;
+    color: $gray700;
+    box-sizing: border-box;
+    width: 100%;
   }
   &__row {
     display: flex;
@@ -885,144 +890,7 @@
     &_end {
       justify-content: flex-end;
     }
-    &_padding {
-      &Right {
-        padding-right: $i4;
-      }
-      &Left {
-        padding-left: $i4;
-      }
-    }
-  }
-  &__button {
-    box-sizing: border-box;
-    transition: background-color $time-fast, box-shadow $time-fast;
-    cursor: pointer;
-    user-select: none;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    &Round {
-      border-radius: 50%;
-      min-height: $i14;
-      max-height: $i14;
-      height: $i14;
-      min-width: $i14;
-      max-width: $i14;
-      width: $i14;
-    }
-    &Cube {
-      min-height: $i12;
-      max-height: $i12;
-      height: $i12;
-      min-width: $i12;
-      max-width: $i12;
-      width: $i12;
-      &_footer {
-        position: absolute;
-        bottom: 0;
-        right: 0;
-        transition: transform $time-fast;
-        min-height: 25px;
-        max-height: 25px;
-        height: 25px;
-        min-width: 25px;
-        max-width: 25px;
-        width: 25px;
-        z-index: 2;
-      }
-      &_smallest {
-        min-height: $i6;
-        max-height: $i6;
-        height: $i6;
-        min-width: $i6;
-        max-width: $i6;
-        width: $i6;
-      }
-      &_small {
-        min-height: $i9;
-        max-height: $i9;
-        height: $i9;
-        min-width: $i9;
-        max-width: $i9;
-        width: $i9;
-      }
-      &_medium {
-        min-height: $i12;
-        max-height: $i12;
-        height: $i12;
-        min-width: $i12;
-        max-width: $i12;
-        width: $i12;
-      }
-      &_big {
-        min-height: $i15;
-        max-height: $i15;
-        height: $i15;
-        min-width: $i15;
-        max-width: $i15;
-        width: $i15;
-      }
-    }
-    &Rectangle {
-      margin-top: $i2;
-      margin-bottom: $i2;
-      margin-left: $i2;
-      margin-right: $i2;
-      padding-left: $i2;
-      padding-right: $i2;
-      border-radius: 2px;
-      font-family: $font-family;
-      font-size: $fs-button;
-      font-weight: $fw-medium;
-      font-style: normal;
-      text-transform: uppercase;
-      min-height: $i9;
-      max-height: $i9;
-      height: $i9;
-      min-width: 88px;
-      max-width: 100%;
-    }
-    &_blue {
-      color: $c01 !important;
-      background-color: $c20 !important;
-      & .material-icons {
-        color: $c01 !important;
-      }
-      &:hover,
-      &:focus {
-        background-color: $c21 !important;
-        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-      }
-      &:active {
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-      }
-    }
-    &_medium {
-      min-height: $i12;
-      max-height: $i12;
-      height: $i12;
-    }
-    &_full {
-      width: $width-full;
-    }
-    &_margin {
-      &Reset {
-        margin: 0;
-      }
-      &Left {
-        margin-left: $i4;
-        &Reset {
-          margin-left: 0;
-        }
-      }
-      &Right {
-        margin-right: $i4;
-        &Reset {
-          margin-right: 0;
-        }
-      }
-    }
+    @include _padding($i4);
   }
   &__label {
     margin-top: 16px;
@@ -1033,7 +901,7 @@
     padding-bottom: 0;
     padding-left: 0;
     padding-right: 0;
-    font-family: $font-family;
+    font-family: $ff;
     font-size: 12px;
     font-weight: 400;
     text-align: left;
@@ -1063,9 +931,9 @@
     }
   }
   &__title {
+    font-family: $ff;
     font-size: 14px;
-    font-family: $font-family;
-    font-weight: 400;
+    font-weight: $fw-regular;
     font-style: normal;
     text-align: left;
     display: flex;
@@ -1118,8 +986,34 @@
       }
     }
   }
+  &__text {
+    font-family: $ff;
+    font-size: 14px;
+    font-weight: $fw-regular;
+    font-style: normal;
+    &_left {
+      text-align: left;
+    }
+    &_right {
+      text-align: right;
+    }
+    &_center {
+      text-align: center;
+    }
+    &_color {
+      &Light {
+        color: $gray700;
+      }
+      &Dark {
+        color: $gray300;
+      }
+      &Blue {
+        color: $c20;
+      }
+    }
+  }
   &__subheader {
-    font-family: $font-family;
+    font-family: $ff;
     font-size: 14px;
     font-weight: 500;
     font-style: normal;
@@ -1192,5 +1086,10 @@
       left: 0;
       height: 100%;
     }
+  }
+  &__separator {
+    background-color: $c10;
+    height: 1px;
+    width: 100%;
   }
 }

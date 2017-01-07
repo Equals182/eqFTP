@@ -139,6 +139,26 @@
         }
       }
     }
+    &_blue {
+      &Background {
+        color: $c01;
+        background-color: $c20;
+        & .material-icons {
+          color: $c01;
+        }
+        &:hover,
+        &:focus {
+          background-color: $c21;
+        }
+      }
+      &Text {
+        color: $c20;
+        &:hover,
+        &:focus {
+          color: $c21;
+        }
+      }
+    }
   }
   &__label {
     color: $c001;
@@ -293,6 +313,26 @@
           }
           &:active {
             background-color: transparent;
+          }
+        }
+      }
+      &_blue {
+        &Background {
+          color: $c01;
+          background-color: $c20;
+          & .material-icons {
+            color: $c01;
+          }
+          &:hover,
+          &:focus {
+            background-color: $c21;
+          }
+        }
+        &Text {
+          color: $c20;
+          &:hover,
+          &:focus {
+            color: $c21;
           }
         }
       }

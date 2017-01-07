@@ -5,18 +5,18 @@
 
     <!-- HEAD -->
     <div class="eqftp-head">
-      <div class="eqftp__button eqftp__buttonCube eqftp__buttonCube_medium" onclick="eqftp.ui.search.toggle();"><i class="material-icons">search</i></div>
+      <div class="eqftp__button eqftp__buttonSquare eqftp__buttonSquare_medium" onclick="eqftp.ui.search.toggle();"><i class="material-icons">search</i></div>
       <div class="eqftp__title eqftp__title_full eqftp__title_medium"><span class="eqftp__titleNowrap">eqFTP</span></div>
-      <div class="eqftp__button eqftp__buttonCube eqftp__buttonCube_medium" onclick="eqftp.ui.panel.close();"><i class="material-icons">clear</i></div>
+      <div class="eqftp__button eqftp__buttonSquare eqftp__buttonSquare_medium" onclick="eqftp.ui.panel.close();"><i class="material-icons">clear</i></div>
     </div>
     <!-- /HEAD -->
 
     <!-- /SEARCH -->
     <div class="eqftp-header__search">
       <div class="eqftp-header__searchHolder shadow-small">
-        <div class="eqftp__button eqftp__button_inversion eqftp__button_light eqftp__buttonCube eqftp__buttonCube_small" onclick="eqftp.ui.search.toggle();"><i class="material-icons">arrow_back</i></div>
+        <div class="eqftp__button eqftp__button_inversion eqftp__button_light eqftp__buttonSquare eqftp__buttonSquare_small" onclick="eqftp.ui.search.toggle();"><i class="material-icons">arrow_back</i></div>
         <input type="text" name="eqftpSearch" class="eqftp__input eqftp__inputText eqftp__inputText_inversion" placeholder="Search or connect directly..." onkeyup="eqftp.ui.search.filter($(this).val(), event);" />
-        <div class="eqftp__button eqftp__button_inversion eqftp__button_light eqftp__buttonCube eqftp__buttonCube_small"><i class="material-icons">flash_on</i></div>
+        <div class="eqftp__button eqftp__button_inversion eqftp__button_light eqftp__buttonSquare eqftp__buttonSquare_small"><i class="material-icons">flash_on</i></div>
         <div class="eqftp-header__dropdown">
           <div class="eqftp-header__dropdownList"></div>
         </div>
@@ -43,7 +43,7 @@
     <div class="eqftp-head shadow-smallest">
       <div class="eqftp__icon eqftp__icon_medium eqftp__icon_nohover"><i class="material-icons">folder_special</i></div>
       <div class="eqftp__title eqftp__title_full eqftp__title_medium"><span class="eqftp__titleNowrap">eqFTP</span></div>
-      <div class="eqftp__button eqftp__buttonCube eqftp__buttonCube_medium"><i class="material-icons">clear</i></div>
+      <div class="eqftp__button eqftp__buttonSquare eqftp__buttonSquare_medium"><i class="material-icons">clear</i></div>
     </div>
     <!-- /HEAD -->
 
@@ -53,7 +53,7 @@
       <div class="eqftp__title">{{{eqftp__wlcm__welcome_text}}}</div>
       <div class="eqftp__row eqftp__row_end">
         <div class="eqftp__button eqftp__buttonRectangle eqftp__buttonRectangle_nobg" onclick="eqftp.settings.open();">{{eqftp__wlcm__welcome_button_locate}}</div>
-        <div class="eqftp__button eqftp__button_blue eqftp__buttonRectangle" onclick="eqftp.settings.create();">{{eqftp__wlcm__welcome_button_create}}</div>
+        <div class="eqftp__button eqftp__button_shadow eqftp__button_blueBackground eqftp__buttonRectangle" onclick="eqftp.settings.create();">{{eqftp__wlcm__welcome_button_create}}</div>
       </div>
     </div>
     <!-- /CONTENT -->
@@ -68,7 +68,7 @@
     <div class="eqftp-head shadow-smallest">
       <div class="eqftp__icon eqftp__icon_medium eqftp__icon_nohover"><i class="material-icons">vpn_key</i></div>
       <div class="eqftp__title eqftp__title_full eqftp__title_medium"><span class="eqftp__titleNowrap">{{eqftp__paswd__window_title}}</span></div>
-      <div class="eqftp__button eqftp__buttonCube eqftp__buttonCube_medium"><i class="material-icons">clear</i></div>
+      <div class="eqftp__button eqftp__buttonSquare eqftp__buttonSquare_medium"><i class="material-icons">clear</i></div>
     </div>
     <!-- /HEAD -->
 
@@ -79,7 +79,7 @@
         <input type="password" name="password" id="eqftpPassword" class="eqftp__input eqftp__inputText eqftp__inputText_underline eqftp__inputText_labelIn" placeholder="{{eqftp__paswd__input_placeholder}}" onkeypress="if (event.keyCode === 13) { $('#eqftpDecrypt').click(); }" />
       </div>
       <div class="eqftp__row eqftp__row_center">
-        <div id="eqftpDecrypt" class="eqftp__button eqftp__button_blue eqftp__buttonRectangle">{{eqftp__paswd__button}}</div>
+        <div id="eqftpDecrypt" class="eqftp__button eqftp__button_shadow eqftp__button_blueBackground eqftp__buttonRectangle">{{eqftp__paswd__button}}</div>
       </div>
     </div>
     <!-- /CONTENT -->
@@ -94,7 +94,7 @@
     <div class="eqftp-head shadow-smallest">
       <div class="eqftp__icon eqftp__icon_medium" eqftp-id="" onclick="var id = $(this).attr('eqftp-id'); eqftp.ui.connections.editor.close(function () { eqftp.connect(id); });"><i class="material-icons">power</i></div>
       <div class="eqftp__title eqftp__title_full eqftp__title_medium"><span class="eqftp__titleNowrap">{{eqftp__cs__window_title}}</span></div>
-      <div class="eqftp__button eqftp__buttonCube eqftp__buttonCube_medium" onclick="eqftp.ui.connections.editor.close();"><i class="material-icons">clear</i></div>
+      <div class="eqftp__button eqftp__buttonSquare eqftp__buttonSquare_medium" onclick="eqftp.ui.connections.editor.close();"><i class="material-icons">clear</i></div>
     </div>
     <!-- /HEAD -->
 
@@ -151,8 +151,8 @@
         <label class="eqftp__label" for="eqftpConnectionRSA">{{eqftp__cs__c_rsa}}</label>
         <input type="text" name="rsa" id="eqftpConnectionRSA" class="eqftp__input eqftp__inputText eqftp__inputText_underline eqftp__inputText_labelIn" placeholder="{{eqftp__cs__c_rsa}}" onclick="eqftp.ui.explorer.openFile('{{eqftp__cs__c_rsa__explorer_title}}', eqftp._home, function (err, path) { if (!err && path) { $('#eqftpConnectionRSA').val(path); } });"/>
       </div>
-      
-      
+
+
       <div class="eqftp__holder eqftp__holder_input">
         <label class="eqftp__label" for="eqftpConnectionLocalPath">{{eqftp__cs__c_localpath}}</label>
         <input type="text" name="localpath" id="eqftpConnectionLocalPath" class="eqftp__input eqftp__inputText eqftp__inputText_underline eqftp__inputText_labelIn" placeholder="{{eqftp__cs__c_localpath}}" onclick="eqftp.ui.explorer.openFolder('{{eqftp__cs__c_localpath__explorer_title}}', eqftp._home, function (err, path) { if (!err && path) { $('#eqftpConnectionLocalPath').val(path); } });"/>
@@ -187,7 +187,7 @@
       <!-- ACTIONS -->
       <div class="eqftp__row eqftp__row_end">
         <div class="eqftp__button eqftp__buttonRectangle eqftp__buttonRectangle_nobg" eqftp-id="" onclick="eqftp.connectionRemove($(event.target).attr('eqftp-id'));">{{eqftp__controls__delete}}</div>
-        <div class="eqftp__button eqftp__button_marginRightReset eqftp__button_blue eqftp__buttonRectangle" onclick="eqftp.settings.setConnection(eqftp.ui.connections.editor.read()); eqftp.ui.connections.editor._cache();">{{eqftp__controls__save}}</div>
+        <div class="eqftp__button eqftp__button_marginResetRight eqftp__button_shadow eqftp__button_blueBackground eqftp__buttonRectangle" onclick="eqftp.settings.setConnection(eqftp.ui.connections.editor.read()); eqftp.ui.connections.editor._cache();">{{eqftp__controls__save}}</div>
       </div>
       <!-- /ACTIONS -->
 
@@ -220,12 +220,12 @@
     <div class="eqftp-content__page eqftp-content__page_connections">
 
       <!-- NEW CONNECTION -->
-      <div class="eqftp__button eqftp__button_blue eqftp__buttonRound shadow-smallest" onclick="eqftp.ui.connections.new();"><i class="material-icons">add</i></div>
+      <div class="eqftp__button eqftp__button_shadow eqftp__button_blueBackground eqftp__buttonCircle eqftp__buttonCircle_add" onclick="eqftp.ui.connections.new();"><i class="material-icons">add</i></div>
       <!-- /NEW CONNECTION -->
 
       <!-- SEARCH CONNECTION -->
       <div class="eqftp__holder eqftp__holder_searchConnection">
-        <div class="eqftp__button eqftp__buttonCube eqftp__buttonCube_middle"><i class="material-icons">search</i></div>
+        <div class="eqftp__button eqftp__buttonSquare eqftp__buttonSquare_medium"><i class="material-icons">search</i></div>
         <input type="text" placeholder="Connection's name" class="eqftp__input eqftp__inputText eqftp__inputText_underline eqftp__inputText_labelOut" id="searchConnections" onkeyup="eqftp.ui.connections.filter($(this).val(), event);">
       </div>
       <!-- /SEARCH CONNECTION -->
@@ -266,7 +266,11 @@
         <label for="eqftpDebug" class="eqftp__label">{{eqftp__gs__debug_label}}</label>
       </div>
       <div class="eqftp__row eqftp__row_end">
-        <div class="eqftp__button eqftp__button_marginRightReset eqftp__button_blue eqftp__buttonRectangle" onclick="eqftp.settings.set(eqftp.ui.settings.get());">{{eqftp__controls__save}}</div>
+        <div class="eqftp__button eqftp__button_marginResetRight eqftp__button_shadow eqftp__button_blueBackground eqftp__buttonRectangle" onclick="eqftp.settings.set(eqftp.ui.settings.get());">{{eqftp__controls__save}}</div>
+      </div>
+      <div class="eqftp-copyright">
+        <div class="eqftp__text">eqFTP is maintained by <span href="https://github.com/Equals182" class="eqftp__text eqftp__text_colorBlue">Equals182</span> & <span href="https://github.com/GoliafRS" class="eqftp__text eqftp__text_colorBlue">GoliafRS</span></div>
+        <div class="eqftp__text">You can support our project <span class="eqftp__button eqftp__button_blueText">Donate</span></div>
       </div>
     </div>
     <!-- /PAGE SETTINGS -->
@@ -277,7 +281,7 @@
   <!-- /FOOTER -->
   <div class="eqftp-footer">
     <div class="eqftp-footer__list"></div>
-    <div class="eqftp__button eqftp__buttonCube eqftp__buttonCube_footer" onclick="eqftp.ui.log.toggle();"><i class="material-icons">keyboard_arrow_up</i></div>
+    <div class="eqftp__button eqftp__buttonSquare eqftp__buttonSquare_footer" onclick="eqftp.ui.log.toggle();"><i class="material-icons">keyboard_arrow_up</i></div>
   </div>
   <!-- /FOOTER -->
 
