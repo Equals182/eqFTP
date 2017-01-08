@@ -228,8 +228,7 @@ maxerr: 50, node: true */
       debug('eqftp.settings.set fired', settings, password, path);
       
       var toSaveNew = _.cloneDeep(settings);
-      if (_.has(settings, 'connections')) {
-        debug('splitting', toSaveNew.connections);
+      if (_.has(settings, 'connections') && !_.has(settings, 'connections.settings')) {
         toSaveNew.connections = self._cc('split', toSaveNew.connections);
         debug('splitted', toSaveNew.connections);
       }
