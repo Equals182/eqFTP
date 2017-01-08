@@ -673,10 +673,13 @@ define(function (require, exports, module) {
     self.tpl = eqUI.panel.tpl.find('.eqftp-queue');
     self.have = [];
     self.queueElements = {};
+    self._clearAllButton = self.tpl.find("#eqftp-queue__clear_all");
+    self._clearAllButton.hide();
 
     self._gen = function (v) {
       return $(Mustache.render(require("text!htmlContent/queueElement.html"), _.defaults(_.clone(strings), {
-        id: function () {
+        qid: v.qid,
+        eqid: function () {
           return 'eqftp-queue-' + v.qid;
         },
         class: function () {
@@ -734,17 +737,31 @@ define(function (require, exports, module) {
         }
       });
       self.have = items;
+      if (self.have.length < 1) {
+        self._clearAllButton.hide();
+      } else {
+        self._clearAllButton.show();
+      }
     };
     self._setTotal = false;
     self.progress = function (data) {
       if (!self._setTotal) {
         self._setTotal = _.throttle(function (data) {
           var el = (self.queueElements[data.queuer.qid] || $('#eqftp-queue-' + data.queuer.qid));
+          if (el.length < 1) {
+            return false;
+          }
           el.find('.eqftp-placeholder-size').text(utils.filesize_format(data.total, 1, localeSizes));
-        }, 5000);
+        }, 1000);
       }
       var el = (self.queueElements[data.queuer.qid] || $('#eqftp-queue-' + data.queuer.qid)),
         p = Math.floor(data.percents * 100);
+      if (el.length < 1) {
+        return false;
+      }
+      if (p > 100) {
+        p = 100; //sometimes it may get to 101% because of shitty code (we just sum chunk sizes lol)
+      }
       el.find('.eqftp__progressBar:first').css('width', p + '%');
       self._setTotal(data);
     };

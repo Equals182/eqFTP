@@ -352,6 +352,7 @@ define(function (require, exports, module) {
                   load: eqftp.settings.load,
                   open: eqftp.settings.open
                 },
+                queue: eqftp.queue,
                 _home: brackets.app.getUserDocumentsDirectory()
               };
               debug('window.eqftp:', window.eqftp);
@@ -659,7 +660,26 @@ define(function (require, exports, module) {
       ], undefined, el);
     },
     queueElement: function () {
-      
+      var el = $(event.target).closest('.eqftp-queue__item'),
+          qid = $(el).attr('eqftp-id');
+      if (el.hasClass('eqftp-queue__item_error')) {
+        ui.context.open([
+          {
+            text: strings.eqftp__context__queueElement__restart,
+            callback: function () {
+              eqftp.queue.restart(qid);
+            },
+            shortcut: ""
+          },
+          {
+            text: strings.eqftp__context__queueElement__remove,
+            callback: function () {
+              eqftp.queue.remove(qid);
+            },
+            shortcut: ""
+          }
+        ], undefined, el);
+      }
     }
   };
 

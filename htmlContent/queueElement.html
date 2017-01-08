@@ -1,4 +1,4 @@
-<div id="{{id}}" class="eqftp-queue__item {{class}}">
+<div id="{{eqid}}" eqftp-id="{{qid}}" class="eqftp-queue__item {{class}}" oncontextmenu="eqftp.contexts.queueElement();">
   <div class="eqftp-queue__direction">
     <div class="eqftp__icon eqftp__icon_small">
       <i class="material-icons">{{icon}}</i>
@@ -21,7 +21,7 @@
     </div>
   </div>
   <div class="eqftp-queue__menu">
-    <div class="eqftp__button eqftp__buttonSquare eqftp__buttonSquare_small">
+    <div class="eqftp__button eqftp__buttonSquare eqftp__buttonSquare_small" onclick="eqftp.contexts.queueElement();">
       <i class="material-icons">more_vert</i>
     </div>
   </div>

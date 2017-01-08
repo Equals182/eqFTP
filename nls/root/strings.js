@@ -137,6 +137,9 @@ define({
  "eqftp__context__fileTreeElement__refresh": "Refresh",
  "eqftp__context__fileTreeElement__open": "Open",
  
+ "eqftp__context__queueElement__restart": "Restart",
+ "eqftp__context__queueElement__remove": "Remove",
+ 
  /**
  * CONTROLS
  * Check this page if you have any questions about this part: https://material.io/guidelines/style/writing.html#writing-language

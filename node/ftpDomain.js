@@ -524,6 +524,11 @@ maxerr: 50, node: true */
               queue.q = [];
               queue.isBusy = false;
               
+              queue.clear = function () {
+                queue.q = [];
+                queue.isBusy = false;
+                return queue.q;
+              };
               queue.reset = function (accept) {
                 queue.q = [];
                 queue.isBusy = false;
@@ -718,6 +723,27 @@ console.log('[watcher]', 'change tmp', path, arguments);
                   });
                 }
               };
+              queue.restart = function (qid) {
+                var f = _.findIndex(queue.q, ['qid', qid]);
+                if (f > -1 && queue.accept) {
+                  queue.q[f].queue = 'a';
+                  _domainManager.emitEvent("eqFTP", "event", {
+                    action: 'queue:update',
+                    data: eqftp.queue.get()
+                  });
+                  queue.next();
+                }
+              };
+              queue.remove = function (qid) {
+                var f = _.findIndex(queue.q, ['qid', qid]);
+                if (f > -1) {
+                  _.pullAt(queue.q, f);
+                  _domainManager.emitEvent("eqFTP", "event", {
+                    action: 'queue:update',
+                    data: eqftp.queue.get()
+                  });
+                }
+              };
             }(),
             open: function (cb) {
               debug('eqftp.connections[id].open fired', id, cb);
@@ -806,6 +832,7 @@ console.log('[watcher]', 'change tmp', path, arguments);
               if (self._[id]) {
                 if (self._[id]._server) {
                   self._[id]._server.close();
+                  _.unset(self._[id], '_server');
                 }
               }
               return true;
@@ -963,6 +990,26 @@ console.log('[watcher]', 'change tmp', path, arguments);
         });
       });
       return r;
+    },
+    clear: function () {
+      _.forOwn(eqftp.connections._get(), function (c, id) {
+        c.queue.clear();
+      });
+      _domainManager.emitEvent("eqFTP", "event", {
+        action: 'queue:update',
+        data: eqftp.queue.get()
+      });
+      return true;
+    },
+    restart: function (qid) {
+      _.forOwn(eqftp.connections._get(), function (c, id) {
+        c.queue.restart(qid);
+      });
+    },
+    remove: function (qid) {
+      _.forOwn(eqftp.connections._get(), function (c, id) {
+        c.queue.remove(qid);
+      });
     }
   };
   eqftp.comparator = new function () {
@@ -992,6 +1039,33 @@ console.log('[watcher]', 'change tmp', path, arguments);
         returns: [
           { name: "Commands", type: "array", description: "List of registered commands" }
         ]
+      },
+      {
+        command: "queue.clear",
+        async: false,
+        description: 'Clears every queue except currently processed files',
+        parameters: [],
+        returns: [
+          { name: "success", type: "boolean", description: "TRUE if everything's okay and FALSE if error occured" }
+        ]
+      },
+      {
+        command: "queue.restart",
+        async: false,
+        description: 'Restarts by qid',
+        parameters: [
+          { name: "qid", type: "string", description: "Should be a valid qid, not id" }
+        ],
+        returns: []
+      },
+      {
+        command: "queue.remove",
+        async: false,
+        description: 'Removes by qid',
+        parameters: [
+          { name: "qid", type: "string", description: "Should be a valid qid, not id" }
+        ],
+        returns: []
       },
       {
         command: "settings.get",
