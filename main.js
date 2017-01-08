@@ -60,7 +60,7 @@ define(function (require, exports, module) {
   /**
    * Creating eqftp and _version variables
    */
-  var _version = "1.0";
+  var _version = "1.0.0-beta.0";
   var eqftp = {
     ui: ui,
     utils: utils,
