@@ -8,6 +8,7 @@ maxerr: 50, node: true */
 
   var EFTP = require('./libs/eftp'),
     utils = require('./libs/utils.js'),
+    tracker = require('./libs/tracker.js'),
     fs = require('fs'),
     CryptoJS = require("crypto-js"),
     chokidar = require('chokidar'),
@@ -183,6 +184,10 @@ maxerr: 50, node: true */
         self.settings = _.cloneDeep(read);
         self.currentSettingsFile = settingsFile;
         _debugState = !!_.get(self.settings, 'main.debug');
+        _.set(self.settings, 'misc.userId', tracker.init(_.get(self.settings, 'misc.userId'), {
+          version: self.settings.misc.version
+        }));
+        self.set(self.settings, undefined, undefined, true);
         
         debug('joining connections objects', self.settings.connections);
         var joined = self._cc('join', self.settings.connections);
@@ -219,11 +224,12 @@ maxerr: 50, node: true */
       
       return self.settings;
     };
-    self.set = function (settings, password, path) {
+    self.set = function (settings, password, path, silent) {
       debug('eqftp.settings.set fired', settings, password, path);
       
       var toSaveNew = _.cloneDeep(settings);
       if (_.has(settings, 'connections')) {
+        debug('splitting', toSaveNew.connections);
         toSaveNew.connections = self._cc('split', toSaveNew.connections);
         debug('splitted', toSaveNew.connections);
       }
@@ -297,22 +303,26 @@ maxerr: 50, node: true */
       }
       fs.writeFile(settingsFile, JSON.stringify(toSave, null, 4), {encoding: 'UTF-8'}, function (err, data) {
         if (err) {
-          _domainManager.emitEvent("eqFTP", "event", {
-            action: 'settings:save:fail',
-            data: {
-              file: utils.normalize(settingsFile),
-              err: err
-            }
-          });
+          if (!silent) {
+            _domainManager.emitEvent("eqFTP", "event", {
+              action: 'settings:save:fail',
+              data: {
+                file: utils.normalize(settingsFile),
+                err: err
+              }
+            });
+          }
         } else {
           self.settings = toKeep;
-          _domainManager.emitEvent("eqFTP", "event", {
-            action: 'settings:save:success',
-            data: {
-              file: utils.normalize(settingsFile),
-              data: data
-            }
-          });
+          if (!silent) {
+            _domainManager.emitEvent("eqFTP", "event", {
+              action: 'settings:save:success',
+              data: {
+                file: utils.normalize(settingsFile),
+                data: data
+              }
+            });
+          }
         }
       });
       return true;
