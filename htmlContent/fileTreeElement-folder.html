@@ -1,5 +1,5 @@
-<div eqftp-path="{{fullPath}}" eqftp-id="{{id}}" class="eqftp-fileTree__item eqftp-fileTree__item_folder" oncontextmenu="eqftp.contexts.fileTreeElement();">
-  <div class="eqftp-fileTree__element" ondblclick="{{cmd_openFolder}}">
+<div id="{{fullPath}}" class="eqftp-fileTree__item eqftp-fileTree__item_folder">
+  <div class="eqftp-fileTree__element" ondblclick="{{cmd_openFolder}}" eqftp-path="{{fullPath}}" eqftp-id="{{id}}" oncontextmenu="eqftp.contexts.fileTreeElement();">
     <div class="eqftp-fileTree__info">
       <div class="eqftp-fileTree__icon"><i class="material-icons">keyboard_arrow_right</i></div>
       <div class="eqftp__title eqftp__title_smallest"><span class="eqftp__titleNowrap eqftp-fileTree__text_folder">{{name}}</span></div>

@@ -538,7 +538,7 @@ define(function (require, exports, module) {
       //success
       if (open) {
         _.delay(function () {
-          CommandManager.execute(Commands.CMD_ADD_TO_WORKINGSET_AND_OPEN, {fullPath: data.localpath, paneId: MainViewManager.getActivePaneId(), options: {noPaneActivate: (args[3].shiftKey ? true : false)}});
+          CommandManager.execute(Commands.CMD_ADD_TO_WORKINGSET_AND_OPEN, {fullPath: data.localpath, paneId: MainViewManager.getActivePaneId(), options: {noPaneActivate: ((args && args[3] && args[3].shiftKey) ? true : false)}});
         }, 300);
       }
     }).fail(function (err) {
@@ -577,7 +577,55 @@ define(function (require, exports, module) {
   };
   eqftp.contexts = {
     fileTreeElement: function () {
-      
+      var el = $(event.target).closest('[eqftp-path]'),
+          path = el.attr('eqftp-path'),
+          id = el.attr('eqftp-id'),
+          type = 'folder';
+      if (el.hasClass('eqftp-fileTree__item_file')) {
+        type = 'file';
+      }
+      switch (type) {
+        case 'file':
+          ui.context.open([
+            {
+              text: strings.eqftp__context__fileTreeElement__download_open,
+              callback: function () {
+                eqftp.download(id, path, true);
+              },
+              shortcut: ""
+            },
+            {
+              text: strings.eqftp__context__fileTreeElement__download,
+              callback: function () {
+                eqftp.download(id, path, false);
+              },
+              shortcut: ""
+            }
+          ], undefined, el);
+          break;
+        case 'folder':
+          ui.context.open([
+            {
+              text: strings.eqftp__context__fileTreeElement__open,
+              callback: function () {
+                eqftp.openFolder(id, path);
+              },
+              shortcut: ""
+            },
+            {
+              text: strings.eqftp__context__fileTreeElement__refresh,
+              callback: function () {
+                eqftp.openFolder(id, path);
+              },
+              shortcut: ""
+            }
+          ], undefined, el);
+          break;
+        default:
+          return false;
+          break;
+      }
+      return true;
     },
     connectionElement: function () {
       var el = $(event.target).closest('.eqftp-connections__item'),
@@ -604,7 +652,7 @@ define(function (require, exports, module) {
           },
           shortcut: ""
         }
-      ], undefined, $(event.target));
+      ], undefined, el);
     },
     queueElement: function () {
       

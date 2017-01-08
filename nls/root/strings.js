@@ -132,6 +132,11 @@ define({
  "eqftp__context__connectionElement__remove": "Remove",
  "eqftp__context__connectionElement__edit": "Edit",
  
+ "eqftp__context__fileTreeElement__download_open": "Download and open",
+ "eqftp__context__fileTreeElement__download": "Download",
+ "eqftp__context__fileTreeElement__refresh": "Refresh",
+ "eqftp__context__fileTreeElement__open": "Open",
+ 
  /**
  * CONTROLS
  * Check this page if you have any questions about this part: https://material.io/guidelines/style/writing.html#writing-language
@@ -173,6 +178,15 @@ define({
  * ERRORS
  */
  "eqftp__ERR__NOSERVERSET": "Parameter \"Server\" is empty",
+ 
+ /**
+  * MISC
+  */
+ // {{{names}}} must have 3x{} and will contain "Equals182 & GoliafRS" string
+ "eqftp__misc__credits_text": "eqFTP is maintained by {{{names}}}",
+ // {{{button}}} must have 3x{} and will contain text from "eqftp__misc__donate_button"
+ "eqftp__misc__donate_text": "{{{button}}} to support this project!",
+ "eqftp__misc__donate_button": "Donate",
 
  "eqftp_dummy" : "dummy" // Not used anywhere, just leave it.
 });

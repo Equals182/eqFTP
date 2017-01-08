@@ -25,7 +25,14 @@ define(function (require, exports, module) {
         strings.eqftp__filesize_zettabytes,
         strings.eqftp__filesize_yottabytes
       ];
-
+  
+  strings.eqftp__misc__credits_text = Mustache.render(strings.eqftp__misc__credits_text, {
+    names: '<span href="https://github.com/Equals182" class="eqftp__text eqftp__text_colorBlue">Equals182</span> & <span href="https://github.com/GoliafRS" class="eqftp__text eqftp__text_colorBlue">GoliafRS</span>'
+  });
+  strings.eqftp__misc__donate_text = Mustache.render(strings.eqftp__misc__donate_text, {
+    button: '<span class="eqftp__button eqftp__button_blueText">' + strings.eqftp__misc__donate_button + '</span>'
+  });
+  
   function getInputNameValue(input) {
     var name = false,
       value = false;
@@ -123,7 +130,8 @@ define(function (require, exports, module) {
           eqUI.panel.get().prepend(resizer);
           $("body").prepend(eqUI.context.get());
           if (eqUI.ps) {
-            eqUI.ps.initialize($('.eqftp-content__page_file-tree')[0]);
+            //eqUI.ps.initialize($('.eqftp-content__page_file-tree')[0]);
+            eqUI.ps.initialize($('.eqftp-fileTree')[0]);
             eqUI.ps.initialize($('.eqftp-content__page_queue')[0]);
             eqUI.ps.initialize($('.eqftp-header__dropdown')[0]);
           }
@@ -277,17 +285,19 @@ define(function (require, exports, module) {
       _.forOwn(self.current, function (item) {
         item.remove();
       });
+      $('body').off('click', self._autoclose);
       self.current = {};
       self.tpl.html('');
     };
     self.caller = false;
     self._autoclose = function (e) {
-      if (!$(e.target).is(self.tpl) &&
-          $(e.target).closest(self.tpl).length < 1 &&
-          (
-            self.caller && _.isjQuery(self.caller) &&
-            !$(e.target).is(self.caller)
-          )
+      if (
+        !$(e.target).is(self.tpl) &&
+        $(e.target).closest(self.tpl).length < 1 &&
+        self.caller &&
+        _.isjQuery(self.caller) &&
+        !$(e.target).is(self.caller) &&
+        $(e.target).closest(self.caller).length < 1
       ) {
         self.close();
       }
