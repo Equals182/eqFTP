@@ -321,12 +321,10 @@
         & .eqftp-footer__listItem {
           align-items: flex-start;
           height: auto;
-          & .eqftp-footer__listItemIcon {
-            padding-top: 5px;
-          }
+          & .eqftp-footer__listItemIcon,
           & .eqftp-footer__listItemDate,
           & .eqftp-footer__listItemInfo {
-            padding-top: 6px;
+            padding-top: 5px;
           }
           & .eqftp-footer__listItemInfo {
             padding-bottom: 4px;
@@ -946,14 +944,19 @@
       justify-content: center;
     }
     &_smallest {
-      font-size: $i3;
+      font-size: 12px;
+      font-weight: $fw-regular;
+      line-height: 16px;
     }
     &_small {
-      font-size: $i4;
+      font-size: 16px;
+      font-weight: $fw-regular;
+      line-height: 20px;
     }
     &_medium {
-      font-size: $i5;
-      font-weight: 500;
+      font-size: 20px;
+      font-weight: $fw-medium;
+      line-height: 24px;
     }
     &_big {
       font-size: $i6;
