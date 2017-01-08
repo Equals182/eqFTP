@@ -537,6 +537,17 @@
     flex-wrap: wrap;
     height: 100%;
     width: 100%;
+    &__actions {
+      padding-left: $i4;
+      padding-right: $i4;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      min-height: $i12;
+      max-height: $i12;
+      height: $i12;
+      width: 100%;
+    }
     &__direction {
       transition: opacity $time-fast;
     }

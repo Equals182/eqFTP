@@ -93,10 +93,12 @@
   }
   &__icon,
   &__button {
+    color: $c001;
     & .material-icons {
       color: $c001;
     }
     &:hover {
+      color: $c003;
       & .material-icons {
         color: $c003;
       }
@@ -270,10 +272,12 @@
     }
     &__icon,
     &__button {
+      color: $c011;
       & .material-icons {
         color: $c011;
       }
       &:hover {
+        color: $c01;
         & .material-icons {
           color: $c01;
         }
