@@ -1075,6 +1075,12 @@
       width: $i18;
     }
   }
+  &__link {
+    cursor: pointer;
+    &:hover {
+      opacity: 0.8;
+    }
+  }
   &__progress {
     position: relative;
     height: 100%;

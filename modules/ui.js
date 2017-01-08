@@ -27,10 +27,10 @@ define(function (require, exports, module) {
       ];
   
   strings.eqftp__misc__credits_text = Mustache.render(strings.eqftp__misc__credits_text, {
-    names: '<span href="https://github.com/Equals182" class="eqftp__text eqftp__text_colorBlue">Equals182</span> & <span href="https://github.com/GoliafRS" class="eqftp__text eqftp__text_colorBlue">GoliafRS</span>'
+    names: '<span href="https://github.com/Equals182" class="eqftp__text eqftp__text_colorBlue eqftp__link">Equals182</span> & <span href="https://github.com/GoliafRS" class="eqftp__text eqftp__text_colorBlue eqftp__link">GoliafRS</span>'
   });
   strings.eqftp__misc__donate_text = Mustache.render(strings.eqftp__misc__donate_text, {
-    button: '<span class="eqftp__button eqftp__button_blueText">' + strings.eqftp__misc__donate_button + '</span>'
+    button: '<span href="https://www.patreon.com/equals182" class="eqftp__button eqftp__button_blueText eqftp__link">' + strings.eqftp__misc__donate_button + '</span>'
   });
   
   function getInputNameValue(input) {
