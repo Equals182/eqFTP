@@ -40,6 +40,7 @@ define(function (require, exports, module) {
     MainViewManager = brackets.getModule("view/MainViewManager"),
     PreferencesManager = brackets.getModule("preferences/PreferencesManager"),
     NodeConnection = brackets.getModule("utils/NodeConnection"),
+    NativeApp = brackets.getModule("utils/NativeApp"),
     EventEmitter = require('modules/events/index'),
 
     //_ = require("node/node_modules/lodash/lodash"),
@@ -62,7 +63,10 @@ define(function (require, exports, module) {
   var _version = "1.0";
   var eqftp = {
     ui: ui,
-    utils: utils
+    utils: utils,
+    _openInBrowser: function (path) {
+      return NativeApp.openURLInDefaultBrowser(path);
+    }
   };
   
   /**

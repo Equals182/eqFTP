@@ -128,6 +128,9 @@ define(function (require, exports, module) {
             //up
           });
           eqUI.panel.get().prepend(resizer);
+          eqUI.panel.get().on('click', '.eqftp__link', function () {
+            eqUI.eqftp._openInBrowser($(this).attr('href'));
+          });
           $("body").prepend(eqUI.context.get());
           if (eqUI.ps) {
             //eqUI.ps.initialize($('.eqftp-content__page_file-tree')[0]);
