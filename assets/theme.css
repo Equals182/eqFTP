@@ -1,0 +1,181 @@
+.eqftp {
+  background-color: #fafafa; }
+  .eqftp-head {
+    background-color: whitesmoke; }
+  .eqftp-header {
+    background-color: whitesmoke; }
+    .eqftp-header__searchHolder {
+      background-color: #424242; }
+    .eqftp-header__dropdown {
+      border-top-color: #616161; }
+      .eqftp-header__dropdownItem:hover {
+        background-color: rgba(0, 0, 0, 0.1); }
+        .eqftp-header__dropdownItem:hover .eqftp__titleNowrap + * {
+          border-left-color: #e0e0e0; }
+      .eqftp-header__dropdownItem .eqftp__titleNowrap + * {
+        border-left-color: #e0e0e0; }
+    .eqftp-header__navigationTab {
+      color: rgba(0, 0, 0, 0.38); }
+      .eqftp-header__navigationTab:hover {
+        color: rgba(0, 0, 0, 0.54); }
+  .eqftp-modal {
+    background-color: #fafafa; }
+  .eqftp-dialogs {
+    background-color: rgba(0, 0, 0, 0.4); }
+    .eqftp-dialogs__holder {
+      background-color: white; }
+    .eqftp-dialogs__title {
+      color: #212121; }
+    .eqftp-dialogs__content {
+      color: #e0e0e0; }
+  .eqftp-footer {
+    background-color: #ffffff;
+    border-top-color: #e8e8e8; }
+  .eqftp-fileTree__icon .material-icons {
+    color: #757575; }
+  .eqftp-connections__item + .eqftp-connections__item {
+    border-top-color: #eeeeee; }
+  .eqftp-queue__item + .eqftp-queue__item {
+    border-top-color: #eeeeee; }
+  .eqftp-menu {
+    background-color: #eeeeee; }
+    .eqftp-menu__text, .eqftp-menu__shortcut {
+      color: #333333; }
+  .eqftp-hint__text {
+    color: rgba(0, 0, 0, 0.38); }
+  .eqftp__icon .material-icons, .eqftp__button .material-icons {
+    color: rgba(0, 0, 0, 0.38); }
+  .eqftp__icon:hover .material-icons, .eqftp__button:hover .material-icons {
+    color: rgba(0, 0, 0, 0.87); }
+  .eqftp__icon_nohover:hover .material-icons, .eqftp__button_nohover:hover .material-icons {
+    color: rgba(0, 0, 0, 0.38); }
+  .eqftp__icon_inversion .material-icons, .eqftp__button_inversion .material-icons {
+    color: rgba(255, 255, 255, 0.5); }
+  .eqftp__icon_inversion:hover .material-icons, .eqftp__button_inversion:hover .material-icons {
+    color: white; }
+  .eqftp__iconRectangle, .eqftp__buttonRectangle {
+    color: rgba(0, 0, 0, 0.38);
+    background-color: #eeeeee; }
+    .eqftp__iconRectangle:hover, .eqftp__iconRectangle:focus, .eqftp__buttonRectangle:hover, .eqftp__buttonRectangle:focus {
+      color: rgba(0, 0, 0, 0.54);
+      background-color: #dddddd; }
+    .eqftp__iconRectangle:active, .eqftp__buttonRectangle:active {
+      color: rgba(0, 0, 0, 0.87);
+      background-color: #cccccc; }
+    .eqftp__iconRectangle_nobg, .eqftp__buttonRectangle_nobg {
+      background-color: transparent; }
+      .eqftp__iconRectangle_nobg:hover, .eqftp__iconRectangle_nobg:focus, .eqftp__buttonRectangle_nobg:hover, .eqftp__buttonRectangle_nobg:focus {
+        background-color: transparent; }
+      .eqftp__iconRectangle_nobg:active, .eqftp__buttonRectangle_nobg:active {
+        background-color: transparent; }
+  .eqftp__icon_blueBackground, .eqftp__button_blueBackground {
+    color: white;
+    background-color: #2196f3; }
+    .eqftp__icon_blueBackground .material-icons, .eqftp__button_blueBackground .material-icons {
+      color: white; }
+    .eqftp__icon_blueBackground:hover, .eqftp__icon_blueBackground:focus, .eqftp__button_blueBackground:hover, .eqftp__button_blueBackground:focus {
+      background-color: #1a77c9; }
+  .eqftp__icon_blueText, .eqftp__button_blueText {
+    color: #2196f3; }
+    .eqftp__icon_blueText:hover, .eqftp__icon_blueText:focus, .eqftp__button_blueText:hover, .eqftp__button_blueText:focus {
+      color: #1a77c9; }
+  .eqftp__label {
+    color: rgba(0, 0, 0, 0.38); }
+  .eqftp__title {
+    color: rgba(0, 0, 0, 0.87); }
+    .eqftp__title_inversion {
+      color: white; }
+  .eqftp__subheader {
+    color: rgba(0, 0, 0, 0.38); }
+
+.dark .eqftp {
+  background-color: #303030; }
+  .dark .eqftp-head {
+    background-color: #212121; }
+  .dark .eqftp-header {
+    background-color: #212121; }
+    .dark .eqftp-header__searchHolder {
+      background-color: #fafafa; }
+    .dark .eqftp-header__dropdown {
+      border-top-color: #e0e0e0; }
+      .dark .eqftp-header__dropdownItem:hover {
+        background-color: #bdbdbd; }
+        .dark .eqftp-header__dropdownItem:hover .eqftp__titleNowrap + * {
+          border-left-color: #9e9e9e; }
+      .dark .eqftp-header__dropdownItem .eqftp__titleNowrap + * {
+        border-left-color: #bdbdbd; }
+    .dark .eqftp-header__navigationTab {
+      color: rgba(255, 255, 255, 0.5); }
+      .dark .eqftp-header__navigationTab:hover {
+        color: rgba(255, 255, 255, 0.7); }
+  .dark .eqftp-modal {
+    background-color: #303030; }
+  .dark .eqftp-dialogs {
+    background-color: rgba(0, 0, 0, 0.8); }
+    .dark .eqftp-dialogs__holder {
+      background-color: #212121; }
+    .dark .eqftp-dialogs__title {
+      color: white; }
+    .dark .eqftp-dialogs__content {
+      color: rgba(255, 255, 255, 0.5); }
+  .dark .eqftp-footer {
+    background-color: #1c1c1e;
+    border-top-color: #343434; }
+  .dark .eqftp-fileTree__icon .material-icons {
+    color: #e0e0e0; }
+  .dark .eqftp-connections__item + .eqftp-connections__item {
+    border-top-color: #424242; }
+  .dark .eqftp-queue__item + .eqftp-queue__item {
+    border-top-color: #424242; }
+  .dark .eqftp-menu {
+    background-color: #333333; }
+    .dark .eqftp-menu__text, .dark .eqftp-menu__shortcut {
+      color: white; }
+  .dark .eqftp-hint__text {
+    color: rgba(255, 255, 255, 0.5); }
+  .dark .eqftp__icon .material-icons, .dark .eqftp__button .material-icons {
+    color: rgba(255, 255, 255, 0.5); }
+  .dark .eqftp__icon:hover .material-icons, .dark .eqftp__button:hover .material-icons {
+    color: white; }
+  .dark .eqftp__icon_nohover:hover .material-icons, .dark .eqftp__button_nohover:hover .material-icons {
+    color: rgba(255, 255, 255, 0.5); }
+  .dark .eqftp__icon_inversion .material-icons, .dark .eqftp__button_inversion .material-icons {
+    color: rgba(0, 0, 0, 0.38); }
+  .dark .eqftp__icon_inversion:hover .material-icons, .dark .eqftp__button_inversion:hover .material-icons {
+    color: rgba(0, 0, 0, 0.87); }
+  .dark .eqftp__iconRectangle, .dark .eqftp__buttonRectangle {
+    color: rgba(255, 255, 255, 0.5);
+    background-color: #333333; }
+    .dark .eqftp__iconRectangle:hover, .dark .eqftp__iconRectangle:focus, .dark .eqftp__buttonRectangle:hover, .dark .eqftp__buttonRectangle:focus {
+      color: rgba(255, 255, 255, 0.7);
+      background-color: #4a4a4a; }
+    .dark .eqftp__iconRectangle:active, .dark .eqftp__buttonRectangle:active {
+      color: white;
+      background-color: #595959; }
+    .dark .eqftp__iconRectangle_nobg, .dark .eqftp__buttonRectangle_nobg {
+      background-color: transparent; }
+      .dark .eqftp__iconRectangle_nobg:hover, .dark .eqftp__iconRectangle_nobg:focus, .dark .eqftp__buttonRectangle_nobg:hover, .dark .eqftp__buttonRectangle_nobg:focus {
+        background-color: transparent; }
+      .dark .eqftp__iconRectangle_nobg:active, .dark .eqftp__buttonRectangle_nobg:active {
+        background-color: transparent; }
+  .dark .eqftp__icon_blueBackground, .dark .eqftp__button_blueBackground {
+    color: white;
+    background-color: #2196f3; }
+    .dark .eqftp__icon_blueBackground .material-icons, .dark .eqftp__button_blueBackground .material-icons {
+      color: white; }
+    .dark .eqftp__icon_blueBackground:hover, .dark .eqftp__icon_blueBackground:focus, .dark .eqftp__button_blueBackground:hover, .dark .eqftp__button_blueBackground:focus {
+      background-color: #1a77c9; }
+  .dark .eqftp__icon_blueText, .dark .eqftp__button_blueText {
+    color: #2196f3; }
+    .dark .eqftp__icon_blueText:hover, .dark .eqftp__icon_blueText:focus, .dark .eqftp__button_blueText:hover, .dark .eqftp__button_blueText:focus {
+      color: #1a77c9; }
+  .dark .eqftp__label {
+    color: rgba(255, 255, 255, 0.5); }
+  .dark .eqftp__title {
+    color: white; }
+    .dark .eqftp__title_inversion {
+      color: rgba(0, 0, 0, 0.87); }
+  .dark .eqftp__subheader {
+    color: rgba(255, 255, 255, 0.5); }
+
+/*# sourceMappingURL=theme.css.map */

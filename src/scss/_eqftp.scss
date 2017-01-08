@@ -584,19 +584,19 @@
         }
       }
       &Local {
-        min-width: 86%;
-        max-width: 86%;
+        min-width: 80%;
+        max-width: 80%;
       }
       &Size {
         display: flex;
         justify-content: flex-end;
-        min-width: 14%;
-        max-width: 14%;
+        min-width: 20%;
+        max-width: 20%;
       }
       &Error {
         display: none;
-        min-width: 14%;
-        max-width: 14%;
+        min-width: 20%;
+        max-width: 20%;
       }
       &Progress {
         position: absolute;
