@@ -483,7 +483,7 @@ maxerr: 50, node: true */
                 var w = chokidar.watch(settings.localpath, {
                   ignored: (settings.ignore_list || '').splitIgnores(),
                   persistent: true,
-                  awaitWriteFinish: true,
+                  awaitWriteFinish: false, // don't wait writings
                   cwd: settings.localpath,
                   ignoreInitial: true
                 });
