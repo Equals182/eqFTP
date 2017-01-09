@@ -179,7 +179,7 @@ maxerr: 50, node: true */
         return filename;
       }
       filename = eqUtils.normalize(filename);
-      var m = filename.match(/((\/?.*?\/)*)((.*?)((\.)(.*))?)$/);
+      var m = filename.match(/((\/?.*?\/)*)((.*)((\.)(.*))$|(.*)$)/);
       if (!m) {
         return filename;
       }
@@ -189,13 +189,13 @@ maxerr: 50, node: true */
           break;
         case 'parent':
         case 'parentName':
-          return (m[2]?m[2].replace('/', ''):'');
+          return (m[2] ? m[2].replace('/', '') : '');
           break;
         case 'name_noext':
         case 'filename_noext':
         case 'name_noextension':
         case 'filename_noextension':
-          return m[4];
+          return (m[4] ? m[4] : (m[6] ? '' : m[3]));
           break;
         case 'extension':
         case 'ext':
