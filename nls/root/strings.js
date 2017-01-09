@@ -71,6 +71,14 @@ define({
  "eqftp__gs__debug_label": "Debug",
  
  /**
+ * TABS
+ */
+ "eqftp__tab__fileTree__title": "File tree",
+ "eqftp__tab__queue__title": "Queue",
+ "eqftp__tab__connections__title": "Connections",
+ "eqftp__tab__settings__title": "Settings",
+ 
+ /**
  * DIALOGS
  */
  "eqftp__dialog__connection_removing_title": "Remove {{name}}?",

@@ -525,7 +525,8 @@ define(function (require, exports, module) {
       ui.fileTree.itemToggle(path);
     } else {
       eqftp.connections[id].ls(path).done(function (elements) {
-        eqftp.ui.fileTree.add(elements, path);
+        ui.fileTree.add(elements, path);
+        ui.fileTree.title.set(eqftp.connections[id].name);
         if (_.isFunction(callback)) {
           callback(null, elements);
         }

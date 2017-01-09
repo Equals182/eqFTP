@@ -183,6 +183,39 @@ define(function (require, exports, module) {
     self.state = 'closed';
     self.tpl = self.p.filter('.eqftp');
     self.tpl.css('right', (width * -1) + 'px').width(width);
+    self._currentTab = false;
+    
+    self.title = new function () {
+      var title = this;
+      
+      title._element = self.tpl.find('.eqftp-header .eqftp-head .eqftp__title span');
+      title.set = function (text) {
+        title._element.text(text || 'eqFTP');
+      };
+      title.update = function () {
+        if (self._currentTab) {
+          switch (self._currentTab) {
+            case 'fileTree':
+            case 'file-tree':
+            case 'file tree':
+              title.set(eqUI.fileTree.title._current);
+              break;
+            case 'queue':
+              title.set(eqUI.queue.title._current);
+              break;
+            case 'connections':
+              title.set(eqUI.connections.title._current);
+              break;
+            case 'settings':
+              title.set(eqUI.settings.title._current);
+              break;
+            default:
+              title.set();
+              break;
+          }
+        }
+      };
+    }();
 
     self._resyncSizer = function () {
       Resizer.resyncSizer('#editor-holder #first-pane');
@@ -244,6 +277,8 @@ define(function (require, exports, module) {
     self.switchTo = function (tab) {
       $('.eqftp-header__navigation').children('.eqftp-header__navigationTab_' + tab).addClass('eqftp-header__navigationTab_active').siblings().removeClass('eqftp-header__navigationTab_active');
       $('.eqftp-content').children('.eqftp-content__page_' + tab).addClass('eqftp-content__page_active').siblings().removeClass('eqftp-content__page_active');
+      self._currentTab = tab;
+      self.title.update();
     };
 
     self.get = function () {
@@ -493,6 +528,17 @@ define(function (require, exports, module) {
       f: require("text!htmlContent/fileTreeElement-file.html")
     };
     self._rendered = {};
+    
+    self.title = new function () {
+      var title = this;
+      
+      title._default = strings.eqftp__tab__fileTree__title;
+      title._current = title._default;
+      title.set = function (text) {
+        title._current = text || title._default;
+        eqUI.panel.title.update();
+      }
+    }();
 
     self.add = function (object, path) {
       if (!_.isString(path)) {
@@ -676,6 +722,17 @@ define(function (require, exports, module) {
     self._clearAllButton = self.tpl.find("#eqftp-queue__clear_all");
     self._clearAllButton.hide();
 
+    self.title = new function () {
+      var title = this;
+      
+      title._default = strings.eqftp__tab__queue__title;
+      title._current = title._default;
+      title.set = function (text) {
+        title._current = text || title._default;
+        eqUI.panel.title.update();
+      }
+    }();
+
     self._gen = function (v) {
       return $(Mustache.render(require("text!htmlContent/queueElement.html"), _.defaults(_.clone(strings), {
         qid: v.qid,
@@ -775,6 +832,17 @@ define(function (require, exports, module) {
     var self = this;
     self.tpl = eqUI.panel.tpl.find('.eqftp-connections');
     self.items = [];
+
+    self.title = new function () {
+      var title = this;
+      
+      title._default = strings.eqftp__tab__connections__title;
+      title._current = title._default;
+      title.set = function (text) {
+        title._current = text || title._default;
+        eqUI.panel.title.update();
+      }
+    }();
 
     self.editor = new function () {
       var connections = self,
@@ -1000,6 +1068,17 @@ define(function (require, exports, module) {
         self.masterPassword.hide();
       }
     });
+
+    self.title = new function () {
+      var title = this;
+      
+      title._default = strings.eqftp__tab__settings__title;
+      title._current = title._default;
+      title.set = function (text) {
+        title._current = text || title._default;
+        eqUI.panel.title.update();
+      }
+    }();
 
     self.set = function (settings) {
       if (!_.isObject(settings)) {
