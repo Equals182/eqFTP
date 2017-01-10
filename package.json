@@ -11,12 +11,12 @@
 	"engines": {
 		"brackets": ">=1.4.0"
 	},
-    "i18n": [
-        "en"
-    ],
-    "package-i18n": {
-        "en": {
-            "description": "Awesome (S)FTP client for Brackets. Don't forget to restart Brackets manually after update."
-        }
-    }
+	"i18n": [
+		"en"
+	],
+	"package-i18n": {
+		"en": {
+			"description": "Awesome (S)FTP client for Brackets. Don't forget to restart Brackets manually after update."
+		}
+	}
 }
