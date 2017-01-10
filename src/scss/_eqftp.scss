@@ -318,6 +318,7 @@
       box-sizing: border-box;
       height: 100%;
       & .eqftp-footer__list {
+        max-height: 100%;
         & .eqftp-footer__listItem {
           align-items: flex-start;
           height: auto;
@@ -753,8 +754,8 @@
     padding-right: 0;
     list-style: none;
     position: absolute;
-    bottom: 39px;
-    right: 53px;
+    bottom: 38px;
+    right: 46px;
     z-index: 7;
     &__item {
       margin-top: $i2;
