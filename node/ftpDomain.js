@@ -252,14 +252,22 @@ maxerr: 50, node: true */
         }
       };
       
-      var toSave = _.defaultsDeep(toSaveNew, toSaveCurrent, defaults, {
+      var toSave = _.defaultsDeep({
+        misc: {
+          version: self._version
+        }
+      }, toSaveNew, toSaveCurrent, defaults, {
         connections: {
           settings: {},
           credentials: {}
         }
       });
       debug('toSave', toSave);
-      var toKeep = _.defaultsDeep(settings, self.settings, defaults, {
+      var toKeep = _.defaultsDeep({
+        misc: {
+          version: self._version
+        }
+      }, settings, self.settings, defaults, {
         connections: {}
       });
       debug('toKeep', toKeep);
