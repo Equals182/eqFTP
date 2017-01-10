@@ -2,6 +2,11 @@
 I hope you feeling okay now when you see this huge text below
 Please, take a deep breathe and fill it with information
 Feel free remove some parts of this template if you don't know how to fill them or you think it's not necessary
+
+****************************************************************************************
+*** Please check current issues and project's board for same problem/feature request ***
+****************************************************************************************
+
 --->
 <!--- First, provide a general summary of the issue in the Title above -->
 
