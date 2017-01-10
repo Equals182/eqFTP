@@ -512,6 +512,21 @@ maxerr: 50, node: true */
                 .on('unlink', function (path, stats) {
                   path = utils.normalize(path);
                   debug('[watcher]', 'unlink', path, stats);
+                })
+                .on('addDir', function (path) {
+                  debug('[watcher]', 'addDir', path);
+                })
+                .on('unlinkDir',  function (path) {
+                  debug('[watcher]', 'unlinkDir', path);
+                })
+                .on('error',  function (error) {
+                  debug('[watcher]', 'error', error);
+                })
+                .on('ready',  function () {
+                  debug('[watcher]', 'ready!');
+                })
+                .on('raw', (event, path, details) => {
+                  debug('[watcher]', 'RAW', event, path, details);
                 });
                 return w;
               }
@@ -686,8 +701,18 @@ maxerr: 50, node: true */
                               var w = chokidar.watch(args[0].localpath, {
                                 ignoreInitial: true
                               });
-                              w.on('change', function (path) {
-console.log('[watcher]', 'change tmp', path, arguments);
+                              w
+                              .on('change', function (path) {
+                                debug('[watcher-tmp]', 'change', path);
+                              })
+                              .on('error',  function (error) {
+                                debug('[watcher-tmp]', 'error', error);
+                              })
+                              .on('ready',  function () {
+                                debug('[watcher-tmp]', 'ready!');
+                              })
+                              .on('raw', (event, path, details) => {
+                                debug('[watcher-tmp]', 'RAW', event, path, details);
                               });
                               self._[id]._watch = w;
                             } else {
@@ -715,9 +740,11 @@ console.log('[watcher]', 'change tmp', path, arguments);
                   args.splice(-2, 2, cb, pr);
                   debug('opening connection', id);
                   self._[id].open(function (err) {
+                    debug('opening connection result', err);
                     if (!err) {
                       self._[id]._server[queuer.act](...args);
                     } else {
+                      debug('running finisher');
                       finisher(err);
                     }
                   });
@@ -786,6 +813,7 @@ console.log('[watcher]', 'change tmp', path, arguments);
                   action: 'connection:ready',
                   data: self.a[id]
                 });
+                debug('connected to server, firing callback', cb.toString());
                 cb(null, id);
               });
               self._[id]._server.on('close', function () {
