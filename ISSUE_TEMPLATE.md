@@ -29,6 +29,21 @@ Feel free remove some parts of this template if you don't know how to fill them 
 <!--- How has this issue affected you? What are you trying to accomplish? -->
 <!--- Providing context helps us come up with a solution that is most useful in the real world -->
 
+## Debug Information
+<!---
+If you're having a major problem, please follow these steps to get some logs for me to dig
+NOTE: LOGS MAY A WILL CONTAIN SESETIVE INFORMATION. DO NOT POST UNEDITED LOGS HERE.
+0. Turn on Debug in eqFTP settings
+1. Press F12 in Brackets' main window
+2. Open console tab
+3. Reproduce the bug
+4. Copy and edit log, remove connections' credentials
+5. Paste here using ``` to format logs
+```
+your logs here
+```
+--->
+
 ## Your Environment
 <!--- Include as many relevant details about the environment you experienced the bug in -->
 * eqFTP version:
