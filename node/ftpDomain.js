@@ -483,7 +483,10 @@ maxerr: 50, node: true */
                 var w = chokidar.watch(settings.localpath, {
                   ignored: (settings.ignore_list || '').splitIgnores(),
                   persistent: true,
-                  awaitWriteFinish: false, // don't wait writings
+                  awaitWriteFinish: {
+                    stabilityThreshold: 1000,
+                    pollInterval: 100
+                  },
                   cwd: settings.localpath,
                   ignoreInitial: true
                 });
@@ -699,7 +702,11 @@ maxerr: 50, node: true */
                             });
                             if (!self._[id]._watch) {
                               var w = chokidar.watch(args[0].localpath, {
-                                ignoreInitial: true
+                                ignoreInitial: true,
+                                awaitWriteFinish: {
+                                  stabilityThreshold: 1000,
+                                  pollInterval: 100
+                                }
                               });
                               w
                               .on('change', function (path) {
