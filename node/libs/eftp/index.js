@@ -29,11 +29,11 @@ var v = process.version.replace(/^[^d]/, '');
   }
 });
 
-function EasyFTP() {
-  if (!this instanceof EasyFTP) { throw "must 'new EasyFTP()'"; }
+function EFTP() {
+  if (!this instanceof EFTP) { throw "must 'new EFTP()'"; }
   EventEmitter.call(this);
 }
-util.inherits(EasyFTP, EventEmitter);
+util.inherits(EFTP, EventEmitter);
 
 var _progressEvent = function () {};
 
@@ -215,7 +215,7 @@ function parsePasvList(data) {
   return arr;
 }
 
-EasyFTP.prototype.init = function (config) {
+EFTP.prototype.init = function (config) {
   this.isConnect = false;
   this.isLoginFail = false;
   this.waitCount = 0;
@@ -235,7 +235,7 @@ EasyFTP.prototype.init = function (config) {
   }
 };
 
-EasyFTP.prototype.connect = function (config) {
+EFTP.prototype.connect = function (config) {
   var self = this;
   self.events = {
     ready: function (err) {
@@ -249,15 +249,12 @@ EasyFTP.prototype.connect = function (config) {
     close: function (err) {
       self.emit('close', err);
       self.close();
-      console.log('!!!close: ', arguments);
     },
     error: function (err) {
       self.emit('error', err);
       self.close();
-      console.log('!!!error: ', arguments);
     },
     progress: _.throttle(function (data) {
-      console.log('!!!progress', data);
       self.emit('progress', {
         queuer: data.queuer,
         direction: data.direction,
@@ -337,14 +334,14 @@ EasyFTP.prototype.connect = function (config) {
   }
 };
 
-EasyFTP.prototype.close = function () {
+EFTP.prototype.close = function () {
   try {
     this.client.end();
   } catch (e) {
   } finally { this.client = null; }
 };
 
-EasyFTP.prototype.getRealRemotePath = function (path) {
+EFTP.prototype.getRealRemotePath = function (path) {
   var p = path;
   if (path.indexOf("/") !== 0) {
     var tempCurrentPath = this.currentPath;
@@ -367,7 +364,7 @@ EasyFTP.prototype.getRealRemotePath = function (path) {
   return p;
 };
 
-EasyFTP.prototype.waitConnect = function (cb) {
+EFTP.prototype.waitConnect = function (cb) {
   var self = this;
   if (this.isLoginFail || this.waitCount >= 50) {
     this.close();
@@ -384,7 +381,7 @@ EasyFTP.prototype.waitConnect = function (cb) {
   }
 };
 
-EasyFTP.prototype.pwd = function (cb) {
+EFTP.prototype.pwd = function (cb) {
   if (!cb) {
     cb = function () {};
   }
@@ -435,7 +432,7 @@ EasyFTP.prototype.pwd = function (cb) {
   }
 };
 
-EasyFTP.prototype.cd = function (path, cb) {
+EFTP.prototype.cd = function (path, cb) {
   var self = this;
   if (!this.isConnect) {
     this.waitConnect(function () {
@@ -479,7 +476,7 @@ EasyFTP.prototype.cd = function (path, cb) {
   }
 };
 
-EasyFTP.prototype.ls = function (path, cb) {
+EFTP.prototype.ls = function (path, cb) {
   var self = this;
   if (!this.isConnect) {
     this.waitConnect(function () {
@@ -536,7 +533,7 @@ EasyFTP.prototype.ls = function (path, cb) {
   }
 };
 
-EasyFTP.prototype.exist = function (path, cb) {
+EFTP.prototype.exist = function (path, cb) {
   var self = this;
   if (!this.isConnect) {
     this.waitConnect(function () {
@@ -574,7 +571,7 @@ EasyFTP.prototype.exist = function (path, cb) {
   }
 };
 
-EasyFTP.prototype.download = function (queuer, cb) {
+EFTP.prototype.download = function (queuer, cb) {
   var self = this;
   queuer.localpath = FileUtil.replaceCorrectPath(queuer.localpath);
   var dir = FileUtil.getParentPath(queuer.localpath);
@@ -661,7 +658,7 @@ EasyFTP.prototype.download = function (queuer, cb) {
   }
 };
 
-EasyFTP.prototype.upload = function (queuer, cb) {
+EFTP.prototype.upload = function (queuer, cb) {
   var self = this;
   if (!this.isConnect) {
     this.waitConnect(function () {
@@ -742,7 +739,7 @@ EasyFTP.prototype.upload = function (queuer, cb) {
   }
 };
 
-EasyFTP.prototype.mkdir = function (path, cb) {
+EFTP.prototype.mkdir = function (path, cb) {
   if (!cb) {
     cb = function () {};
   }
@@ -775,134 +772,7 @@ EasyFTP.prototype.mkdir = function (path, cb) {
 
 /*
 
-
-EasyFTP.prototype.upload = function (localpath, remotepath, cb, isRecursive) {
-  var self = this;
-
-  function bodyDir(localpath, parent, cwd) {
-    var list = FileUtil.lsSync(localpath);
-    loop(list, function (i, value, next) {
-      //console.log("bodyDir start : ", localpath + "/" + value, parent + "/" + value);
-      self.upload(localpath + "/" + value, parent + "/" + value, function (err) {
-        //console.log("bodyDir end : ", localpath + "/" + value, parent + "/" + value, err);
-        next(err);
-      }, true);
-    }, function (err) {
-      self.cd(cwd, function () {
-        if (cb) { cb(err); }
-      });
-    });
-  }
-
-  function uploadFile(localpath, remotepath, cwd) {
-    if (self.isFTP) {
-      self.client.upload(localpath, remotepath, function (err) {
-        if (!err) { self.emit("upload", remotepath); }
-        self.cd(cwd, function () {
-          if (cb) { cb(err); }
-        });
-      });
-    } else {
-      self.client.sftp(function (err, sftp) {
-        sftp.fastPut(localpath, remotepath, {concurrency: 1}, function (err) {
-          sftp.end();
-          if (!err) { self.emit("upload", remotepath); }
-          self.cd(cwd, function () {
-            if (cb) { cb(err); }
-          });
-        });
-      });
-    }
-  }
-
-  if (!this.isConnect) {
-    this.waitConnect(function () {
-      self.upload(localpath, remotepath, cb, isRecursive);
-    });
-  } else {
-    var cwd = this.currentPath;
-    if (localpath instanceof Array) {
-      if (typeof remotepath === 'function') {
-        cb = remotepath;
-        remotepath = null;
-      }
-      loop(localpath, function (i, value, next) {
-        var local = value;
-        var remote = remotepath;
-        if (typeof value === 'object') {
-          local = value.local;
-          remote = value.remote;
-        }
-        self.upload(local, remote, function (err) {
-          next(err);
-        });
-      }, function (err) {
-        self.cd(cwd, function () {
-          if (cb) { cb(err); }
-        });
-      });
-      return;
-    }
-    localpath = FileUtil.replaceCorrectPath(localpath);
-    if (/\/\*{1,2}$/.test(localpath)) {
-      isRecursive = true;
-      localpath = localpath.replace(/\/\*{1,2}$/, '');
-    }
-    remotepath = this.getRealRemotePath(remotepath);
-    if (FileUtil.isDirSync(localpath)) {
-      var parent = FileUtil.replaceCorrectPath(remotepath + (isRecursive ? "" : "/" + FileUtil.getFileName(localpath)));
-      this.cd(parent, function (err) {
-        if (err) {
-          self.mkdir(parent, function (err) {
-            //console.log("mkdir : ", parent, err);
-            if (err) {
-              self.cd(cwd, function () {
-                if (cb) { cb(err); }
-              });
-            } else {
-              self.emit("upload", parent);
-              bodyDir(localpath, parent, cwd);
-            }
-          });
-        } else {
-          bodyDir(localpath, parent, cwd);
-        }
-      });
-    } else {
-      if (!isRecursive) {
-        this.cd(remotepath, function (err) {
-          if (!err) {
-            remotepath = FileUtil.replaceCorrectPath(remotepath + "/" + FileUtil.getFileName(localpath));
-          }
-          var parent = FileUtil.getParentPath(remotepath);
-          self.cd(parent, function (err) {
-            if (err) {
-              self.mkdir(parent, function (err) {
-                if (err) {
-                  self.cd(cwd, function () {
-                    if (cb) { cb(err); }
-                  });
-                } else {
-                  self.emit("upload", parent);
-                  uploadFile(localpath, remotepath, cwd);
-                }
-              });
-            } else {
-              uploadFile(localpath, remotepath, cwd);
-            }
-          });
-        });
-      } else {
-        uploadFile(localpath, remotepath, cwd);
-      }
-    }
-  }
-};
-
-
-
-
-EasyFTP.prototype.rm = function (path, cb) {
+EFTP.prototype.rm = function (path, cb) {
   var self = this;
   if (!this.isConnect) {
     this.waitConnect(function () {
@@ -922,7 +792,7 @@ EasyFTP.prototype.rm = function (path, cb) {
   }
 };
 
-EasyFTP.prototype.mv = function (oldPath, newPath, cb) {
+EFTP.prototype.mv = function (oldPath, newPath, cb) {
   var self = this;
   if (!this.isConnect) {
     this.waitConnect(function () {
@@ -946,7 +816,6 @@ EasyFTP.prototype.mv = function (oldPath, newPath, cb) {
   }
 };
 
-
 */
 
-module.exports = EasyFTP;
+module.exports = EFTP;
