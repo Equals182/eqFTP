@@ -364,8 +364,8 @@ define(function (require, exports, module) {
         x = position.x;
         y = position.y;
       } else if (event) {
-        y = (event.screenY - 50),
-        x = event.screenX;
+        y = event.clientY,
+        x = event.clientX;
       }
       
       var mx = (eqUI.panel.tpl.width() + eqUI.panel.tpl.offset().left) - (self.tpl.width() + 15);
@@ -1441,8 +1441,8 @@ define(function (require, exports, module) {
             sc = fromElement.css('background-color');
       } else if (event) {
         var d = 10,
-            x = event.screenX - targetElement.offset().left,
-            y = (event.screenY - 50) - targetElement.offset().top;
+            x = event.clientX - targetElement.offset().left,
+            y = event.clientY - targetElement.offset().top;
       } else {
         return false;
       }
