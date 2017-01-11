@@ -157,7 +157,9 @@ define(function (require, exports, module) {
              */
             _.set(eqftp, 'settings.create', function () {
               // eqftp.settings.create() - fires Save File dialog and sends command to ftpDomain with resolved path
+              debug('eqftp.settings.create fired');
               eqftp.ui.explorer.saveFile(strings.eqftp__wlcm__welcome_saveFile_title, eqftp._home, 'settings.eqftp', function (err, path) {
+                debug('Save File dialog callback', err, path);
                 if (err) {
                   // if error occured - log it
                   eqftp.log(ui.m(strings.eqftp__log__settings_create_fail, {
@@ -168,6 +170,7 @@ define(function (require, exports, module) {
                 }
                 if (path) {
                   // if path is resolved - saving settings
+                  debug('Do we have eqftp.settings.set?', _.has(eqftp, 'settings.set'));
                   if (_.has(eqftp, 'settings.set')) {
                     eqftp.settings.set({}, undefined, path).done(function () {
                       // when done - hiding welcome screen and loading saved file
@@ -339,6 +342,7 @@ define(function (require, exports, module) {
                     });
                   },
                   set: function (settings) {
+                    debug('window.eqftp.settings.set fired');
                     var master_password = _.get(settings, 'master_password');
                     _.unset(settings, 'master_password');
                     eqftp.settings.set(settings, master_password).done(function () {
