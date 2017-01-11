@@ -1,9 +1,7 @@
 .eqftp {
   &__button {
-    font-family: $ff;
     font-size: $fs-button;
     font-weight: $fw-medium;
-    font-style: normal;
     text-transform: uppercase;
     box-sizing: border-box;
     transition: background-color $time-fast;

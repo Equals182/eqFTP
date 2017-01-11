@@ -1,4 +1,7 @@
 .eqftp {
+  font-family: $ff;
+  font-weight: $fw-regular;
+  font-style: normal;
   line-height: normal;
   position: absolute;
   display: flex;
@@ -229,20 +232,15 @@
       padding-bottom: $i6;
       padding-left: $i6;
       padding-right: $i6;
-      font-family: $ff;
       font-size: $fs-title;
       font-weight: $fw-medium;
-      font-style: normal;
       box-sizing: border-box;
       width: 100%;
     }
     &__content {
       padding-left: $i6;
       padding-right: $i6;
-      font-family: $ff;
       font-size: $fs-body-1;
-      font-weight: $fw-regular;
-      font-style: normal;
       box-sizing: border-box;
       width: 100%;
     }
@@ -721,10 +719,7 @@
     &__text {
       padding-top: $i2;
       padding-bottom: $i2;
-      font-family: $ff;
       font-size: 15px;
-      font-weight: 400;
-      font-style: normal;
       line-height: 16px;
       box-sizing: border-box;
     }
@@ -732,10 +727,7 @@
       padding-top: $i2;
       padding-bottom: $i2;
       padding-left: $i2;
-      font-family: $ff;
       font-size: 15px;
-      font-weight: 400;
-      font-style: normal;
       line-height: 16px;
       box-sizing: border-box;
       display: flex;
@@ -776,19 +768,14 @@
       max-width: 568px;
     }
     &__text {
-      font-family: $ff;
       font-size: 14px;
-      font-style: normal;
-      font-weight: 400;
       color: $c01;
       animation-name: fadeIn;
       animation-duration: $time-fast;
     }
     &__action {
       padding-left: $i6;
-      font-family: $ff;
       font-size: 14px;
-      font-style: normal;
       font-weight: 500;
       text-transform: uppercase;
       color: $c20;
@@ -814,10 +801,7 @@
       padding-bottom: 12px;
       padding-left: 12px;
       padding-right: 12px;
-      font-family: $ff;
       font-size: 20px;
-      font-weight: 400;
-      font-style: normal;
       color: $c01;
       background-color: $c10;
       border-radius: 50%;
@@ -841,10 +825,7 @@
     }
     &__text {
       padding-left: $i4;
-      font-family: $ff;
       font-size: 14px;
-      font-weight: 400;
-      font-style: normal;
     }
   }
   &-copyright {
@@ -911,9 +892,7 @@
     padding-bottom: 0;
     padding-left: 0;
     padding-right: 0;
-    font-family: $ff;
     font-size: 12px;
-    font-weight: 400;
     text-align: left;
     cursor: pointer;
     display: flex;
@@ -942,10 +921,7 @@
     }
   }
   &__title {
-    font-family: $ff;
     font-size: 14px;
-    font-weight: $fw-regular;
-    font-style: normal;
     text-align: left;
     display: flex;
     align-items: center;
@@ -958,12 +934,10 @@
     }
     &_smallest {
       font-size: 12px;
-      font-weight: $fw-regular;
       line-height: 16px;
     }
     &_small {
       font-size: 16px;
-      font-weight: $fw-regular;
       line-height: 20px;
     }
     &_medium {
@@ -1003,10 +977,7 @@
     }
   }
   &__text {
-    font-family: $ff;
     font-size: 14px;
-    font-weight: $fw-regular;
-    font-style: normal;
     &_left {
       text-align: left;
     }
@@ -1029,10 +1000,8 @@
     }
   }
   &__subheader {
-    font-family: $ff;
     font-size: 14px;
     font-weight: 500;
-    font-style: normal;
     display: flex;
     align-items: center;
     min-height: $i12;
@@ -1113,5 +1082,22 @@
     background-color: $c10;
     height: 1px;
     width: 100%;
+  }
+  &__tooltip {
+    margin-top: 14px;
+    padding-left: $i2;
+    padding-right: $i2;
+    font-size: $fs-caption;
+    color: $c01;
+    background-color: $c003;
+    box-sizing: border-box;
+    border-radius: 2px;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 22px;
+    max-height: 22px;
+    height: 22px;
   }
 }
