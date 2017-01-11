@@ -186,6 +186,7 @@
     }
     &__content {
       box-sizing: border-box;
+      position: relative;
       display: flex;
       flex-wrap: wrap;
       height: calc(100% - 48px);
@@ -414,7 +415,7 @@
       opacity: 0.4;
       display: flex;
       align-items: center;
-      animation: flash 200ms 166ms;
+      animation: flashColor 166ms 166ms;
       height: 100%;
       min-width: $i11;
       max-width: $i11;
@@ -424,11 +425,8 @@
       margin-left: $i2;
       min-width: 0px;
       max-width: calc(100% - 25px - 50px - 25px);
-      span {
-        text-overflow: ellipsis;
-        overflow: hidden;
-        white-space: nowrap;
-        max-width: 100%;
+      & .eqftp__title {
+        animation: fadeColor 1s 166ms;
       }
     }
   }
@@ -977,6 +975,7 @@
         max-width: 50%;
       }
     }
+    @include _padding($i4);
   }
   &__text {
     font-size: 14px;
@@ -1015,12 +1014,15 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: $i12;
-    max-height: $i12;
-    height: $i12;
-    min-width: $i12;
-    max-width: $i12;
-    width: $i12;
+    &_connection {
+      justify-content: flex-end;
+      min-height: $i12;
+      max-height: $i12;
+      height: $i12;
+      min-width: $i9;
+      max-width: $i9;
+      width: $i9;
+    }
     &_smallest {
       min-height: $i6;
       max-height: $i6;
