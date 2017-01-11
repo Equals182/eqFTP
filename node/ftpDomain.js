@@ -284,6 +284,7 @@ maxerr: 50, node: true */
       var settingsFile = utils.normalize((path || self.currentSettingsFile));
       debug('settingsFile', settingsFile);
       if (!settingsFile) {
+        debug('no settingsFile');
         throw new Error('NOSETTINGSPATHPASSED');
       }
       /*
@@ -291,7 +292,7 @@ maxerr: 50, node: true */
         throw new Error('Passed file does not exists');
       }
       */
-      settingsFile = fs.realpathSync(settingsFile);
+      settingsFile = utils.normalize(settingsFile);
       if (_.get(toSave, 'misc.encrypted') === true) {
         debug('needs encryption');
         if (!password) {
@@ -308,7 +309,9 @@ maxerr: 50, node: true */
         debug('credentials', toSave.connections.credentials);
         toSave.connections.credentials = AES.encrypt(toSave.connections.credentials, password);
       }
+      debug('firing fs.writeFile');
       fs.writeFile(settingsFile, JSON.stringify(toSave, null, 4), {encoding: 'UTF-8'}, function (err, data) {
+        debug('writeFile callback', err, data);
         if (err) {
           if (!silent) {
             _domainManager.emitEvent("eqFTP", "event", {
