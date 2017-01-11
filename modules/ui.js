@@ -512,7 +512,9 @@ define(function (require, exports, module) {
       d: require("text!htmlContent/fileTreeElement-folder.html"),
       f: require("text!htmlContent/fileTreeElement-file.html")
     };
+    self._lastDateFormat = 'H:i d/m';
     self._rendered = {};
+    self._elements = [];
     self.title = new function () {
       var title = this;
       title._default = strings.eqftp__tab__fileTree__title;
@@ -547,17 +549,20 @@ define(function (require, exports, module) {
       }
       self._rendered[path] = object;
       parent.html('');
+      
+      var format = 'H:i d/m';
+      if (_.has(eqFTP, '_settings.main.date_format')) {
+        format = eqFTP._settings.main.date_format;
+      }
+      self._lastDateFormat = format;
+      
       object.forEach(function (element, i) {
         if (['f', 'd'].indexOf(element.type) < 0) {
           return false;
         }
-        parent.append($(Mustache.render(self._t[element.type], _.defaults(_.clone(strings), element, {
+        var el = $(Mustache.render(self._t[element.type], _.defaults(_.clone(strings), element, {
           date_formatted: function () {
             if (utils) {
-              var format = 'H:i d/m';
-              if (_.has(eqFTP, '_settings.main.date_format')) {
-                format = eqFTP._settings.main.date_format;
-              }
               return utils.date_format(new Date(element.date), format);
             } else {
               return element.date;
@@ -581,7 +586,15 @@ define(function (require, exports, module) {
           cmd_openFolder: function () {
             return 'eqftp.openFolder(\'' + element.id + '\', \'' + element.fullPath + '\');';
           }
-        }))));
+        })));
+        self._elements.push({
+          element: el,
+          timestamp: {
+            original: element.date,
+            element: el.find('.eqftp-fileTree__date .eqftp__titleNowrap')
+          }
+        });
+        parent.append(el);
       });
       self.itemOpen(path);
     };
@@ -634,6 +647,27 @@ define(function (require, exports, module) {
     self.reset = function () {
       self.tpl.html('');
       self._rendered = {};
+      self._elements = [];
+    };
+    self.updateDateFormat = function (format) {
+      var _format = 'H:i d/m';
+      if (_.has(eqFTP, '_settings.main.date_format')) {
+        _format = eqFTP._settings.main.date_format;
+      }
+      if (_format) {
+        _format = format;
+      }
+      if (self._lastDateFormat === _format) {
+        return false;
+      }
+      self._lastDateFormat = _format;
+      self._elements.forEach(function (el) {
+        var ts = el.timestamp.original;
+        if (utils) {
+          ts = utils.date_format(new Date(ts), _format);
+        }
+        el.timestamp.element.text(ts);
+      });
     };
   }();
 

@@ -348,8 +348,9 @@ define(function (require, exports, module) {
                     eqftp.settings.set(settings, master_password).done(function () {
                       _debugState = !!_.get(settings, 'main.debug');
                       eqftp.preferences.set('misc.debug', _debugState);
+                      ui.fileTree.updateDateFormat(_.get(settings, 'main.date_format'));
                     }).fail(function (err) {
-                      debug('settings set', arguments);
+                      debug('window.eqftp.settings.set failed', arguments);
                     });
                   },
                   create: eqftp.settings.create,
