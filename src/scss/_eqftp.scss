@@ -935,6 +935,7 @@
       padding-right: $i4;
     }
     &_input {
+      position: relative;
       flex-wrap: wrap;
       align-content: flex-end;
       align-items: flex-end;

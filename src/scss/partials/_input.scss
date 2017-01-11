@@ -23,26 +23,9 @@
         outline: none;
         height: auto;
         width: 100%;
-        &_short {
-          width: 33.3%;
-        }
-        &_half {
-          width: 50%;
-        }
-        &_long {
-          width: 66.6%;
-        }
-        &_full {
-          width: 100%;
-        }
-        &_margin {
-          &Left {
-            margin-left: $i4;
-          }
-          &Right {
-            margin-right: $i4;
-          }
-        }
+        @include _width();
+        @include _margin($i4);
+        @include _padding($i4);
         &Text {
           @include placeholder {
             color: rgba(0, 0, 0, 0.38);
@@ -68,6 +51,9 @@
             min-height: $i12;
             max-height: $i12;
             height: $i12;
+          }
+          &_magic {
+            padding-right: $i12;
           }
           &_underline {
             border-bottom: 1px solid $c09;
