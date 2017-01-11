@@ -367,6 +367,11 @@
             }
           }
         }
+        & .eqftp-footer__info {
+          & .eqftp__title {
+            @include fadeColor($green, 1s, 0ms);
+          }
+        }
       }
       &_error {
         & .eqftp-footer__icon {
@@ -375,6 +380,11 @@
               content: '\E000';
               color: $red;
             }
+          }
+        }
+        & .eqftp-footer__info {
+          & .eqftp__title {
+            @include fadeColor($red, 1s, 0ms);
           }
         }
       }
@@ -387,6 +397,11 @@
             }
           }
         }
+        & .eqftp-footer__info {
+          & .eqftp__title {
+            @include fadeColor($red, 1s, 0ms);
+          }
+        }
       }
       &_info {
         & .eqftp-footer__icon {
@@ -395,6 +410,11 @@
               content: '\E88E';
               color: $blue;
             }
+          }
+        }
+        & .eqftp-footer__info {
+          & .eqftp__title {
+            @include fadeColor($blue, 1s, 0ms);
           }
         }
       }
@@ -415,7 +435,6 @@
       opacity: 0.4;
       display: flex;
       align-items: center;
-      animation: flashColor 166ms 166ms;
       height: 100%;
       min-width: $i11;
       max-width: $i11;
@@ -425,9 +444,6 @@
       margin-left: $i2;
       min-width: 0px;
       max-width: calc(100% - 25px - 50px - 25px);
-      & .eqftp__title {
-        animation: fadeColor 1s 166ms;
-      }
     }
   }
   &-fileTree {
@@ -1014,15 +1030,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    &_connection {
-      justify-content: flex-end;
-      min-height: $i12;
-      max-height: $i12;
-      height: $i12;
-      min-width: $i9;
-      max-width: $i9;
-      width: $i9;
-    }
     &_smallest {
       min-height: $i6;
       max-height: $i6;
