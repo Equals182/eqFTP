@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="https://github.com/Equals182/eqFTP/releases/tag/1.0.0-beta.1" target="_blank"><img src="https://github.com/Equals182/eqFTP/raw/master/docs/assets/images/0.jpg" alt="eqFTP"/></a>
+  <a href="https://github.com/Equals182/eqFTP/releases/tag/v1.0.0-beta.1" target="_blank"><img src="https://github.com/Equals182/eqFTP/raw/master/docs/assets/images/0.jpg" alt="eqFTP"/></a>
 </p>
 
 ## Your favorite FTP tool is back
@@ -21,7 +21,7 @@ We changed the code. Also entirely. Now it's a lot more structured and well-desi
 > It's the best ftp tool I've ever seen!
 *--  [Denis](https://github.com/GoliafRS), also shitty coder*
 
-**Isn't that great? [Become a BETA-tester](https://github.com/Equals182/eqFTP/releases/tag/1.0.0-beta.1) right now and get an LUCKY opportunity to [donate](https://www.patreon.com/equals182)!**
+**Isn't that great? [Become a BETA-tester](https://github.com/Equals182/eqFTP/releases/tag/v1.0.0-beta.1) right now and get an LUCKY opportunity to [donate](https://www.patreon.com/equals182)!**
 
 ## Translations
 
