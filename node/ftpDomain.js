@@ -188,10 +188,14 @@ maxerr: 50, node: true */
         _.set(self.settings, 'misc.userId', tracker.init(_.get(self.settings, 'misc.userId'), {
           version: self.settings.misc.version
         }));
+        debug('setting settings');
         self.set(self.settings, undefined, undefined, true);
         
         debug('joining connections objects', self.settings.connections);
-        var joined = self._cc('join', self.settings.connections);
+        var joined = self.settings.connections;
+        if (_.has(self.settings, 'connections') && _.has(self.settings, 'connections.settings')) {
+          joined = self._cc('join', self.settings.connections);
+        }
         debug('joined', joined);
         
         debug('is encrypted?', self.settings.misc.encrypted);
@@ -207,7 +211,9 @@ maxerr: 50, node: true */
           if (_.isJSON(self.settings.connections.credentials)) {
             self.settings.connections.credentials = JSON.parse(self.settings.connections.credentials);
             debug('joining connections objects2', self.settings.connections);
-            joined = self._cc('join', self.settings.connections);
+            if (_.has(self.settings, 'connections') && _.has(self.settings, 'connections.settings')) {
+              joined = self._cc('join', self.settings.connections);
+            }
             debug('joined2', joined);
           } else {
             throw new Error('DECRYPTEDNOTAJSON');
@@ -499,7 +505,7 @@ maxerr: 50, node: true */
         self._[id] = new Proxy(
           _.defaultsDeep(_.cloneDeep(settings), {
             _watch: function () {
-              if (!settings.isTmp && settings.localpath) {
+              if (!settings.isTmp && settings.localpath && fs.existsSync(settings.localpath)) {
                 var w = chokidar.watch(settings.localpath, {
                   ignored: (settings.ignore_list || '').splitIgnores(),
                   persistent: true,
@@ -530,7 +536,9 @@ maxerr: 50, node: true */
                     eqftp.cache._recently_downloaded.splice(rd, 1);
                     return false;
                   }
-                  eqftp.connections._[id].upload(path, function () {}, function () {});
+                  if (settings.autoupload) {
+                    eqftp.connections._[id].upload(path, function () {}, function () {});
+                  }
                 })
                 .on('unlink', function (path, stats) {
                   path = utils.normalize(path);
@@ -720,7 +728,7 @@ maxerr: 50, node: true */
                               params: args[0],
                               connection: self.a[id]
                             });
-                            if (!self._[id]._watch) {
+                            if (!self._[id]._watch && fs.existsSync(args[0].localpath)) {
                               var w = chokidar.watch(args[0].localpath, {
                                 ignoreInitial: true,
                                 awaitWriteFinish: {
