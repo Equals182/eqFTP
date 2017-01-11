@@ -36,7 +36,8 @@ define({
  /**
  * CONNECTION'S SETTINGS WINDOW
  */
- "eqftp__cs__window_title": "Edit connection",
+ "eqftp__cs__window_title_edit": "Edit connection",
+ "eqftp__cs__window_title_new": "Create connection",
  "eqftp__cs__basic_settings": "Basic settings",
  "eqftp__cs__additional_settings": "Additional settings",
  "eqftp__cs__c_name": "Connection name",
