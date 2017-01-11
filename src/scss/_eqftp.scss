@@ -369,7 +369,7 @@
         }
         & .eqftp-footer__info {
           & .eqftp__title {
-            @include fadeColor($green, 1s, 0ms);
+            animation: fadeColorGreen 3s;
           }
         }
       }
@@ -384,7 +384,7 @@
         }
         & .eqftp-footer__info {
           & .eqftp__title {
-            @include fadeColor($red, 1s, 0ms);
+            animation: fadeColorRed 3s;
           }
         }
       }
@@ -399,7 +399,7 @@
         }
         & .eqftp-footer__info {
           & .eqftp__title {
-            @include fadeColor($red, 1s, 0ms);
+            animation: fadeColorRed 3s;
           }
         }
       }
@@ -414,7 +414,7 @@
         }
         & .eqftp-footer__info {
           & .eqftp__title {
-            @include fadeColor($blue, 1s, 0ms);
+            animation: fadeColorBlue 3s;
           }
         }
       }

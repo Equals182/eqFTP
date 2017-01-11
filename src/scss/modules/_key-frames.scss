@@ -120,3 +120,30 @@
     opacity: 0;
   }
 }
+
+@keyframes fadeColorRed {
+  from {
+    color: $red;
+  }
+  to {
+    color: $c01;
+  }
+}
+
+@keyframes fadeColorGreen {
+  from {
+    color: $green;
+  }
+  to {
+    color: $c01;
+  }
+}
+
+@keyframes fadeColorBlue {
+  from {
+    color: $blue;
+  }
+  to {
+    color: $c01;
+  }
+}

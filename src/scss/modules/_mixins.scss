@@ -96,15 +96,3 @@
     width: 100%;
   }
 }
-
-@mixin fadeColor($color, $duration, $delay) {
-  @keyframes fadeColor {
-    from {
-      color: $color;
-    }
-    to {
-      color: $c01;
-    }
-  }
-  animation: fadeColor $duration $delay;
-}
