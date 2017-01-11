@@ -182,6 +182,7 @@ maxerr: 50, node: true */
         debug('mutating settings file');
         read = self.mutate(read);
         self.settings = _.cloneDeep(read);
+        debug('self.settings', self.settings);
         self.currentSettingsFile = settingsFile;
         _debugState = !!_.get(self.settings, 'main.debug');
         _.set(self.settings, 'misc.userId', tracker.init(_.get(self.settings, 'misc.userId'), {
@@ -219,13 +220,19 @@ maxerr: 50, node: true */
       }
       
       if (!self.settings) {
+        debug('No settings set');
         throw new Error('NOSETTINGS');
       }
       
+      debug('self.settings final get', self.settings);
       return self.settings;
     };
     self.set = function (settings, password, path, silent) {
-      debug('eqftp.settings.set fired', settings, password, path);
+      debug('eqftp.settings.set fired', settings, password, path, silent);
+      
+      if (_.has(settings, 'connections') && _.has(settings, 'connections.settings')) {
+        settings.connections = self._cc('join', settings.connections);
+      }
       
       var toSaveNew = _.cloneDeep(settings);
       if (_.has(settings, 'connections') && !_.has(settings, 'connections.settings')) {
@@ -270,7 +277,7 @@ maxerr: 50, node: true */
       }, settings, self.settings, defaults, {
         connections: {}
       });
-      debug('toKeep', toKeep);
+      debug('toKeep is now', toKeep);
       
       [
         'settings_file',
@@ -324,6 +331,7 @@ maxerr: 50, node: true */
           }
         } else {
           self.settings = toKeep;
+          debug('self.settings is now', self.settings);
           if (!silent) {
             _domainManager.emitEvent("eqFTP", "event", {
               action: 'settings:save:success',
@@ -339,6 +347,7 @@ maxerr: 50, node: true */
     };
     self.setConnection = function (connection) {
       debug('eqftp.settings.setConnection fired', connection);
+      debug('self.settings', self.settings);
       var uniq = utils.uniq();
       var defaults = {
         protocol: 'ftp',
@@ -412,7 +421,7 @@ maxerr: 50, node: true */
         action: 'connection:update',
         data: self.a
       });
-    }, 1000, {
+    }, 500, {
       leading: false,
       trailing: true
     });
