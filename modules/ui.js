@@ -6,15 +6,14 @@ maxerr: 50, node: true */
 define(function (require, exports, module) {
   "use strict";
   var Mustache = brackets.getModule("thirdparty/mustache/mustache"),
-    FileSystem = brackets.getModule("filesystem/FileSystem"),
-    Resizer = brackets.getModule("utils/Resizer"),
-    strings = require("strings"),
-    eqUI = this,
-    _ = false,
-    eqFTP = false,
-    utils = false,
-
-    localeSizes = [
+      FileSystem = brackets.getModule("filesystem/FileSystem"),
+      Resizer = brackets.getModule("utils/Resizer"),
+      strings = require("strings"),
+      eqUI = this,
+      _ = false,
+      eqFTP = false,
+      utils = false,
+      localeSizes = [
         strings.eqftp__filesize_bytes,
         strings.eqftp__filesize_kilobytes,
         strings.eqftp__filesize_megabytes,
@@ -25,17 +24,17 @@ define(function (require, exports, module) {
         strings.eqftp__filesize_zettabytes,
         strings.eqftp__filesize_yottabytes
       ];
-  
+
   strings.eqftp__misc__credits_text = Mustache.render(strings.eqftp__misc__credits_text, {
     names: '<span href="https://github.com/Equals182" class="eqftp__text eqftp__text_colorBlue eqftp__link">Equals182</span> & <span href="https://github.com/GoliafRS" class="eqftp__text eqftp__text_colorBlue eqftp__link">GoliafRS</span>'
   });
   strings.eqftp__misc__donate_text = Mustache.render(strings.eqftp__misc__donate_text, {
     button: '<span href="https://www.patreon.com/equals182" class="eqftp__button eqftp__button_blueText eqftp__link">' + strings.eqftp__misc__donate_button + '</span>'
   });
-  
+
   function getInputNameValue(input) {
     var name = false,
-      value = false;
+        value = false;
     if (input.is('[type=checkbox]')) {
       name = input.attr('name');
       value = !!input.is(':checked');
@@ -108,6 +107,7 @@ define(function (require, exports, module) {
     eqUI.eqftp = eqFTP;
     return eqFTP;
   };
+
   eqUI.m = Mustache.render;
 
   eqUI.events = function (event) {
@@ -184,10 +184,8 @@ define(function (require, exports, module) {
     self.tpl = self.p.filter('.eqftp');
     self.tpl.css('right', (width * -1) + 'px').width(width);
     self._currentTab = false;
-    
     self.title = new function () {
       var title = this;
-      
       title._element = self.tpl.find('.eqftp-header .eqftp-head .eqftp__title span');
       title.set = function (text) {
         title._element.text(text || 'eqFTP');
@@ -288,11 +286,9 @@ define(function (require, exports, module) {
 
   eqUI.context = new function () {
     var self = this;
-
     self.tpl = eqUI.panel.p.filter('.eqftp-menu');
     self.elementTemplate = require("text!htmlContent/menuElement.html");
     self.current = {};
-
     self._craft = function (text, callback, shortcut) {
       var item = new function () {
         var item = this;
@@ -301,7 +297,6 @@ define(function (require, exports, module) {
           text: text,
           shortcut: shortcut
         }, strings)));
-        
         item.remove = function () {
           item.element.off('click', item.callback);
           item.element.remove();
@@ -314,7 +309,6 @@ define(function (require, exports, module) {
           }
         });
         item.element.on('click', item.callback);
-        
         _.set(self.current, item.id, item);
       }();
       return item;
@@ -329,14 +323,13 @@ define(function (require, exports, module) {
     };
     self.caller = false;
     self._autoclose = function (e) {
-      if (
-        !$(e.target).is(self.tpl) &&
-        $(e.target).closest(self.tpl).length < 1 &&
-        self.caller &&
-        _.isjQuery(self.caller) &&
-        !$(e.target).is(self.caller) &&
-        $(e.target).closest(self.caller).length < 1
-      ) {
+      if (!$(e.target).is(self.tpl) &&
+          $(e.target).closest(self.tpl).length < 1 &&
+          self.caller &&
+          _.isjQuery(self.caller) &&
+          !$(e.target).is(self.caller) &&
+          $(e.target).closest(self.caller).length < 1
+         ) {
         self.close();
       }
     };
@@ -359,15 +352,13 @@ define(function (require, exports, module) {
       }
       var x = 0,
           y = 0;
-      
       if (position) {
         x = position.x;
         y = position.y;
       } else if (event) {
         y = event.clientY,
-        x = event.clientX;
+          x = event.clientX;
       }
-      
       var mx = (eqUI.panel.tpl.width() + eqUI.panel.tpl.offset().left) - (self.tpl.width() + 15);
       if (x > mx) {
         x = mx;
@@ -377,7 +368,6 @@ define(function (require, exports, module) {
         y = my;
       }
       self.tpl.css('top', y + 'px').css('left', x + 'px');
-      
       eqUI.animate.circle(self.tpl);
       _.delay(function () {
         $('body').on('click', self._autoclose);
@@ -396,7 +386,6 @@ define(function (require, exports, module) {
     self.state = 'closed';
     self.dropdownState = 'closed';
     self.items = [];
-
     self.dropdown = {};
     self.dropdown.toggle = function () {
       if (self.dropdownState === 'opened') {
@@ -440,7 +429,6 @@ define(function (require, exports, module) {
         });
       }
     }
-
     self._autoclose = function (e) {
       if (!$(e.target).is(self.tpl) && $(e.target).closest(self.tpl).length < 1) {
         self.close();
@@ -459,7 +447,6 @@ define(function (require, exports, module) {
         self.state = 'opened';
         self.tpl.find('input[name="eqftpSearch"]').focus();
         self.dropdown.open();
-
         _.delay(function () {
           $('body').on('click', self._autoclose);
         }, 50);
@@ -470,7 +457,6 @@ define(function (require, exports, module) {
         self.tpl.removeClass('eqftp-header__search_active');
         self.state = 'closed';
         self.dropdown.close();
-
         $('body').off('click', self._autoclose);
       }
     };
@@ -487,7 +473,7 @@ define(function (require, exports, module) {
           keyword = utils.escapeRegExp(keyword);
         }
         var r = new RegExp('.*?' + keyword + '.*?'),
-          shown = 0;
+            shown = 0;
         self.items.forEach(function (v, i) {
           if (!r.test(v.text())) {
             v.hide();
@@ -506,7 +492,6 @@ define(function (require, exports, module) {
       }
       eqUI.ps.update(dropdown[0]);
     };
-
     self.get = function () {
       return self.tpl;
     };
@@ -528,10 +513,8 @@ define(function (require, exports, module) {
       f: require("text!htmlContent/fileTreeElement-file.html")
     };
     self._rendered = {};
-    
     self.title = new function () {
       var title = this;
-      
       title._default = strings.eqftp__tab__fileTree__title;
       title._current = title._default;
       title.set = function (text) {
@@ -539,7 +522,6 @@ define(function (require, exports, module) {
         eqUI.panel.title.update();
       }
     }();
-
     self.add = function (object, path) {
       if (!_.isString(path)) {
         return false;
@@ -547,7 +529,6 @@ define(function (require, exports, module) {
       if (!_.isArray(object)) {
         object = [object];
       }
-
       var parent = false;
       if (!_.isEmpty(self._rendered)) {
         parent = self.tpl.find('div[id="' + path + '"] .eqftp-fileTree__children');
@@ -565,7 +546,6 @@ define(function (require, exports, module) {
         parent = $('.eqftp-fileTree');
       }
       self._rendered[path] = object;
-
       parent.html('');
       object.forEach(function (element, i) {
         if (['f', 'd'].indexOf(element.type) < 0) {
@@ -607,7 +587,7 @@ define(function (require, exports, module) {
     };
     self.itemOpen = function (path) {
       var el = self.tpl.find('div[id="' + path + '"]'),
-        ch = el.find('.eqftp-fileTree__children:first');
+          ch = el.find('.eqftp-fileTree__children:first');
       if (!ch.is(':visible')) {
         el.find('.eqftp-fileTree__info:first .eqftp-fileTree__icon .material-icons').text('keyboard_arrow_down');
         ch.slideDown(200, function () {
@@ -619,7 +599,7 @@ define(function (require, exports, module) {
     };
     self.itemClose = function (path) {
       var el = self.tpl.find('div[id="' + path + '"]'),
-        ch = el.find('.eqftp-fileTree__children:first');
+          ch = el.find('.eqftp-fileTree__children:first');
       if (ch.is(':visible')) {
         el.find('.eqftp-fileTree__info:first .eqftp-fileTree__icon .material-icons').text('keyboard_arrow_right');
         ch.slideUp(200, function () {
@@ -631,7 +611,7 @@ define(function (require, exports, module) {
     };
     self.itemToggle = function (path) {
       var el = self.tpl.find('div[id="' + path + '"]'),
-        ch = el.find('.eqftp-fileTree__children:first');
+          ch = el.find('.eqftp-fileTree__children:first');
       if (ch.is(':visible')) {
         el.find('.eqftp-fileTree__info:first .eqftp-fileTree__icon .material-icons').text('keyboard_arrow_right');
         ch.slideUp(200, function () {
@@ -663,7 +643,6 @@ define(function (require, exports, module) {
     self.footer = eqUI.panel.tpl.find('.eqftp-footer');
     self.state = 'closed';
     self._hasPs = false;
-
     self.toggle = function () {
       if (self.state === 'opened') {
         self.close();
@@ -700,15 +679,14 @@ define(function (require, exports, module) {
         }
       }, item)));
       self.tpl.append(item);
-      if (self.tpl.find('.eqftp-footer__listItem').length > 1000) {
-        self.tpl.find('.eqftp-footer__listItem:first').remove();
+      if (self.tpl.find('.eqftp-footer__item').length > 1000) {
+        self.tpl.find('.eqftp-footer__item:first').remove();
       }
       if (self._hasPs) {
         self.tpl[0].scrollTop = self.tpl[0].scrollHeight;
         eqUI.ps.update(self.tpl[0]);
       }
     };
-
     self.get = function () {
       return self.tpl;
     };
@@ -721,10 +699,8 @@ define(function (require, exports, module) {
     self.queueElements = {};
     self._clearAllButton = self.tpl.find("#eqftp-queue__clear_all");
     self._clearAllButton.hide();
-
     self.title = new function () {
       var title = this;
-      
       title._default = strings.eqftp__tab__queue__title;
       title._current = title._default;
       title.set = function (text) {
@@ -732,7 +708,6 @@ define(function (require, exports, module) {
         eqUI.panel.title.update();
       }
     }();
-
     self._gen = function (v) {
       return $(Mustache.render(require("text!htmlContent/queueElement.html"), _.defaults(_.clone(strings), {
         qid: v.qid,
@@ -770,9 +745,8 @@ define(function (require, exports, module) {
     };
     self.render = function (items) {
       var add = _.differenceBy(items, self.have, 'qid'),
-        remove = _.differenceBy(self.have, items, 'qid'),
-        change = _.intersectionBy(items, self.have, 'qid');
-
+          remove = _.differenceBy(self.have, items, 'qid'),
+          change = _.intersectionBy(items, self.have, 'qid');
       remove.forEach(function (v, i) {
         if (v.act === 'download' || v.act === 'upload') {
           (self.queueElements[v.qid] || $('#eqftp-queue-' + v.qid)).remove();
@@ -787,8 +761,8 @@ define(function (require, exports, module) {
       });
       change.forEach(function (v, i) {
         if (!_.isEqual(self.have[_.findIndex(self.have, {
-            qid: v.qid
-          })], v)) {
+          qid: v.qid
+        })], v)) {
           $('#eqftp-queue-' + v.qid).replaceWith(self._gen(v));
           _.set(self.queueElements, v.qid, $('#eqftp-queue-' + v.qid));
         }
@@ -812,7 +786,7 @@ define(function (require, exports, module) {
         }, 1000);
       }
       var el = (self.queueElements[data.queuer.qid] || $('#eqftp-queue-' + data.queuer.qid)),
-        p = Math.floor(data.percents * 100);
+          p = Math.floor(data.percents * 100);
       if (el.length < 1) {
         return false;
       }
@@ -822,7 +796,6 @@ define(function (require, exports, module) {
       el.find('.eqftp__progressBar:first').css('width', p + '%');
       self._setTotal(data);
     };
-
     self.get = function () {
       return self.tpl;
     };
@@ -832,10 +805,8 @@ define(function (require, exports, module) {
     var self = this;
     self.tpl = eqUI.panel.tpl.find('.eqftp-connections');
     self.items = [];
-
     self.title = new function () {
       var title = this;
-      
       title._default = strings.eqftp__tab__connections__title;
       title._current = title._default;
       title.set = function (text) {
@@ -843,10 +814,9 @@ define(function (require, exports, module) {
         eqUI.panel.title.update();
       }
     }();
-
     self.editor = new function () {
       var connections = self,
-        self = this;
+          self = this;
       self.tpl = eqUI.panel.tpl.find('.eqftp-modal_connectionsSettings');
       self.state = 'closed';
       self.protocolSelector = function (target) {
@@ -875,12 +845,10 @@ define(function (require, exports, module) {
         }, target);
       };
       var activeClass = 'eqftp-modal_active';
-
       self._cached = {};
       self._cache = function () {
         self._cached = JSON.stringify(self.read());
       };
-      
       self.tpl.find('#eqftpConnectionProtocol').on('change', function () {
         var protocol = $(this).val();
         switch (protocol) {
@@ -909,21 +877,21 @@ define(function (require, exports, module) {
       };
       self.close = function (callback) {
         var close = _.once(function () {
-              if (self.state === 'opened') {
-                self.tpl.removeClass(activeClass);
-                self.state = 'closed';
-              }
-              if (_.isFunction(callback)) {
-                callback();
-              }
-            });
+          if (self.state === 'opened') {
+            self.tpl.removeClass(activeClass);
+            self.state = 'closed';
+          }
+          if (_.isFunction(callback)) {
+            callback();
+          }
+        });
         if (JSON.stringify(self.read()) !== self._cached) {
           eqUI.dialog.new({
             title: strings.eqftp__dialog__connection_editing_unsaved_title,
             text: strings.eqftp__dialog__connection_editing_unsaved_text,
             action1: strings.eqftp__controls__dismiss,
             action2: strings.eqftp__controls__back
-          },function (result) {
+          }, function (result) {
             if (result) {
               close();
             }
@@ -959,7 +927,6 @@ define(function (require, exports, module) {
         });
         return r;
       };
-
       self.edit = function (connection, openCallback) {
         if (!openCallback && event) {
           openCallback = function () {
@@ -998,7 +965,6 @@ define(function (require, exports, module) {
         });
       };
     }();
-
     self._gen = function (connection) {
       return $(Mustache.render(require("text!htmlContent/connectionElement.html"), _.defaults(_.clone(strings), {
         host: connection.server
@@ -1050,7 +1016,6 @@ define(function (require, exports, module) {
     };
     self.edit = self.editor.edit;
     self.new = self.editor.new;
-
     self.get = function () {
       return self.tpl;
     };
@@ -1068,10 +1033,8 @@ define(function (require, exports, module) {
         self.masterPassword.hide();
       }
     });
-
     self.title = new function () {
       var title = this;
-      
       title._default = strings.eqftp__tab__settings__title;
       title._current = title._default;
       title.set = function (text) {
@@ -1079,7 +1042,6 @@ define(function (require, exports, module) {
         eqUI.panel.title.update();
       }
     }();
-
     self.set = function (settings) {
       if (!_.isObject(settings)) {
         return false;
@@ -1110,7 +1072,6 @@ define(function (require, exports, module) {
     self._callback = function () {};
     self._button = self.tpl.find('#eqftpDecrypt');
     self._input = self.tpl.find('#eqftpPassword');
-
     self.show = function (callback) {
       self._button.off('click', self._callback);
       if (self.state === 'hidden') {
@@ -1144,7 +1105,6 @@ define(function (require, exports, module) {
     self.tpl = eqUI.panel.tpl.find('.eqftp-modal_welcome');
     self.tpl.hide();
     self.state = 'hidden';
-
     self.show = function () {
       if (self.state === 'hidden') {
         self.tpl.show();
@@ -1204,7 +1164,6 @@ define(function (require, exports, module) {
   eqUI.dialog = new function () {
     var self = this;
     self.tpl = require("text!htmlContent/dialogElement.html");
-
     self.new = function (params, callback) {
       if (!callback) {
         callback = function () {};
@@ -1216,7 +1175,7 @@ define(function (require, exports, module) {
       eqUI.panel.get().prepend(dialog);
       var once = _.once(function (e) {
         var action = $(this).attr('eqftp-button');
-        switch(action) {
+        switch (action) {
           case 'action1':
             callback(true);
             break;
@@ -1236,7 +1195,6 @@ define(function (require, exports, module) {
     $('body').append(self.tpl);
     self.elementTpl = require("text!htmlContent/toastElement.html");
     self.current = {};
-
     self._craft = function (_p) {
       if (!_p) {
         _p = {};
@@ -1255,7 +1213,6 @@ define(function (require, exports, module) {
             _p.callback();
           }
         });
-
         toast.remove = function () {
           toast.clearTimeout();
           if (toast.element.length > 0) {
@@ -1301,15 +1258,12 @@ define(function (require, exports, module) {
         group = 'default';
       }
       params.id = 'eqftp-toast-' + utils.uniq();
-
       var _p = {
         text: (strings[params.string] || params.string),
         num: 1
       };
-
       var f = false,
           current = false;
-
       if (group !== 'default' && type === 'info' && self.current[type]) {
         //stackacble
         f = _.findKey(self.current[type], ['group', group]);
@@ -1327,9 +1281,7 @@ define(function (require, exports, module) {
       }, params));
       _p.group = group;
       _p.type = type;
-
       var toast = self._craft(_p);
-
       if (type === 'info') {
         toast.btn.hide();
         if (current) {
@@ -1408,19 +1360,19 @@ define(function (require, exports, module) {
       var size = (ny3 - ny0) - (y3 - y0);
       eqUI.animate._speedAdapt(size);
       targetElement
-        .css('-webkit-clip-path', 'polygon(' + x0 + 'px ' + y0 + 'px, ' + 
-                                               x1 + 'px ' + y1 + 'px, ' +
-                                               x2 + 'px ' + y2 + 'px, ' +
-                                               x3 + 'px ' + y3 + 'px)'
+        .css('-webkit-clip-path', 'polygon(' + x0 + 'px ' + y0 + 'px, ' +
+             x1 + 'px ' + y1 + 'px, ' +
+             x2 + 'px ' + y2 + 'px, ' +
+             x3 + 'px ' + y3 + 'px)'
             )
         .css('transition-timing-function', 'cubic-bezier(0.4, 0.0, 0.2, 1)')
         .css('transition', '-webkit-clip-path ' + (eqUI.animate._speed / 1000) + 's');
       _.delay(function () {
         targetElement
           .css('-webkit-clip-path', 'polygon(' + nx0 + 'px ' + ny0 + 'px, ' +
-                                                 nx1 + 'px ' + ny1 + 'px, ' +
-                                                 nx2 + 'px ' + ny2 + 'px, ' +
-                                                 nx3 + 'px ' + ny3 + 'px)'
+               nx1 + 'px ' + ny1 + 'px, ' +
+               nx2 + 'px ' + ny2 + 'px, ' +
+               nx3 + 'px ' + ny3 + 'px)'
               );
         _.delay(function () {
           toCache.forEach(function (v) {
@@ -1484,10 +1436,9 @@ define(function (require, exports, module) {
       }, 10);
     }
   };
-  
+
   eqUI.dragndrop = new function () {
     var self = this;
-    
     self.new = function (moveCallback, upCallback, handler) {
       var previousPosition = {};
       var mcb = function (event) {

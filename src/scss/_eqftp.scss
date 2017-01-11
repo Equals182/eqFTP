@@ -317,15 +317,15 @@
       height: 100%;
       & .eqftp-footer__list {
         max-height: 100%;
-        & .eqftp-footer__listItem {
+        & .eqftp-footer__item {
           align-items: flex-start;
           height: auto;
-          & .eqftp-footer__listItemIcon,
-          & .eqftp-footer__listItemDate,
-          & .eqftp-footer__listItemInfo {
+          & .eqftp-footer__icon,
+          & .eqftp-footer__date,
+          & .eqftp-footer__info {
             padding-top: 5px;
           }
-          & .eqftp-footer__listItemInfo {
+          & .eqftp-footer__info {
             padding-bottom: 4px;
             span {
               text-overflow: none;
@@ -348,85 +348,87 @@
       flex-wrap: wrap;
       width: 100%;
       z-index: 1;
-      &Item {
-        box-sizing: border-box;
-        display: flex;
-        align-items: center;
-        min-height: 25px;
-        height: 25px;
-        width: 100%;
-        &_success {
-          & .eqftp-footer__listItemIcon {
-            & .material-icons {
-              &:before {
-                content: '\E86C';
-                color: $green;
-              }
-            }
-          }
-        }
-        &_error {
-          & .eqftp-footer__listItemIcon {
-            & .material-icons {
-              &:before {
-                content: '\E000';
-                color: $red;
-              }
-            }
-          }
-        }
-        &_warning {
-          & .eqftp-footer__listItemIcon {
-            & .material-icons {
-              &:before {
-                content: '\E002';
-                color: $red;
-              }
-            }
-          }
-        }
-        &_info {
-          & .eqftp-footer__listItemIcon {
-            & .material-icons {
-              &:before {
-                content: '\E88E';
-                color: $blue;
-              }
-            }
-          }
-        }
-        &Icon {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          height: 100%;
-          min-width: 25px;
-          max-width: 25px;
-          width: 25px;
+    }
+    &__item {
+      box-sizing: border-box;
+      animation-name: slideInUp;
+      animation-duration: $time-fast;
+      display: flex;
+      align-items: center;
+      min-height: 25px;
+      height: 25px;
+      width: 100%;
+      &_success {
+        & .eqftp-footer__icon {
           & .material-icons {
-            font-size: 16px;
+            &:before {
+              content: '\E86C';
+              color: $green;
+            }
           }
         }
-        &Date {
-          opacity: 0.4;
-          display: flex;
-          align-items: center;
-          height: 100%;
-          min-width: $i11;
-          max-width: $i11;
-          width: $i11;
-        }
-        &Info {
-          margin-left: $i2;
-          min-width: 0px;
-          max-width: calc(100% - 25px - 50px - 25px);
-          span {
-            text-overflow: ellipsis;
-            overflow: hidden;
-            white-space: nowrap;
-            max-width: 100%;
+      }
+      &_error {
+        & .eqftp-footer__icon {
+          & .material-icons {
+            &:before {
+              content: '\E000';
+              color: $red;
+            }
           }
         }
+      }
+      &_warning {
+        & .eqftp-footer__icon {
+          & .material-icons {
+            &:before {
+              content: '\E002';
+              color: $red;
+            }
+          }
+        }
+      }
+      &_info {
+        & .eqftp-footer__icon {
+          & .material-icons {
+            &:before {
+              content: '\E88E';
+              color: $blue;
+            }
+          }
+        }
+      }
+    }
+    &__icon {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      min-width: 25px;
+      max-width: 25px;
+      width: 25px;
+      & .material-icons {
+        font-size: 16px;
+      }
+    }
+    &__date {
+      opacity: 0.4;
+      display: flex;
+      align-items: center;
+      height: 100%;
+      min-width: $i11;
+      max-width: $i11;
+      width: $i11;
+    }
+    &__info {
+      margin-left: $i2;
+      min-width: 0px;
+      max-width: calc(100% - 25px - 50px - 25px);
+      span {
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+        max-width: 100%;
       }
     }
   }
