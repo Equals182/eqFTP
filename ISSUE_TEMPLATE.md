@@ -1,7 +1,9 @@
 <!--- 
-****************************************************************************************
+*******************************************************************************************
 *** Please check current issues and project's board for same problem/feature request ***
-****************************************************************************************
+*** Issues for latest release: https://github.com/Equals182/eqFTP/issues?q=is%3Aissue+label%3A1.0.0-beta.0
+*** Project's board: https://github.com/Equals182/eqFTP/projects/1
+*******************************************************************************************
 --->
 
 ## Expected vs Current Behavior
