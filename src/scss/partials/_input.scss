@@ -116,6 +116,7 @@
   & input[type="checkbox"] {
     display: none;
     &+label {
+      margin-top: 0;
       font-size: 16px;
       &:before {
         content: '\E835';
