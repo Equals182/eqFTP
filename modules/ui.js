@@ -133,7 +133,7 @@ define(function (require, exports, module) {
           });
           $("body").prepend(eqUI.context.get());
           if (eqUI.ps) {
-            //eqUI._scrollbar.add($('.eqftp-content__page_file-tree')[0]);
+            eqUI._scrollbar.add($('.eqftp-content__page_settings')[0]);
             eqUI._scrollbar.add($('.eqftp-fileTree')[0]);
             eqUI._scrollbar.add($('.eqftp-content__page_queue')[0]);
             eqUI._scrollbar.add($('.eqftp-header__dropdown')[0]);
