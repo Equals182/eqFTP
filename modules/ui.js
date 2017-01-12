@@ -654,7 +654,7 @@ define(function (require, exports, module) {
       if (_.has(eqFTP, '_settings.main.date_format')) {
         _format = eqFTP._settings.main.date_format;
       }
-      if (_format) {
+      if (_.isString(format)) {
         _format = format;
       }
       if (self._lastDateFormat === _format) {

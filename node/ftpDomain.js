@@ -343,13 +343,14 @@ maxerr: 50, node: true */
               action: 'settings:save:success',
               data: {
                 file: utils.normalize(settingsFile),
-                data: data
+                data: data,
+                settings: self.settings
               }
             });
           }
         }
       });
-      return true;
+      return self.settings;
     };
     self.setConnection = function (connection) {
       debug('eqftp.settings.setConnection fired', connection);

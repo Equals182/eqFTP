@@ -69,6 +69,7 @@ define({
  "eqftp__gs__folder_for_projects_explorer_title": "Choose folder to store your downloaded files",
  "eqftp__gs__timestamp_format_label": "Timestamp format",
  "eqftp__gs__timestamp_format_placeholder": "Preferable timestamp format",
+ "eqftp__gs__open_project_connection_label": "Open local project on connect",
  "eqftp__gs__debug_label": "Debug",
  
  /**

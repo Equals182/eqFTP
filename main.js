@@ -345,10 +345,8 @@ define(function (require, exports, module) {
                     debug('window.eqftp.settings.set fired');
                     var master_password = _.get(settings, 'master_password');
                     _.unset(settings, 'master_password');
-                    eqftp.settings.set(settings, master_password).done(function () {
-                      _debugState = !!_.get(settings, 'main.debug');
-                      eqftp.preferences.set('misc.debug', _debugState);
-                      ui.fileTree.updateDateFormat(_.get(settings, 'main.date_format'));
+                    eqftp.settings.set(settings, master_password).done(function (settings) {
+                      debug('window.eqftp.settings.set succeed');
                     }).fail(function (err) {
                       debug('window.eqftp.settings.set failed', arguments);
                     });
@@ -457,6 +455,12 @@ define(function (require, exports, module) {
           eqftp.log(ui.m(strings.eqftp__log__settings_save_success, {
             filename: utils.getNamepart(event.data.file, 'filename')
           }), 'info');
+          
+          _.set(eqftp, '_settings.main', _.get(event.data.settings, 'main'));
+          _.set(eqftp, '_settings.misc', _.get(event.data.settings, 'misc'));
+          _debugState = !!_.get(eqftp, '_settings.main.debug');
+          eqftp.preferences.set('misc.debug', _debugState);
+          ui.fileTree.updateDateFormat();
           break;
         case 'settings:save:fail':
           eqftp.log(ui.m(strings.eqftp__log__settings_save_fail, {
@@ -498,11 +502,17 @@ define(function (require, exports, module) {
         if (err) {
           eqftp.openFolder(id, '', function (err) {
             if (!err) {
-              eqftp.ui.panel.switchTo('file-tree'); 
+              eqftp.ui.panel.switchTo('file-tree');
+              if (_.has(eqftp, '_settings.main.open_project_connection') && !!_.get(eqftp, '_settings.main.open_project_connection')) {
+                ProjectManager.openProject(eqftp.connections[id].localpath);
+              }
             }
           });
         } else {
-          eqftp.ui.panel.switchTo('file-tree'); 
+          eqftp.ui.panel.switchTo('file-tree');
+          if (_.has(eqftp, '_settings.main.open_project_connection') && !!_.get(eqftp, '_settings.main.open_project_connection')) {
+            ProjectManager.openProject(eqftp.connections[id].localpath);
+          }
         }
       });
     });
