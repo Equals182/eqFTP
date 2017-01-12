@@ -101,9 +101,7 @@
     <div class="eqftp-modal__content eqftp-modal__content_start eqftp-modal__content_padding">
 
       <!-- SUBHEADER -->
-      <div class="eqftp__subheader">
-        <span class="eqftp__titleNowrap">{{eqftp__cs__basic_settings}}</span>
-      </div>
+      <div class="eqftp__subheader"><span class="eqftp__titleNowrap">{{eqftp__cs__basic_settings}}</span></div>
       <!-- /SUBHEADER -->
 
       <!-- BASIC SETTINGS -->
@@ -161,9 +159,7 @@
       <!-- /BASIC SETTINGS -->
 
       <!-- SUBHEADER -->
-      <div class="eqftp__subheader">
-        <span class="eqftp__titleNowrap">{{eqftp__cs__additional_settings}}</span>
-      </div>
+      <div class="eqftp__subheader"><span class="eqftp__titleNowrap">{{eqftp__cs__additional_settings}}</span></div>
       <!-- /SUBHEADER -->
 
       <!-- ADDITIONAL SETTINGS -->
@@ -245,7 +241,7 @@
         <label class="eqftp__label" for="eqftpSettingFile">{{eqftp__gs__setting_file_label}}</label>
         <input type="text" name="settings_file" id="eqftpSettingFile" class="eqftp__input eqftp__inputText eqftp__inputText_underline eqftp__inputText_labelIn" placeholder="{{eqftp__gs__setting_file_placeholder}}" onclick="eqftp.settings.open();" />
       </div>
-      <div class="eqftp__holder">
+      <div class="eqftp__holder eqftp__holder_inputSubCheckbox">
         <input type="checkbox" name="misc.encrypted" id="eqftpSettingFileEncrypt" />
         <label for="eqftpSettingFileEncrypt" class="eqftp__label">{{eqftp__gs__encrypt_label}}</label>
       </div>
@@ -261,7 +257,7 @@
         <label class="eqftp__label" for="eqftpTimestamp">{{eqftp__gs__timestamp_format_label}}</label>
         <input type="text" name="main.date_format" id="eqftpTimestamp" class="eqftp__input eqftp__inputText eqftp__inputText_underline eqftp__inputText_labelIn" placeholder="{{eqftp__gs__timestamp_format_placeholder}}" />
       </div>
-      <div class="eqftp__holder">
+      <div class="eqftp__holder eqftp__holder_inputSubCheckbox">
         <input type="checkbox" name="main.debug" id="eqftpDebug" />
         <label for="eqftpDebug" class="eqftp__label">{{eqftp__gs__debug_label}}</label>
       </div>
