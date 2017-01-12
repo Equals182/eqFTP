@@ -186,7 +186,6 @@
     }
     & input[type="checkbox"] {
       &+label {
-        margin-top: 8px;
         &:before {
           color: rgba(255, 255, 255, 0.7);
         }
