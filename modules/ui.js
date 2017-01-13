@@ -1562,6 +1562,8 @@ define(function (require, exports, module) {
       var target = $(this),
           text = target.attr('eqftp-tooltip');
       self.tpl.text(text).show();
+      self.tpl.css('left', 0).css('top', 0);
+      
       var target_x = target.offset().left,
           target_y = target.offset().top,
           target_width = target.outerWidth(),
@@ -1580,9 +1582,15 @@ define(function (require, exports, module) {
       if (nx > mx) {
         nx = mx;
       }
+      if (nx < 15) {
+        nx = 15;
+      }
       var my = parent_height - (tooltip_height + 15);
       if (ny > my) {
         ny = my;
+      }
+      if (ny < 15) {
+        ny = 15;
       }
       self.tpl.css('left', nx + 'px').css('top', ny + 'px');
     };
