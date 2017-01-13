@@ -138,6 +138,8 @@ define(function (require, exports, module) {
             eqUI._scrollbar.add($('.eqftp-content__page_queue')[0]);
             eqUI._scrollbar.add($('.eqftp-header__dropdown')[0]);
           }
+          $('.eqftp').on('mouseenter', '[eqftp-tooltip]', eqUI._tooltip.set);
+          $('.eqftp').on('mouseleave', '[eqftp-tooltip]', eqUI._tooltip.hide);
           break;
         case 'ready:app':
           eqUI.toolbarIcon.activate();
@@ -1553,11 +1555,44 @@ define(function (require, exports, module) {
   }();
   eqUI._tooltip = new function () {
     var self = this;
-    self.tpl = eqUI.panel.get().find('#eqftp__tooltip');
+    self.parent = eqUI.panel.get();
+    self.tpl = self.parent.find('.eqftp__tooltip');
+    
+    self.set = function (e) {
+      var target = $(this),
+          text = target.attr('eqftp-tooltip');
+      self.tpl.text(text).show();
+      var target_x = target.offset().left,
+          target_y = target.offset().top,
+          target_width = target.outerWidth(),
+          target_height = target.outerHeight(),
+          parent_x = self.parent.offset().left,
+          parent_y = self.parent.offset().top,
+          parent_width = self.parent.outerWidth(),
+          parent_height = self.parent.outerHeight(),
+          tooltip_width = self.tpl.outerWidth(),
+          tooltip_height = self.tpl.outerHeight();
+      
+      var nx = (target_x - parent_x) + (target_width / 2) - (tooltip_width / 2);
+      var ny = (target_y - parent_y) + (target_height / 2) + 14;
+      
+      var mx = parent_width - (tooltip_width + 15);
+      if (nx > mx) {
+        nx = mx;
+      }
+      var my = parent_height - (tooltip_height + 15);
+      if (ny > my) {
+        ny = my;
+      }
+      self.tpl.css('left', nx + 'px').css('top', ny + 'px');
+    };
+    self.hide = function (e) {
+      self.tpl.hide();
+    };
     
     self.get = function () {
       return self.tpl;
-    }
+    };
   };
 
   /*

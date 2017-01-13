@@ -175,6 +175,11 @@ define({
  "eqftp__controls__rename": "Rename",
  
  /**
+  * TOOLTIPS
+  */
+ "eqftp__tooltip__settings_editor__localpath_autocomplete": "Current project's path",
+ 
+ /**
  * FILESIZES
  */
  "eqftp__filesize_bytes": "bytes",
