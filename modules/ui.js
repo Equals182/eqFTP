@@ -677,6 +677,7 @@ define(function (require, exports, module) {
     self.footer = eqUI.panel.tpl.find('.eqftp-footer');
     self.state = 'closed';
     self._hasPs = false;
+    
     self.toggle = function () {
       if (self.state === 'opened') {
         self.close();
@@ -1518,6 +1519,7 @@ define(function (require, exports, module) {
   eqUI._scrollbar = new function () {
     var self = this;
     self._current = [];
+    self._debouncedUpdate = false;
     
     self.add = function (element) {
       if (self._current.indexOf(element) < 0) {
@@ -1533,9 +1535,14 @@ define(function (require, exports, module) {
       }
     }
     self.update = function (element) {
-      if (self._current.indexOf(element) > -1) {
-        eqUI.ps.update(element);
+      if (!self._debouncedUpdate) {
+        self._debouncedUpdate = _.debounce(function (element) {
+          if (self._current.indexOf(element) > -1) {
+            eqUI.ps.update(element);
+          }
+        }, 100);
       }
+      self._debouncedUpdate(element);
     }
     
     $(window).on('resize', function () {
