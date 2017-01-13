@@ -59,7 +59,7 @@
     align-items: flex-start;
     flex-wrap: wrap;
     width: 100%;
-    z-index: 300;
+    z-index: 200;
     &__search {
       padding-top: 6px;
       padding-bottom: 6px;
@@ -180,7 +180,7 @@
     flex-wrap: wrap;
     height: 100%;
     width: 100%;
-    z-index: 500;
+    z-index: 400;
     &_active {
       display: flex;
     }
@@ -215,7 +215,7 @@
     align-items: center;
     height: 100%;
     width: 100%;
-    z-index: 900;
+    z-index: 500;
     &_active {
       display: flex;
     }
@@ -311,7 +311,7 @@
     overflow: hidden;
     height: 25px;
     width: 100%;
-    z-index: 400;
+    z-index: 300;
     &_active {
       padding-top: $i2;
       box-sizing: border-box;
@@ -1145,6 +1145,7 @@
     min-height: 22px;
     max-height: 22px;
     height: 22px;
+    z-index: 600;
   }
   &__scroll {
     position: relative;
