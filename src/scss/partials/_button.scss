@@ -142,8 +142,7 @@
     }
     &_magic {
       position: absolute;
-      justify-content: flex-end;
-      top: 23px;
+      top: 35px;
       right: 0;
     }
     @include _margin($i4);

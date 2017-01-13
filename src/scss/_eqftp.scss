@@ -3,6 +3,7 @@
   font-weight: $fw-regular;
   font-style: normal;
   line-height: normal;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
   position: absolute;
   display: flex;
   align-content: flex-start;
@@ -1131,20 +1132,20 @@
   }
   &__tooltip {
     margin-top: 14px;
+    padding-top: $i2;
+    padding-bottom: $i2;
     padding-left: $i2;
     padding-right: $i2;
     font-size: $fs-caption;
     color: $c01;
-    background-color: $c003;
+    background-color: rgba(0, 0, 0, 0.6);
     box-sizing: border-box;
     border-radius: 2px;
     position: absolute;
+    white-space: nowrap;
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 22px;
-    max-height: 22px;
-    height: 22px;
     z-index: 600;
   }
   &__scroll {
