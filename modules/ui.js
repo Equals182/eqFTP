@@ -134,7 +134,7 @@ define(function (require, exports, module) {
           $("body").prepend(eqUI.context.get());
           if (eqUI.ps) {
             eqUI._scrollbar.add($('.eqftp-content__page_settings')[0]);
-            eqUI._scrollbar.add($('.eqftp-fileTree')[0]);
+            eqUI._scrollbar.add($('.eqftp-content__page_file-tree .eqftp__scroll')[0]);
             eqUI._scrollbar.add($('.eqftp-content__page_queue')[0]);
             eqUI._scrollbar.add($('.eqftp-header__dropdown')[0]);
           }
@@ -1551,6 +1551,14 @@ define(function (require, exports, module) {
       });
     });
   }();
+  eqUI._tooltip = new function () {
+    var self = this;
+    self.tpl = eqUI.panel.get().find('#eqftp__tooltip');
+    
+    self.get = function () {
+      return self.tpl;
+    }
+  };
 
   /*
   eqUI.dropdown = new function () {
