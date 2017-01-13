@@ -60,12 +60,19 @@ define(function (require, exports, module) {
   /**
    * Creating eqftp and _version variables
    */
-  var _version = "1.0.0-beta.0";
+  var _version = "1.0.0-beta.1";
   var eqftp = {
     ui: ui,
     utils: utils,
     _openInBrowser: function (path) {
       return NativeApp.openURLInDefaultBrowser(path);
+    },
+    _getProjectRoot: function () {
+      var root = ProjectManager.getProjectRoot();
+      if (root) {
+        return root._path;
+      }
+      return false;
     }
   };
   
@@ -356,7 +363,8 @@ define(function (require, exports, module) {
                   open: eqftp.settings.open
                 },
                 queue: eqftp.queue,
-                _home: brackets.app.getUserDocumentsDirectory()
+                _home: brackets.app.getUserDocumentsDirectory(),
+                _getProjectRoot: eqftp._getProjectRoot
               };
               debug('window.eqftp:', window.eqftp);
               debug('ready to load settings. getting last settings file from preferences');
