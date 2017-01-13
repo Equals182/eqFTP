@@ -455,26 +455,59 @@
     width: 100%;
     &__item {
       padding-right: $i2;
-      position: relative;
       box-sizing: border-box;
-      transition: background-color $time-fast;
       cursor: default;
+      position: relative;
       display: flex;
       max-width: 100%;
       width: 100%;
+      &:before {
+        box-sizing: border-box;
+        content: '';
+        border-left: 1px dashed rgba(255, 255, 255, 0.1);
+        position: absolute;
+        top: 0;
+        left: 4px;
+        height: 100%;
+        width: 0;
+      }
       &:hover {
         background-color: rgba(0, 0, 0, 0.1);
+      }
+      &:first-child {
+        &:before {
+          top: auto;
+          bottom: 0;
+          height: calc(100% - 12px);
+        }
+      }
+      &:last-child {
+        &:before {
+          height: calc(100% - 12px);
+        }
       }
       &_file {
         align-items: center;
         min-height: $i6;
         max-height: $i6;
         height: $i6;
+        &:after {
+          content: '';
+          border-top: 1px dashed rgba(255, 255, 255, 0.1);
+          position: absolute;
+          top: 12px;
+          left: 6px;
+          height: 0;
+          width: 10px;
+        }
       }
       &_folder {
         align-content: flex-start;
         align-items: flex-start;
         flex-wrap: wrap;
+        & .eqftp-fileTree__icon {
+          padding-left: 5px;
+        }
       }
     }
     &__element {
@@ -490,15 +523,16 @@
       width: calc(100% - 120px);
     }
     &__icon {
+      box-sizing: border-box;
       display: flex;
       justify-content: center;
       align-items: center;
       min-height: $i6;
       max-height: $i6;
       height: $i6;
-      min-width: $i6;
-      max-width: $i6;
-      width: $i6;
+      min-width: $i5;
+      max-width: $i5;
+      width: $i5;
       & .material-icons {
         font-size: 16px;
       }
