@@ -513,9 +513,6 @@
       &_new {
         & .eqftp-fileTree__info {
           width: 100%;
-          & .eqftp__inputText {
-            flex-shrink: 12px;
-          }
         }
         &.eqftp-fileTree__item_folder {
           & .eqftp-fileTree__icon {
