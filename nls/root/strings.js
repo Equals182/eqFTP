@@ -205,6 +205,7 @@ define({
  // {{{button}}} must have 3x{} and will contain text from "eqftp__misc__donate_button"
  "eqftp__misc__donate_text": "{{{button}}} to support this project!",
  "eqftp__misc__donate_button": "Donate",
+ "eqftp__misc__new_fileTree_element": "Untitled",
 
  "eqftp_dummy" : "dummy" // Not used anywhere, just leave it.
 });
