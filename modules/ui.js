@@ -573,6 +573,9 @@ define(function (require, exports, module) {
           size_formatted: function () {
             return utils.filesize_format(element.size, 1, localeSizes);
           },
+          filename: function () {
+            return utils.getNamepart(element.name, 'name');
+          },
           name_short: function () {
             return utils.getNamepart(element.name, 'name_noext');
           },
@@ -606,9 +609,7 @@ define(function (require, exports, module) {
       if (!ch.is(':visible')) {
         el.find('.eqftp-fileTree__info:first .eqftp-fileTree__icon .material-icons').text('keyboard_arrow_down');
         ch.slideDown(200, function () {
-          if (eqUI.ps) {
-            eqUI._scrollbar.update($('.eqftp-content__page_file-tree')[0]);
-          }
+          eqUI._scrollbar.update($('.eqftp-content__page_file-tree .eqftp__scroll')[0]);
         });
       }
     };
@@ -618,9 +619,7 @@ define(function (require, exports, module) {
       if (ch.is(':visible')) {
         el.find('.eqftp-fileTree__info:first .eqftp-fileTree__icon .material-icons').text('keyboard_arrow_right');
         ch.slideUp(200, function () {
-          if (eqUI.ps) {
-            eqUI._scrollbar.update($('.eqftp-content__page_file-tree')[0]);
-          }
+          eqUI._scrollbar.update($('.eqftp-content__page_file-tree .eqftp__scroll')[0]);
         });
       }
     };
@@ -630,16 +629,12 @@ define(function (require, exports, module) {
       if (ch.is(':visible')) {
         el.find('.eqftp-fileTree__info:first .eqftp-fileTree__icon .material-icons').text('keyboard_arrow_right');
         ch.slideUp(200, function () {
-          if (eqUI.ps) {
-            eqUI._scrollbar.update($('.eqftp-content__page_file-tree')[0]);
-          }
+          eqUI._scrollbar.update($('.eqftp-content__page_file-tree .eqftp__scroll')[0]);
         });
       } else {
         el.find('.eqftp-fileTree__info:first .eqftp-fileTree__icon .material-icons').text('keyboard_arrow_down');
         ch.slideDown(200, function () {
-          if (eqUI.ps) {
-            eqUI._scrollbar.update($('.eqftp-content__page_file-tree')[0]);
-          }
+          eqUI._scrollbar.update($('.eqftp-content__page_file-tree .eqftp__scroll')[0]);
         });
       }
     };
