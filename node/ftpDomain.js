@@ -783,15 +783,40 @@ maxerr: 50, node: true */
                         switch (queuer.act) {
                           case 'upload':
                           case 'download':
-                            eqftp.comparator.compare(_.defaults(args[0], {id: id}), function (result) {
-                              if (result) {
-                                if (result === true) {
-                                  self._[id]._server[queuer.act](...args);
-                                } else {
+                            if (!queuer._skipDiffcheck) {
+                              eqftp.comparator.compare(_.defaults(args[0], {id: id}), function (result) {
+                                debug('comparator result', result);
+                                if (_.isString(result)) {
                                   console.warn(result);
+                                  debug(queue.q, queuer);
+                                  switch (result) {
+                                    case 'difference_upload':
+                                      queue.q.unshift(_.defaultsDeep({
+                                        act: 'upload',
+                                        _skipDiffcheck: true
+                                      }, queuer));
+                                      break;
+                                    case 'difference_download':
+                                      queue.q.unshift(_.defaultsDeep({
+                                        act: 'download',
+                                        _skipDiffcheck: true
+                                      }, queuer));
+                                      break;
+                                    case 'difference_show_diff':
+                                      break;
+                                    case 'difference_open_both':
+                                      break;
+                                    case 'skip':
+                                      break;
+                                  }
+                                  finisher(null, result);
+                                } else if (result) {
+                                  self._[id]._server[queuer.act](...args);
                                 }
-                              }
-                            });
+                              });
+                            } else {
+                              self._[id]._server[queuer.act](...args);
+                            }
                             break;
                           default:
                             self._[id]._server[queuer.act](...args);
@@ -1093,9 +1118,11 @@ maxerr: 50, node: true */
     var self = this;
     
     self._callbacks = {};
-    self.do = function (qid, action) {
+    self.resolve = function (qid, action) {
+      debug('resolving', qid, action);
       if (_.has(self._callbacks, qid)) {
-        self._callbacks.qid(action);
+        debug('have one, firing');
+        self._callbacks[qid](action);
       }
     };
     self.compare = function (queuer, callback) {
@@ -1156,22 +1183,8 @@ maxerr: 50, node: true */
             if (tmphash !== hash) {
               debug('HASHES ARE DIFFERENT', tmphash, hash);
               _.set(self._callbacks, queuer.qid, _.once(function (action) {
-                if (action) {
-                  switch (action) {
-                    case 'difference_upload':
-                      break;
-                    case 'difference_download':
-                      break;
-                    case 'difference_show_diff':
-                      break;
-                    case 'difference_open_both':
-                      break;
-                    case 'skip':
-                      break;
-                  }
-                }
+                callback(action);
                 _.unset(self._callbacks, queuer.qid);
-                callback(true);
               }));
               
               _domainManager.emitEvent("eqFTP", "event", {
@@ -1213,8 +1226,8 @@ maxerr: 50, node: true */
         ]
       },
       {
-        command: "comparator.do",
-        async: false,
+        command: "comparator.resolve",
+        async: true,
         description: 'Resolve comparator conflict by qid',
         parameters: [
           { name: "qid", type: "string", description: "Queuer id (qid)." },
