@@ -248,15 +248,30 @@
     }
     &__actions {
       padding-top: $i6;
+      padding-bottom: $i6;
+      padding-left: $i6;
+      padding-right: $i6;
       box-sizing: border-box;
       display: flex;
-      justify-content: flex-end;
+      flex-direction: row-reverse;
       width: 100%;
-      & .eqftp__button {
-        color: $c20;
-        &:hover {
-          color: $c21;
+      &_list {
+        flex-wrap: wrap;
+        & .eqftp-dialogs__action {
+          flex-direction: row;
+          width: 100%;
+          &+.eqftp-dialogs__action {
+            padding-top: $i2;
+            padding-right: 0;
+          }
         }
+      }
+    }
+    &__action {
+      box-sizing: border-box;
+      &+.eqftp-dialogs__action {
+        padding-top: 0;
+        padding-right: $i4;
       }
     }
   }
