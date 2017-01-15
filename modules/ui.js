@@ -927,12 +927,18 @@ define(function (require, exports, module) {
           eqUI.dialog.new({
             title: strings.eqftp__dialog__connection_editing_unsaved_title,
             text: strings.eqftp__dialog__connection_editing_unsaved_text,
-            action1: strings.eqftp__controls__dismiss,
-            action2: strings.eqftp__controls__back
-          }, function (result) {
-            if (result) {
-              close();
-            }
+            actions: [
+              {
+                title: strings.eqftp__controls__dismiss,
+                callback: function () {
+                  close();
+                }
+              },
+              {
+                title: strings.eqftp__controls__back,
+                callback: function () {}
+              }
+            ]
           });
           return false;
         }
@@ -1208,28 +1214,69 @@ define(function (require, exports, module) {
   eqUI.dialog = new function () {
     var self = this;
     self.tpl = require("text!htmlContent/dialogElement.html");
-    self.new = function (params, callback) {
-      if (!callback) {
-        callback = function () {};
+    self.new = function (params) {
+      if (!params) {
+        params = {};
       }
-      var dialog = $(Mustache.render(self.tpl, _.defaults(params, {
-        action1: strings.eqftp__controls__ok,
-        action2: strings.eqftp__controls__cancel
-      })));
-      eqUI.panel.get().prepend(dialog);
-      var once = _.once(function (e) {
-        var action = $(this).attr('eqftp-button');
-        switch (action) {
-          case 'action1':
-            callback(true);
-            break;
-          case 'action2':
-            callback(false);
-            break;
-        }
+      
+      var dialog = $(Mustache.render(self.tpl, _.defaults(params))),
+          actions_holder = dialog.find('.eqftp-dialogs__actions:first');
+      
+      if (!params.parent) {
+        params.parent = eqUI.panel.get();
+      } else if (_.isString(params.parent)) {
+        params.parent = $(params.parent);
+      }
+      if (!_.isjQuery(params.parent) || params.parent.length < 1) {
+        params.parent = eqUI.panel.get();
+      }
+      
+      if (!params.actions) {
+        params.actions = [
+          {
+            title: strings.eqftp__controls__cancel,
+            callback: function () {},
+            keepDialog: false
+          }
+        ];
+      }
+      
+      var buttons = [];
+      var closeDialog = function () {
+        buttons.forEach(function (button) {
+          button.element.off('click', button.once);
+        });
         dialog.remove();
+      };
+      if (params.actions.length > 2) {
+        actions_holder.addClass('eqftp-dialogs__actions_list');
+      }
+      params.actions.forEach(function (action) {
+        if (!action.title) {
+          return false;
+        }
+        var button = $('<div class="eqftp-dialogs__action"><div class="eqftp__button eqftp__button_blueText"></div></div>');
+        
+        var once = _.once(function (e) {
+          if (_.isFunction(action.callback)) {
+            action.callback();
+          }
+          if (!action.keepDialog) {
+            closeDialog();
+          }
+        });
+        
+        buttons.push({
+          element: button,
+          once: once
+        });
+        
+        button.find('.eqftp__button').text(action.title);
+        button.on('click', once);
+        
+        actions_holder.append(button);
       });
-      dialog.find('[eqftp-button]').on('click', once);
+      params.parent.prepend(dialog);
     };
   }();
 

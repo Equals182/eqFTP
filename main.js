@@ -595,13 +595,19 @@ define(function (require, exports, module) {
         name: eqftp.connections[id].name
       }),
       text: strings.eqftp__dialog__connection_removing_text,
-      action1: strings.eqftp__controls__remove,
-      action2: strings.eqftp__controls__cancel
-    }, function (result) {
-      if (result) {
-        eqftp.ui.connections.editor.close();
-        eqftp.connections[id].remove();
-      }
+      actions: [
+        {
+          title: strings.eqftp__controls__remove,
+          callback: function () {
+            eqftp.ui.connections.editor.close();
+            eqftp.connections[id].remove();
+          }
+        },
+        {
+          title: strings.eqftp__controls__cancel,
+          callback: function () {}
+        }
+      ],
     });
   };
   eqftp.contexts = {
