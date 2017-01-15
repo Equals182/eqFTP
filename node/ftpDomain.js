@@ -9,9 +9,10 @@ maxerr: 50, node: true */
   var EFTP = require('./libs/eftp'),
     utils = require('./libs/utils.js'),
     tracker = require('./libs/tracker.js'),
-    fs = require('fs'),
+    fs = require('fs-extra'),
     CryptoJS = require("crypto-js"),
     chokidar = require('chokidar'),
+    hashFiles = require('hash-files'),
     os = require('os'),
     _ = require("lodash");
 
@@ -778,7 +779,28 @@ maxerr: 50, node: true */
                   self._[id].open(function (err) {
                     debug('opening connection result', err);
                     if (!err) {
-                      self._[id]._server[queuer.act](...args);
+                      if (queuer.act) {
+                        switch (queuer.act) {
+                          case 'upload':
+                          case 'download':
+                            eqftp.comparator.compare(_.defaults(args[0], {id: id}), function (result) {
+                              if (result) {
+                                if (result === true) {
+                                  self._[id]._server[queuer.act](...args);
+                                } else {
+                                  console.warn(result);
+                                }
+                              }
+                            });
+                            break;
+                          default:
+                            self._[id]._server[queuer.act](...args);
+                            break;
+                        }
+                      } else {
+                        debug('no queuer.act');
+                        finisher(new Error('No queuer.act'));
+                      }
                     } else {
                       debug('running finisher');
                       finisher(err);
@@ -1027,15 +1049,6 @@ maxerr: 50, node: true */
       callback('Can\'t find related connection to given path: ' + localpath, {});
       return false;
     };
-    /*
-    return function (id, settings) {
-      if (!settings) {
-        return self._get(id);
-      } else {
-        return self._set(id, settings);
-      }
-    };
-    */
   }();
   eqftp.queue = {
     get: function () {
@@ -1078,8 +1091,103 @@ maxerr: 50, node: true */
   };
   eqftp.comparator = new function () {
     var self = this;
-    self.compare = function (file1, file2) {
+    
+    self._callbacks = {};
+    self.do = function (qid, action) {
+      if (_.has(self._callbacks, qid)) {
+        self._callbacks.qid(action);
+      }
+    };
+    self.compare = function (queuer, callback) {
+      debug('eqftp.comparator.compare fired', queuer, callback.toString());
+      if (!callback) {
+        callback = function () {};
+      }
+      callback = _.once(callback);
       
+      if (!_.has(eqftp, ['connections', 'a', queuer.id]) || !_.get(eqftp, ['connections','a', queuer.id, 'check_difference'])) {
+        return callback(true);
+      }
+      
+      try {
+        var hashFile = utils.normalize(eqftp.connections.a[queuer.id].localpath + '/.eqftp/' + queuer.remotepath + '.hash.eqftp'),
+            tmpFile = utils.normalize(eqftp.connections.a[queuer.id].localpath + '/.eqftp/' + queuer.remotepath + '.tmp.eqftp'),
+            hash = false;
+        debug('hashFile', hashFile);
+        debug('tmpFile', tmpFile);
+        if (!fs.existsSync(hashFile)) {
+          debug('no hashFile found');
+          if (!fs.existsSync(queuer.localpath)) {
+            debug('no queuer.localpath found, new file, callback(true)');
+            return callback(true);
+          }
+          hash = hashFiles.sync({
+            files: queuer.localpath,
+            algorithm: 'sha512'
+          });
+          debug('hash', hash);
+          debug('writing hash to', hashFile);
+          var parent = utils.getNamepart(hashFile, 'parentPath');
+          debug('checking parent', parent);
+          if (!fs.existsSync(parent)) {
+            debug('creating parent', parent);
+            fs.mkdirsSync(parent);
+          }
+          fs.writeFileSync(hashFile, hash, {encoding: 'UTF-8'});
+        }
+        debug('do we have hash?', hash);
+        if (!hash) {
+          debug('no, reading from', hashFile);
+          hash = fs.readFileSync(hashFile, 'utf8');
+        }
+        debug('yes', hash);
+
+        var nqueuer = _.defaultsDeep({qid: 'tmp', localpath: tmpFile}, queuer);
+        debug('nqueuer', nqueuer);
+        debug('downloading tmp file for comparing', nqueuer);
+
+        eqftp.connections._[queuer.id]._server.download(nqueuer, function (err, data) {
+          debug('downloading result', err, data);
+          if (!err) {
+            var tmphash = hashFiles.sync({
+              files: nqueuer.localpath,
+              algorithm: 'sha512'
+            });
+            if (tmphash !== hash) {
+              debug('HASHES ARE DIFFERENT', tmphash, hash);
+              _.set(self._callbacks, queuer.qid, _.once(function (action) {
+                if (action) {
+                  switch (action) {
+                    case 'difference_upload':
+                      break;
+                    case 'difference_download':
+                      break;
+                    case 'difference_show_diff':
+                      break;
+                    case 'difference_open_both':
+                      break;
+                    case 'skip':
+                      break;
+                  }
+                }
+                _.unset(self._callbacks, queuer.qid);
+                callback(true);
+              }));
+              
+              _domainManager.emitEvent("eqFTP", "event", {
+                action: 'comparator:difference',
+                data: queuer
+              });
+              return true;
+            } else {
+              callback(true);
+            }
+          }
+        });
+      } catch (e) {
+        console.error(e);
+        callback(true);
+      }
     }
   }();
 
@@ -1102,6 +1210,18 @@ maxerr: 50, node: true */
         parameters: [],
         returns: [
           { name: "Commands", type: "array", description: "List of registered commands" }
+        ]
+      },
+      {
+        command: "comparator.do",
+        async: false,
+        description: 'Resolve comparator conflict by qid',
+        parameters: [
+          { name: "qid", type: "string", description: "Queuer id (qid)." },
+          { name: "action", type: "string", description: "Compatible action for resolving. Take care of those actions by yourself." }
+        ],
+        returns: [
+          { name: "success", type: "boolean", description: "TRUE if everything's okay and FALSE if error occured" }
         ]
       },
       {

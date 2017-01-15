@@ -89,6 +89,9 @@ define({
  "eqftp__dialog__connection_editing_unsaved_title": "Dismiss unsaved changes?",
  "eqftp__dialog__connection_editing_unsaved_text": "All changes will be lost",
  
+ "eqftp__dialog__file_difference_title": "File {{filename}} differs",
+ "eqftp__dialog__file_difference_text": "Local and remote copies of file are different",
+ 
  /**
  * LOGS
  */
@@ -173,6 +176,12 @@ define({
  "eqftp__controls__resolve": "Resolve",
  "eqftp__controls__create": "Create",
  "eqftp__controls__rename": "Rename",
+ "eqftp__controls__skip": "Skip",
+ 
+ "eqftp__controls__difference_upload": "Upload local file",
+ "eqftp__controls__difference_download": "Download remote file",
+ "eqftp__controls__difference_show_diff": "Show difference",
+ "eqftp__controls__difference_open_both": "Open both files",
  
  /**
   * TOOLTIPS

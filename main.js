@@ -492,6 +492,52 @@ define(function (require, exports, module) {
             eqftp.settings.load(file, password);
           });
           break;
+        case 'comparator:difference':
+          ui.dialog.new({
+            title: ui.m(strings.eqftp__dialog__file_difference_title, {
+              filename: utils.getNamepart(event.data.localpath, 'filename')
+            }),
+            text: strings.eqftp__dialog__file_difference_text,
+            actions: [
+              {
+                title: strings.eqftp__controls__difference_upload,
+                callback: function () {
+                  debug('difference_upload');
+                  eqftp.comparator.do(event.data.qid, 'difference_upload');
+                }
+              },
+              {
+                title: strings.eqftp__controls__difference_download,
+                callback: function () {
+                  debug('difference_download');
+                  eqftp.comparator.do(event.data.qid, 'difference_download');
+                }
+              },
+              {
+                title: strings.eqftp__controls__difference_show_diff,
+                callback: function () {
+                  debug('difference_show_diff');
+                  eqftp.comparator.do(event.data.qid, 'difference_show_diff');
+                },
+                keepDialog: true
+              },
+              {
+                title: strings.eqftp__controls__difference_open_both,
+                callback: function () {
+                  debug('difference_open_both');
+                  eqftp.comparator.do(event.data.qid, 'difference_open_both');
+                }
+              },
+              {
+                title: strings.eqftp__controls__skip,
+                callback: function () {
+                  debug('skip');
+                  eqftp.comparator.do(event.data.qid, 'skip');
+                }
+              }
+            ],
+          });
+          break;
       }
     }
   });
