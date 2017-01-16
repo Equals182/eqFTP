@@ -493,6 +493,7 @@ define(function (require, exports, module) {
           });
           break;
         case 'comparator:difference':
+          ui.panel.open();
           ui.dialog.new({
             title: ui.m(strings.eqftp__dialog__file_difference_title, {
               filename: utils.getNamepart(event.data.localpath, 'filename')

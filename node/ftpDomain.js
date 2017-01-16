@@ -534,10 +534,12 @@ maxerr: 50, node: true */
                     eqftp.cache._recently_downloaded = [];
                   }
                   var rd = _.findIndex(eqftp.cache._recently_downloaded, {id: id, localpath: path});
+                  debug('rd', rd);
                   if (rd > -1) {
                     eqftp.cache._recently_downloaded.splice(rd, 1);
                     return false;
                   }
+                  debug('settings.autoupload', settings.autoupload);
                   if (settings.autoupload) {
                     eqftp.connections._[id].upload(path, function () {}, function () {});
                   }
@@ -758,6 +760,11 @@ maxerr: 50, node: true */
                           }
                         }
                         break;
+                      case 'upload':
+                        break;
+                    }
+                    if (queuer.callback && _.isFunction(queuer.callback)) {
+                      queuer.callback();
                     }
 
                     if (err) {
@@ -784,23 +791,37 @@ maxerr: 50, node: true */
                           case 'upload':
                           case 'download':
                             if (!queuer._skipDiffcheck) {
-                              eqftp.comparator.compare(_.defaults(args[0], {id: id}), function (result) {
+                              eqftp.comparator.compare(_.defaults(queuer, {id: id}), function (result) {
                                 debug('comparator result', result);
                                 if (_.isString(result)) {
                                   console.warn(result);
-                                  debug(queue.q, queuer);
+                                  debug('queue.q, queuer', queue.q, queuer);
                                   switch (result) {
                                     case 'difference_upload':
-                                      queue.q.unshift(_.defaultsDeep({
+                                      queue.add(_.defaultsDeep({
+                                        qid: null,
                                         act: 'upload',
-                                        _skipDiffcheck: true
-                                      }, queuer));
+                                        _skipDiffcheck: true,
+                                        callback: function () {
+                                          if (_.get(self.a, [id, 'check_difference'])) {
+                                            debug('saving hash for queuer 1', queuer);
+                                            eqftp.comparator.saveHash(queuer);
+                                          }
+                                        }
+                                      }, queuer), true);
                                       break;
                                     case 'difference_download':
-                                      queue.q.unshift(_.defaultsDeep({
+                                      queue.add(_.defaultsDeep({
+                                        qid: null,
                                         act: 'download',
-                                        _skipDiffcheck: true
-                                      }, queuer));
+                                        _skipDiffcheck: true,
+                                        callback: function () {
+                                          if (_.get(self.a, [id, 'check_difference'])) {
+                                            debug('saving hash for queuer 2', queuer);
+                                            eqftp.comparator.saveHash(queuer);
+                                          }
+                                        }
+                                      }, queuer), true);
                                       break;
                                     case 'difference_show_diff':
                                       break;
@@ -809,8 +830,15 @@ maxerr: 50, node: true */
                                     case 'skip':
                                       break;
                                   }
+                                  debug('queue.q, queuer', queue.q, queuer);
                                   finisher(null, result);
                                 } else if (result) {
+                                  queuer.callback = function () {
+                                    if (_.get(self.a, [id, 'check_difference'])) {
+                                      debug('saving hash for queuer 3', queuer);
+                                      eqftp.comparator.saveHash(queuer);
+                                    }
+                                  };
                                   self._[id]._server[queuer.act](...args);
                                 }
                               });
@@ -1125,31 +1153,17 @@ maxerr: 50, node: true */
         self._callbacks[qid](action);
       }
     };
-    self.compare = function (queuer, callback) {
-      debug('eqftp.comparator.compare fired', queuer, callback.toString());
-      if (!callback) {
-        callback = function () {};
+    self.saveHash = function (queuer) {
+      debug('saveHash fired', queuer);
+      if (!_.has(queuer, 'id') || !_.has(queuer, ['args', '0', 'remotepath']) || !_.has(queuer, ['args', '0', 'localpath'])) {
+        return false;
       }
-      callback = _.once(callback);
-      
-      if (!_.has(eqftp, ['connections', 'a', queuer.id]) || !_.get(eqftp, ['connections','a', queuer.id, 'check_difference'])) {
-        return callback(true);
-      }
-      
       try {
-        var hashFile = utils.normalize(eqftp.connections.a[queuer.id].localpath + '/.eqftp/' + queuer.remotepath + '.hash.eqftp'),
-            tmpFile = utils.normalize(eqftp.connections.a[queuer.id].localpath + '/.eqftp/' + queuer.remotepath + '.tmp.eqftp'),
-            hash = false;
-        debug('hashFile', hashFile);
-        debug('tmpFile', tmpFile);
-        if (!fs.existsSync(hashFile)) {
-          debug('no hashFile found');
-          if (!fs.existsSync(queuer.localpath)) {
-            debug('no queuer.localpath found, new file, callback(true)');
-            return callback(true);
-          }
-          hash = hashFiles.sync({
-            files: queuer.localpath,
+        var hashFile = utils.normalize(eqftp.connections.a[queuer.id].localpath + '/.eqftp/' + queuer.args[0].remotepath + '.hash.eqftp');
+        if (fs.existsSync(queuer.args[0].localpath)) {
+          debug('calculating hash', queuer.args[0].localpath);
+          var hash = hashFiles.sync({
+            files: queuer.args[0].localpath,
             algorithm: 'sha512'
           });
           debug('hash', hash);
@@ -1161,6 +1175,44 @@ maxerr: 50, node: true */
             fs.mkdirsSync(parent);
           }
           fs.writeFileSync(hashFile, hash, {encoding: 'UTF-8'});
+          return hash;
+        }
+        return false;
+      } catch (e) {
+        console.error(e);
+        return false;
+      }
+    };
+    self.compare = function (queuer, callback) {
+      debug('eqftp.comparator.compare fired', queuer, callback.toString());
+      if (!callback) {
+        callback = function () {};
+      }
+      callback = _.once(callback);
+      
+      if (
+        !_.has(eqftp, ['connections', 'a', queuer.id]) ||
+        !_.get(eqftp, ['connections','a', queuer.id, 'check_difference']) ||
+        !_.has(queuer, 'id') ||
+        !_.has(queuer, ['args', '0', 'remotepath']) ||
+        !_.has(queuer, ['args', '0', 'localpath'])
+      ) {
+        return callback(true);
+      }
+      
+      try {
+        var hashFile = utils.normalize(eqftp.connections.a[queuer.id].localpath + '/.eqftp/' + queuer.args[0].remotepath + '.hash.eqftp'),
+            tmpFile = utils.normalize(eqftp.connections.a[queuer.id].localpath + '/.eqftp/' + queuer.args[0].remotepath + '.tmp.eqftp'),
+            hash = false;
+        debug('hashFile', hashFile);
+        debug('tmpFile', tmpFile);
+        if (!fs.existsSync(hashFile)) {
+          debug('no hashFile found');
+          if (!fs.existsSync(queuer.args[0].localpath)) {
+            debug('no queuer.args[0].localpath found, new file, callback(true)');
+            return callback(true);
+          }
+          hash = self.saveHash(queuer);
         }
         debug('do we have hash?', hash);
         if (!hash) {
@@ -1169,17 +1221,21 @@ maxerr: 50, node: true */
         }
         debug('yes', hash);
 
-        var nqueuer = _.defaultsDeep({qid: 'tmp', localpath: tmpFile}, queuer);
+        var nqid = (utils.uniq() + '-' + _.uniqueId());
+        var nqueuer = _.defaultsDeep({qid: nqid, args: [{localpath: tmpFile, qid: nqid}]}, queuer);
         debug('nqueuer', nqueuer);
         debug('downloading tmp file for comparing', nqueuer);
 
-        eqftp.connections._[queuer.id]._server.download(nqueuer, function (err, data) {
+        eqftp.connections._[queuer.id]._server.download(nqueuer.args[0], function (err, data) {
           debug('downloading result', err, data);
           if (!err) {
+            debug('calculating hash', nqueuer.args[0].localpath);
             var tmphash = hashFiles.sync({
-              files: nqueuer.localpath,
+              files: nqueuer.args[0].localpath,
               algorithm: 'sha512'
             });
+            debug('comparing hashes: ', tmphash, hash);
+            debug('same?', (tmphash === hash));
             if (tmphash !== hash) {
               debug('HASHES ARE DIFFERENT', tmphash, hash);
               _.set(self._callbacks, queuer.qid, _.once(function (action) {
