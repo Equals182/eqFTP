@@ -1164,8 +1164,13 @@ maxerr: 50, node: true */
                 diffs = dmp.diff_main(text1, text2);
             dmp.diff_cleanupSemantic(diffs);
 
-            var html = dmp.diff_prettyHtml(diffs);
-            console.log(html);
+            _domainManager.emitEvent("eqFTP", "event", {
+              action: 'comparator:diffview',
+              data: {
+                diff: dmp.diff_prettyHtml(diffs),
+                patch: dmp.patch_toText(dmp.patch_make(diffs))
+              }
+            });
             break;
           case 'difference_open_both':
             var ext = utils.getNamepart(_queuer.args[0].localpath, 'extension');

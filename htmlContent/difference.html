@@ -1,13 +1,13 @@
 <div class="eqftp-difference">
   <div class="eqftp-difference__holder">
     <div class="eqftp-head">
-      <div class="eqftp__title eqftp__title_paddingLeft eqftp__title_full eqftp__title_medium">Comparing files</div>
-      <div class="eqftp__button eqftp__buttonSquare eqftp__buttonSquare_medium"><i class="material-icons">clear</i></div>
+      <div class="eqftp__title eqftp__title_paddingLeft eqftp__title_full eqftp__title_medium">{{eqftp__diff__title}}</div>
+      <div class="eqftp__button eqftp__buttonSquare eqftp__buttonSquare_medium" onclick="eqftp.ui.difference.close();"><i class="material-icons">clear</i></div>
     </div>
-    <div class="eqftp__title eqftp__title_paddingLeft eqftp__title_full eqftp__title_smallest">Here you can find difference between local and remote file.</div>
+    <div class="eqftp__title eqftp__title_paddingLeft eqftp__title_full eqftp__title_smallest">{{eqftp__diff__text}}</div>
     <div class="eqftp-difference__tabs">
-      <div class="eqftp__button eqftp__buttonRectangle">first</div>
-      <div class="eqftp__button eqftp__buttonRectangle">second</div>
+      <div class="eqftp__button eqftp__buttonRectangle" eqftp-targetTab="eqftp-difference__content-1">{{eqftp__diff__view_diff}}</div>
+      <div class="eqftp__button eqftp__buttonRectangle" eqftp-targetTab="eqftp-difference__content-2">{{eqftp__diff__view_patch}}</div>
     </div>
     <div class="eqftp-difference__content" id="eqftp-difference__content-1"></div>
     <div class="eqftp-difference__content" id="eqftp-difference__content-2"></div>

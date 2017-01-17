@@ -578,6 +578,9 @@ define(function (require, exports, module) {
             });
           }
           break;
+        case 'comparator:diffview':
+          ui.difference.open(event.data);
+          break;
       }
     }
   });

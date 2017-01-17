@@ -1386,6 +1386,29 @@ define(function (require, exports, module) {
       }
     };
   }();
+  
+  eqUI.difference = new function () {
+    var self = this;
+    self.tpl = $(Mustache.render(require("text!htmlContent/difference.html"), strings));
+    self.content1 = self.tpl.find('#eqftp-difference__content-1');
+    self.content2 = self.tpl.find('#eqftp-difference__content-2');
+    self.tpl.hide();
+    $('body').prepend(self.tpl);
+    self.tpl.on('click', '.eqftp-difference__tabs > div', function () {
+      var btn = $(this);
+      self.tpl.find('.eqftp-difference__content').hide();
+      $('#' + btn.attr('eqftp-targetTab')).show();
+    });
+    
+    self.open = function (d) {
+      self.content1.html('<div class="eqftp-diff-diff"><pre>' + d.diff + '</pre></div>');
+      self.content2.html('<div class="eqftp-diff-patch"><pre>' + d.patch + '</pre></div>');
+      self.tpl.show();
+    };
+    self.close = function () {
+      self.tpl.hide();
+    };
+  }();
 
   eqUI.animate = {
     _speed: 250,

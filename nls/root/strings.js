@@ -73,6 +73,14 @@ define({
  "eqftp__gs__debug_label": "Debug",
  
  /**
+ * FILE DIFFERENCE
+ */
+ "eqftp__diff__title": "Difference view",
+ "eqftp__diff__text": "GitHub-like file comparison. Your local file is considered to be a latest version.",
+ "eqftp__diff__view_diff": "Difference",
+ "eqftp__diff__view_patch": "Patch",
+ 
+ /**
  * TABS
  */
  "eqftp__tab__fileTree__title": "File tree",
