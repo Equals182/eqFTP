@@ -217,9 +217,6 @@
     height: 100%;
     width: 100%;
     z-index: 500;
-    &_active {
-      display: flex;
-    }
     &__holder {
       border-radius: 2px;
       box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
@@ -914,6 +911,51 @@
     color: $gray700;
     box-sizing: border-box;
     width: 100%;
+  }
+  &-difference {
+    padding-top: $i9;
+    padding-bottom: $i9;
+    padding-left: $i9;
+    padding-right: $i9;
+    box-sizing: border-box;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    z-index: 500;
+    &__holder {
+      border-radius: 2px;
+      box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+      display: flex;
+      align-content: flex-start;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      min-width: 560px;
+    }
+    &__tabs {
+      padding-left: $i2;
+      padding-right: $i2;
+      box-sizing: border-box;
+      display: flex;
+      width: 100%;
+    }
+    &__content {
+      margin-top: $i2;
+      margin-bottom: $i2;
+      margin-left: $i4;
+      margin-right: $i4;
+      box-sizing: border-box;
+      position: relative;
+      display: flex;
+      min-height: 560px;
+      width: 100%;
+    }
   }
   &__row {
     display: flex;

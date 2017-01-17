@@ -43,6 +43,10 @@
       color: #333333; }
   .eqftp-hint__text {
     color: rgba(0, 0, 0, 0.38); }
+  .eqftp-difference {
+    background-color: rgba(0, 0, 0, 0.4); }
+    .eqftp-difference__holder {
+      background-color: white; }
   .eqftp__icon, .eqftp__button {
     color: rgba(0, 0, 0, 0.38); }
     .eqftp__icon .material-icons, .eqftp__button .material-icons {
@@ -137,6 +141,10 @@
       color: white; }
   .dark .eqftp-hint__text {
     color: rgba(255, 255, 255, 0.5); }
+  .dark .eqftp-difference {
+    background-color: rgba(0, 0, 0, 0.8); }
+    .dark .eqftp-difference__holder {
+      background-color: #212121; }
   .dark .eqftp__icon, .dark .eqftp__button {
     color: rgba(255, 255, 255, 0.5); }
     .dark .eqftp__icon .material-icons, .dark .eqftp__button .material-icons {

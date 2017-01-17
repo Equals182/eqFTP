@@ -91,6 +91,12 @@
       color: $c001;
     }
   }
+  &-difference {
+    background-color: rgba(0, 0, 0, 0.4);
+    &__holder {
+      background-color: $c01;
+    }
+  }
   &__icon,
   &__button {
     color: $c001;
@@ -268,6 +274,12 @@
     &-hint {
       &__text {
         color: $c011;
+      }
+    }
+    &-difference {
+      background-color: rgba(0, 0, 0, 0.8);
+      &__holder {
+        background-color: $gray900;
       }
     }
     &__icon,
