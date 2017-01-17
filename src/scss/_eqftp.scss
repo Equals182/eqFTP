@@ -946,14 +946,12 @@
       width: 100%;
     }
     &__content {
-      margin-top: $i2;
-      margin-bottom: $i2;
-      margin-left: $i4;
-      margin-right: $i4;
+      padding-top: $i2;
+      padding-bottom: $i2;
+      padding-left: $i4;
+      padding-right: $i4;
       box-sizing: border-box;
-      position: relative;
-      display: flex;
-      min-height: 560px;
+      display: none;
       width: 100%;
     }
   }
