@@ -1392,18 +1392,27 @@ define(function (require, exports, module) {
     self.tpl = $(Mustache.render(require("text!htmlContent/difference.html"), strings));
     self.content1 = self.tpl.find('#eqftp-difference__content-1');
     self.content2 = self.tpl.find('#eqftp-difference__content-2');
+    
     self.tpl.hide();
     $('body').prepend(self.tpl);
+    var btns = self.tpl.find('.eqftp-difference__tabs > div');
+    
     self.tpl.on('click', '.eqftp-difference__tabs > div', function () {
       var btn = $(this);
+      btns.removeClass('eqftp__button_active');
       self.tpl.find('.eqftp-difference__content').hide();
       $('#' + btn.attr('eqftp-targetTab')).show();
+      btn.addClass('eqftp__button_active');
+      eqUI._scrollbar.update(self.content1[0]);
+      eqUI._scrollbar.update(self.content2[0]);
     });
     
     self.open = function (d) {
       self.content1.html('<div class="eqftp-diff-diff"><pre>' + d.diff + '</pre></div>');
       self.content2.html('<div class="eqftp-diff-patch"><pre>' + d.patch + '</pre></div>');
       self.tpl.show();
+      eqUI._scrollbar.update(self.content1[0]);
+      eqUI._scrollbar.update(self.content2[0]);
     };
     self.close = function () {
       self.tpl.hide();
@@ -1602,6 +1611,7 @@ define(function (require, exports, module) {
       }
     }
     self.update = function (element) {
+      self.add(element);
       if (!self._debouncedUpdate) {
         self._debouncedUpdate = _.debounce(function (element) {
           if (self._current.indexOf(element) > -1) {
