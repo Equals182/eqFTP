@@ -938,6 +938,12 @@
       flex-wrap: wrap;
       min-width: 560px;
     }
+    &__description {
+      padding-left: $i4;
+      padding-top: $i2;
+      box-sizing: border-box;
+      width: 100%;
+    }
     &__tabs {
       padding-left: $i2;
       padding-right: $i2;
@@ -946,12 +952,13 @@
       width: 100%;
     }
     &__content {
-      padding-top: $i2;
-      padding-bottom: $i2;
+      padding-bottom: $i4;
       padding-left: $i4;
       padding-right: $i4;
       box-sizing: border-box;
+      position: relative;
       display: none;
+      max-height: calc(100% - 214px);
       width: 100%;
     }
   }

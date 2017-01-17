@@ -1,5 +1,4 @@
 @import 'modules/colors';
-
 .eqftp {
   background-color: $gray50;
   &-head {
@@ -96,6 +95,34 @@
     &__holder {
       background-color: $c01;
     }
+    & pre {
+      margin-top: 0;
+      margin-bottom: 0;
+      margin-left: 0;
+      margin-right: 0;
+      padding-top: 8px;
+      padding-bottom: 8px;
+      padding-left: 8px;
+      padding-right: 8px;
+      box-sizing: border-box;
+      font-size: 12px;
+      line-height: 18px;
+      color: $c003;
+      background-color: $c30;
+      border: none;
+      border-radius: 2px !important;
+    }
+    & ins,
+    & del {
+      text-decoration: none;
+      background-color: transparent !important;
+    }
+    & ins {
+      color: $green;
+    }
+    & del {
+      color: $red;
+    }
   }
   &__icon,
   &__button {
@@ -103,14 +130,20 @@
     & .material-icons {
       color: $c001;
     }
-    &:hover {
+    &:hover,
+    &:focus,
+    &_active,
+    &:active {
       color: $c003;
       & .material-icons {
         color: $c003;
       }
     }
     &_nohover {
-      &:hover {
+      &:hover,
+      &:focus,
+      &_active,
+      &:active {
         & .material-icons {
           color: $c001;
         }
@@ -120,7 +153,10 @@
       & .material-icons {
         color: $c011;
       }
-      &:hover {
+      &:hover,
+      &:focus,
+      &_active,
+      &:active {
         & .material-icons {
           color: $c01;
         }
@@ -130,7 +166,8 @@
       color: $c001;
       background-color: $c30;
       &:hover,
-      &:focus {
+      &:focus,
+      &_active {
         color: $c002;
         background-color: $c31;
       }
@@ -141,9 +178,8 @@
       &_nobg {
         background-color: transparent;
         &:hover,
-        &:focus {
-          background-color: transparent;
-        }
+        &:focus,
+        &_active,
         &:active {
           background-color: transparent;
         }
@@ -157,14 +193,18 @@
           color: $c01;
         }
         &:hover,
-        &:focus {
+        &:focus,
+        &_active,
+        &:active {
           background-color: $c21;
         }
       }
       &Text {
         color: $c20;
         &:hover,
-        &:focus {
+        &:focus,
+        &_active,
+        &:active {
           color: $c21;
         }
       }
@@ -281,6 +321,10 @@
       &__holder {
         background-color: $gray900;
       }
+      & pre {
+        color: $c013;
+        background-color: $c40;
+      }
     }
     &__icon,
     &__button {
@@ -288,14 +332,20 @@
       & .material-icons {
         color: $c011;
       }
-      &:hover {
+      &:hover,
+      &:focus,
+      &_active,
+      &:active {
         color: $c01;
         & .material-icons {
           color: $c01;
         }
       }
       &_nohover {
-        &:hover {
+        &:hover,
+        &:focus,
+        &_active,
+        &:active {
           & .material-icons {
             color: $c011;
           }
@@ -305,7 +355,10 @@
         & .material-icons {
           color: $c001;
         }
-        &:hover {
+        &:hover,
+        &:focus,
+        &_active,
+        &:active {
           & .material-icons {
             color: $c003;
           }
@@ -315,7 +368,8 @@
         color: $c011;
         background-color: $c40;
         &:hover,
-        &:focus {
+        &:focus,
+        &_active {
           color: $c012;
           background-color: $c41;
         }
@@ -326,9 +380,8 @@
         &_nobg {
           background-color: transparent;
           &:hover,
-          &:focus {
-            background-color: transparent;
-          }
+          &:focus,
+          &_active,
           &:active {
             background-color: transparent;
           }
@@ -342,14 +395,18 @@
             color: $c01;
           }
           &:hover,
-          &:focus {
+          &:focus,
+          &_active,
+          &:active {
             background-color: $c21;
           }
         }
         &Text {
           color: $c20;
           &:hover,
-          &:focus {
+          &:focus,
+          &_active,
+          &:active {
             color: $c21;
           }
         }

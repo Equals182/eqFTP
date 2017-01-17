@@ -47,24 +47,48 @@
     background-color: rgba(0, 0, 0, 0.4); }
     .eqftp-difference__holder {
       background-color: white; }
+    .eqftp-difference pre {
+      margin-top: 0;
+      margin-bottom: 0;
+      margin-left: 0;
+      margin-right: 0;
+      padding-top: 8px;
+      padding-bottom: 8px;
+      padding-left: 8px;
+      padding-right: 8px;
+      box-sizing: border-box;
+      font-size: 12px;
+      line-height: 18px;
+      color: rgba(0, 0, 0, 0.87);
+      background-color: #eeeeee;
+      border: none;
+      border-radius: 2px !important; }
+    .eqftp-difference ins,
+    .eqftp-difference del {
+      text-decoration: none;
+      background-color: transparent !important; }
+    .eqftp-difference ins {
+      color: #2ecc71; }
+    .eqftp-difference del {
+      color: #e74c3c; }
   .eqftp__icon, .eqftp__button {
     color: rgba(0, 0, 0, 0.38); }
     .eqftp__icon .material-icons, .eqftp__button .material-icons {
       color: rgba(0, 0, 0, 0.38); }
-    .eqftp__icon:hover, .eqftp__button:hover {
+    .eqftp__icon:hover, .eqftp__icon:focus, .eqftp__icon_active, .eqftp__icon:active, .eqftp__button:hover, .eqftp__button:focus, .eqftp__button_active, .eqftp__button:active {
       color: rgba(0, 0, 0, 0.87); }
-      .eqftp__icon:hover .material-icons, .eqftp__button:hover .material-icons {
+      .eqftp__icon:hover .material-icons, .eqftp__icon:focus .material-icons, .eqftp__icon_active .material-icons, .eqftp__icon:active .material-icons, .eqftp__button:hover .material-icons, .eqftp__button:focus .material-icons, .eqftp__button_active .material-icons, .eqftp__button:active .material-icons {
         color: rgba(0, 0, 0, 0.87); }
-    .eqftp__icon_nohover:hover .material-icons, .eqftp__button_nohover:hover .material-icons {
+    .eqftp__icon_nohover:hover .material-icons, .eqftp__icon_nohover:focus .material-icons, .eqftp__icon_nohover_active .material-icons, .eqftp__icon_nohover:active .material-icons, .eqftp__button_nohover:hover .material-icons, .eqftp__button_nohover:focus .material-icons, .eqftp__button_nohover_active .material-icons, .eqftp__button_nohover:active .material-icons {
       color: rgba(0, 0, 0, 0.38); }
     .eqftp__icon_inversion .material-icons, .eqftp__button_inversion .material-icons {
       color: rgba(255, 255, 255, 0.5); }
-    .eqftp__icon_inversion:hover .material-icons, .eqftp__button_inversion:hover .material-icons {
+    .eqftp__icon_inversion:hover .material-icons, .eqftp__icon_inversion:focus .material-icons, .eqftp__icon_inversion_active .material-icons, .eqftp__icon_inversion:active .material-icons, .eqftp__button_inversion:hover .material-icons, .eqftp__button_inversion:focus .material-icons, .eqftp__button_inversion_active .material-icons, .eqftp__button_inversion:active .material-icons {
       color: white; }
     .eqftp__iconRectangle, .eqftp__buttonRectangle {
       color: rgba(0, 0, 0, 0.38);
       background-color: #eeeeee; }
-      .eqftp__iconRectangle:hover, .eqftp__iconRectangle:focus, .eqftp__buttonRectangle:hover, .eqftp__buttonRectangle:focus {
+      .eqftp__iconRectangle:hover, .eqftp__iconRectangle:focus, .eqftp__iconRectangle_active, .eqftp__buttonRectangle:hover, .eqftp__buttonRectangle:focus, .eqftp__buttonRectangle_active {
         color: rgba(0, 0, 0, 0.54);
         background-color: #dddddd; }
       .eqftp__iconRectangle:active, .eqftp__buttonRectangle:active {
@@ -72,20 +96,18 @@
         background-color: #cccccc; }
       .eqftp__iconRectangle_nobg, .eqftp__buttonRectangle_nobg {
         background-color: transparent; }
-        .eqftp__iconRectangle_nobg:hover, .eqftp__iconRectangle_nobg:focus, .eqftp__buttonRectangle_nobg:hover, .eqftp__buttonRectangle_nobg:focus {
-          background-color: transparent; }
-        .eqftp__iconRectangle_nobg:active, .eqftp__buttonRectangle_nobg:active {
+        .eqftp__iconRectangle_nobg:hover, .eqftp__iconRectangle_nobg:focus, .eqftp__iconRectangle_nobg_active, .eqftp__iconRectangle_nobg:active, .eqftp__buttonRectangle_nobg:hover, .eqftp__buttonRectangle_nobg:focus, .eqftp__buttonRectangle_nobg_active, .eqftp__buttonRectangle_nobg:active {
           background-color: transparent; }
     .eqftp__icon_blueBackground, .eqftp__button_blueBackground {
       color: white;
       background-color: #2196f3; }
       .eqftp__icon_blueBackground .material-icons, .eqftp__button_blueBackground .material-icons {
         color: white; }
-      .eqftp__icon_blueBackground:hover, .eqftp__icon_blueBackground:focus, .eqftp__button_blueBackground:hover, .eqftp__button_blueBackground:focus {
+      .eqftp__icon_blueBackground:hover, .eqftp__icon_blueBackground:focus, .eqftp__icon_blueBackground_active, .eqftp__icon_blueBackground:active, .eqftp__button_blueBackground:hover, .eqftp__button_blueBackground:focus, .eqftp__button_blueBackground_active, .eqftp__button_blueBackground:active {
         background-color: #1a77c9; }
     .eqftp__icon_blueText, .eqftp__button_blueText {
       color: #2196f3; }
-      .eqftp__icon_blueText:hover, .eqftp__icon_blueText:focus, .eqftp__button_blueText:hover, .eqftp__button_blueText:focus {
+      .eqftp__icon_blueText:hover, .eqftp__icon_blueText:focus, .eqftp__icon_blueText_active, .eqftp__icon_blueText:active, .eqftp__button_blueText:hover, .eqftp__button_blueText:focus, .eqftp__button_blueText_active, .eqftp__button_blueText:active {
         color: #1a77c9; }
   .eqftp__label {
     color: rgba(0, 0, 0, 0.38); }
@@ -145,24 +167,27 @@
     background-color: rgba(0, 0, 0, 0.8); }
     .dark .eqftp-difference__holder {
       background-color: #212121; }
+    .dark .eqftp-difference pre {
+      color: white;
+      background-color: #333333; }
   .dark .eqftp__icon, .dark .eqftp__button {
     color: rgba(255, 255, 255, 0.5); }
     .dark .eqftp__icon .material-icons, .dark .eqftp__button .material-icons {
       color: rgba(255, 255, 255, 0.5); }
-    .dark .eqftp__icon:hover, .dark .eqftp__button:hover {
+    .dark .eqftp__icon:hover, .dark .eqftp__icon:focus, .dark .eqftp__icon_active, .dark .eqftp__icon:active, .dark .eqftp__button:hover, .dark .eqftp__button:focus, .dark .eqftp__button_active, .dark .eqftp__button:active {
       color: white; }
-      .dark .eqftp__icon:hover .material-icons, .dark .eqftp__button:hover .material-icons {
+      .dark .eqftp__icon:hover .material-icons, .dark .eqftp__icon:focus .material-icons, .dark .eqftp__icon_active .material-icons, .dark .eqftp__icon:active .material-icons, .dark .eqftp__button:hover .material-icons, .dark .eqftp__button:focus .material-icons, .dark .eqftp__button_active .material-icons, .dark .eqftp__button:active .material-icons {
         color: white; }
-    .dark .eqftp__icon_nohover:hover .material-icons, .dark .eqftp__button_nohover:hover .material-icons {
+    .dark .eqftp__icon_nohover:hover .material-icons, .dark .eqftp__icon_nohover:focus .material-icons, .dark .eqftp__icon_nohover_active .material-icons, .dark .eqftp__icon_nohover:active .material-icons, .dark .eqftp__button_nohover:hover .material-icons, .dark .eqftp__button_nohover:focus .material-icons, .dark .eqftp__button_nohover_active .material-icons, .dark .eqftp__button_nohover:active .material-icons {
       color: rgba(255, 255, 255, 0.5); }
     .dark .eqftp__icon_inversion .material-icons, .dark .eqftp__button_inversion .material-icons {
       color: rgba(0, 0, 0, 0.38); }
-    .dark .eqftp__icon_inversion:hover .material-icons, .dark .eqftp__button_inversion:hover .material-icons {
+    .dark .eqftp__icon_inversion:hover .material-icons, .dark .eqftp__icon_inversion:focus .material-icons, .dark .eqftp__icon_inversion_active .material-icons, .dark .eqftp__icon_inversion:active .material-icons, .dark .eqftp__button_inversion:hover .material-icons, .dark .eqftp__button_inversion:focus .material-icons, .dark .eqftp__button_inversion_active .material-icons, .dark .eqftp__button_inversion:active .material-icons {
       color: rgba(0, 0, 0, 0.87); }
     .dark .eqftp__iconRectangle, .dark .eqftp__buttonRectangle {
       color: rgba(255, 255, 255, 0.5);
       background-color: #333333; }
-      .dark .eqftp__iconRectangle:hover, .dark .eqftp__iconRectangle:focus, .dark .eqftp__buttonRectangle:hover, .dark .eqftp__buttonRectangle:focus {
+      .dark .eqftp__iconRectangle:hover, .dark .eqftp__iconRectangle:focus, .dark .eqftp__iconRectangle_active, .dark .eqftp__buttonRectangle:hover, .dark .eqftp__buttonRectangle:focus, .dark .eqftp__buttonRectangle_active {
         color: rgba(255, 255, 255, 0.7);
         background-color: #4a4a4a; }
       .dark .eqftp__iconRectangle:active, .dark .eqftp__buttonRectangle:active {
@@ -170,20 +195,18 @@
         background-color: #595959; }
       .dark .eqftp__iconRectangle_nobg, .dark .eqftp__buttonRectangle_nobg {
         background-color: transparent; }
-        .dark .eqftp__iconRectangle_nobg:hover, .dark .eqftp__iconRectangle_nobg:focus, .dark .eqftp__buttonRectangle_nobg:hover, .dark .eqftp__buttonRectangle_nobg:focus {
-          background-color: transparent; }
-        .dark .eqftp__iconRectangle_nobg:active, .dark .eqftp__buttonRectangle_nobg:active {
+        .dark .eqftp__iconRectangle_nobg:hover, .dark .eqftp__iconRectangle_nobg:focus, .dark .eqftp__iconRectangle_nobg_active, .dark .eqftp__iconRectangle_nobg:active, .dark .eqftp__buttonRectangle_nobg:hover, .dark .eqftp__buttonRectangle_nobg:focus, .dark .eqftp__buttonRectangle_nobg_active, .dark .eqftp__buttonRectangle_nobg:active {
           background-color: transparent; }
     .dark .eqftp__icon_blueBackground, .dark .eqftp__button_blueBackground {
       color: white;
       background-color: #2196f3; }
       .dark .eqftp__icon_blueBackground .material-icons, .dark .eqftp__button_blueBackground .material-icons {
         color: white; }
-      .dark .eqftp__icon_blueBackground:hover, .dark .eqftp__icon_blueBackground:focus, .dark .eqftp__button_blueBackground:hover, .dark .eqftp__button_blueBackground:focus {
+      .dark .eqftp__icon_blueBackground:hover, .dark .eqftp__icon_blueBackground:focus, .dark .eqftp__icon_blueBackground_active, .dark .eqftp__icon_blueBackground:active, .dark .eqftp__button_blueBackground:hover, .dark .eqftp__button_blueBackground:focus, .dark .eqftp__button_blueBackground_active, .dark .eqftp__button_blueBackground:active {
         background-color: #1a77c9; }
     .dark .eqftp__icon_blueText, .dark .eqftp__button_blueText {
       color: #2196f3; }
-      .dark .eqftp__icon_blueText:hover, .dark .eqftp__icon_blueText:focus, .dark .eqftp__button_blueText:hover, .dark .eqftp__button_blueText:focus {
+      .dark .eqftp__icon_blueText:hover, .dark .eqftp__icon_blueText:focus, .dark .eqftp__icon_blueText_active, .dark .eqftp__icon_blueText:active, .dark .eqftp__button_blueText:hover, .dark .eqftp__button_blueText:focus, .dark .eqftp__button_blueText_active, .dark .eqftp__button_blueText:active {
         color: #1a77c9; }
   .dark .eqftp__label {
     color: rgba(255, 255, 255, 0.5); }
