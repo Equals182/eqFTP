@@ -39,6 +39,7 @@ define(function (require, exports, module) {
     ProjectManager = brackets.getModule("project/ProjectManager"),
     MainViewManager = brackets.getModule("view/MainViewManager"),
     PreferencesManager = brackets.getModule("preferences/PreferencesManager"),
+    LanguageManager = brackets.getModule("language/LanguageManager"),
     NodeConnection = brackets.getModule("utils/NodeConnection"),
     NativeApp = brackets.getModule("utils/NativeApp"),
     EventEmitter = require('modules/events/index'),
@@ -527,7 +528,8 @@ define(function (require, exports, module) {
                 callback: function () {
                   debug('difference_open_both');
                   eqftp.comparator.resolve(event.data.qid, 'difference_open_both');
-                }
+                },
+                keepDialog: true
               },
               {
                 title: strings.eqftp__controls__skip,
@@ -538,6 +540,43 @@ define(function (require, exports, module) {
               }
             ],
           });
+          break;
+        case 'comparator:splitview':
+          if (MainViewManager.getPaneCount() < 2) {
+            MainViewManager.setLayoutScheme(1, 2);
+          }
+          if (_.has(event, 'data.pane1')) {
+            CommandManager.execute(Commands.CMD_ADD_TO_WORKINGSET_AND_OPEN, {
+              fullPath: event.data.pane1.file,
+              paneId: "first-pane",
+              options: {
+                noPaneActivate: true
+              }
+            }).done(function() {
+              LanguageManager.setLanguageOverrideForPath(event.data.pane2.file, LanguageManager.getLanguageForExtension(event.data.pane2.extension));
+            }).fail(function (err) {
+              eqftp.log(ui.m(strings.eqftp__log__open_file_error, {
+                filename: event.data.pane2.file,
+                error: err
+              }), 'error');
+            });
+          }
+          if (_.has(event, 'data.pane2')) {
+            CommandManager.execute(Commands.CMD_ADD_TO_WORKINGSET_AND_OPEN, {
+              fullPath: event.data.pane2.file,
+              paneId: "second-pane",
+              options: {
+                noPaneActivate: true
+              }
+            }).done(function() {
+              LanguageManager.setLanguageOverrideForPath(event.data.pane2.file, LanguageManager.getLanguageForExtension(event.data.pane2.extension));
+            }).fail(function (err) {
+              eqftp.log(ui.m(strings.eqftp__log__open_file_error, {
+                filename: event.data.pane2.file,
+                error: err
+              }), 'error');
+            });
+          }
           break;
       }
     }

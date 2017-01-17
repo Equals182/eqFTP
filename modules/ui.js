@@ -1257,14 +1257,14 @@ define(function (require, exports, module) {
         }
         var button = $('<div class="eqftp-dialogs__action"><div class="eqftp__button eqftp__button_blueText"></div></div>');
         
-        var once = _.once(function (e) {
+        var once = function (e) {
           if (_.isFunction(action.callback)) {
             action.callback();
           }
           if (!action.keepDialog) {
             closeDialog();
           }
-        });
+        };
         
         buttons.push({
           element: button,

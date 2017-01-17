@@ -114,6 +114,8 @@ define({
  "eqftp__log__settings_connection_save_success": "Connection {{name}} saved",
  "eqftp__log__settings_connection_save_error": "There was an error saving connection: {{{err}}}",
  
+ "eqftp__log__open_file_error": "Can't open file {{{filename}}}. Error: {{{err}}}",
+ 
  /**
   * TOASTS
   * _m means multiple. You can use {{num}} to display stacked amount
