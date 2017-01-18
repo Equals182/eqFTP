@@ -513,6 +513,20 @@
           height: 0;
           width: 9px;
         }
+        &:first-child {
+          &:before {
+            top: 0;
+            bottom: auto;
+            height: 100%;
+          }
+        }
+        &:first-child {
+          &:last-child {
+            &:before {
+              height: calc(100% - 12px);
+            }
+          }
+        }
       }
       &_folder {
         align-content: flex-start;
