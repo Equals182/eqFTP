@@ -958,10 +958,15 @@
       box-sizing: border-box;
       display: none;
       width: 100%;
+      & pre {
+        -webkit-user-select: all;
+      }
     }
     &__custom {
       position: relative;
       max-height: 600px;
+      min-width: 640px;
+      max-width: 960px;
     }
   }
   &__row {
