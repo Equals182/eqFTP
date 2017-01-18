@@ -1169,7 +1169,6 @@ maxerr: 50, node: true */
             patch = patch.replace(/\%0\A/g, "");
             patch = patch.replace(/^(\-.*)$/gm, '<del>$1</del>');
             patch = patch.replace(/^(\+.*)$/gm, '<ins>$1</ins>');
-          console.log('PATCH:', patch);
             _domainManager.emitEvent("eqFTP", "event", {
               action: 'comparator:diffview',
               data: {
