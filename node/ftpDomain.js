@@ -1164,11 +1164,17 @@ maxerr: 50, node: true */
                 diffs = dmp.diff_main(text1, text2);
             dmp.diff_cleanupSemantic(diffs);
 
+            var patch = dmp.patch_toText(dmp.patch_make(diffs));
+            patch = patch.replace(/%0D%0A/g, "%0A");
+            patch = patch.replace(/\%0\A/g, "");
+            patch = patch.replace(/^(\-.*)$/gm, '<del>$1</del>');
+            patch = patch.replace(/^(\+.*)$/gm, '<ins>$1</ins>');
+          console.log('PATCH:', patch);
             _domainManager.emitEvent("eqFTP", "event", {
               action: 'comparator:diffview',
               data: {
                 diff: dmp.diff_prettyHtml(diffs),
-                patch: dmp.patch_toText(dmp.patch_make(diffs))
+                patch: patch
               }
             });
             break;
