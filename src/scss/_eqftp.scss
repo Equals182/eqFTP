@@ -936,7 +936,8 @@
       align-content: flex-start;
       align-items: flex-start;
       flex-wrap: wrap;
-      min-width: 560px;
+      min-width: 640px;
+      max-width: 960px;
     }
     &__description {
       padding-left: $i4;
