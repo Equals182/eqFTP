@@ -551,13 +551,13 @@ define(function (require, exports, module) {
       }
       self._rendered[path] = object;
       parent.html('');
-      
+
       var format = 'H:i d/m';
       if (_.has(eqFTP, '_settings.main.date_format')) {
         format = eqFTP._settings.main.date_format;
       }
       self._lastDateFormat = format;
-      
+
       object.forEach(function (element, i) {
         if (['f', 'd'].indexOf(element.type) < 0) {
           return false;
@@ -674,7 +674,7 @@ define(function (require, exports, module) {
     self.footer = eqUI.panel.tpl.find('.eqftp-footer');
     self.state = 'closed';
     self._hasPs = false;
-    
+
     self.toggle = function () {
       if (self.state === 'opened') {
         self.close();
@@ -851,10 +851,10 @@ define(function (require, exports, module) {
           self = this;
       self.tpl = eqUI.panel.tpl.find('.eqftp-modal_connectionsSettings');
       self.state = 'closed';
-      
+
       self._title = self.tpl.find('.eqftp__title .eqftp__titleNowrap');
       self._removeBtn = self.tpl.find('#eqftpConnectionSaveBtn');
-      
+
       self.protocolSelector = function (target) {
         eqUI.context.open([
           {
@@ -978,10 +978,10 @@ define(function (require, exports, module) {
           }
         }
         self.reset();
-        
+
         self._title.text(strings.eqftp__cs__window_title_new);
         self._removeBtn.text(strings.eqftp__controls__create);
-        
+
         if (connection) {
           if (_.isString(connection)) {
             connection = eqFTP.connections[connection];
@@ -1218,10 +1218,10 @@ define(function (require, exports, module) {
       if (!params) {
         params = {};
       }
-      
+
       var dialog = $(Mustache.render(self.tpl, _.defaults(params))),
           actions_holder = dialog.find('.eqftp-dialogs__actions:first');
-      
+
       if (!params.parent) {
         params.parent = eqUI.panel.get();
       } else if (_.isString(params.parent)) {
@@ -1230,7 +1230,7 @@ define(function (require, exports, module) {
       if (!_.isjQuery(params.parent) || params.parent.length < 1) {
         params.parent = eqUI.panel.get();
       }
-      
+
       if (!params.actions) {
         params.actions = [
           {
@@ -1240,7 +1240,7 @@ define(function (require, exports, module) {
           }
         ];
       }
-      
+
       var buttons = [];
       var closeDialog = function () {
         buttons.forEach(function (button) {
@@ -1256,7 +1256,7 @@ define(function (require, exports, module) {
           return false;
         }
         var button = $('<div class="eqftp-dialogs__action"><div class="eqftp__button eqftp__button_blueText"></div></div>');
-        
+
         var once = function (e) {
           if (_.isFunction(action.callback)) {
             action.callback();
@@ -1265,15 +1265,15 @@ define(function (require, exports, module) {
             closeDialog();
           }
         };
-        
+
         buttons.push({
           element: button,
           once: once
         });
-        
+
         button.find('.eqftp__button').text(action.title);
         button.on('click', once);
-        
+
         actions_holder.append(button);
       });
       params.parent.prepend(dialog);
@@ -1386,30 +1386,30 @@ define(function (require, exports, module) {
       }
     };
   }();
-  
+
   eqUI.difference = new function () {
     var self = this;
     self.tpl = $(Mustache.render(require("text!htmlContent/difference.html"), strings));
-    self.content1 = self.tpl.find('#eqftp-difference__content-1');
-    self.content2 = self.tpl.find('#eqftp-difference__content-2');
-    
+    self.content1 = self.tpl.find('#eqftp-difference__content-1 > .eqftp-difference__custom');
+    self.content2 = self.tpl.find('#eqftp-difference__content-2 > .eqftp-difference__custom');
+
     self.tpl.hide();
     $('body').prepend(self.tpl);
     var btns = self.tpl.find('.eqftp-difference__tabs > div');
-    
+
     self.tpl.on('click', '.eqftp-difference__tabs > div', function () {
       var btn = $(this);
-      btns.removeClass('eqftp__button_active');
+      btns.removeClass('eqftp__buttonRectangle_active');
       self.tpl.find('.eqftp-difference__content').hide();
       $('#' + btn.attr('eqftp-targetTab')).show();
-      btn.addClass('eqftp__button_active');
+      btn.addClass('eqftp__buttonRectangle_active');
       eqUI._scrollbar.update(self.content1[0]);
       eqUI._scrollbar.update(self.content2[0]);
     });
-    
+
     self.open = function (d) {
-      self.content1.html('<div class="eqftp-diff-diff"><pre>' + d.diff + '</pre></div>');
-      self.content2.html('<div class="eqftp-diff-patch"><pre>' + d.patch + '</pre></div>');
+      self.content1.html('<pre>' + d.diff + '</pre>');
+      self.content2.html('<pre>' + d.patch + '</pre>');
       self.tpl.show();
       eqUI._scrollbar.update(self.content1[0]);
       eqUI._scrollbar.update(self.content2[0]);
@@ -1592,11 +1592,12 @@ define(function (require, exports, module) {
       return handler;
     };
   }();
+
   eqUI._scrollbar = new function () {
     var self = this;
     self._current = [];
     self._debouncedUpdate = false;
-    
+
     self.add = function (element) {
       if (self._current.indexOf(element) < 0) {
         eqUI.ps.initialize(element);
@@ -1621,24 +1622,25 @@ define(function (require, exports, module) {
       }
       self._debouncedUpdate(element);
     }
-    
+
     $(window).on('resize', function () {
       self._current.forEach(function (element) {
         self.update(element);
       });
     });
   }();
+
   eqUI._tooltip = new function () {
     var self = this;
     self.parent = eqUI.panel.get();
     self.tpl = self.parent.find('.eqftp__tooltip');
-    
+
     self.set = function (e) {
       var target = $(this),
           text = target.attr('eqftp-tooltip');
       self.tpl.text(text).show();
       self.tpl.css('left', 0).css('top', 0);
-      
+
       var target_x = target.offset().left,
           target_y = target.offset().top,
           target_width = target.outerWidth(),
@@ -1649,10 +1651,10 @@ define(function (require, exports, module) {
           parent_height = self.parent.outerHeight(),
           tooltip_width = self.tpl.outerWidth(),
           tooltip_height = self.tpl.outerHeight();
-      
+
       var nx = (target_x - parent_x) + (target_width / 2) - (tooltip_width / 2);
       var ny = (target_y - parent_y) + (target_height / 2) + 14;
-      
+
       var mx = parent_width - (tooltip_width + 15);
       if (nx > mx) {
         nx = mx;
@@ -1672,7 +1674,7 @@ define(function (require, exports, module) {
     self.hide = function (e) {
       self.tpl.hide();
     };
-    
+
     self.get = function () {
       return self.tpl;
     };

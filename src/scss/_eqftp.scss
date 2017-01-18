@@ -936,7 +936,6 @@
       align-content: flex-start;
       align-items: flex-start;
       flex-wrap: wrap;
-      max-height: 100%;
       min-width: 560px;
     }
     &__description {
@@ -957,10 +956,12 @@
       padding-left: $i4;
       padding-right: $i4;
       box-sizing: border-box;
-      position: relative;
       display: none;
-      max-height: calc(100% - 214px);
       width: 100%;
+    }
+    &__custom {
+      position: relative;
+      max-height: 600px;
     }
   }
   &__row {
