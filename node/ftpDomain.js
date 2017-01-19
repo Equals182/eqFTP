@@ -596,6 +596,7 @@ maxerr: 50, node: true */
                 return queue.q;
               };
               queue.add = function (queuer, prepend) {
+                debug('queue.add', id, queuer, prepend);
                 if (!queue.accept) {
                   return false;
                 }
@@ -611,6 +612,7 @@ maxerr: 50, node: true */
                 } else {
                   queue.q.push(queuer);
                 }
+                debug('queue.q now', queue.q);
                 _.set(eqftp.cache, ['queue', id], queue.q);
                 debug('eqftp.cache.queue', id, eqftp.cache.queue[id]);
                 
@@ -815,6 +817,7 @@ maxerr: 50, node: true */
                                 }
                               });
                             } else {
+                              debug('skipping diffcheck', queuer, args);
                               self._[id]._server[queuer.act](...args);
                             }
                             break;
@@ -1148,52 +1151,41 @@ maxerr: 50, node: true */
       var cid = utils.uniq() + '_' + _.uniqueId();
       
       _.set(self._callbacks, cid, _.once(function (action) {
-        console.warn(action);
+        debug('prompt callback action: ', action);
+        var qid = utils.uniq() + '_' + _.uniqueId();
+        var queuer = {
+          id: element.id,
+          qid: qid,
+          act: 'upload',
+          args: [
+            {
+              qid: qid,
+              localpath: element.localpath,
+              remotepath: element.remotepath
+            },
+            function (err, data) {
+              if (!err && _.get(eqftp.connections.a, [element.id, 'check_difference'])) {
+                debug('saving hash for queuer 1', element.id, element.remotepath, element.localpath);
+                eqftp.comparator.saveHash(element.id, element.remotepath, element.localpath);
+              }
+            },
+            function () {
+              
+            }
+          ],
+          queue: 'a',
+          _skipDiffcheck: true
+        };
+        debug('action', action);
         switch (action) {
           case 'difference_upload':
-            var qid = utils.uniq() + '_' + _.uniqueId();
-            eqftp.connections[element.id].queue.add({
-              id: element.id,
-              qid: qid,
-              act: 'upload',
-              _skipDiffcheck: true,
-              callback: function () {
-                if (_.get(eqftp.connections.a, [element.id, 'check_difference'])) {
-                  debug('saving hash for queuer 1', element.id, element.remotepath, element.localpath);
-                  eqftp.comparator.saveHash(element.id, element.remotepath, element.localpath);
-                }
-              },
-              args: [
-                {
-                  qid: qid,
-                  localpath: element.localpath,
-                  remotepath: element.remotepath
-                }
-              ]
-            }, true);
+            queuer.act = 'upload';
+            eqftp.connections._[element.id].queue.add(queuer, true);
             eqftp.comparator.deleteTmp(element.id, element.remotepath);
             break;
           case 'difference_download':
-            var qid = utils.uniq() + '_' + _.uniqueId();
-            eqftp.connections[element.id].queue.add({
-              id: element.id,
-              qid: qid,
-              act: 'download',
-              _skipDiffcheck: true,
-              callback: function () {
-                if (_.get(eqftp.connections.a, [element.id, 'check_difference'])) {
-                  debug('saving hash for queuer 2', element.id, element.remotepath, element.localpath);
-                  eqftp.comparator.saveHash(element.id, element.remotepath, element.localpath);
-                }
-              },
-              args: [
-                {
-                  qid: qid,
-                  localpath: element.localpath,
-                  remotepath: element.remotepath
-                }
-              ]
-            }, true);
+            queuer.act = 'download';
+            eqftp.connections._[element.id].queue.add(queuer, true);
             eqftp.comparator.deleteTmp(element.id, element.remotepath);
             break;
           case 'skip':
