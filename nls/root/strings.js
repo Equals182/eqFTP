@@ -181,7 +181,7 @@ define({
  
  // Next strings are custom but translate them just like previous
  "eqftp__controls__save": "Save",
- "eqftp__controls__delete": "Remove",
+ "eqftp__controls__remove": "Remove",
  "eqftp__controls__showlog": "Show log",
  "eqftp__controls__resolve": "Resolve",
  "eqftp__controls__create": "Create",
