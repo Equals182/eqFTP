@@ -38,6 +38,7 @@ define(function (require, exports, module) {
     Menus = brackets.getModule("command/Menus"),
     ProjectManager = brackets.getModule("project/ProjectManager"),
     MainViewManager = brackets.getModule("view/MainViewManager"),
+    EditorManager = brackets.getModule("editor/EditorManager"),
     PreferencesManager = brackets.getModule("preferences/PreferencesManager"),
     LanguageManager = brackets.getModule("language/LanguageManager"),
     NodeConnection = brackets.getModule("utils/NodeConnection"),
@@ -279,7 +280,7 @@ define(function (require, exports, module) {
                     get: function(connections, prop, receiver) {
                       if (prop in connections) {
                         return connections[prop];
-                      } else if (prop in eqftp._settings.connections) {
+                      } else if (eqftp._settings && prop in eqftp._settings.connections) {
                         // prop is id;
                         return (function (id) {
                           var p = new Proxy(eqftp._settings.connections[id], {
@@ -378,6 +379,28 @@ define(function (require, exports, module) {
                 debug('file found, loading settings');
                 eqftp.settings.load(file);
               }
+              EditorManager.on('activeEditorChange', function (event, editor_new, editor_old) {
+                var localpath = _.get(editor_new, 'document.file._path');
+                if (localpath) {
+                  eqftp.connections._getByLocalpath(localpath).done(function (connection) {
+                    if (connection && !connection._isIgnored && connection.check_difference && connection.server) {
+                      eqftp.comparator.compare(connection.id, undefined, localpath).done(function (res) {
+                        if (res.isDifferent) {
+                          eqftp.comparator.prompt(res.element).done(function (action) {
+
+                          }).fail(function (err) {
+                            console.error(err);
+                          });
+                        }
+                      }).fail(function (err) {
+                        console.error(err);
+                      });
+                    }
+                  }).fail(function (err) {
+                    // cant find connection related to this file
+                  });
+                }
+              });
             }
           });
           break;
@@ -493,11 +516,11 @@ define(function (require, exports, module) {
             eqftp.settings.load(file, password);
           });
           break;
-        case 'comparator:difference':
+        case 'comparator:difference:prompt':
           ui.panel.open();
           ui.dialog.new({
             title: ui.m(strings.eqftp__dialog__file_difference_title, {
-              filename: utils.getNamepart(event.data.localpath, 'filename')
+              filename: utils.getNamepart(event.data.element.localpath, 'filename')
             }),
             text: strings.eqftp__dialog__file_difference_text,
             actions: [
@@ -505,21 +528,21 @@ define(function (require, exports, module) {
                 title: strings.eqftp__controls__difference_upload,
                 callback: function () {
                   debug('difference_upload');
-                  eqftp.comparator.resolve(event.data.qid, 'difference_upload');
+                  eqftp.comparator.resolve(event.data.cid, 'difference_upload');
                 }
               },
               {
                 title: strings.eqftp__controls__difference_download,
                 callback: function () {
                   debug('difference_download');
-                  eqftp.comparator.resolve(event.data.qid, 'difference_download');
+                  eqftp.comparator.resolve(event.data.cid, 'difference_download');
                 }
               },
               {
                 title: strings.eqftp__controls__difference_show_diff,
                 callback: function () {
                   debug('difference_show_diff');
-                  eqftp.comparator.resolve(event.data.qid, 'difference_show_diff');
+                  eqftp.comparator.resolve(event.data.cid, 'difference_show_diff');
                 },
                 keepDialog: true
               },
@@ -527,7 +550,7 @@ define(function (require, exports, module) {
                 title: strings.eqftp__controls__difference_open_both,
                 callback: function () {
                   debug('difference_open_both');
-                  eqftp.comparator.resolve(event.data.qid, 'difference_open_both');
+                  eqftp.comparator.resolve(event.data.cid, 'difference_open_both');
                 },
                 keepDialog: true
               },
@@ -535,7 +558,7 @@ define(function (require, exports, module) {
                 title: strings.eqftp__controls__skip,
                 callback: function () {
                   debug('skip');
-                  eqftp.comparator.resolve(event.data.qid, 'skip');
+                  eqftp.comparator.resolve(event.data.cid, 'skip');
                 }
               }
             ],
@@ -664,9 +687,9 @@ define(function (require, exports, module) {
     });
   };
   eqftp.upload = function (localpath) {
-    eqftp.connections._getByLocalpath(localpath).done(function (id) {
+    eqftp.connections._getByLocalpath(localpath).done(function (connection) {
       var args = [...arguments];
-      eqftp.connections[id].upload(localpath).done(function (data) {
+      eqftp.connections[connection.id].upload(localpath).done(function (data) {
         //success
       }).fail(function (err) {
         //error

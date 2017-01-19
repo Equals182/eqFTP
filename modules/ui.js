@@ -1413,6 +1413,7 @@ define(function (require, exports, module) {
       self.tpl.show();
       eqUI._scrollbar.update(self.content1[0]);
       eqUI._scrollbar.update(self.content2[0]);
+      self.tpl.find('.eqftp-difference__tabs > div:first').click();
     };
     self.close = function () {
       self.tpl.hide();
