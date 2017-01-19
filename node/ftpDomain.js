@@ -804,7 +804,7 @@ maxerr: 50, node: true */
                                     // File is not different or is new
                                     queuer.callback = function () {
                                       if (_.get(self.a, [id, 'check_difference'])) {
-                                        debug('saving hash for queuer 3', id, args[0].remotepath, args[0].localpath);
+                                        debug('saving hash for queuer', id, args[0].remotepath, args[0].localpath);
                                         eqftp.comparator.saveHash(id, args[0].remotepath, args[0].localpath);
                                       }
                                     };
@@ -1164,6 +1164,7 @@ maxerr: 50, node: true */
               remotepath: element.remotepath
             },
             function (err, data) {
+              debug('diffcheck prompt new queuer callback fired', err, data, eqftp.connections.a[element.id]);
               if (!err && _.get(eqftp.connections.a, [element.id, 'check_difference'])) {
                 debug('saving hash for queuer 1', element.id, element.remotepath, element.localpath);
                 eqftp.comparator.saveHash(element.id, element.remotepath, element.localpath);
@@ -1382,9 +1383,9 @@ maxerr: 50, node: true */
             eqftp.connections._[id]._server.download(nqueuer, function (err, data) {
               debug('downloading result', err, data);
               if (!err) {
-                debug('calculating hash', localpath);
+                debug('calculating hash', tmpFile);
                 var tmphash = hashFiles.sync({
-                  files: localpath,
+                  files: tmpFile,
                   algorithm: 'sha512'
                 });
                 debug('comparing hashes: ', tmphash, hash);
