@@ -790,23 +790,23 @@ maxerr: 50, node: true */
                   args.splice(-2, 2, cb, pr);
                   debug('opening connection', id);
                   self._[id].open(function (err) {
-                    debug('opening connection result', err);
+                    debug('opening connection err:', err);
                     if (!err) {
+                      debug('queuer.act', queuer.act);
                       if (queuer.act) {
                         switch (queuer.act) {
                           case 'upload':
                           case 'download':
-                            if (!queuer._skipDiffcheck) {
+                            debug('queuer._skipDiffcheck', queuer._skipDiffcheck);
+                            if (!queuer._skipDiffcheck && _.get(self.a, [id, 'check_difference'])) {
                               eqftp.comparator.compare(id, args[0].remotepath, args[0].localpath, function (err, res) {
                                 debug('comparator result', err, res);
                                 if (!err) {
                                   if (!res.isDifferent || res.isNew) {
                                     // File is not different or is new
                                     queuer.callback = function () {
-                                      if (_.get(self.a, [id, 'check_difference'])) {
-                                        debug('saving hash for queuer', id, args[0].remotepath, args[0].localpath);
-                                        eqftp.comparator.saveHash(id, args[0].remotepath, args[0].localpath);
-                                      }
+                                      debug('saving hash for queuer', id, args[0].remotepath, args[0].localpath);
+                                      eqftp.comparator.saveHash(id, args[0].remotepath, args[0].localpath);
                                     };
                                     self._[id]._server[queuer.act](...args);
                                   } else if (res.isDifferent) {
@@ -1397,6 +1397,10 @@ maxerr: 50, node: true */
                 } else {
                   return callback(null, res);
                 }
+              } else {
+                res.isDifferent = false;
+                res.isNew = true;
+                return callback(null, res);
               }
             });
           }
