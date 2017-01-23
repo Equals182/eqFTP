@@ -28,6 +28,9 @@ var v = process.version.replace(/^[^d]/, '');
     _fix_version = t;
   }
 });
+var debug = function () {
+  console.log('[eftp]', ...arguments);
+};
 
 function EFTP() {
   if (!this instanceof EFTP) { throw "must 'new EFTP()'"; }
@@ -288,7 +291,7 @@ EFTP.prototype.connect = function (config) {
         c.password = config.password;
       }
       this.client.on('continue', function() {
-        console.log('NEXT QUESTION!');
+        debug('continue event fired!');
       });
       this.client.on('ready', self.events.ready);
       this.client.on('close', self.events.close);
@@ -399,7 +402,7 @@ EFTP.prototype.pwd = function (cb) {
             return false;
           }
           stream.on('end', function() {
-            //console.log('Should I end connection?');
+            //debug('Should I end connection?');
           }).on('data', function(data) {
             data = data.toString();
             data = data.replace(/(\n|\r)/, '');
@@ -443,19 +446,23 @@ EFTP.prototype.cd = function (path, cb) {
     switch (this.config.type) {
       case 'sftp':
         self.client.sftp(function (err, sftp) {
-          sftp.opendir(path, function (err, handle) {
-            sftp.end();
-            if (err) {
-              if (cb) {
-                cb(err);
+          if (!err) {
+            sftp.opendir(path, function (err, handle) {
+              sftp.end();
+              if (err) {
+                if (cb) {
+                  cb(err);
+                }
+              } else {
+                self.currentPath = path;
+                if (cb) {
+                  cb(err, path);
+                }
               }
-            } else {
-              self.currentPath = path;
-              if (cb) {
-                cb(err, path);
-              }
-            }
-          });
+            });
+          } else {
+            cb(err);
+          }
         });
         break;
       case 'ftp':
@@ -487,21 +494,25 @@ EFTP.prototype.ls = function (path, cb) {
     switch (this.config.type) {
     case 'sftp':
       self.client.sftp(function (err, sftp) {
-        sftp.readdir(p, function (err, list) {
-          sftp.end();
-          if (err) {
-            if (cb) { cb(err); }
-          } else {
-            var i = 0;
-            for (i = 0; i < list.length; i++) {
-              list[i].name = list[i].filename;
-              list[i].date = new Date((list[i].attrs.mtime || list[i].attrs.atime) * 1000);
-              list[i].size = list[i].attrs.size;
-              list[i].type = list[i].longname.indexOf("d") === 0 ? 'd' : 'f';
+        if (!err) {
+          sftp.readdir(p, function (err, list) {
+            sftp.end();
+            if (err) {
+              if (cb) { cb(err); }
+            } else {
+              var i = 0;
+              for (i = 0; i < list.length; i++) {
+                list[i].name = list[i].filename;
+                list[i].date = new Date((list[i].attrs.mtime || list[i].attrs.atime) * 1000);
+                list[i].size = list[i].attrs.size;
+                list[i].type = list[i].longname.indexOf("d") === 0 ? 'd' : 'f';
+              }
+              if (cb) { cb(err, list); }
             }
-            if (cb) { cb(err, list); }
-          }
-        });
+          });
+        } else {
+          cb(err);
+        }
       });
       break;
     case 'ftp':
@@ -593,33 +604,41 @@ EFTP.prototype.download = function (queuer, cb) {
     switch (this.config.type) {
       case 'sftp':
         self.client.sftp(function (err, sftp) {
-          sftp.fastGet(queuer.remotepath, queuer.localpath, {
-            concurrency: 1,
-            step: function (transferred, chunk, total) {
-              self.events.progress({
-                queuer: queuer,
-                action: 'get',
-                total: total,
-                transferred: transferred
-              });
-            }
-          }, function (err) {
-            sftp.end();
-            if (err) {
-              cb(err);
-            } else {
-              self.emit("download", {
-                qid: queuer.qid,
-                remotepath: queuer.remotepath,
-                localpath: queuer.localpath
-              });
-              cb(err, {
-                qid: queuer.qid,
-                remotepath: queuer.remotepath,
-                localpath: queuer.localpath
-              });
-            }
-          });
+          if (!err) {
+            sftp.fastGet(queuer.remotepath, queuer.localpath, {
+              concurrency: 1,
+              step: function (transferred, chunk, total) {
+                self.events.progress({
+                  queuer: queuer,
+                  action: 'get',
+                  total: total,
+                  transferred: transferred
+                });
+              }
+            }, function (err) {
+              sftp.end();
+              if (err) {
+                cb(err);
+              } else {
+                self.emit("download", {
+                  qid: queuer.qid,
+                  remotepath: queuer.remotepath,
+                  localpath: queuer.localpath
+                });
+                cb(err, {
+                  qid: queuer.qid,
+                  remotepath: queuer.remotepath,
+                  localpath: queuer.localpath
+                });
+              }
+            });
+          } else {
+            cb(err, {
+              qid: queuer.qid,
+              remotepath: queuer.remotepath,
+              localpath: queuer.localpath
+            });
+          }
         });
         break;
       case 'ftp':
@@ -659,6 +678,7 @@ EFTP.prototype.download = function (queuer, cb) {
 };
 
 EFTP.prototype.upload = function (queuer, cb) {
+  debugger;
   var self = this;
   if (!this.isConnect) {
     this.waitConnect(function () {
@@ -670,26 +690,38 @@ EFTP.prototype.upload = function (queuer, cb) {
       switch (self.config.type) {
         case 'sftp':
           self.client.sftp(function (err, sftp) {
-            sftp.fastPut(queuer.localpath, queuer.remotepath, {
-              concurrency: 1
-            }, function (err) {
-              console.log(err);
-              sftp.end();
-              if (err) {
-                cb(err);
-              } else {
-                self.emit("upload", {
-                  qid: queuer.qid,
-                  remotepath: queuer.remotepath,
-                  localpath: queuer.localpath
-                });
-                cb(err, {
-                  qid: queuer.qid,
-                  remotepath: queuer.remotepath,
-                  localpath: queuer.localpath
-                });
-              }
-            });
+            debug('self.client.sftp err, sftp:', err, sftp);
+            if (!err) {
+              debug('firing sftp.fastPut with:', queuer.localpath, queuer.remotepath, {
+                concurrency: 1
+              });
+              sftp.fastPut(queuer.localpath, queuer.remotepath, {
+                concurrency: 1
+              }, function (err) {
+                debug('sftp.fastPut err:', err);
+                sftp.end();
+                if (err) {
+                  cb(err);
+                } else {
+                  self.emit("upload", {
+                    qid: queuer.qid,
+                    remotepath: queuer.remotepath,
+                    localpath: queuer.localpath
+                  });
+                  cb(err, {
+                    qid: queuer.qid,
+                    remotepath: queuer.remotepath,
+                    localpath: queuer.localpath
+                  });
+                }
+              });
+            } else {
+              cb(err, {
+                qid: queuer.qid,
+                remotepath: queuer.remotepath,
+                localpath: queuer.localpath
+              });
+            }
           });
           break;
         case 'ftp':

@@ -778,6 +778,7 @@ maxerr: 50, node: true */
                   self._[id].open(function (err) {
                     debug('opening connection result', err);
                     if (!err) {
+                      debug('firing self._[id]._server[queuer.act](...args)', self._[id]._server[queuer.act].toString(), args);
                       self._[id]._server[queuer.act](...args);
                     } else {
                       debug('running finisher');
