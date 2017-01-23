@@ -13,7 +13,7 @@
     "jsftp": "^1.5.4",
     "lodash": "^4.16.4",
     "semver": "^5.3.0",
-    "ssh2": "^0.5.1"
+    "ssh2": "^0.5.4"
   },
   "description": "jsftp + ssh2 wrapper",
   "devDependencies": {},
