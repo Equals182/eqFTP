@@ -3,3 +3,4 @@ styles/img/Thumbs.db
 .brackets.json
 node/node_modules/material-design-icons/*
 !node/node_modules/material-design-icons/iconfont
+node/node_modules/.staging
