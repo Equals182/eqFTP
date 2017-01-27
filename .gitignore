@@ -1,3 +1,5 @@
 styles/img/Thumbs.db
 *.zip
 .brackets.json
+node/node_modules/material-design-icons/*
+!node/node_modules/material-design-icons/iconfont
