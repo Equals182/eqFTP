@@ -1,9 +1,3 @@
-@import 'https://fonts.googleapis.com/css?family=Roboto:400,500,700&amp;subset=cyrillic,cyrillic-ext,latin-ext';
-@import 'https://fonts.googleapis.com/icon?family=Material+Icons';
-
-$ff: 'Roboto';
-$icon: 'Material Icons';
-
 $fs-display-4: 112px;
 $fs-display-3: 56px;
 $fs-display-2: 45px;
@@ -28,7 +22,11 @@ $fw-black: 900;
 
 $line-height: 18px;
 
-.material-icons {
+@import 'font-face';
+
+$ff: 'Roboto';
+
+/*.material-icons {
   font-family: 'Material Icons';
   font-weight: normal;
   font-style: normal;
@@ -40,6 +38,8 @@ $line-height: 18px;
   word-wrap: normal;
   white-space: nowrap;
   direction: ltr;
+  -webkit-font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
   &_success {
     &:before {
       content: '\E86C';
@@ -64,4 +64,4 @@ $line-height: 18px;
       color: $blue;
     }
   }
-}
+}*/

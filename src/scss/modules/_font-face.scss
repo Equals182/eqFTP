@@ -1,0 +1,102 @@
+@font-face {
+  font-family: 'Roboto';
+  src: url('fonts/roboto/roboto-thin-webfont.eot');
+  src: url('fonts/roboto/roboto-thin-webfont.eot?#iefix') format('embedded-opentype'), url('fonts/roboto/roboto-thin-webfont.woff2') format('woff2'), url('fonts/roboto/roboto-thin-webfont.woff') format('woff'), url('fonts/roboto/roboto-thin-webfont.ttf') format('truetype'), url('fonts/roboto/roboto-thin-webfont.svg#robotothin') format('svg');
+  font-weight: $fw-thin;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Roboto';
+  src: url('fonts/roboto/roboto-thinitalic-webfont.eot');
+  src: url('fonts/roboto/roboto-thinitalic-webfont.eot?#iefix') format('embedded-opentype'), url('fonts/roboto/roboto-thinitalic-webfont.woff2') format('woff2'), url('fonts/roboto/roboto-thinitalic-webfont.woff') format('woff'), url('fonts/roboto/roboto-thinitalic-webfont.ttf') format('truetype'), url('fonts/roboto/roboto-thinitalic-webfont.svg#robotothin_italic') format('svg');
+  font-weight: $fw-thin;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Roboto';
+  src: url('fonts/roboto/roboto-light-webfont.eot');
+  src: url('fonts/roboto/roboto-light-webfont.eot?#iefix') format('embedded-opentype'), url('fonts/roboto/roboto-light-webfont.woff2') format('woff2'), url('fonts/roboto/roboto-light-webfont.woff') format('woff'), url('fonts/roboto/roboto-light-webfont.ttf') format('truetype'), url('fonts/roboto/roboto-light-webfont.svg#robotolight') format('svg');
+  font-weight: $fw-light;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Roboto';
+  src: url('fonts/roboto/roboto-lightitalic-webfont.eot');
+  src: url('fonts/roboto/roboto-lightitalic-webfont.eot?#iefix') format('embedded-opentype'), url('fonts/roboto/roboto-lightitalic-webfont.woff2') format('woff2'), url('fonts/roboto/roboto-lightitalic-webfont.woff') format('woff'), url('fonts/roboto/roboto-lightitalic-webfont.ttf') format('truetype'), url('fonts/roboto/roboto-lightitalic-webfont.svg#robotolight_italic') format('svg');
+  font-weight: $fw-light;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Roboto';
+  src: url('fonts/roboto/roboto-regular-webfont.eot');
+  src: url('fonts/roboto/roboto-regular-webfont.eot?#iefix') format('embedded-opentype'), url('fonts/roboto/roboto-regular-webfont.woff2') format('woff2'), url('fonts/roboto/roboto-regular-webfont.woff') format('woff'), url('fonts/roboto/roboto-regular-webfont.ttf') format('truetype'), url('fonts/roboto/roboto-regular-webfont.svg#robotoregular') format('svg');
+  font-weight: $fw-regular;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Roboto';
+  src: url('fonts/roboto/roboto-italic-webfont.eot');
+  src: url('fonts/roboto/roboto-italic-webfont.eot?#iefix') format('embedded-opentype'), url('fonts/roboto/roboto-italic-webfont.woff2') format('woff2'), url('fonts/roboto/roboto-italic-webfont.woff') format('woff'), url('fonts/roboto/roboto-italic-webfont.ttf') format('truetype'), url('fonts/roboto/roboto-italic-webfont.svg#robotoitalic') format('svg');
+  font-weight: $fw-regular;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Roboto';
+  src: url('fonts/roboto/roboto-medium-webfont.eot');
+  src: url('fonts/roboto/roboto-medium-webfont.eot?#iefix') format('embedded-opentype'), url('fonts/roboto/roboto-medium-webfont.woff2') format('woff2'), url('fonts/roboto/roboto-medium-webfont.woff') format('woff'), url('fonts/roboto/roboto-medium-webfont.ttf') format('truetype'), url('fonts/roboto/roboto-medium-webfont.svg#robotomedium') format('svg');
+  font-weight: $fw-medium;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Roboto';
+  src: url('fonts/roboto/roboto-mediumitalic-webfont.eot');
+  src: url('fonts/roboto/roboto-mediumitalic-webfont.eot?#iefix') format('embedded-opentype'), url('fonts/roboto/roboto-mediumitalic-webfont.woff2') format('woff2'), url('fonts/roboto/roboto-mediumitalic-webfont.woff') format('woff'), url('fonts/roboto/roboto-mediumitalic-webfont.ttf') format('truetype'), url('fonts/roboto/roboto-mediumitalic-webfont.svg#robotomedium_italic') format('svg');
+  font-weight: $fw-medium;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Roboto';
+  src: url('fonts/roboto/roboto-bold-webfont.eot');
+  src: url('fonts/roboto/roboto-bold-webfont.eot?#iefix') format('embedded-opentype'), url('fonts/roboto/roboto-bold-webfont.woff2') format('woff2'), url('fonts/roboto/roboto-bold-webfont.woff') format('woff'), url('fonts/roboto/roboto-bold-webfont.ttf') format('truetype'), url('fonts/roboto/roboto-bold-webfont.svg#robotobold') format('svg');
+  font-weight: $fw-bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Roboto';
+  src: url('fonts/roboto/roboto-bolditalic-webfont.eot');
+  src: url('fonts/roboto/roboto-bolditalic-webfont.eot?#iefix') format('embedded-opentype'), url('fonts/roboto/roboto-bolditalic-webfont.woff2') format('woff2'), url('fonts/roboto/roboto-bolditalic-webfont.woff') format('woff'), url('fonts/roboto/roboto-bolditalic-webfont.ttf') format('truetype'), url('fonts/roboto/roboto-bolditalic-webfont.svg#robotobold_italic') format('svg');
+  font-weight: $fw-bold;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Roboto';
+  src: url('fonts/roboto/roboto-black-webfont.eot');
+  src: url('fonts/roboto/roboto-black-webfont.eot?#iefix') format('embedded-opentype'), url('fonts/roboto/roboto-black-webfont.woff2') format('woff2'), url('fonts/roboto/roboto-black-webfont.woff') format('woff'), url('fonts/roboto/roboto-black-webfont.ttf') format('truetype'), url('fonts/roboto/roboto-black-webfont.svg#robotoblack') format('svg');
+  font-weight: $fw-black;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Roboto';
+  src: url('fonts/roboto/roboto-blackitalic-webfont.eot');
+  src: url('fonts/roboto/roboto-blackitalic-webfont.eot?#iefix') format('embedded-opentype'), url('fonts/roboto/roboto-blackitalic-webfont.woff2') format('woff2'), url('fonts/roboto/roboto-blackitalic-webfont.woff') format('woff'), url('fonts/roboto/roboto-blackitalic-webfont.ttf') format('truetype'), url('fonts/roboto/roboto-blackitalic-webfont.svg#robotoblack_italic') format('svg');
+  font-weight: $fw-black;
+  font-style: italic;
+}
+
+/*@font-face {
+  font-family: 'Material Icons';
+  src: url('fonts/material-icons.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+}*/
