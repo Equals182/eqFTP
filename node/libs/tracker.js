@@ -37,6 +37,9 @@ maxerr: 50, node: true */
           * It only sends userId (generated string) and version (hardcoded string) to my little server
           * You can always check this code below to be sure
           */
+          /**
+           * TRACKING IS ON HOLD FOR NOW
+           *
           var data = _.defaultsDeep({
             userId: self.userId
           }, self.params);
@@ -53,6 +56,7 @@ maxerr: 50, node: true */
           }).catch(function(err) {
             console.log(err);
           });
+          */
         };
     self._start = function () {
       if (self.userId && !_timeout) {
