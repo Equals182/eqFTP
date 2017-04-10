@@ -16,21 +16,10 @@ We changed the code. Also entirely. Now it's a lot more structured and well-desi
 > Man, it's so good...
 *--  [Aleksandr](https://github.com/Equals182), shitty coder*
 
--
+
 
 > It's the best ftp tool I've ever seen!
 *--  [Denis](https://github.com/GoliafRS), also shitty coder*
-
-**Isn't that great? [Become a BETA-tester](https://github.com/Equals182/eqFTP/releases/tag/v1.0.0-beta.1) right now and get an LUCKY opportunity to [donate](https://www.patreon.com/equals182)!**
-
-## Translations
-
-We also really thankful to all translators who contributed to previous version. Unfortunately due to massive changes in UI we couldn't save your work.
-So, anyone who interested in translating this extension to your native language, please, clone this repository and use pull requests to submit changes. We will review and accept your contributions fast.
-
-## Donations
-
-Buy us beer :beer: [monthly](https://www.patreon.com/equals182) or [once](https://www.paypal.me/eq182)!
 
 ## Troubleshooting
 
